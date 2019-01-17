@@ -55,7 +55,7 @@
 	'fetchmail',
 	'google_account',
 	'hr_expense_check',
-	'iap'.
+	'iap',
 	'l10n_generic_coa',
 	'l10n_mx_edi_customs',
 	'l10n_mx_edi_landing',
