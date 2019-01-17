@@ -1,11 +1,11 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
-    'name': 'Fertigo App',
+    'name': 'Fertico App',
     'version': '11.0.0.0.1',
     "author": "Vauxoo",
     "license": "LGPL-3",
     'category': 'Hidden',
-    'summary': 'Fertigo App for customizations',
+    'summary': 'Fertico App for customizations',
     'depends': [
 	'project',
 	'point_of_sale',
@@ -72,7 +72,7 @@
 	'sale_order_dates',
 	'sales_team',
 	'sms',
-	'studio_customization',
+	#'studio_customization',
 	'web_clearbit',
 	'web_diagram',
 	'web_editor',
