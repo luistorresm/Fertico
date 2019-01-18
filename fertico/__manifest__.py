@@ -86,6 +86,7 @@
 	'portal',
 	'http_routing',
 	'l10n_mx_edi_partner_defaults',
+	'stock_no_negative',
 
 	 ],
     'data': [
