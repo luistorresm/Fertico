@@ -72,7 +72,6 @@
 	'sale_order_dates',
 	'sales_team',
 	'sms',
-	#'studio_customization',
 	'web_clearbit',
 	'web_diagram',
 	'web_editor',
