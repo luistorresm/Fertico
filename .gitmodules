@@ -6,3 +6,7 @@
 	path = mexico
 	url = git@git.vauxoo.com:vauxoo/mexico.git
 	branch = 11.0
+[submodule "fertico_2"]
+	path = fertico_2
+	url = git@git.vauxoo.com:vauxoo/fertico.git
+	branch = 11.0
