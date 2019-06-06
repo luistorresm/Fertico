@@ -10,7 +10,7 @@
     'author': 'Odoo Inc',
     'description': """
 Fertico DO,MO,SO Blocking Rules
-==============================
+===============================
 * [MO] Manufacturing: Manufacturing/Manufacturing Orders form
 * [DO] Inventory Transfers: Inventory/Transfers form
 * [SO] Sales: Sales/Sales Orders form
