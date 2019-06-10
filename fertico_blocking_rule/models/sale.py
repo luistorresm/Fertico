@@ -24,8 +24,9 @@ class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
     def validate_prices(self):
-        if self.filtered(lambda ol: ol.price_unit < ol.product_id.standard_price):
-            p_list = [ol.product_id.name for ol in self.filtered(lambda ol: ol.price_unit < ol.product_id.standard_price)]
+        order_line = self.filtered(lambda ol: ol.price_unit < ol.product_id.standard_price and not ol.product_id.is_sale_high_cost)
+        if order_line:
+            p_list = [ol.product_id.name for ol in order_line]
             raise ValidationError(_("The Products : {} Has the Unit/Sale Price less than the Cost Price.".format(", ".join(p_list))))
 
     def check_product_qty_stock(self):

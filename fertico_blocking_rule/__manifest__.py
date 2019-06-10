@@ -18,6 +18,7 @@ Fertico DO,MO,SO Blocking Rules
     'category': 'Custom Development',
     'depends': ['sale_management', 'mrp', 'sale_stock'],
     'data': [
+        'views/product_views.xml',
     ],
     'demo': [],
     'qweb': [],
