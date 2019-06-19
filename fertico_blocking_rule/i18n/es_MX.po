@@ -31,11 +31,11 @@ msgstr "No puede planificar la producción debido a que algunos productos no est
 #: code:addons/fertico_blocking_rule/models/mrp.py:16
 #, python-format
 msgid "You can not Produce the Production because of some products Qty not Reserved"
-msgstr "No puede producir la producción debido a algunos productos. Cantidad no reservada"
+msgstr "No puede fabricar la producción debido a que algunas cantidades de productos no están reservada"
 
 #. module: fertico_blocking_rule
 #: code:addons/fertico_blocking_rule/models/stock.py:14
 #: code:addons/fertico_blocking_rule/models/stock.py:24
 #, python-format
 msgid "You can not deliverer the order because of some products Qty not Reserved"
-msgstr "No puede entregar el pedido debido a algunos productos. Cantidad no reservada"
+msgstr "No puede entregar el pedido debido a que algunas cantidades de productos no están reservada"
