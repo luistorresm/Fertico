@@ -1,7 +1,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
     'name': 'Fertico App',
-    'version': '11.0.0.0.1',
+    'version': '11.0.0.0.2',
     "author": "Vauxoo",
     "license": "LGPL-3",
     'category': 'Hidden',
@@ -57,6 +57,7 @@
 	'hr_expense_check',
 	'iap',
 	'l10n_generic_coa',
+	'l10n_mx_edi_customer_bills',
 	'l10n_mx_edi_customs',
 	'l10n_mx_edi_landing',
 	'l10n_mx_edi_payment',
