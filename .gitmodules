@@ -10,3 +10,7 @@
 	path = fertico_2
 	url = git@git.vauxoo.com:vauxoo/fertico.git
 	branch = 11.0
+[submodule "vendor-bills"]
+	path = vendor-bills
+	url = git@git.vauxoo.com:vauxoo/vendor-bills.git
+	branch = 12.0
