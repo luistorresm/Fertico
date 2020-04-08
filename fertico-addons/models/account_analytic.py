@@ -25,7 +25,6 @@ class AccountInvoice(models.Model):
 
     def action_move_create(self):
         res= super(AccountInvoice, self).action_move_create()
-
         for inv in self:
 
             my_list = []
@@ -37,7 +36,7 @@ class AccountInvoice(models.Model):
                     for tag in tags:
                         adis = tag.analytic_distribution_ids
                         for adi in adis:
-                            obj = (True,n_line,adi.account_id.id,adi.percentage, line.product_id.name, line.price_subtotal, inv.number, line.quantity)
+                            obj = (True,n_line,adi.account_id.id,adi.percentage, line.product_id.name, line.price_subtotal, inv.number, line.quantity, line.product_id.id, line.analytic_tag_ids.ids)
                             my_list.append(obj)
                 else:
                     obj = (False,n_line)
@@ -50,10 +49,14 @@ class AccountInvoice(models.Model):
             for move in inv.move_id.line_ids:
                 inv_move.append(move.id)
             inv_move.reverse()
+
             for ml in my_list:
+                print(ml[9])
                 if ml[0]==True:
                     
                     if inv.type=='out_invoice':
+                        tags=[]
+                        tags.append(ml[9])
                         vals = {
                             'account_id' : int(ml[2]),
                             'date' : inv.date_invoice,
@@ -61,10 +64,14 @@ class AccountInvoice(models.Model):
                             'name': ml[4],
                             'move_id': inv_move[ml[1]],
                             'ref': ml[6],
-                            'unit_amount': ml[7]
+                            'unit_amount': ml[7],
+                            'product_id': ml[8],
+                            'tag_ids': [(6,0,ml[9])]
                         }
                         record = self.env['account.analytic.line'].create(vals)
                     elif inv.type=='in_invoice':
+                        tags=[]
+                        tags.append(ml[9])
                         vals = {
                             'account_id' : int(ml[2]),
                             'date' : inv.date_invoice,
@@ -72,9 +79,10 @@ class AccountInvoice(models.Model):
                             'name': ml[4],
                             'move_id': inv_move[ml[1]],
                             'ref': ml[6],
-                            'unit_amount': ml[7]
+                            'unit_amount': ml[7],
+                            'product_id': ml[8],
+                            'tag_ids': [(6,0,ml[9])]
                         }
                         record = self.env['account.analytic.line'].create(vals)
-
 
         return res
