@@ -36,7 +36,7 @@ class AccountInvoice(models.Model):
                     for tag in tags:
                         adis = tag.analytic_distribution_ids
                         for adi in adis:
-                            obj = (True,n_line,adi.account_id.id,adi.percentage, line.product_id.name, line.price_subtotal, inv.number, line.quantity, line.product_id.id, line.analytic_tag_ids.ids)
+                            obj = (True,n_line,adi.account_id.id,adi.percentage, line.product_id.name, line.price_subtotal, inv.number, line.quantity, line.product_id.id, line.analytic_tag_ids.ids, line.product_id.uom_id.id)
                             my_list.append(obj)
                 else:
                     obj = (False,n_line)
@@ -66,7 +66,8 @@ class AccountInvoice(models.Model):
                             'ref': ml[6],
                             'unit_amount': ml[7],
                             'product_id': ml[8],
-                            'tag_ids': [(6,0,ml[9])]
+                            'tag_ids': [(6,0,ml[9])],
+                            'product_uom_id': ml[10]
                         }
                         record = self.env['account.analytic.line'].create(vals)
                     elif inv.type=='in_invoice':
@@ -81,7 +82,8 @@ class AccountInvoice(models.Model):
                             'ref': ml[6],
                             'unit_amount': ml[7],
                             'product_id': ml[8],
-                            'tag_ids': [(6,0,ml[9])]
+                            'tag_ids': [(6,0,ml[9])],
+                            'product_uom_id': ml[10]
                         }
                         record = self.env['account.analytic.line'].create(vals)
 
