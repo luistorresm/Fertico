@@ -11,12 +11,17 @@ class AttendancesXls(models.TransientModel):
     
     @api.multi
     def load_attendance(self):
+        """This method read a xls file and take the data to add records 
+        for register the attendances of the employees"""
+        
+        #read the xls file in the sheet 'Reporte de Asistencias'
         fp = tempfile.NamedTemporaryFile(suffix=".xlsx")
         fp.write(binascii.a2b_base64(self.excel_file))
         fp.seek(0)
         workbook = xlrd.open_workbook(fp.name)
-        sheet = workbook.sheet_by_index(2)
+        sheet = workbook.sheet_by_name("Reporte de Asistencia")
         
+        #load the data in an array "data"
         data=[]
         for row_no in range(sheet.nrows):
             if row_no <= 0:
@@ -42,6 +47,8 @@ class AttendancesXls(models.TransientModel):
                     row_data.append(False)
                 data.append(row_data)
         
+        #add only the necesary data in a new array "new_data", in each row the employee information and the asistance data
+        #array with the period
         new_data=[]
         period=[]
         n_d=0
@@ -60,16 +67,18 @@ class AttendancesXls(models.TransientModel):
                         for n in data[(n_d-1)]:
                             array_aux.append('')
                         new_data.append(data[n_d]+array_aux)
-                n_d=n_d+1
-
+                n_d+=1
         
+        #create the init date from data array
         date_init=data[1][6][0]+data[1][6][1]+data[1][6][2]+data[1][6][3]+data[1][6][4]+data[1][6][5]+data[1][6][6]+data[1][6][7]+data[1][6][8]+data[1][6][9]
         date_object = datetime.strptime(date_init, '%Y-%m-%d').date()
         
+        #new array with the period integer
         period_int=[]
         for p in period:
             period_int.append(round(p))
         
+        #separate the dates in arrays and join the time to the date
         for nd in new_data:
             
             for n in period_int:
@@ -92,12 +101,8 @@ class AttendancesXls(models.TransientModel):
                             array_check=''
                     
                     nd[n+5]=check
-
-            print(nd)
-
-
         
-
+        #register the records from the array data
         for n in period_int:
 
             for nd in new_data:
@@ -111,7 +116,6 @@ class AttendancesXls(models.TransientModel):
                             'check_in' : nd[n+5][0],
                             'check_out' : nd[n+5][0]
                         }
-                        print(vals)
                         record = self.env['hr.attendance'].create(vals)
                     if len(nd[n+5])==2:
                         vals={
@@ -120,7 +124,6 @@ class AttendancesXls(models.TransientModel):
                             'check_out' : nd[n+5][1]
                         }
                         record = self.env['hr.attendance'].create(vals)
-                        print(record.check_in,record.check_out)
                     elif len(nd[n+5])==3:
                         hour_aux=nd[n+5][1][-8:]
                         if int(hour_aux[:2])<15:
@@ -129,14 +132,12 @@ class AttendancesXls(models.TransientModel):
                                 'check_in' : nd[n+5][0],
                                 'check_out' : nd[n+5][1]
                             }
-                            print(vals)
                             record = self.env['hr.attendance'].create(vals)
                             vals={
                                 'employee_id' : employee.id,
                                 'check_in' : nd[n+5][2],
                                 'check_out' : nd[n+5][2]
                             }
-                            print(vals)
                             record = self.env['hr.attendance'].create(vals)
                         else:
                             vals={
@@ -144,14 +145,12 @@ class AttendancesXls(models.TransientModel):
                                 'check_in' : nd[n+5][0],
                                 'check_out' : nd[n+5][0]
                             }
-                            print(vals)
                             record = self.env['hr.attendance'].create(vals)
                             vals={
                                 'employee_id' : employee.id,
                                 'check_in' : nd[n+5][1],
                                 'check_out' : nd[n+5][2]
                             }
-                            print(vals)
                             record = self.env['hr.attendance'].create(vals)
                     elif len(nd[n+5])==4:
                         vals={
@@ -159,13 +158,11 @@ class AttendancesXls(models.TransientModel):
                             'check_in' : nd[n+5][0],
                             'check_out' : nd[n+5][1]
                         }
-                        print(vals)
                         record = self.env['hr.attendance'].create(vals)
                         vals={
                             'employee_id' : employee.id,
                             'check_in' : nd[n+5][2],
                             'check_out' : nd[n+5][3]
                         }
-                        print(vals)
                         record = self.env['hr.attendance'].create(vals)
         
