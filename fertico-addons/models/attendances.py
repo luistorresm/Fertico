@@ -132,18 +132,14 @@ class AttendancesXls(models.TransientModel):
                         vals={
                             'employee_id' : employee.id,
                             'check_in' : nd[n+5][0],
-                            'check_out' : nd[n+5][0],
-                            'ch_in' : nd[n+5][0],
-                            'ch_out' : nd[n+5][0]
+                            'check_out' : nd[n+5][0]
                         }
                         record = self.env['hr.attendance'].create(vals)
                     elif len(nd[n+5])==2:
                         vals={
                             'employee_id' : employee.id,
                             'check_in' : nd[n+5][0],
-                            'check_out' : nd[n+5][1],
-                            'ch_in' : nd[n+5][0],
-                            'ch_out' : nd[n+5][1]
+                            'check_out' : nd[n+5][1]
                         }
                         record = self.env['hr.attendance'].create(vals)
                     elif len(nd[n+5])==3:
@@ -152,51 +148,39 @@ class AttendancesXls(models.TransientModel):
                             vals={
                                 'employee_id' : employee.id,
                                 'check_in' : nd[n+5][0],
-                                'check_out' : nd[n+5][1],
-                                'ch_in' : nd[n+5][0],
-                                'ch_out' : nd[n+5][1]
+                                'check_out' : nd[n+5][1]
                             }
                             record = self.env['hr.attendance'].create(vals)
                             vals={
                                 'employee_id' : employee.id,
                                 'check_in' : nd[n+5][2],
-                                'check_out' : nd[n+5][2],
-                                'che_in' : nd[n+5][2],
-                                'che_out' : nd[n+5][2]
+                                'check_out' : nd[n+5][2]
                             }
                             record = self.env['hr.attendance'].create(vals)
                         else:
                             vals={
                                 'employee_id' : employee.id,
                                 'check_in' : nd[n+5][0],
-                                'check_out' : nd[n+5][0],
-                                'ch_in' : nd[n+5][0],
-                                'ch_out' : nd[n+5][0]
+                                'check_out' : nd[n+5][0]
                             }
                             record = self.env['hr.attendance'].create(vals)
                             vals={
                                 'employee_id' : employee.id,
                                 'check_in' : nd[n+5][1],
-                                'check_out' : nd[n+5][2],
-                                'ch_in' : nd[n+5][1],
-                                'ch_out' : nd[n+5][2]
+                                'check_out' : nd[n+5][2]
                             }
                             record = self.env['hr.attendance'].create(vals)
                     elif len(nd[n+5])==4:
                         vals={
                             'employee_id' : employee.id,
                             'check_in' : nd[n+5][0],
-                            'check_out' : nd[n+5][1],
-                            'ch_in' : nd[n+5][0],
-                            'ch_out' : nd[n+5][1]
+                            'check_out' : nd[n+5][1]
                         }
                         record = self.env['hr.attendance'].create(vals)
                         vals={
                             'employee_id' : employee.id,
                             'check_in' : nd[n+5][2],
-                            'check_out' : nd[n+5][3],
-                            'ch_in' : nd[n+5][2],
-                            'ch_out' : nd[n+5][3]
+                            'check_out' : nd[n+5][3]
                         }
                         record = self.env['hr.attendance'].create(vals)
                     print(record.check_in)
