@@ -5,12 +5,6 @@ import binascii
 from datetime import datetime, timedelta
 from pytz import timezone
 
-class HrAttendance(models.Model):
-    _inherit='hr.attendance'
-
-    ch_in=fields.Char(string="Check In")
-    ch_out=fields.Char(string="Check Out")
-
 class AttendancesXls(models.TransientModel):
     
     _name='attendance.load.xls'
