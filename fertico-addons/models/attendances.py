@@ -3,11 +3,29 @@ import xlrd
 import tempfile
 import binascii
 from datetime import datetime, timedelta
+from pytz import timezone
+
+class HrAttendance(models.Model):
+    _inherit='hr.attendance'
+
+    ch_in=fields.Char(string="Check In")
+    ch_out=fields.Char(string="Check Out")
 
 class AttendancesXls(models.TransientModel):
     
     _name='attendance.load.xls'
     excel_file = fields.Binary(string='Excel File')
+
+    def convert_TZ_UTC(self, TZ_datetime):
+        fmt = "%Y-%m-%d %H:%M:%S"
+        # Current time in UTC
+        now_utc = datetime.now(timezone('UTC'))
+        # Convert to current user time zone
+        now_timezone = now_utc.astimezone(timezone(self.env.user.tz))
+        UTC_OFFSET_TIMEDELTA = datetime.strptime(now_utc.strftime(fmt), fmt) - datetime.strptime(now_timezone.strftime(fmt), fmt)
+        local_datetime = datetime.strptime(TZ_datetime, fmt)
+        result_utc_datetime = local_datetime + UTC_OFFSET_TIMEDELTA
+        return result_utc_datetime.strftime(fmt)
     
     @api.multi
     def load_attendance(self):
@@ -86,7 +104,6 @@ class AttendancesXls(models.TransientModel):
                     check=[]
                     array_check=''
                     count=0
-                    count2=0
                     for d in nd[n+5]:
                         if count==0:
                             date_add=date_object+timedelta(days=(n-1))
@@ -95,8 +112,9 @@ class AttendancesXls(models.TransientModel):
                         array_check+=d
                         if count==5:
                             array_check+=':00'
-                            datetime_object=datetime.strptime(array_check, '%d/%m/%Y %H:%M:%S')
-                            check.append(array_check)
+                            datetime_object=str(datetime.strptime(array_check, '%d/%m/%Y %H:%M:%S'))
+                            datetime_object_utc=self.convert_TZ_UTC(datetime_object)
+                            check.append(datetime_object_utc)
                             count=0
                             array_check=''
                     
@@ -114,14 +132,18 @@ class AttendancesXls(models.TransientModel):
                         vals={
                             'employee_id' : employee.id,
                             'check_in' : nd[n+5][0],
-                            'check_out' : nd[n+5][0]
+                            'check_out' : nd[n+5][0],
+                            'ch_in' : nd[n+5][0],
+                            'ch_out' : nd[n+5][0]
                         }
                         record = self.env['hr.attendance'].create(vals)
-                    if len(nd[n+5])==2:
+                    elif len(nd[n+5])==2:
                         vals={
                             'employee_id' : employee.id,
                             'check_in' : nd[n+5][0],
-                            'check_out' : nd[n+5][1]
+                            'check_out' : nd[n+5][1],
+                            'ch_in' : nd[n+5][0],
+                            'ch_out' : nd[n+5][1]
                         }
                         record = self.env['hr.attendance'].create(vals)
                     elif len(nd[n+5])==3:
@@ -130,39 +152,52 @@ class AttendancesXls(models.TransientModel):
                             vals={
                                 'employee_id' : employee.id,
                                 'check_in' : nd[n+5][0],
-                                'check_out' : nd[n+5][1]
+                                'check_out' : nd[n+5][1],
+                                'ch_in' : nd[n+5][0],
+                                'ch_out' : nd[n+5][1]
                             }
                             record = self.env['hr.attendance'].create(vals)
                             vals={
                                 'employee_id' : employee.id,
                                 'check_in' : nd[n+5][2],
-                                'check_out' : nd[n+5][2]
+                                'check_out' : nd[n+5][2],
+                                'che_in' : nd[n+5][2],
+                                'che_out' : nd[n+5][2]
                             }
                             record = self.env['hr.attendance'].create(vals)
                         else:
                             vals={
                                 'employee_id' : employee.id,
                                 'check_in' : nd[n+5][0],
-                                'check_out' : nd[n+5][0]
+                                'check_out' : nd[n+5][0],
+                                'ch_in' : nd[n+5][0],
+                                'ch_out' : nd[n+5][0]
                             }
                             record = self.env['hr.attendance'].create(vals)
                             vals={
                                 'employee_id' : employee.id,
                                 'check_in' : nd[n+5][1],
-                                'check_out' : nd[n+5][2]
+                                'check_out' : nd[n+5][2],
+                                'ch_in' : nd[n+5][1],
+                                'ch_out' : nd[n+5][2]
                             }
                             record = self.env['hr.attendance'].create(vals)
                     elif len(nd[n+5])==4:
                         vals={
                             'employee_id' : employee.id,
                             'check_in' : nd[n+5][0],
-                            'check_out' : nd[n+5][1]
+                            'check_out' : nd[n+5][1],
+                            'ch_in' : nd[n+5][0],
+                            'ch_out' : nd[n+5][1]
                         }
                         record = self.env['hr.attendance'].create(vals)
                         vals={
                             'employee_id' : employee.id,
                             'check_in' : nd[n+5][2],
-                            'check_out' : nd[n+5][3]
+                            'check_out' : nd[n+5][3],
+                            'ch_in' : nd[n+5][2],
+                            'ch_out' : nd[n+5][3]
                         }
                         record = self.env['hr.attendance'].create(vals)
+                    print(record.check_in)
         

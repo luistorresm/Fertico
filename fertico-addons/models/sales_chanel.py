@@ -3,7 +3,7 @@ from odoo import fields, models, api
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
     
-    user_id = fields.Many2one('res.users', 'Salesperson', default="")
+    user_id = fields.Many2one('res.users', 'Salesperson', default="", domain="[('sale_team_id','!=', None)]")
     team_id = fields.Many2one('crm.team', 'Sales Channel', default="")
 
     @api.multi
@@ -29,4 +29,4 @@ class SaleOrder(models.Model):
             return {'domain': {'user_id': [('id', 'in', sale_team_ids)]}}
         else:
             self.user_id=''
-            return {'domain': {'user_id': []}}
+            return {'domain': {'user_id': [('sale_team_id','!=', None)]}}
