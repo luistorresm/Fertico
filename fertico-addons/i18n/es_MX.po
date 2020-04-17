@@ -1,0 +1,136 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* fertico-addons
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-04-15 13:59+0000\n"
+"PO-Revision-Date: 2020-04-15 13:59+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_distribution_account_id
+msgid "Analytic Account"
+msgstr "Cuenta analítica"
+
+#. module: fertico-addons
+#: model:ir.model,name:fertico-addons.model_account_analytic_distribution
+msgid "Analytic Account Distribution"
+msgstr "Distribución analítica de contabilidad"
+
+#. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_tag_analytic_distribution_ids
+msgid "Analytic Accounts"
+msgstr "Contabilidad analítica"
+
+#. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_tag_active_analytic_distribution
+#: model:ir.ui.view,arch_db:fertico-addons.account_analytic_tag_form
+#: model:res.groups,name:fertico-addons.group_analytic_distribution
+msgid "Analytic Distribution"
+msgstr "Distribución Analítica"
+
+#. module: fertico-addons
+#: model:ir.model,name:fertico-addons.model_account_analytic_tag
+msgid "Analytic Tags"
+msgstr "Etiquetas analíticas"
+
+#. module: fertico-addons
+#: model:ir.ui.view,arch_db:fertico-addons.Load from file xls
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_attendance_load_xls_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_attendance_load_xls_create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_distribution_display_name
+#: model:ir.model.fields,field_description:fertico-addons.field_attendance_load_xls_display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_attendance_load_xls_excel_file
+msgid "Excel File"
+msgstr "Archivo Excel"
+
+#. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_attendance_load_xls_id
+msgid "ID"
+msgstr "ID (identificación)"
+
+#. module: fertico-addons
+#: model:ir.model,name:fertico-addons.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_distribution___last_update
+#: model:ir.model.fields,field_description:fertico-addons.field_attendance_load_xls___last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_attendance_load_xls_write_uid
+msgid "Last Updated by"
+msgstr "Última actualización de"
+
+#. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_attendance_load_xls_write_date
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: fertico-addons
+#: model:ir.ui.menu,name:fertico-addons.menu_attendances_xls
+msgid "Load from file"
+msgstr "Cargar desde archivo"
+
+#. module: fertico-addons
+#: model:ir.actions.act_window,name:fertico-addons.action_wizard_attendance
+msgid "Load from file xls"
+msgstr "Cargar desde archivo xls"
+
+#. module: fertico-addons
+#: model:ir.model.fields,|field_description:fertico-addons.field_account_analytic_distribution_name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_distribution_tag_id
+msgid "Parent tag"
+msgstr "Etiqueta principal"
+
+#. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_distribution_percentage
+msgid "Percentage"
+msgstr "Porcentaje"
+
+#. module: fertico-addons
+#: model:ir.ui.view,arch_db:fertico-addons.Load from file xls
+msgid "Submit"
+msgstr "Enviar"
+
+#. module: fertico-addons
+#: sql_constraint:account.analytic.distribution:0
+msgid "The percentage of an analytic distribution should be between 0 and 100."
+msgstr "El porcentaje de una distribución analítica debe ser entre 0 y 100."
+
+#. module: fertico-addons
+#: model:ir.model,name:fertico-addons.model_attendance_load_xls
+msgid "attendance.load.xls"
+msgstr "attendance.load.xls"
+
