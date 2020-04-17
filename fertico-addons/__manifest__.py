@@ -30,7 +30,7 @@
         'views/templates.xml',
         #'views/account_analytic.xml',
         #'views/attendances.xml',
-        #'views/sales_chanel.xml'
+        'views/sales_chanel.xml'
     ],
     # only loaded in demonstration mode
     'demo': [
