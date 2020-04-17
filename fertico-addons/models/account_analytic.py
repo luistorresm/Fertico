@@ -51,7 +51,6 @@ class AccountInvoice(models.Model):
             inv_move.reverse()
 
             for ml in my_list:
-                print(ml[9])
                 if ml[0]==True:
                     
                     if inv.type=='out_invoice':
