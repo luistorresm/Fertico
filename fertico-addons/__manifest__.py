@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "fertico_addons",
+    'name': "fertico-addons",
 
     'summary': """Custom Addons for Enterprise Fertico""",
 
