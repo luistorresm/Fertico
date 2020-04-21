@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
 {
     'name': "fertico-addons",
-
     'summary': """Custom Addons for Enterprise Fertico""",
-
     'description': """Module which manages the different customizations that the FERTICO Company requires for its Odoo Server Management""",
-
     'author': "Wobin",
     'website': "https://fertico.odoo.com/web",
 
