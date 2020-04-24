@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-15 13:59+0000\n"
-"PO-Revision-Date: 2020-04-15 13:59+0000\n"
+"POT-Creation-Date: 2020-04-24 14:04+0000\n"
+"PO-Revision-Date: 2020-04-24 14:04+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -43,16 +43,23 @@ msgid "Analytic Tags"
 msgstr "Etiquetas analíticas"
 
 #. module: fertico-addons
+#: model:res.groups,name:fertico-addons.group_prices_modify
+msgid "Block price change on sales"
+msgstr "Bloquear cambio de precio en ventas"
+
+#. module: fertico-addons
 #: model:ir.ui.view,arch_db:fertico-addons.Load from file xls
 msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_distribution_create_uid
 #: model:ir.model.fields,field_description:fertico-addons.field_attendance_load_xls_create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_distribution_create_date
 #: model:ir.model.fields,field_description:fertico-addons.field_attendance_load_xls_create_date
 msgid "Created on"
 msgstr "Creado en"
@@ -69,6 +76,7 @@ msgid "Excel File"
 msgstr "Archivo Excel"
 
 #. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_distribution_id
 #: model:ir.model.fields,field_description:fertico-addons.field_attendance_load_xls_id
 msgid "ID"
 msgstr "ID (identificación)"
@@ -85,11 +93,13 @@ msgid "Last Modified on"
 msgstr "Última modificación en"
 
 #. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_distribution_write_uid
 #: model:ir.model.fields,field_description:fertico-addons.field_attendance_load_xls_write_uid
 msgid "Last Updated by"
 msgstr "Última actualización de"
 
 #. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_distribution_write_date
 #: model:ir.model.fields,field_description:fertico-addons.field_attendance_load_xls_write_date
 msgid "Last Updated on"
 msgstr "Última actualización en"
@@ -105,7 +115,7 @@ msgid "Load from file xls"
 msgstr "Cargar desde archivo xls"
 
 #. module: fertico-addons
-#: model:ir.model.fields,|field_description:fertico-addons.field_account_analytic_distribution_name
+#: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_distribution_name
 msgid "Name"
 msgstr "Nombre"
 
@@ -118,6 +128,11 @@ msgstr "Etiqueta principal"
 #: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_distribution_percentage
 msgid "Percentage"
 msgstr "Porcentaje"
+
+#. module: fertico-addons
+#: model:ir.model,name:fertico-addons.model_sale_order
+msgid "Quotation"
+msgstr "Presupuesto"
 
 #. module: fertico-addons
 #: model:ir.ui.view,arch_db:fertico-addons.Load from file xls
