@@ -7,6 +7,12 @@
             <xpath expr="//field[@name='credit_limit']" position="replace">
                 <field name='credit_limit' readonly="1"/>
             </xpath>
+            <xpath expr="//field[@name='allowed_sale']" position="replace">
+                <field name='allowed_sale' readonly="1"/>
+            </xpath>
+            <xpath expr="//field[@name='grace_payment_days']" position="replace">
+                <field name='grace_payment_days' readonly="1"/>
+            </xpath>
         </field>
     </record>
 
