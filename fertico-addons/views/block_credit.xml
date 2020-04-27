@@ -2,7 +2,7 @@
 
     <record model="ir.ui.view" id="block_credit_limit">
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="account.view_partner_property_form"/>
+        <field name="inherit_id" ref="account.view_category_property_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='credit_limit']" position="replace">
                 <field name='credit_limit' readonly="1"/>
@@ -11,7 +11,7 @@
     </record>
 
 
-    <record id="enable_credit_limit" model="ir.ui.view">
+    <!--<record id="enable_credit_limit" model="ir.ui.view">
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="block_credit_limit" />
         <field name="groups_id" eval="[(6, 0, [ref('fertico-addons.group_credit_modify')])]"/>
@@ -20,6 +20,6 @@
                 <attribute name="readonly">False</attribute>
             </xpath>
         </field>
-    </record>
+    </record>-->
 
 </odoo>
