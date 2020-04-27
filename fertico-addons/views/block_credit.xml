@@ -1,7 +1,7 @@
 <odoo>
 
     <record model="ir.ui.view" id="block_credit_limit">
-        <field name="model">res.partner</field>
+        <field name="model">partner.over.credit.limit.form.inherit</field>
         <field name="inherit_id" ref="partner_credit_limit.view_category_property_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='credit_limit']" position="replace">
