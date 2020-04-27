@@ -4,8 +4,8 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='trust']" position="replace">
-                <field name='trust' readonly="1"/>
+            <xpath expr="//field[@name='allowed_sale']" position="replace">
+                <field name='allowed_sale' readonly="1"/>
             </xpath>
         </field>
     </record>
