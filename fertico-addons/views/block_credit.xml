@@ -5,7 +5,7 @@
         <field name="inherit_id" ref="account.view_category_property_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='allowed_sale']" position="replace">
-                <field name='credit_limit' readonly="1"/>
+                <field name='allowed_sale' readonly="1"/>
             </xpath>
         </field>
     </record>
