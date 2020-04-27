@@ -4,7 +4,7 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="account.view_category_property_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='credit_limit']" position="replace">
+            <xpath expr="//field[@name='allowed_sale']" position="replace">
                 <field name='credit_limit' readonly="1"/>
             </xpath>
         </field>
