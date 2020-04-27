@@ -4,8 +4,8 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="partner_credit_limit.view_category_property_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='credit_overloaded']" position="replace">
-                <field name='credit_overloaded' readonly="1"/>
+            <xpath expr="//field[@name='credit_limit']" position="replace">
+                <field name='credit_limit' readonly="1"/>
             </xpath>
         </field>
     </record>
