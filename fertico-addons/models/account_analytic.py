@@ -24,6 +24,7 @@ class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
     def action_move_create(self):
+        """This method make the distribution of the account lines"""
         res= super(AccountInvoice, self).action_move_create()
         for inv in self:
 
@@ -41,7 +42,6 @@ class AccountInvoice(models.Model):
                 else:
                     obj = (False,n_line)
                     my_list.append(obj)
-                
                 n_line=n_line+1
 
             
@@ -85,5 +85,55 @@ class AccountInvoice(models.Model):
                             'product_uom_id': ml[10]
                         }
                         record = self.env['account.analytic.line'].create(vals)
-
         return res
+
+    @api.multi
+    @api.onchange('invoice_line_ids')
+    def _onchange_add_tag(self):
+        "This method load the analytic tags from product.template"
+        for order in self:
+            for line in order.invoice_line_ids:
+                product_template = self.env['product.template'].search([('name','=',line.product_id.name)])
+                tags=[]
+                for tag in product_template.analytic_tag_ids:
+                    tags.append(tag.id)
+                line.analytic_tag_ids = [(6,0,tags)]
+
+class ProductTemplate(models.Model):
+    _inherit = "product.template"
+    analytic_tag_ids = fields.Many2many('account.analytic.tag', 'product_ids', string="Analytic Tag")
+
+class AnalyticTag(models.Model):
+    _inherit = "account.analytic.tag"
+    product_ids = fields.Many2many('product.template', 'analytic_tag_ids',string="Product")
+
+class SaleOrder(models.Model):
+    _inherit = "sale.order"
+
+    @api.multi
+    @api.onchange('order_line')
+    def _onchange_add_tag(self):
+        "This method load the analytic tags from product.template"
+        for order in self:
+            for line in order.order_line:
+                product_template = self.env['product.template'].search([('name','=',line.product_id.name)])
+                tags=[]
+                for tag in product_template.analytic_tag_ids:
+                    tags.append(tag.id)
+                line.analytic_tag_ids = [(6,0,tags)]
+
+class PurchaseOrder(models.Model):
+    _inherit = "purchase.order"
+
+    @api.multi
+    @api.onchange('order_line')
+    def _onchange_add_tag(self):
+        "This method load the analytic tags from product.template"
+        for order in self:
+            for line in order.order_line:
+                product_template = self.env['product.template'].search([('name','=',line.product_id.name)])
+                tags=[]
+                for tag in product_template.analytic_tag_ids:
+                    tags.append(tag.id)
+                line.analytic_tag_ids = [(6,0,tags)]
+                
