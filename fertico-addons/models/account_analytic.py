@@ -26,78 +26,80 @@ class AccountInvoice(models.Model):
     def action_move_create(self):
         """This method make the distribution of the account lines"""
         res= super(AccountInvoice, self).action_move_create()
+        
         for inv in self:
 
             my_list = []
+            my_list_cost =[]
+            
             n_line=0
-            lines = inv.invoice_line_ids
-            for line in lines:
+            for line in inv.invoice_line_ids:
                 if line.analytic_tag_ids:
-                    tags=line.analytic_tag_ids
-                    for tag in tags:
-                        adis = tag.analytic_distribution_ids
-                        for adi in adis:
-                            obj = (True,n_line,adi.account_id.id,adi.percentage, line.product_id.name, line.price_subtotal, inv.number, line.quantity, line.product_id.id, line.analytic_tag_ids.ids, line.product_id.uom_id.id)
+                    if inv.type=='out_invoice':
+                        price=line.product_id.standard_price
+                    for tag in line.analytic_tag_ids:
+                        for adi in tag.analytic_distribution_ids:
+                            obj = (adi.account_id.id, adi.percentage, line.product_id.name, line.price_subtotal, inv.number, line.quantity, line.product_id.id, line.analytic_tag_ids.ids, line.product_id.uom_id.id,n_line)
                             my_list.append(obj)
-                else:
-                    obj = (False,n_line)
-                    my_list.append(obj)
-                n_line=n_line+1
-
+                            if inv.type=='out_invoice':
+                                obj = (adi.account_id.id,adi.percentage, line.product_id.name, price, inv.number, line.quantity, line.product_id.id, line.analytic_tag_ids.ids, line.product_id.uom_id.id,n_line)
+                                my_list_cost.append(obj)
+                n_line+=1
             
             inv_move=[]
             for move in inv.move_id.line_ids:
                 inv_move.append(move.id)
-            inv_move.reverse()
+            inv_move.reverse()  
 
+            ml_count=0
             for ml in my_list:
-                if ml[0]==True:
-                    
-                    if inv.type=='out_invoice':
-                        tags=[]
-                        tags.append(ml[9])
-                        vals = {
-                            'account_id' : int(ml[2]),
-                            'date' : inv.date_invoice,
-                            'amount': (ml[5]*(ml[3]/100)),
-                            'name': ml[4],
-                            'move_id': inv_move[ml[1]],
-                            'ref': ml[6],
-                            'unit_amount': ml[7],
-                            'product_id': ml[8],
-                            'tag_ids': [(6,0,ml[9])],
-                            'product_uom_id': ml[10]
-                        }
-                        record = self.env['account.analytic.line'].create(vals)
-                    elif inv.type=='in_invoice':
-                        tags=[]
-                        tags.append(ml[9])
-                        vals = {
-                            'account_id' : int(ml[2]),
-                            'date' : inv.date_invoice,
-                            'amount': (ml[5]*(ml[3]/100))*-1,
-                            'name': ml[4],
-                            'move_id': inv_move[ml[1]],
-                            'ref': ml[6],
-                            'unit_amount': ml[7],
-                            'product_id': ml[8],
-                            'tag_ids': [(6,0,ml[9])],
-                            'product_uom_id': ml[10]
-                        }
-                        record = self.env['account.analytic.line'].create(vals)
-        return res
+                if inv.type=='out_invoice':
+                    vals = {
+                        'account_id' : int(ml[0]),
+                        'date' : inv.date_invoice,
+                        'amount': (ml[3]*(ml[1]/100)),
+                        'name': ml[2],
+                        'move_id': inv_move[ml[9]],
+                        'ref': ml[4],
+                        'unit_amount': ml[5],
+                        'product_id': ml[6],
+                        'tag_ids': [(6,0,ml[7])],
+                        'product_uom_id': ml[8]
+                    }
+                    record = self.env['account.analytic.line'].create(vals)
+                elif inv.type=='in_invoice':
+                    vals = {
+                        'account_id' : int(ml[0]),
+                        'date' : inv.date_invoice,
+                        'amount': (ml[3]*(ml[1]/100))*-1,
+                        'name': ml[2],
+                        'move_id': inv_move[ml[9]],
+                        'ref': ml[4],
+                        'unit_amount': ml[5],
+                        'product_id': ml[6],
+                        'tag_ids': [(6,0,ml[7])],
+                        'product_uom_id': ml[8]
+                    }
+                    record = self.env['account.analytic.line'].create(vals)
+                ml_count+=1
+                
 
-    @api.multi
-    @api.onchange('invoice_line_ids')
-    def _onchange_add_tag(self):
-        "This method load the analytic tags from product.template"
-        for order in self:
-            for line in order.invoice_line_ids:
-                product_template = self.env['product.template'].search([('name','=',line.product_id.name)])
-                tags=[]
-                for tag in product_template.analytic_tag_ids:
-                    tags.append(tag.id)
-                line.analytic_tag_ids = [(6,0,tags)]
+            for mlc in my_list_cost:
+                vals = {
+                    'account_id' : int(mlc[0]),
+                    'date' : inv.date_invoice,
+                    'amount': (mlc[3]*(mlc[1]/100))*-1,
+                    'name': mlc[2],
+                    'move_id': inv_move[((mlc[9]*2)+(ml_count))],
+                    'ref': mlc[4],
+                    'unit_amount': mlc[5],
+                    'product_id': mlc[6],
+                    'tag_ids': [(6,0,mlc[7])],
+                    'product_uom_id': mlc[8]
+                }
+                record = self.env['account.analytic.line'].create(vals)
+            
+        return res
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
@@ -107,33 +109,42 @@ class AnalyticTag(models.Model):
     _inherit = "account.analytic.tag"
     product_ids = fields.Many2many('product.template', 'analytic_tag_ids',string="Product")
 
-class SaleOrder(models.Model):
-    _inherit = "sale.order"
-
+class AccountInvoiceLine(models.Model):
+    _inherit = "account.invoice.line"
+    
     @api.multi
-    @api.onchange('order_line')
+    @api.onchange('product_id')
     def _onchange_add_tag(self):
         "This method load the analytic tags from product.template"
-        for order in self:
-            for line in order.order_line:
-                product_template = self.env['product.template'].search([('name','=',line.product_id.name)])
-                tags=[]
-                for tag in product_template.analytic_tag_ids:
-                    tags.append(tag.id)
-                line.analytic_tag_ids = [(6,0,tags)]
+        product_template = self.env['product.template'].search([('name','=',self.product_id.name)])
+        tags=[]
+        for tag in product_template.analytic_tag_ids:
+            tags.append(tag.id)
+        self.analytic_tag_ids = [(6,0,tags)]
 
-class PurchaseOrder(models.Model):
-    _inherit = "purchase.order"
+class SaleOrderLine(models.Model):
+    _inherit = "sale.order.line"
 
     @api.multi
-    @api.onchange('order_line')
+    @api.onchange('product_id')
     def _onchange_add_tag(self):
         "This method load the analytic tags from product.template"
-        for order in self:
-            for line in order.order_line:
-                product_template = self.env['product.template'].search([('name','=',line.product_id.name)])
-                tags=[]
-                for tag in product_template.analytic_tag_ids:
-                    tags.append(tag.id)
-                line.analytic_tag_ids = [(6,0,tags)]
+        product_template = self.env['product.template'].search([('name','=',self.product_id.name)])
+        tags=[]
+        for tag in product_template.analytic_tag_ids:
+            tags.append(tag.id)
+        self.analytic_tag_ids = [(6,0,tags)]
+
+class PurchaseOrderLine(models.Model):
+    _inherit = "purchase.order.line"
+
+    @api.multi
+    @api.onchange('product_id')
+    def _onchange_add_tag(self):
+        "This method load the analytic tags from product.template"
+        product_template = self.env['product.template'].search([('name','=',self.product_id.name)])
+        tags=[]
+        for tag in product_template.analytic_tag_ids:
+            tags.append(tag.id)
+        self.analytic_tag_ids = [(6,0,tags)]
                 
