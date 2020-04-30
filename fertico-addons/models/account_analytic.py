@@ -33,25 +33,26 @@ class AccountInvoice(models.Model):
             my_list_cost =[]
             
             n_line=0
+            n_cost=0
             for line in inv.invoice_line_ids:
-                if line.analytic_tag_ids:
-                    if inv.type=='out_invoice':
-                        price=line.product_id.standard_price
-                    for tag in line.analytic_tag_ids:
-                        for adi in tag.analytic_distribution_ids:
-                            obj = (adi.account_id.id, adi.percentage, line.product_id.name, line.price_subtotal, inv.number, line.quantity, line.product_id.id, line.analytic_tag_ids.ids, line.product_id.uom_id.id,n_line)
-                            my_list.append(obj)
-                            if inv.type=='out_invoice':
-                                obj = (adi.account_id.id,adi.percentage, line.product_id.name, price, inv.number, line.quantity, line.product_id.id, line.analytic_tag_ids.ids, line.product_id.uom_id.id,n_line)
-                                my_list_cost.append(obj)
+                if inv.type=='out_invoice':
+                    price=line.product_id.standard_price
+                for tag in line.analytic_tag_ids:
+                    for adi in tag.analytic_distribution_ids:
+                        obj = (adi.account_id.id, adi.percentage, line.product_id.name, line.price_subtotal, inv.number, line.quantity, line.product_id.id, line.analytic_tag_ids.ids, line.product_id.uom_id.id,n_line)
+                        my_list.append(obj)
+                        if inv.type=='out_invoice' and line.product_id.type=='product':
+                            obj = (adi.account_id.id,adi.percentage, line.product_id.name, price, inv.number, line.quantity, line.product_id.id, line.analytic_tag_ids.ids, line.product_id.uom_id.id, n_cost)
+                            my_list_cost.append(obj)
+                if inv.type=='out_invoice' and line.product_id.type=='product':
+                    n_cost+=1                            
                 n_line+=1
             
             inv_move=[]
             for move in inv.move_id.line_ids:
                 inv_move.append(move.id)
             inv_move.reverse()  
-
-            ml_count=0
+            
             for ml in my_list:
                 if inv.type=='out_invoice':
                     vals = {
@@ -81,7 +82,6 @@ class AccountInvoice(models.Model):
                         'product_uom_id': ml[8]
                     }
                     record = self.env['account.analytic.line'].create(vals)
-                ml_count+=1
                 
 
             for mlc in my_list_cost:
@@ -90,7 +90,7 @@ class AccountInvoice(models.Model):
                     'date' : inv.date_invoice,
                     'amount': (mlc[3]*(mlc[1]/100))*-1,
                     'name': mlc[2],
-                    'move_id': inv_move[((mlc[9]*2)+(ml_count))],
+                    'move_id': inv_move[(((mlc[9]+1)*2)+(n_line-1))],
                     'ref': mlc[4],
                     'unit_amount': mlc[5],
                     'product_id': mlc[6],
