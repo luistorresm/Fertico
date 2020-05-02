@@ -88,7 +88,7 @@ class AccountInvoice(models.Model):
                 vals = {
                     'account_id' : int(mlc[0]),
                     'date' : inv.date_invoice,
-                    'amount': (mlc[3]*(mlc[1]/100))*mlc[5]*-1,
+                    'amount': (mlc[3]*(mlc[1]/100))*mlc[5*-1,
                     'name': mlc[2],
                     'move_id': inv_move[(((mlc[9]+1)*2)+(n_line-1))],
                     'ref': mlc[4],
