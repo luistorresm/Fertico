@@ -1,27 +1,23 @@
 from odoo import models, fields, api
 
+class PosSession(models.Model):
+    _inherit = 'pos.session'
+
+    cash_register_balance_start = fields.Monetary(
+        related='cash_register_id.balance_start',
+        string="Starting Balance",
+        help="Total of opening cash control lines.",
+        readonly=False)
+
 class PosConfig(models.Model):
     _inherit = 'pos.config'
 
-    def open_existing_session_cb(self):
-        
-        res= super(PosConfig, self).open_existing_session_cb()
+    def open_session_cb(self):
+        """This method init the balance start in 0.00"""
 
-        print("===================",self.current_session_id.cash_register_balance_start)
-
-        #record = self.env['pos.session'].search([('id', '=', self.current_session_id.id)])
-        #print(record.cash_register_balance_start)
-        algo=self.current_session_id.write({
-            'cash_register_balance_start': False
+        res = super(PosConfig, self).open_session_cb()
+        self.current_session_id.write({
+            'cash_register_balance_start': 0.00
         })
-        print(algo)
-        print("===================",self.current_session_id.cash_register_balance_start)
-        return res
-    
-    '''def open_session_cb(self):
-        
-        res= super(PosConfig, self).open_session_cb()
-        self.current_session_id.cash_register_balance_start=0
-        print("===================",self.open_session_cb.id)
 
-        return res'''
+        return res
