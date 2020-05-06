@@ -22,7 +22,7 @@
         'security/sales_security.xml',
         'security/ir.model.access.csv',
         #'security/ir.model.access.csv',
-        #'security/credit_security.xml',
+        'security/credit_security.xml',
 
         # views
         'views/views.xml',

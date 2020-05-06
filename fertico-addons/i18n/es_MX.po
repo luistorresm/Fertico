@@ -6,13 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-<<<<<<< HEAD
-"POT-Creation-Date: 2020-04-24 14:04+0000\n"
-"PO-Revision-Date: 2020-04-24 14:04+0000\n"
-=======
 "POT-Creation-Date: 2020-04-27 19:54+0000\n"
 "PO-Revision-Date: 2020-04-27 19:54+0000\n"
->>>>>>> 11.0-partner-credit-limit-edy1192
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -57,16 +52,9 @@ msgid "Analytic Tags"
 msgstr "Etiquetas analíticas"
 
 #. module: fertico-addons
-<<<<<<< HEAD
 #: model:res.groups,name:fertico-addons.group_prices_modify
 msgid "Block price change on sales"
 msgstr "Bloquear cambio de precio en ventas"
-=======
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:2096
-#, python-format
-msgid "Are you sure that the customer wants to  pay"
-msgstr "Are you sure that the customer wants to  pay"
 
 #. module: fertico-addons
 #. openerp-web
@@ -74,7 +62,6 @@ msgstr "Are you sure that the customer wants to  pay"
 #, python-format
 msgid "Button"
 msgstr "Button"
->>>>>>> 11.0-partner-credit-limit-edy1192
 
 #. module: fertico-addons
 #: model:ir.ui.view,arch_db:fertico-addons.Load from file xls
@@ -82,56 +69,12 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: fertico-addons
-<<<<<<< HEAD
 #: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_distribution_create_uid
-=======
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:2085
-#, python-format
-msgid "Cannot return change without a cash payment method"
-msgstr "Cannot return change without a cash payment method"
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:1246
-#, python-format
-msgid "Change Customer"
-msgstr "Change Customer"
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:1959
-#, python-format
-msgid "Change Tip"
-msgstr "Change Tip"
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:197
-#, python-format
-msgid "Check your internet connection and try again."
-msgstr "Check your internet connection and try again."
-
-#. module: fertico-addons
-#: model:ir.model,name:fertico-addons.model_res_partner
-msgid "Contact"
-msgstr "Contact"
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:1410
-#, python-format
-msgid "Could Not Read Image"
-msgstr "Could Not Read Image"
-
-#. module: fertico-addons
->>>>>>> 11.0-partner-credit-limit-edy1192
 #: model:ir.model.fields,field_description:fertico-addons.field_attendance_load_xls_create_uid
 msgid "Created by"
 msgstr "Creado por"
 
-#. module: fertico-addons
-#: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_distribution_create_date
+
 #: model:ir.model.fields,field_description:fertico-addons.field_attendance_load_xls_create_date
 msgid "Created on"
 msgstr "Creado en"
@@ -232,80 +175,9 @@ msgid "Load from file xls"
 msgstr "Cargar desde archivo xls"
 
 #. module: fertico-addons
-<<<<<<< HEAD
 #: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_distribution_name
 msgid "Name"
 msgstr "Nombre"
-=======
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:2171
-#, python-format
-msgid "None"
-msgstr "None"
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:491
-#, python-format
-msgid "One or more product(s) required serial/lot number."
-msgstr "One or more product(s) required serial/lot number."
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:1396
-#, python-format
-msgid "Only web-compatible Image formats such as .png or .jpeg are supported"
-msgstr "Only web-compatible Image formats such as .png or .jpeg are supported"
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:2095
-#, python-format
-msgid "Please Confirm Large Amount"
-msgstr "Please Confirm Large Amount"
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:185
-#, python-format
-msgid "Please print the invoice from the backend"
-msgstr "Please print the invoice from the backend"
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:177
-#, python-format
-msgid "Please select the Customer"
-msgstr "Please select the Customer"
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/xml/pos.xml:20
-#, python-format
-msgid "Price"
-msgstr "Price"
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:2259
-#, python-format
-msgid "Pricelist"
-msgstr "Pricelist"
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:1607
-#, python-format
-msgid "Printing is not supported on some android browsers"
-msgstr "Printing is not supported on some android browsers"
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:1608
-#, python-format
-msgid "Printing is not supported on some android browsers due to no default printing protocol is available. It is possible to print your tickets by making use of an IoT Box."
-msgstr "Printing is not supported on some android browsers due to no default printing protocol is available. It is possible to print your tickets by making use of an IoT Box."
->>>>>>> 11.0-partner-credit-limit-edy1192
 
 #. module: fertico-addons
 #. openerp-web
