@@ -31,7 +31,7 @@
         'views/attendances.xml',
         'views/sales_chanel.xml',
         'views/block_sales_price.xml',
-        'views/block_credit.xml'
+        #'views/block_credit.xml'
 
 
         # reports

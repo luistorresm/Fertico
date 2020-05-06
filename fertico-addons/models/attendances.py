@@ -5,6 +5,27 @@ import binascii
 from datetime import datetime, timedelta
 from pytz import timezone
 
+
+
+class Employee(models.Model):
+    _inherit = "hr.employee"
+
+    schedule_ids=fields.One2many('hr.schedule','employee_id',string="Schedule")
+
+class Schedule(models.Model):
+    _name="hr.schedule"
+
+    name=fields.Char(string="Name", required=True)
+    check_in=fields.Float(string="Check-In")
+    check_out=fields.Float(string="Check-Out")
+    employee_id=fields.Many2one('hr.employee','schedule_ids')
+
+class HrAttendance(models.Model):
+    _inherit="hr.attendance"
+
+    retards=fields.Float(string="Retards")
+    extras=fields.Float(string="Extras")
+
 class AttendancesXls(models.TransientModel):
     
     _name='attendance.load.xls'
@@ -177,5 +198,10 @@ class AttendancesXls(models.TransientModel):
                             'check_out' : nd[n+5][3]
                         }
                         record = self.env['hr.attendance'].create(vals)
-                    print(record.check_in)
         
+
+
+
+
+
+
