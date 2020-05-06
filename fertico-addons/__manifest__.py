@@ -22,7 +22,7 @@
         'security/sales_security.xml',
         'security/ir.model.access.csv',
         #'security/ir.model.access.csv',
-        'security/credit_security.xml',
+        #'security/credit_security.xml',
 
         # views
         'views/views.xml',
@@ -31,7 +31,7 @@
         'views/attendances.xml',
         'views/sales_chanel.xml',
         'views/block_sales_price.xml',
-        'views/block_credit.xml'
+        #'views/block_credit.xml'
 
 
         # reports
