@@ -13,7 +13,7 @@
     'version': '11.0.1.0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'analytic', 'account', 'hr', 'sale'],
+    'depends': ['base', 'analytic', 'account', 'hr', 'sale', 'point_of_sale'],
 
     # always loaded
     'data': [
