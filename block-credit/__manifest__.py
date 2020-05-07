@@ -28,6 +28,8 @@
         'security/credit_security.xml',
         'views/views.xml',
         'views/templates.xml',
+        'views/block_credit.xml',
+
     ],
     # only loaded in demonstration mode
     'demo': [

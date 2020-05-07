@@ -161,11 +161,6 @@ msgid "Empty Serial/Lot Number"
 msgstr "Empty Serial/Lot Number"
 
 #. module: fertico-addons
-#: model:res.groups,name:fertico-addons.group_credit_modify
-msgid "Enable credit limit change"
-msgstr "Permitir cambios en limites de credito"
-
-#. module: fertico-addons
 #. openerp-web
 #: code:addons/fertico-addons/static/src/js/pos.js:1336
 #, python-format
