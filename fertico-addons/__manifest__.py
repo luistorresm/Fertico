@@ -20,7 +20,6 @@
         # security files
         'security/analytic_security.xml',
         #'security/ir.model.access.csv',
-        'security/credit_security.xml',
 
         # views
         'views/views.xml',
