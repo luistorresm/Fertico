@@ -27,8 +27,7 @@
         'views/templates.xml',
         #'views/account_analytic.xml',
         'views/attendances.xml',
-        'views/sales_chanel.xml',
-        'views/block_credit.xml'
+        'views/sales_chanel.xml'
 
 
         # reports

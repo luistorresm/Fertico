@@ -5,4 +5,3 @@ from . import models
 from . import attendances
 from . import sales_chanel
 from . import taxes
-from . import block_credit
