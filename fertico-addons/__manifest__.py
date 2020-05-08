@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "fertico-addons",
+    'name': "Fertico Addons",
     'summary': """Custom Addons for Enterprise Fertico""",
     'description': """Module which manages the different customizations that the FERTICO Company requires for its Odoo Server Management""",
     'author': "Wobin",
@@ -22,7 +22,6 @@
         'security/sales_security.xml',
         'security/ir.model.access.csv',
         #'security/ir.model.access.csv',
-        'security/credit_security.xml',
 
         # views
         'views/views.xml',
@@ -30,8 +29,7 @@
         'views/account_analytic.xml',
         'views/attendances.xml',
         'views/sales_chanel.xml',
-        'views/block_sales_price.xml',
-        'views/block_credit.xml'
+        'views/block_sales_price.xml'
 
 
         # reports

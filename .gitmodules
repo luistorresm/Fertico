@@ -22,3 +22,8 @@
 	path = addons-vauxoo
 	url = git@github.com:Vauxoo/addons-vauxoo.git
 	branch = 11.0
+
+[submodule "Vauxoo/addons-vauxoo"]
+	path = Vauxoo/addons-vauxoo
+	url = git@github.com:Vauxoo/addons-vauxoo.git
+	branch = 11.0
