@@ -10,7 +10,7 @@ from pytz import timezone
 class Employee(models.Model):
     _inherit = "hr.employee"
 
-    schedule_ids=fields.One2many('hr.schedule','employee_id',string="Schedule")
+    schedule_ids=fields.Many2many('hr.schedule','employee_id',string="Schedule")
 
 class Schedule(models.Model):
     _name="hr.schedule"
@@ -18,7 +18,7 @@ class Schedule(models.Model):
     name=fields.Char(string="Name", required=True)
     check_in=fields.Float(string="Check-In")
     check_out=fields.Float(string="Check-Out")
-    employee_id=fields.Many2one('hr.employee','schedule_ids')
+    employee_id=fields.Many2many('hr.employee','schedule_ids')
 
 class HrAttendance(models.Model):
     _inherit="hr.attendance"
