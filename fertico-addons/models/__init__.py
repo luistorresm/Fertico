@@ -6,4 +6,3 @@ from . import attendances
 from . import sales_chanel
 from . import taxes
 from . import pos_init
-#from . import block_credit
