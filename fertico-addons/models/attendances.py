@@ -150,8 +150,7 @@ class AttendancesXls(models.TransientModel):
                         if count==5:
                             array_check+=':00'
                             datetime_object=str(datetime.strptime(array_check, '%d/%m/%Y %H:%M:%S'))
-                            datetime_object_utc=self.convert_TZ_UTC(datetime_object)
-                            check.append(datetime_object_utc)
+                            check.append(datetime_object)
                             count=0
                             array_check=''
                     
@@ -166,9 +165,7 @@ class AttendancesXls(models.TransientModel):
                 schedules_ids = employee.schedule_ids
                 schedules=[]
                 for sc in schedules_ids:
-                    c_in=self.convertSchedule(sc.check_in)
-                    c_out=self.convertSchedule(sc.check_out)
-                    schedules.append([c_in,c_out])
+                    schedules.append([timedelta(hours=sc.check_in),timedelta(hours=sc.check_out)])
                     
                 
                 if nd[n+5]!='':
@@ -176,8 +173,8 @@ class AttendancesXls(models.TransientModel):
                         
                         vals={
                             'employee_id' : employee.id,
-                            'check_in' : nd[n+5][0],
-                            'check_out' : nd[n+5][0]
+                            'check_in' : self.convert_TZ_UTC(str(nd[n+5][0])),
+                            'check_out' : self.convert_TZ_UTC(str(nd[n+5][0]))
                         }
                         record = self.env['hr.attendance'].create(vals)
                     
@@ -190,6 +187,8 @@ class AttendancesXls(models.TransientModel):
                         
                 
                         if len(schedules) > 0:
+                            print(hour, " ", schedules[0][0])
+                            print(hour2, " ", schedules[0][1])
                             if hour > schedules[0][0]:
                                 retard=self.difHours(hour,schedules[0][0])
                             if hour2 > schedules[0][1]:  
@@ -197,8 +196,8 @@ class AttendancesXls(models.TransientModel):
 
                         vals={
                             'employee_id' : employee.id,
-                            'check_in' : nd[n+5][0],
-                            'check_out' : nd[n+5][1],
+                            'check_in' : self.convert_TZ_UTC(str(nd[n+5][0])),
+                            'check_out' : self.convert_TZ_UTC(str(nd[n+5][1])),
                             'retards' : retard,
                             'extras' : extra
                         }
@@ -221,24 +220,22 @@ class AttendancesXls(models.TransientModel):
                             
                             vals={
                                 'employee_id' : employee.id,
-                                'check_in' : nd[n+5][0],
-                                'check_out' : nd[n+5][1],
+                                'check_in' : self.convert_TZ_UTC(str(nd[n+5][0])),
+                                'check_out' : self.convert_TZ_UTC(str(nd[n+5][1])),
                                 'retards' : retard,
                                 'extras' : extra
                             }
                             record = self.env['hr.attendance'].create(vals)
                             vals={
                                 'employee_id' : employee.id,
-                                'check_in' : nd[n+5][2],
-                                'check_out' : nd[n+5][2]
+                                'check_in' : self.convert_TZ_UTC(str(nd[n+5][2])),
+                                'check_out' : self.convert_TZ_UTC(str(nd[n+5][2]))
                             }
                             record = self.env['hr.attendance'].create(vals)
                         else:
                             
                             hour=self.convertToTimeDelta(nd[n+5][1])
                             hour2=self.convertToTimeDelta(nd[n+5][2])
-                            print("====",hour)
-                            print("----",hour2)
                             
                             retard=0
                             extra=0
@@ -251,14 +248,14 @@ class AttendancesXls(models.TransientModel):
                                     extra=self.difHours(hour2,schedules[1][1])
                             vals={
                                 'employee_id' : employee.id,
-                                'check_in' : nd[n+5][0],
-                                'check_out' : nd[n+5][0]
+                                'check_in' : self.convert_TZ_UTC(str(nd[n+5][0])),
+                                'check_out' : self.convert_TZ_UTC(str(nd[n+5][0]))
                             }
                             record = self.env['hr.attendance'].create(vals)
                             vals={
                                 'employee_id' : employee.id,
-                                'check_in' : nd[n+5][1],
-                                'check_out' : nd[n+5][2],
+                                'check_in' : self.convert_TZ_UTC(str(nd[n+5][1])),
+                                'check_out' : self.convert_TZ_UTC(str(nd[n+5][2])),
                                 'retards' : retard,
                                 'extras' : extra
                             }
@@ -274,8 +271,7 @@ class AttendancesXls(models.TransientModel):
                         extra=0
                         retard2=0
                         extra2=0
-                            
-                        print("============",len(schedules))
+
                         if len(schedules) > 0:
                             if hour > schedules[0][0]:
                                 retard=self.difHours(hour,schedules[0][0])
@@ -289,16 +285,16 @@ class AttendancesXls(models.TransientModel):
 
                         vals={
                             'employee_id' : employee.id,
-                            'check_in' : nd[n+5][0],
-                            'check_out' : nd[n+5][1],
+                            'check_in' : self.convert_TZ_UTC(str(nd[n+5][0])),
+                            'check_out' : self.convert_TZ_UTC(str(nd[n+5][1])),
                             'retards' : retard,
                             'extras' : extra
                         }
                         record = self.env['hr.attendance'].create(vals)
                         vals={
                             'employee_id' : employee.id,
-                            'check_in' : nd[n+5][2],
-                            'check_out' : nd[n+5][3],
+                            'check_in' : self.convert_TZ_UTC(str(nd[n+5][2])),
+                            'check_out' : self.convert_TZ_UTC(str(nd[n+5][3])),
                             'retards' : retard2,
                             'extras' : extra2
                         }
