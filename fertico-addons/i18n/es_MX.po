@@ -216,12 +216,12 @@ msgstr "Línea de orden de ventas"
 #. module: fertico-addons
 #: model:ir.model.fields,field_description:fertico-addons.field_hr_employee_schedule_ids
 msgid "Schedule"
-msgstr "Schedule"
+msgstr "Horario"
 
 #. module: fertico-addons
 #: model:ir.ui.view,arch_db:fertico-addons.view_employee_schedule
 msgid "Schedules"
-msgstr "Schedules"
+msgstr "Horarioss"
 
 #. module: fertico-addons
 #: model:ir.ui.view,arch_db:fertico-addons.Load from file xls
@@ -246,7 +246,7 @@ msgstr "download.wizard"
 #. module: fertico-addons
 #: model:ir.model,name:fertico-addons.model_hr_schedule
 msgid "hr.schedule"
-msgstr "hr.schedule"
+msgstr "hr.horario"
 
 #. module: fertico-addons
 #: model:ir.model,name:fertico-addons.model_pos_config
