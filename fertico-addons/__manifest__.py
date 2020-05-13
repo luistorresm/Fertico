@@ -21,7 +21,6 @@
         'security/analytic_security.xml',
         'security/sales_security.xml',
         'security/ir.model.access.csv',
-        #'security/ir.model.access.csv'
 
         # views
         'views/views.xml',
