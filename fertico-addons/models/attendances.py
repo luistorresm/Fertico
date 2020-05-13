@@ -187,8 +187,6 @@ class AttendancesXls(models.TransientModel):
                         
                 
                         if len(schedules) > 0:
-                            print(hour, " ", schedules[0][0])
-                            print(hour2, " ", schedules[0][1])
                             if hour > schedules[0][0]:
                                 retard=self.difHours(hour,schedules[0][0])
                             if hour2 > schedules[0][1]:  
@@ -204,7 +202,8 @@ class AttendancesXls(models.TransientModel):
                         record = self.env['hr.attendance'].create(vals)
                     elif len(nd[n+5])==3:
                         hour_aux=nd[n+5][1][-8:]
-                        if int(hour_aux[:2])<15:
+                        hour_delta=timedelta(hours=int(hour_aux[:2]), minutes=int(hour_aux[3:5]))
+                        if hour_delta < timedelta(hours=15):
                             
                             hour=self.convertToTimeDelta(nd[n+5][0])
                             hour2=self.convertToTimeDelta(nd[n+5][1])
@@ -299,7 +298,218 @@ class AttendancesXls(models.TransientModel):
                             'extras' : extra2
                         }
                         record = self.env['hr.attendance'].create(vals)
-        
+                    elif len(nd[n+5])==5:
+                        hour_aux=nd[n+5][2][-8:]
+                        hour_delta=timedelta(hours=int(hour_aux[:2]), minutes=int(hour_aux[3:5]))
+                        if hour_delta < timedelta(hours=15):
+                            
+                            hour=self.convertToTimeDelta(nd[n+5][0])
+                            hour2=self.convertToTimeDelta(nd[n+5][2])
+                            hour3=self.convertToTimeDelta(nd[n+5][3])
+                            hour4=self.convertToTimeDelta(nd[n+5][4])
+                            
+                            retard=0
+                            retard2=0
+                            extra=0
+                            extra2=0
+
+                            
+                            if len(schedules) > 0:
+                                if hour > schedules[0][0]:
+                                    retard=self.difHours(hour,schedules[0][0])
+                                if hour2 > schedules[0][1]:  
+                                    extra=self.difHours(hour2,schedules[0][1])
+                            if len(schedules) > 1:
+                                if hour3 > schedules[1][0]:
+                                    retard2=self.difHours(hour3,schedules[1][0])
+                                if hour4 > schedules[1][1]:  
+                                    extra2=self.difHours(hour4,schedules[1][1])
+                            
+                            vals={
+                                'employee_id' : employee.id,
+                                'check_in' : self.convert_TZ_UTC(str(nd[n+5][0])),
+                                'check_out' : self.convert_TZ_UTC(str(nd[n+5][2])),
+                                'retards' : retard,
+                                'extras' : extra
+                            }
+                            record = self.env['hr.attendance'].create(vals)
+                            vals={
+                                'employee_id' : employee.id,
+                                'check_in' : self.convert_TZ_UTC(str(nd[n+5][3])),
+                                'check_out' : self.convert_TZ_UTC(str(nd[n+5][4])),
+                                'retards' : retard2,
+                                'extras' : extra2
+                            }
+                            record = self.env['hr.attendance'].create(vals)
+                        else:
+                            
+                            hour=self.convertToTimeDelta(nd[n+5][0])
+                            hour2=self.convertToTimeDelta(nd[n+5][1])
+                            hour3=self.convertToTimeDelta(nd[n+5][2])
+                            hour4=self.convertToTimeDelta(nd[n+5][4])
+                            
+                            retard=0
+                            retard2=0
+                            extra=0
+                            extra2=0
+                            
+                           
+                            if len(schedules) > 0:
+                                if hour > schedules[0][0]:  
+                                    retard=self.difHours(hour,schedules[0][0])
+                                if hour2 > schedules[0][1]:
+                                    extra=self.difHours(hour2,schedules[0][1])
+                            if len(schedules) > 1:
+                                if hour3 > schedules[1][0]:  
+                                    retard2=self.difHours(hour3,schedules[1][0])
+                                if hour4 > schedules[1][1]:
+                                    extra2=self.difHours(hour4,schedules[1][1])
+
+
+                            vals={
+                                'employee_id' : employee.id,
+                                'check_in' : self.convert_TZ_UTC(str(nd[n+5][0])),
+                                'check_out' : self.convert_TZ_UTC(str(nd[n+5][1])),
+                                'retards' : retard,
+                                'extras' : extra
+                            }
+                            record = self.env['hr.attendance'].create(vals)
+                            vals={
+                                'employee_id' : employee.id,
+                                'check_in' : self.convert_TZ_UTC(str(nd[n+5][2])),
+                                'check_out' : self.convert_TZ_UTC(str(nd[n+5][4])),
+                                'retards' : retard2,
+                                'extras' : extra2
+                            }
+                            record = self.env['hr.attendance'].create(vals)
+                    elif len(nd[n+5])==6:
+                        hour_aux=nd[n+5][2][-8:]
+                        hour_delta=timedelta(hours=int(hour_aux[:2]), minutes=int(hour_aux[3:5]))
+                        hour_aux2=nd[n+5][3][-8:]
+                        hour_delta2=timedelta(hours=int(hour_aux2[:2]), minutes=int(hour_aux2[3:5]))
+                        
+                        if (hour_delta < timedelta(hours=15)) and (hour_delta2 > timedelta(hours=15)):
+                            
+                            hour=self.convertToTimeDelta(nd[n+5][0])
+                            hour2=self.convertToTimeDelta(nd[n+5][2])
+                            hour3=self.convertToTimeDelta(nd[n+5][3])
+                            hour4=self.convertToTimeDelta(nd[n+5][5])
+                            
+                            retard=0
+                            retard2=0
+                            extra=0
+                            extra2=0
+
+                            
+                            if len(schedules) > 0:
+                                if hour > schedules[0][0]:
+                                    retard=self.difHours(hour,schedules[0][0])
+                                if hour2 > schedules[0][1]:  
+                                    extra=self.difHours(hour2,schedules[0][1])
+                            if len(schedules) > 1:
+                                if hour3 > schedules[1][0]:
+                                    retard2=self.difHours(hour3,schedules[1][0])
+                                if hour4 > schedules[1][1]:  
+                                    extra2=self.difHours(hour4,schedules[1][1])
+                            
+                            vals={
+                                'employee_id' : employee.id,
+                                'check_in' : self.convert_TZ_UTC(str(nd[n+5][0])),
+                                'check_out' : self.convert_TZ_UTC(str(nd[n+5][2])),
+                                'retards' : retard,
+                                'extras' : extra
+                            }
+                            record = self.env['hr.attendance'].create(vals)
+                            vals={
+                                'employee_id' : employee.id,
+                                'check_in' : self.convert_TZ_UTC(str(nd[n+5][3])),
+                                'check_out' : self.convert_TZ_UTC(str(nd[n+5][5])),
+                                'retards' : retard2,
+                                'extras' : extra2
+                            }
+                            record = self.env['hr.attendance'].create(vals)
+                        elif (hour_delta < timedelta(hours=15)) and (hour_delta2 < timedelta(hours=15)):
+                            
+                            hour=self.convertToTimeDelta(nd[n+5][0])
+                            hour2=self.convertToTimeDelta(nd[n+5][3])
+                            hour3=self.convertToTimeDelta(nd[n+5][4])
+                            hour4=self.convertToTimeDelta(nd[n+5][5])
+                            
+                            retard=0
+                            retard2=0
+                            extra=0
+                            extra2=0
+                            
+                           
+                            if len(schedules) > 0:
+                                if hour > schedules[0][0]:  
+                                    retard=self.difHours(hour,schedules[0][0])
+                                if hour2 > schedules[0][1]:
+                                    extra=self.difHours(hour2,schedules[0][1])
+                            if len(schedules) > 1:
+                                if hour3 > schedules[1][0]:  
+                                    retard2=self.difHours(hour3,schedules[1][0])
+                                if hour4 > schedules[1][1]:
+                                    extra2=self.difHours(hour4,schedules[1][1])
+
+
+                            vals={
+                                'employee_id' : employee.id,
+                                'check_in' : self.convert_TZ_UTC(str(nd[n+5][0])),
+                                'check_out' : self.convert_TZ_UTC(str(nd[n+5][3])),
+                                'retards' : retard,
+                                'extras' : extra
+                            }
+                            record = self.env['hr.attendance'].create(vals)
+                            vals={
+                                'employee_id' : employee.id,
+                                'check_in' : self.convert_TZ_UTC(str(nd[n+5][4])),
+                                'check_out' : self.convert_TZ_UTC(str(nd[n+5][5])),
+                                'retards' : retard2,
+                                'extras' : extra2
+                            }
+                            record = self.env['hr.attendance'].create(vals)
+                        elif (hour_delta > timedelta(hours=15)) and (hour_delta2 > timedelta(hours=15)):
+                            
+                            hour=self.convertToTimeDelta(nd[n+5][0])
+                            hour2=self.convertToTimeDelta(nd[n+5][1])
+                            hour3=self.convertToTimeDelta(nd[n+5][2])
+                            hour4=self.convertToTimeDelta(nd[n+5][5])
+                            
+                            retard=0
+                            retard2=0
+                            extra=0
+                            extra2=0
+                            
+                           
+                            if len(schedules) > 0:
+                                if hour > schedules[0][0]:  
+                                    retard=self.difHours(hour,schedules[0][0])
+                                if hour2 > schedules[0][1]:
+                                    extra=self.difHours(hour2,schedules[0][1])
+                            if len(schedules) > 1:
+                                if hour3 > schedules[1][0]:  
+                                    retard2=self.difHours(hour3,schedules[1][0])
+                                if hour4 > schedules[1][1]:
+                                    extra2=self.difHours(hour4,schedules[1][1])
+
+
+                            vals={
+                                'employee_id' : employee.id,
+                                'check_in' : self.convert_TZ_UTC(str(nd[n+5][0])),
+                                'check_out' : self.convert_TZ_UTC(str(nd[n+5][1])),
+                                'retards' : retard,
+                                'extras' : extra
+                            }
+                            record = self.env['hr.attendance'].create(vals)
+                            vals={
+                                'employee_id' : employee.id,
+                                'check_in' : self.convert_TZ_UTC(str(nd[n+5][2])),
+                                'check_out' : self.convert_TZ_UTC(str(nd[n+5][5])),
+                                'retards' : retard2,
+                                'extras' : extra2
+                            }
+                            record = self.env['hr.attendance'].create(vals)
 
 
 
