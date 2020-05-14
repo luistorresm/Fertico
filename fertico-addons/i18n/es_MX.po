@@ -162,8 +162,8 @@ msgstr "El porcentaje de una distribución analítica debe ser entre 0 y 100."
 
 #. module: fertico-addons
 #: model:res.groups,name:fertico-addons.group_prices_modify
-msgid "View change prices on sales"
-msgstr "Ver cambio de precios en ventas"
+msgid "View change prices on products"
+msgstr "Ver cambio de precios en productos"
 
 #. module: fertico-addons
 #: model:ir.model,name:fertico-addons.model_attendance_load_xls

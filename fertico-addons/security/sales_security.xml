@@ -4,7 +4,7 @@
     <data noupdate="0">
 
         <record id="group_prices_modify" model="res.groups">
-            <field name="name">View change prices on sales</field>
+            <field name="name">View change prices on products</field>
             <field name="category_id" ref="base.module_category_hidden"/>
         </record>
 
