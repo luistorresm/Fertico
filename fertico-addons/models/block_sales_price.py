@@ -16,7 +16,7 @@ class SaleOrderLine(models.Model):
         if product:
             self.block_price_line=product.enable_price
 
-class SaleOrderLine(models.Model):
+class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
 
     block_price_line=fields.Boolean(default=False)
