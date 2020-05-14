@@ -1,26 +1,49 @@
 <odoo>
 
-    <record model="ir.ui.view" id="sale_order_block_price">
+    <record model="ir.ui.view" id="product_enable_price">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='to_weight']" position="after">
+                    <field name='enable_price' invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_product_readonly" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product_enable_price" />
+        <field name="groups_id" eval="[(6, 0, [ref('fertico-addons.group_prices_modify')])]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='enable_price']" position="attributes">
+                <attribute name="invisible">False</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sale_order_enable_price">
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//tree/field[@name='price_unit']" position="replace">
-                <field name='price_unit' readonly="0"/>
+                <field name='block_price_line' invisible='1'/>
+                <field name='price_unit' attrs="{'readonly':[('block_price_line', '!=', True)]}"/>
             </xpath>
         </field>
     </record>
 
-
-    <record id="view_employee_readonly" model="ir.ui.view">
-        <field name="model">sale.order</field>
-        <field name="inherit_id" ref="sale_order_block_price" />
-        <field name="groups_id" eval="[(6, 0, [ref('fertico-addons.group_prices_modify')])]"/>
+    <record model="ir.ui.view" id="invoice_order_enable_price">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//tree/field[@name='price_unit']" position="attributes">
-                <attribute name="readonly">True</attribute>
+            <xpath expr="//tree/field[@name='price_unit']" position="replace">
+                <field name='block_price_line' invisible='1'/>
+                <field name='price_unit' attrs="{'readonly':[('block_price_line', '!=', True)]}"/>
             </xpath>
         </field>
     </record>
+
+    
 
 </odoo>
 
