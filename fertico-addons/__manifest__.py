@@ -20,7 +20,7 @@
         # security files
         'security/analytic_security.xml',
         'security/sales_security.xml',
-        'security/ir.model.access.csv',
+        
 
         # views
         'views/views.xml',
@@ -28,7 +28,9 @@
         'views/account_analytic.xml',
         'views/attendances.xml',
         'views/sales_chanel.xml',
-        'views/block_sales_price.xml'
+        'views/block_sales_price.xml',
+
+        'security/ir.model.access.csv',
 
 
         # reports
