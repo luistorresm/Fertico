@@ -375,7 +375,7 @@ msgstr "Horario"
 #. module: fertico-addons
 #: model:ir.ui.view,arch_db:fertico-addons.view_employee_schedule
 msgid "Schedules"
-msgstr "Horarioss"
+msgstr "Horarios"
 
 #. module: fertico-addons
 #. openerp-web
