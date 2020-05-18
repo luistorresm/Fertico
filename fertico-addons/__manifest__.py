@@ -26,7 +26,7 @@
         'views/views.xml',
         'views/templates.xml',
         'views/account_analytic.xml',
-        'views/attendances.xml',
+        #'views/attendances.xml',
         'views/sales_chanel.xml',
         'views/block_sales_price.xml'
 
