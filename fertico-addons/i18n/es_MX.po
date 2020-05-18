@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-27 19:54+0000\n"
-"PO-Revision-Date: 2020-04-27 19:54+0000\n"
+"POT-Creation-Date: 2020-05-13 18:22+0000\n"
+"PO-Revision-Date: 2020-05-13 18:22+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,25 +16,9 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:2104
-#, python-format
-msgid "? Clicking \"Confirm\" will validate the payment."
-msgstr "? Clicking \"Confirm\" will validate the payment."
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:1301
-#, python-format
-msgid "A Customer Name Is Required"
-msgstr "A Customer Name Is Required"
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:1959
-#, python-format
-msgid "Add Tip"
-msgstr "Add Tip"
+#: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_distribution_account_id
+msgid "Analytic Account"
+msgstr "Cuenta analítica"
 
 #. module: fertico-addons
 #: model:ir.model,name:fertico-addons.model_account_analytic_distribution
@@ -42,6 +26,13 @@ msgid "Analytic Account Distribution"
 msgstr "Distribución analítica de contabilidad"
 
 #. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_tag_analytic_distribution_ids
+msgid "Analytic Accounts"
+msgstr "Contabilidad analítica"
+
+#. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_tag_active_analytic_distribution
+#: model:ir.ui.view,arch_db:fertico-addons.account_analytic_tag_form
 #: model:res.groups,name:fertico-addons.group_analytic_distribution
 msgid "Analytic Distribution"
 msgstr "Distribución Analítica"
@@ -52,16 +43,14 @@ msgid "Analytic Tags"
 msgstr "Etiquetas analíticas"
 
 #. module: fertico-addons
+#: model:ir.model,name:fertico-addons.model_hr_attendance
+msgid "Attendance"
+msgstr "Asistencias"
+
+#. module: fertico-addons
 #: model:res.groups,name:fertico-addons.group_prices_modify
 msgid "Block price change on sales"
 msgstr "Bloquear cambio de precio en ventas"
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:990
-#, python-format
-msgid "Button"
-msgstr "Button"
 
 #. module: fertico-addons
 #: model:ir.ui.view,arch_db:fertico-addons.Load from file xls
@@ -69,62 +58,46 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_hr_schedule_check_in
+msgid "Check-In"
+msgstr "Entrada"
+
+#. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_hr_schedule_check_out
+msgid "Check-Out"
+msgstr "Salida"
+
+#. module: fertico-addons
+#: model:ir.model,name:fertico-addons.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: fertico-addons
 #: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_distribution_create_uid
 #: model:ir.model.fields,field_description:fertico-addons.field_attendance_load_xls_create_uid
+#: model:ir.model.fields,field_description:fertico-addons.field_hr_schedule_create_uid
 msgid "Created by"
 msgstr "Creado por"
 
-
+#. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_distribution_create_date
 #: model:ir.model.fields,field_description:fertico-addons.field_attendance_load_xls_create_date
+#: model:ir.model.fields,field_description:fertico-addons.field_hr_schedule_create_date
 msgid "Created on"
 msgstr "Creado en"
 
 #. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:1970
-#, python-format
-msgid "Customer"
-msgstr "Customer"
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:1249
-#, python-format
-msgid "Deselect Customer"
-msgstr "Deselect Customer"
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/xml/pos.xml:15
-#, python-format
-msgid "Disc"
-msgstr "Disc"
-
-#. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_distribution_display_name
 #: model:ir.model.fields,field_description:fertico-addons.field_attendance_load_xls_display_name
+#: model:ir.model.fields,field_description:fertico-addons.field_hr_schedule_display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:2067
-#, python-format
-msgid "Empty Order"
-msgstr "Empty Order"
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:490
-#, python-format
-msgid "Empty Serial/Lot Number"
-msgstr "Empty Serial/Lot Number"
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:1336
-#, python-format
-msgid "Error: Could not Save Changes"
-msgstr "Error: Could not Save Changes"
+#: model:ir.model,name:fertico-addons.model_hr_employee
+#: model:ir.model.fields,field_description:fertico-addons.field_hr_schedule_employee_id
+msgid "Employee"
+msgstr "Empleado"
 
 #. module: fertico-addons
 #: model:ir.model.fields,field_description:fertico-addons.field_attendance_load_xls_excel_file
@@ -132,8 +105,14 @@ msgid "Excel File"
 msgstr "Archivo Excel"
 
 #. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_hr_attendance_extras
+msgid "Extras"
+msgstr "Extras"
+
+#. module: fertico-addons
 #: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_distribution_id
 #: model:ir.model.fields,field_description:fertico-addons.field_attendance_load_xls_id
+#: model:ir.model.fields,field_description:fertico-addons.field_hr_schedule_id
 msgid "ID"
 msgstr "ID (identificación)"
 
@@ -143,19 +122,28 @@ msgid "Invoice"
 msgstr "Factura"
 
 #. module: fertico-addons
+#: model:ir.model,name:fertico-addons.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Linea de Factura"
+
+#. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_distribution___last_update
 #: model:ir.model.fields,field_description:fertico-addons.field_attendance_load_xls___last_update
+#: model:ir.model.fields,field_description:fertico-addons.field_hr_schedule___last_update
 msgid "Last Modified on"
 msgstr "Última modificación en"
 
 #. module: fertico-addons
 #: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_distribution_write_uid
 #: model:ir.model.fields,field_description:fertico-addons.field_attendance_load_xls_write_uid
+#: model:ir.model.fields,field_description:fertico-addons.field_hr_schedule_write_uid
 msgid "Last Updated by"
 msgstr "Última actualización de"
 
 #. module: fertico-addons
 #: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_distribution_write_date
 #: model:ir.model.fields,field_description:fertico-addons.field_attendance_load_xls_write_date
+#: model:ir.model.fields,field_description:fertico-addons.field_hr_schedule_write_date
 msgid "Last Updated on"
 msgstr "Última actualización en"
 
@@ -170,49 +158,45 @@ msgid "Load from file xls"
 msgstr "Cargar desde archivo xls"
 
 #. module: fertico-addons
+#: model:ir.model,name:fertico-addons.model_stock_production_lot
+msgid "Lot/Serial"
+msgstr "Lote/Número de serie"
+
+#. module: fertico-addons
 #: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_distribution_name
+#: model:ir.model.fields,field_description:fertico-addons.field_hr_schedule_name
 msgid "Name"
 msgstr "Nombre"
 
 #. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/xml/pos.xml:10
-#, python-format
-msgid "Qty"
-msgstr "Qty"
+#: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_distribution_tag_id
+msgid "Parent tag"
+msgstr "Etiqueta principal"
 
 #. module: fertico-addons
-#: model:ir.model,name:fertico-addons.model_sale_order
-msgid "Quotation"
-msgstr "Quotation"
+#: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_distribution_percentage
+msgid "Percentage"
+msgstr "Porcentaje"
 
 #. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:2247
-#, python-format
-msgid "Select pricelist"
-msgstr "Select pricelist"
+#: model:ir.model,name:fertico-addons.model_product_product
+msgid "Product"
+msgstr "Producto"
 
 #. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:2182
-#, python-format
-msgid "Select tax"
-msgstr "Select tax"
+#: model:ir.model,name:fertico-addons.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
 
 #. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:204
-#, python-format
-msgid "Server Error"
-msgstr "Server Error"
+#: model:ir.model,name:fertico-addons.model_purchase_order
+msgid "Purchase Order"
+msgstr "Pedido de compra"
 
 #. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:1244
-#, python-format
-msgid "Set Customer"
-msgstr "Set Customer"
+#: model:ir.model,name:fertico-addons.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Línea de pedido de compra"
 
 #. module: fertico-addons
 #: model:ir.model,name:fertico-addons.model_sale_order
@@ -220,97 +204,34 @@ msgid "Quotation"
 msgstr "Presupuesto"
 
 #. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_hr_attendance_retards
+msgid "Retards"
+msgstr "Retardos"
+
+#. module: fertico-addons
+#: model:ir.model,name:fertico-addons.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de orden de ventas"
+
+#. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_hr_employee_schedule_ids
+msgid "Schedule"
+msgstr "Horario"
+
+#. module: fertico-addons
+#: model:ir.ui.view,arch_db:fertico-addons.view_employee_schedule
+msgid "Schedules"
+msgstr "Horarioss"
+
+#. module: fertico-addons
 #: model:ir.ui.view,arch_db:fertico-addons.Load from file xls
 msgid "Submit"
 msgstr "Submit"
 
 #. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:2201
-#, python-format
-msgid "Tax"
-msgstr "Tax"
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:196
-#, python-format
-msgid "The order could not be sent"
-msgstr "The order could not be sent"
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:210
-#, python-format
-msgid "The order could not be sent to the server due to an unknown error"
-msgstr "The order could not be sent to the server due to an unknown error"
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:186
-#, python-format
-msgid "The order has been synchronized earlier. Please make the invoice from the backend for the order: "
-msgstr "The order has been synchronized earlier. Please make the invoice from the backend for the order: "
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:1411
-#, python-format
-msgid "The provided file could not be read due to an unknown error"
-msgstr "The provided file could not be read due to an unknown error"
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:205
-#, python-format
-msgid "The server encountered an error while receiving your order."
-msgstr "The server encountered an error while receiving your order."
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:2086
-#, python-format
-msgid "There is no cash payment method available in this point of sale to handle the change.\n"
-"\n"
-" Please pay the exact amount or add a cash payment method in the point of sale configuration"
-msgstr "There is no cash payment method available in this point of sale to handle the change.\n"
-"\n"
-" Please pay the exact amount or add a cash payment method in the point of sale configuration"
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:2068
-#, python-format
-msgid "There must be at least one product in your order before it can be validated"
-msgstr "There must be at least one product in your order before it can be validated"
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:209
-#, python-format
-msgid "Unknown Error"
-msgstr "Unknown Error"
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:1395
-#, python-format
-msgid "Unsupported File Format"
-msgstr "Unsupported File Format"
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:178
-#, python-format
-msgid "You need to select the customer before you can invoice an order."
-msgstr "You need to select the customer before you can invoice an order."
-
-#. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:1330
-#, python-format
-msgid "Your Internet connection is probably down."
-msgstr "Your Internet connection is probably down."
+#: sql_constraint:account.analytic.distribution:0
+msgid "The percentage of an analytic distribution should be between 0 and 100."
+msgstr "El porcentaje de una distribución analítica debe ser entre 0 y 100."
 
 #. module: fertico-addons
 #: model:ir.model,name:fertico-addons.model_attendance_load_xls
@@ -318,9 +239,22 @@ msgid "attendance.load.xls"
 msgstr "attendance.load.xls"
 
 #. module: fertico-addons
-#. openerp-web
-#: code:addons/fertico-addons/static/src/js/pos.js:2100
-#, python-format
-msgid "for an order of"
-msgstr "for an order of"
+#: model:ir.model,name:fertico-addons.model_download_wizard
+msgid "download.wizard"
+msgstr "download.wizard"
+
+#. module: fertico-addons
+#: model:ir.model,name:fertico-addons.model_hr_schedule
+msgid "hr.schedule"
+msgstr "hr.horario"
+
+#. module: fertico-addons
+#: model:ir.model,name:fertico-addons.model_pos_config
+msgid "pos.config"
+msgstr "pos.config"
+
+#. module: fertico-addons
+#: model:ir.model,name:fertico-addons.model_pos_session
+msgid "pos.session"
+msgstr "pos.session"
 

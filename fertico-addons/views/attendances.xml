@@ -21,4 +21,53 @@
     <act_window id="action_wizard_attendance" name="Load from file xls" res_model="attendance.load.xls" view_mode="form" target="new" multi="True" />
 
     <menuitem id="menu_attendances_xls" name="Load from file" parent="hr_attendance.menu_hr_attendance_manage_attendances" groups="hr_attendance.group_hr_attendance" action="action_wizard_attendance"/>
+
+    <record id="view_employee_schedule" model="ir.ui.view">
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <page name="hr_settings" position="after">
+                <page string="Schedules">
+                    <field name="schedule_ids">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="check_in" widget="float_time"/>
+                            <field name="check_out" widget="float_time"/>
+                        </tree>
+                    </field>
+                </page>
+            </page>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_schedule_form">
+        <field name="name">Schedule Form</field>
+        <field name="model">hr.schedule</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                </group>
+                <group>
+                    <field name="check_in" widget="float_time"/>
+                    <field name="check_out" widget="float_time"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_attendance_retars" model="ir.ui.view">
+        <field name="model">hr.attendance</field>
+        <field name="type">tree</field>
+        <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+        <field name="arch" type="xml">
+            <field name="check_out" position="after">
+                <field name="retards" widget="float_time"/>
+                <field name="extras" widget="float_time"/>
+            </field>
+        </field>
+    </record>
+
+
 </odoo>
