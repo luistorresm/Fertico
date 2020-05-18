@@ -13,7 +13,7 @@
     'version': '11.0.1.0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'analytic', 'account', 'hr', 'sale', 'point_of_sale'],
+    'depends': ['base', 'analytic', 'account', 'hr', 'hr_attendance', 'sale', 'point_of_sale'],
 
     # always loaded
     'data': [
@@ -26,7 +26,7 @@
         'views/views.xml',
         'views/templates.xml',
         'views/account_analytic.xml',
-        #'views/attendances.xml',
+        'views/attendances.xml',
         'views/sales_chanel.xml',
         'views/block_sales_price.xml'
 
