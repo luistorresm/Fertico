@@ -5,13 +5,6 @@ import binascii
 from datetime import datetime, timedelta
 from pytz import timezone
 
-
-
-class Employee(models.Model):
-    _inherit = "hr.employee"
-
-    schedule_ids=fields.Many2many('hr.schedule','employee_id',string="Schedule")
-
 class Schedule(models.Model):
     _name="hr.schedule"
 
@@ -19,6 +12,13 @@ class Schedule(models.Model):
     check_in=fields.Float(string="Check-In")
     check_out=fields.Float(string="Check-Out")
     employee_id=fields.Many2many('hr.employee','schedule_ids')
+
+class Employee(models.Model):
+    _inherit = "hr.employee"
+
+    schedule_ids=fields.Many2many('hr.schedule','employee_id',string="Schedule")
+
+
 
 class HrAttendance(models.Model):
     _inherit="hr.attendance"
