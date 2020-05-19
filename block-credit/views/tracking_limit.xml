@@ -5,6 +5,7 @@
         <field name="model">mail.tracking.value</field>
         <field name="arch" type="xml">
             <tree string="Tracking Value">
+                <field name="company_user"/>
                 <field name="contact"/>
                 <field name="author"/>
                 <field name="field"/>
@@ -38,6 +39,6 @@
 
     <menuitem id="res_partner_menu_reports" name="Reports" parent="contacts.menu_contacts" sequence="2"/>
 
-    <menuitem id="res_partner_reports" name="Credit limit movements" action="report_credit" parent="res_partner_menu_reports" sequence="1"/>
+    <menuitem id="res_partner_reports" name="Credit limit movements" action="report_credit" parent="res_partner_menu_reports" sequence="1" groups="block-credit.group_credit_modify"/>
 
 </odoo>

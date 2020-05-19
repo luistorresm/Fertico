@@ -20,7 +20,9 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'partner_credit_limit', 'contacts', 'mail'],
+    'depends': ['base', 
+    'partner_credit_limit', 
+    'contacts', 'mail'],
 
     # always loaded
     'data': [
@@ -28,7 +30,7 @@
         'security/credit_security.xml',
         'views/views.xml',
         'views/templates.xml',
-        #'views/block_credit.xml',
+        'views/block_credit.xml',
         'views/tracking_limit.xml'
 
     ],
