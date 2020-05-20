@@ -23,13 +23,13 @@ msgstr "Clic para agregar un valor de seguimiento"
 #. module: block-credit
 #: model:ir.model.fields,field_description:block-credit.field_mail_tracking_value_company_user
 msgid "Company"
-msgstr "Empresa"
+msgstr "Compañia"
 
 #. module: block-credit
 #: model:ir.model,name:block-credit.model_res_partner
 #: model:ir.model.fields,field_description:block-credit.field_mail_tracking_value_contact
 msgid "Contact"
-msgstr "Contacto"
+msgstr "Empresa"
 
 #. module: block-credit
 #: model:ir.ui.menu,name:block-credit.res_partner_reports
