@@ -4,7 +4,7 @@
         <field name="name">mail.tracking.report.tree</field>
         <field name="model">mail.tracking.value</field>
         <field name="arch" type="xml">
-            <tree string="Tracking Value">
+            <tree string="Tracking Value" delete="0">
                 <field name="company_user"/>
                 <field name="contact"/>
                 <field name="author"/>

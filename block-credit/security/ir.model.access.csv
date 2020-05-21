@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_block-credit_block-credit,block-credit.block-credit,model_block-credit_block-credit,,1,0,0,0
+access_mail_tracking,block-credit.mail_tracking,model_mail_tracking_value,block-credit.group_credit_modify,0,0,0,0

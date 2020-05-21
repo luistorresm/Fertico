@@ -20,11 +20,13 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'partner_credit_limit', 'contacts', 'mail'],
+    'depends': ['base', 
+    'partner_credit_limit', 
+    'contacts', 'mail'],
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        #'security/ir.model.access.csv',
         'security/credit_security.xml',
         'views/views.xml',
         'views/templates.xml',

@@ -15,6 +15,7 @@ class MailTrackingValue(models.Model):
 
     def _user_company(self):
         comp=self.env.user.company_id.name
+        print("================",self.env.user.name)
         return comp
     
     author = fields.Char(string='User', related='mail_message_id.author_id.name', store=True)
