@@ -15,10 +15,13 @@ class MailTrackingValue(models.Model):
 
     def _user_company(self):
         comp=self.env.user.company_id.name
-        print("================",self.env.user.name)
         return comp
+
+    def _user_name(self):
+        user_name=self.env.user.name
+        return user_name
     
-    author = fields.Char(string='User', related='mail_message_id.author_id.name', store=True)
+    author = fields.Char(string='User', default=_user_name)
     contact = fields.Char(string='Contact', related='mail_message_id.record_name', store=True)
     date_change = fields.Datetime(string='Date', related='mail_message_id.date', store=True)
     company_user=fields.Char(string="Company", default=_user_company)
