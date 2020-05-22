@@ -1,0 +1,13 @@
+<odoo>
+
+    <record model="ir.ui.view" id="pos_channel">
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="pos_sale.pos_config_view_form_pos_sale"/>
+        <field name="arch" type="xml">
+            <field name="crm_team_id" position="replace">
+                <field name='crm_team_id' domain="[('team_type', '=', 'sales')]"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
