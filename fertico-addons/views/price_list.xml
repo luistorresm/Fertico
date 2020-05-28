@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record model="ir.ui.view" id="Load from file xls">
-        <field name="name">Load attendance from file</field>
-        <field name="model">attendance.load.xls</field>
+    <record model="ir.ui.view" id="Load pricelist xls">
+        <field name="name">Load pricelist from file</field>
+        <field name="model">pricelist.load.xls</field>
         <field name="type">form</field>
         <field name="arch" type="xml">
             <form>
@@ -12,14 +12,14 @@
                 </group>
                 <footer>
                     <button string="Cancel" special="cancel" class="oe_highlight"/>
-                    <button name="load_attendance" string="Submit" type="object" class="oe_highlight" />
+                    <button name="import_pricelist" string="Submit" type="object" class="oe_highlight" />
                 </footer>
             </form>
         </field>
     </record>
 
-    <act_window id="action_wizard_price_list" name="Load from file xls" res_model="attendance.load.xls" view_mode="form" target="new" multi="True" />
+    <act_window id="action_wizard_price_list" name="Load pricelist xls" res_model="pricelist.load.xls" view_mode="form" target="new" multi="True" />
 
-    <menuitem id="menu_price_list_xls" name="Load from file" parent="hr_attendance.menu_hr_attendance_manage_attendances" action="action_wizard_price_list"/>
+    <menuitem id="menu_price_list_xls" name="Load pricelist from file" parent="sale.menu_sale_report" action="action_wizard_price_list"/>
 
 </odoo>
