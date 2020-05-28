@@ -20,6 +20,6 @@
 
     <act_window id="action_wizard_price_list" name="Load pricelist xls" res_model="pricelist.load.xls" view_mode="form" target="new" multi="True" />
 
-    <menuitem id="menu_price_list_xls" name="Load pricelist from file" parent="sale.menu_sale_report" action="action_wizard_price_list"/>
+    <menuitem id="menu_price_list_xls" name="Load pricelist from file" parent="sale.product_menu_catalog" action="action_wizard_price_list"/>
 
 </odoo>
