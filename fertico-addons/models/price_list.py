@@ -3,7 +3,7 @@ import xlrd
 import tempfile
 import binascii
 
-class PricelistXls(models.TransientModel):
+class PricelistLoadXls(models.TransientModel):
 
     _name='pricelist.load.xls'
 
