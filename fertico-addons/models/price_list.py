@@ -41,6 +41,9 @@ class PricelistXls(models.TransientModel):
                     
                     r_data=[line[0].decode("utf-8"),cred,cont,dist]
                     data.append(r_data)
+
+
+        #remove the current pricelis
         
         cred_pl=self.env['product.pricelist'].search([('name','=',data[0][1])])
         for item in cred_pl.item_ids:
@@ -54,6 +57,7 @@ class PricelistXls(models.TransientModel):
         for item in dist_pl.item_ids:
             dist_pl.item_ids=[(2,item.id)]
 
+        #add the new data
         for r, row in enumerate(data):
             if r > 0:
                 
