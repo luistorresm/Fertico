@@ -29,7 +29,8 @@
         'views/attendances.xml',
         'views/sales_chanel.xml',
         'views/block_sales_price.xml',
-        'views/pos_init.xml'
+        'views/pos_init.xml',
+        'views/store_term.xml',
 
 
         # reports
