@@ -406,9 +406,14 @@ msgid "Set Customer"
 msgstr "Set Customer"
 
 #. module: fertico-addons
+#: model:ir.ui.view,arch_db:fertico-addons.store_payment_term
+msgid "Store"
+msgstr "Archivar"
+
+#. module: fertico-addons
 #: model:ir.ui.view,arch_db:fertico-addons.Load from file xls
 msgid "Submit"
-msgstr "Submit"
+msgstr "Enviar"
 
 #. module: fertico-addons
 #. openerp-web
