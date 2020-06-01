@@ -13,7 +13,7 @@
     'version': '11.0.1.0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'analytic', 'account', 'hr', 'hr_attendance', 'sale', 'point_of_sale', 'pos_sale'],
+    'depends': ['base', 'analytic', 'account', 'hr', 'hr_attendance', 'sale', 'point_of_sale', 'pos_sale', 'web'],
 
     # always loaded
     'data': [
@@ -32,8 +32,9 @@
         'views/pos_init.xml',
         'views/store_term.xml',
 
-
         # reports
+        'reports/custom_layout.xml',
+        'reports/report_invoice_document_inherit.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

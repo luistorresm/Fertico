@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--  TICKET 118  -  DEVELOPED BY SEBASTIAN MENDEZ  -  START   -->
+    <!--New custom layout for PIA & Albagro -->
+    <template id="report_invoice_inherited" inherit_id="account.report_invoice_document">
+        <!--<t t-if="o.company_id.id == 4 OR o.company_id.id == 5"> -->
+            <!-- <t t-if="o._name == 'account.invoice'"> -->
+                <xpath expr="//t[@t-call='web.external_layout']" position="attributes">
+                    <attribute name="t-call">custom_layout</attribute>
+                    <!-- <attribute name="t-call" add="custom_layout" /> -->
+                </xpath>
+           <!-- </t>
+        </t> -->
+    </template>
+    <!--  TICKET 118  -  DEVELOPED BY SEBASTIAN MENDEZ  -  START   -->
+</odoo>
