@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5c20cb05-f64d-40d7-ac41-2b707277340c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/fertico-addons/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/fertico-addons/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fertico-addons/__manifest__.py" beforeDir="false" afterPath="$PROJECT_DIR$/fertico-addons/__manifest__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fertico-addons/reports/report_invoice_document_inherit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/fertico-addons/reports/report_invoice_document_inherit.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

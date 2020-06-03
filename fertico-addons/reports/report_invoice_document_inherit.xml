@@ -2,15 +2,22 @@
 <odoo>
     <!--  TICKET 118  -  DEVELOPED BY SEBASTIAN MENDEZ  -  START   -->
     <!--New custom layout for PIA & Albagro -->
-    <template id="report_invoice_inherited" inherit_id="account.report_invoice_document">
-        <!--<t t-if="o.company_id.id == 4 OR o.company_id.id == 5"> -->
-            <!-- <t t-if="o._name == 'account.invoice'"> -->
-                <xpath expr="//t[@t-call='web.external_layout']" position="attributes">
-                    <attribute name="t-call">custom_layout</attribute>
-                    <!-- <attribute name="t-call" add="custom_layout" /> -->
-                </xpath>
-           <!-- </t>
-        </t> -->
+    <template id="report_invoice_inherit" inherit_id="account.report_invoice_document">
+        <xpath expr="//t[@t-call='web.external_layout']" position="attributes">
+            <attribute name="t-call">custom_layout</attribute>
+        </xpath>
+    </template>
+
+    <template id="external_layout_inherit" inherit_id="web.external_layout_standard">
+        <xpath expr="//t[2]" position="replace">
+            <t t-if="o_name == 'account.invoice'" t-call="custom_layout"><t t-raw="0"/></t>
+        </xpath>
+    </template>
+
+    <template id="report_invoice_inherit" inherit_id="account.report_invoice_document">
+        <xpath expr="//t[@t-call='web.external_layout']" position="replace">
+            <t t-if="o_name == 'account.invoice'" t-call="custom_layout"><t t-raw="0"/></t>
+        </xpath>
     </template>
     <!--  TICKET 118  -  DEVELOPED BY SEBASTIAN MENDEZ  -  START   -->
 </odoo>
