@@ -10,7 +10,7 @@
     # Check https://github.com/odoo/odoo/blob/11.0/odoo/addons/base/module/module_data.xml
     # for the full list
     'category': 'Uncategorized',
-    'version': '11.0.1.0.1',
+    'version': '11.0.1.0.2',
 
     # any module necessary for this one to work correctly
     'depends': ['base', 'analytic', 'account', 'hr', 'hr_attendance', 'sale', 'point_of_sale', 'pos_sale'],
@@ -31,6 +31,7 @@
         'views/block_sales_price.xml',
         'views/pos_init.xml',
         'views/store_term.xml',
+        'views/price_list.xml',
 
 
         # reports
