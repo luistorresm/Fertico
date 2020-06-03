@@ -2,21 +2,10 @@
 <odoo>
     <!--  TICKET 118  -  DEVELOPED BY SEBASTIAN MENDEZ  -  START   -->
     <!--New custom layout for PIA & Albagro -->
-    <template id="report_invoice_inherit" inherit_id="account.report_invoice_document">
-        <xpath expr="//t[@t-call='web.external_layout']" position="attributes">
-            <attribute name="t-call">custom_layout</attribute>
-        </xpath>
-    </template>
-
-    <template id="external_layout_inherit" inherit_id="web.external_layout_standard">
+    <template id="external_layout_inherit" inherit_id="web.external_layout">
         <xpath expr="//t[2]" position="replace">
-            <t t-if="o_name == 'account.invoice'" t-call="custom_layout"><t t-raw="0"/></t>
-        </xpath>
-    </template>
-
-    <template id="report_invoice_inherit" inherit_id="account.report_invoice_document">
-        <xpath expr="//t[@t-call='web.external_layout']" position="replace">
-            <t t-if="o_name == 'account.invoice'" t-call="custom_layout"><t t-raw="0"/></t>
+            <t t-if="docs._name == 'account.invoice'" t-call="custom_layout"><t t-raw="0"/></t>
+            <t t-else="docs._name != 'account.invoice' and company.external_report_layout_id" t-call="{{company.external_report_layout_id.key}}"><t t-raw="0"/></t>
         </xpath>
     </template>
     <!--  TICKET 118  -  DEVELOPED BY SEBASTIAN MENDEZ  -  START   -->
