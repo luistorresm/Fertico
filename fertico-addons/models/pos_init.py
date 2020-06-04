@@ -21,3 +21,14 @@ class PosConfig(models.Model):
         })
 
         return res
+
+class PosOrder(models.Model):
+    _inherit = 'pos.order'
+
+    @api.model
+    def write(self, values):
+        order = super(PosOrder, self).write(values)
+        if self.invoice_id.id:
+            channel=self.session_id.crm_team_id
+            self.invoice_id.team_id=channel
+        return order
