@@ -8,3 +8,4 @@ from . import taxes
 from . import pos_init
 from . import store_term
 from . import price_list
+from . import contact
