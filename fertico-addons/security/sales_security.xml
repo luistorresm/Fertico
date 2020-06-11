@@ -10,4 +10,12 @@
 
 
     </data>
+
+    <data noupdate="0">
+        <record id="group_credit_domain" model="res.groups">
+            <field name="name">View rates and payment terms in sales</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+    </data>
+
 </odoo>

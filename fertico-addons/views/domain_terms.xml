@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_terms_sales" model="ir.ui.view">
+        <field name="model">account.payment.term</field>
+        <field name="inherit_id" ref="account.view_payment_term_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='note']" position="before">
+                <group>
+                    <field name="display_sales" groups="fertico-addons.group_credit_domain"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_terms_pricelist" model="ir.ui.view">
+        <field name="model">product.pricelist</field>
+        <field name="inherit_id" ref="product.product_pricelist_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='country_group_ids']" position="before">
+                <group>
+                    <field name="display_sales" groups="fertico-addons.group_credit_domain"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+
+    	
+
+
+</odoo>

@@ -32,6 +32,7 @@
         'views/pos_init.xml',
         'views/store_term.xml',
         'views/price_list.xml',
+        'views/domain_terms.xml',
 
 
         # reports
