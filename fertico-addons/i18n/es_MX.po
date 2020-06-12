@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-11 21:25+0000\n"
-"PO-Revision-Date: 2020-06-11 21:25+0000\n"
+"POT-Creation-Date: 2020-06-12 21:13+0000\n"
+"PO-Revision-Date: 2020-06-12 21:13+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -121,12 +121,23 @@ msgid "Extras"
 msgstr "Extras"
 
 #. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_product_pricelist_force_term
+#: model:ir.model.fields,field_description:fertico-addons.field_sale_order_force
+msgid "Force terms"
+msgstr "Forzar plazos de pago"
+
+#. module: fertico-addons
 #: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_distribution_id
 #: model:ir.model.fields,field_description:fertico-addons.field_attendance_load_xls_id
 #: model:ir.model.fields,field_description:fertico-addons.field_hr_schedule_id
 #: model:ir.model.fields,field_description:fertico-addons.field_pricelist_load_xls_id
 msgid "ID"
 msgstr "ID (identificación)"
+
+#. module: fertico-addons
+#: model:ir.model.fields,help:fertico-addons.field_sale_order_payment_term_id_domain
+msgid "If you use payment terms, the due date will be computed automatically at the generation of accounting entries. If you keep the payment terms and the due date empty, it means direct payment. The payment terms may compute several due dates, for example 50% now, 50% in one month."
+msgstr "Si utiliza los plazos de pago, la fecha de vencimiento será calculada automáticamente en la generación de los asientos contables. Si se mantiene el plazo de pago y la fecha de vencimiento vacía, significa que es un pago directo. El plazo de pago podrá calcular varias fechas de vencimiento, por ejemplo, 50% ahora, 50% en un mes."
 
 #. module: fertico-addons
 #: model:ir.model,name:fertico-addons.model_account_invoice
@@ -190,8 +201,9 @@ msgstr "Etiqueta principal"
 
 #. module: fertico-addons
 #: model:ir.model,name:fertico-addons.model_account_payment_term
+#: model:ir.model.fields,field_description:fertico-addons.field_sale_order_payment_term_id_domain
 msgid "Payment Terms"
-msgstr "Payment Terms"
+msgstr "Plazos de pago"
 
 #. module: fertico-addons
 #: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_distribution_percentage
@@ -205,8 +217,14 @@ msgstr "Pedidos del Punto de Venta"
 
 #. module: fertico-addons
 #: model:ir.model,name:fertico-addons.model_product_pricelist
+#: model:ir.model.fields,field_description:fertico-addons.field_sale_order_pricelist_id_domain
 msgid "Pricelist"
 msgstr "Tarifa"
+
+#. module: fertico-addons
+#: model:ir.model.fields,help:fertico-addons.field_sale_order_pricelist_id_domain
+msgid "Pricelist of the selected partner."
+msgstr "Pricelist of the selected partner."
 
 #. module: fertico-addons
 #: model:ir.model,name:fertico-addons.model_product_product

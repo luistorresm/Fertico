@@ -9,6 +9,7 @@ class ProductPricelist(models.Model):
     _inherit = "product.pricelist"
 
     display_sales=fields.Boolean(string="Display in sales", default=True)
+    force_term=fields.Boolean(string="Force terms", default=False)
 
 
 class SaleOrder(models.Model):
@@ -28,6 +29,7 @@ class SaleOrder(models.Model):
     pricelist_id_domain = fields.Many2one(
         'product.pricelist', 'Pricelist',
         help='Pricelist of the selected partner.', domain="[('display_sales','=',True)]")
+    force = fields.Boolean(related='pricelist_id.force_term')
 
     @api.multi
     @api.onchange('payment_term_id_domain')

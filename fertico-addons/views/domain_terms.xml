@@ -20,6 +20,7 @@
             <xpath expr="//field[@name='country_group_ids']" position="before">
                 <group>
                     <field name="display_sales" groups="fertico-addons.group_credit_domain"/>
+                    <field name="force_term" groups="fertico-addons.group_credit_domain"/>
                 </group>
             </xpath>
         </field>
@@ -37,7 +38,8 @@
             </xpath>
             <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="pricelist_id_domain"/>
-                <field name="payment_term_id_domain"/>
+                <field name="force" invisible="True"/>
+                <field name="payment_term_id_domain" attrs="{'required': [('force','=', True)]}"/>
             </xpath>
         </field>
     </record>
