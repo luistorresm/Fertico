@@ -14,6 +14,15 @@ class ProductPricelist(models.Model):
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    payment_term_id = fields.Many2one(domain="[('display_sales','=',True)]")
+    @api.model
+    def _get_company(self):
+        return self.env.user.company_id.id
+
+    company_user=fields.Integer(default=_get_company)
+
+    payment_term_id = fields.Many2one(domain="['&',('display_sales','=',True),('company_id','=','company_user')]")
     pricelist_id = fields.Many2one(domain="[('display_sales','=',True)]")
+    
+
+    
     
