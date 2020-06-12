@@ -20,9 +20,21 @@ class SaleOrder(models.Model):
         domain=['&',('display_sales','=',True),('company_id','=',company)]
         return domain
 
-    payment_term_id = fields.Many2one(domain=_get_domain_term)
-    pricelist_id = fields.Many2one(domain="[('display_sales','=',True)]")
-    
+    payment_term_id_domain = fields.Many2one('account.payment.term', string='Payment Terms', oldname='payment_term',
+        readonly=True, states={'draft': [('readonly', False)]},
+        help="If you use payment terms, the due date will be computed automatically at the generation "
+             "of accounting entries. If you keep the payment terms and the due date empty, it means direct payment. "
+             "The payment terms may compute several due dates, for example 50% now, 50% in one month.", domain=_get_domain_term)
+    pricelist_id_domain = fields.Many2one(
+        'product.pricelist', 'Pricelist',
+        help='Pricelist of the selected partner.', domain="[('display_sales','=',True)]")
 
-    
-    
+    @api.multi
+    @api.onchange('payment_term_id_domain')
+    def _onchange_term(self):
+        self.payment_term_id=self.payment_term_id_domain
+
+    @api.multi
+    @api.onchange('pricelist_id_domain')
+    def _onchange_pricelist(self):
+        self.pricelist_id=self.pricelist_id_domain

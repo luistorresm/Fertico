@@ -25,8 +25,21 @@
         </field>
     </record>
 
-
-    	
-
-
+    <record id="view_terms_domain" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='pricelist_id']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='payment_term_id']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="pricelist_id_domain"/>
+                <field name="payment_term_id_domain"/>
+            </xpath>
+        </field>
+    </record>
+    
 </odoo>
