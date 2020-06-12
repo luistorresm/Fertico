@@ -15,12 +15,12 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     @api.model
-    def _get_company(self):
-        return self.env.user.company_id.id
+    def _get_domain_term(self):
+        company=self.env.user.company_id.id
+        domain=['&',('display_sales','=',True),('company_id','=',company)]
+        return domain
 
-    company_user=fields.Integer(default=_get_company)
-
-    payment_term_id = fields.Many2one(domain="['&',('display_sales','=',True),('company_id','=','company_user')]")
+    payment_term_id = fields.Many2one(domain=_get_domain_term)
     pricelist_id = fields.Many2one(domain="[('display_sales','=',True)]")
     
 
