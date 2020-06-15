@@ -34,6 +34,16 @@ class PosSession(models.Model):
                 ('rescue', '=', False)
             ]) > 1:
             raise ValidationError(_("You cannot create two active sessions with the same responsible!"))
+
+    @api.constrains('config_id')
+    def _check_pos_config(self):
+        if self.search_count([
+                ('state', '!=', 'closed'),
+                ('state', '!=', 'verified'),
+                ('config_id', '=', self.config_id.id),
+                ('rescue', '=', False)
+            ]) > 1:
+            raise ValidationError(_("Another session is already opened for this point of sale."))
     
 
 class PosConfig(models.Model):
@@ -48,6 +58,20 @@ class PosConfig(models.Model):
         })
 
         return res
+
+    @api.multi
+    def open_session_verify(self):
+        """ new session button
+
+        create one if none exist
+        access cash control interface if enabled or start a session
+        """
+        self.current_session_id = self.env['pos.session'].create({
+            'user_id': self.env.uid,
+            'config_id': self.id
+        })
+        if self.current_session_id.state == 'opened':
+            return self.open_ui()
 
 
 class PosOrder(models.Model):
