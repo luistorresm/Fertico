@@ -25,7 +25,7 @@ class PosConfig(models.Model):
 class PosOrder(models.Model):
     _inherit = 'pos.order'
 
-    @api.model
+    @api.multi
     def write(self, values):
         order = super(PosOrder, self).write(values)
         if self.invoice_id.id:
