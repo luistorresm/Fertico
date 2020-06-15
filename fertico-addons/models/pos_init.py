@@ -9,6 +9,33 @@ class PosSession(models.Model):
         help="Total of opening cash control lines.",
         readonly=False)
 
+    POS_SESSION_STATE = [
+        ('opening_control', 'Opening Control'),  # method action_pos_session_open
+        ('opened', 'In Progress'),               # method action_pos_session_closing_control
+        ('closing_control', 'Closing Control'),  # method action_pos_session_close
+        ('closed', 'Closed & Posted'),           # method action_pos_session_verified
+        ('verified', 'Verified'),
+    ]
+
+    state = fields.Selection(
+        POS_SESSION_STATE)
+
+    @api.multi
+    def action_pos_session_verified(self):        
+        self.write({'state': 'verified'})
+
+
+    @api.constrains('user_id', 'state')
+    def _check_unicity(self):
+        # open if there is no session in 'opening_control', 'opened', 'closing_control' for one user
+        if self.search_count([
+                ('state', 'not in', ('closed', 'closing_control','verified')),
+                ('user_id', '=', self.user_id.id),
+                ('rescue', '=', False)
+            ]) > 1:
+            raise ValidationError(_("You cannot create two active sessions with the same responsible!"))
+    
+
 class PosConfig(models.Model):
     _inherit = 'pos.config'
 
@@ -21,6 +48,7 @@ class PosConfig(models.Model):
         })
 
         return res
+
 
 class PosOrder(models.Model):
     _inherit = 'pos.order'
