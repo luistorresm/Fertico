@@ -1,0 +1,11 @@
+<odoo>
+    <record model="ir.ui.view" id="sale_invoice_block_create">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="before">
+                <field name="team_id" invisible="True"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
