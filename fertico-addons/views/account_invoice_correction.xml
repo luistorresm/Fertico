@@ -1,5 +1,5 @@
 <odoo>
-    <record model="ir.ui.view" id="sale_invoice_block_create">
+    <record model="ir.ui.view" id="sale_invoice_domain">
         <field name="model">account.invoice</field>
         <field name="inherit_id" ref="account.invoice_form"/>
         <field name="arch" type="xml">
