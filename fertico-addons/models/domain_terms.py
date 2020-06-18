@@ -28,7 +28,7 @@ class SaleOrder(models.Model):
              "The payment terms may compute several due dates, for example 50% now, 50% in one month.", domain=_get_domain_term)
     pricelist_id_domain = fields.Many2one(
         'product.pricelist', 'Pricelist',
-        help='Pricelist of the selected partner.', domain="[('display_sales','=',True)]", required=True)
+        help='Pricelist of the selected partner.', domain="[('display_sales','=',True)]")
     force = fields.Boolean(related='pricelist_id.force_term')
 
     @api.multi
