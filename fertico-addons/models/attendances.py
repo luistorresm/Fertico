@@ -85,18 +85,21 @@ class AttendancesXls(models.TransientModel):
                 row_data=[]
                 lines = list(map(lambda row:isinstance(row.value, str) and row.value.encode('utf-8') or str(row.value), sheet.row(row_no)))
                 
-                if lines[0]=='1.0':
+                if row_no==2:
                     row_data=lines
-                elif lines[0]==b'ID:':
-                    for line in lines:
-                        if line != '':
-                            row_data.append(line.decode("utf-8"))
-                else:
-                    for line in lines:
-                        if line != '':
-                            row_data.append(line.decode("utf-8"))
-                        else:
-                            row_data.append(line)
+                elif row_no==3:
+                    row_data=lines
+                elif row_no>3:
+                    if lines[0]==b'ID:':
+                        for line in lines:
+                            if line != '':
+                                row_data.append(line.decode("utf-8"))
+                    else:
+                        for line in lines:
+                            if line != '':
+                                row_data.append(line.decode("utf-8"))
+                            else:
+                                row_data.append(line)
                 
                 if len(row_data)==0:
                     row_data.append(False)
@@ -105,13 +108,8 @@ class AttendancesXls(models.TransientModel):
         #add only the necesary data in a new array "new_data", in each row the employee information and the asistance data
         #array with the period
         new_data=[]
-        period=[]
         n_d=0
         for d in data:
-            if d[0]=='1.0':
-                for i in d:
-                    if i != '':
-                        period.append(float(i))
 
             if n_d!=len(data):
                 if d[0]=='ID:':
@@ -125,13 +123,16 @@ class AttendancesXls(models.TransientModel):
                 n_d+=1
         
         #create the init date from data array
-        date_init=data[1][6][0]+data[1][6][1]+data[1][6][2]+data[1][6][3]+data[1][6][4]+data[1][6][5]+data[1][6][6]+data[1][6][7]+data[1][6][8]+data[1][6][9]
+        ds=data[1][6].decode("utf-8") #date_string
+        date_init=ds[0]+ds[1]+ds[2]+ds[3]+ds[4]+ds[5]+ds[6]+ds[7]+ds[8]+ds[9]
         date_object = datetime.strptime(date_init, '%Y-%m-%d').date()
         
         #new array with the period integer
         period_int=[]
-        for p in period:
-            period_int.append(round(p))
+        n_p=1
+        for p in data[1]:
+            period_int.append(n_p)
+            n_p+=1
         
         #separate the dates in arrays and join the time to the date
         for nd in new_data:
