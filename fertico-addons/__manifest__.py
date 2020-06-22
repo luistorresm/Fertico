@@ -34,6 +34,7 @@
         'views/price_list.xml',
         'views/block_create_line.xml',
         'views/domain_terms.xml',
+        'views/account_invoice_correction.xml',
 
 
         # reports
