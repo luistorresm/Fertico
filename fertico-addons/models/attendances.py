@@ -61,8 +61,6 @@ class AttendancesXls(models.TransientModel):
         dif_hours = float(dif.seconds)/3600
         return dif_hours
 
-
-    
     
     @api.multi
     def load_attendance(self):
@@ -134,7 +132,7 @@ class AttendancesXls(models.TransientModel):
             period_int.append(n_p)
             n_p+=1
         
-        #separate the dates in arrays and join the time to the date
+        #separate the dates in arrays and join the time to the date and store schedules
         for nd in new_data:
             
             for n in period_int:
