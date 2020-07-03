@@ -30,3 +30,36 @@ class SaleOrder(models.Model):
         else:
             self.user_id=''
             return {'domain': {'user_id': [('sale_team_id','!=', None)]}}
+
+    @api.multi
+    def action_confirm_sent(self):
+        if self._get_forbidden_state_confirm() & set(self.mapped('state')):
+            raise UserError(_(
+                'It is not allowed to confirm an order in the following states: %s'
+            ) % (', '.join(self._get_forbidden_state_confirm())))
+
+        for order in self.filtered(lambda order: order.partner_id not in order.message_partner_ids):
+            order.message_subscribe([order.partner_id.id])
+        self.write({
+            'state': 'sale',
+            'confirmation_date': fields.Datetime.now()
+        })
+        self._action_confirm()
+        if self.env['ir.config_parameter'].sudo().get_param('sale.auto_done_setting'):
+            self.action_done()
+        return True
+
+    authorized_1=fields.Boolean(default=False)
+    authorized_2=fields.Boolean(default=False)
+    authorized_3=fields.Boolean(default=False)
+
+    def authorize_1(self):
+        self.authorized_1=True
+    
+    def authorize_2(self):
+        self.authorized_2=True
+
+    def authorize_3(self):
+        self.authorized_3=True
+
+    

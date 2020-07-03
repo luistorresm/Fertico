@@ -13,12 +13,23 @@
         </field>
     </record>
 
-    <record model="ir.ui.view" id="store_payment_term">
-        <field name="model">account.payment.term</field>
-        <field name="inherit_id" ref="account.view_payment_term_form"/>
+    <record model="ir.ui.view" id="authorize_sale_form_view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='active']" position="replace">
-                <button string="Store" type="object" name="disabe_payment_term"></button>
+            <xpath expr="//button[@id='action_confirm']" position="replace">
+                <button name="action_confirm_sent" id="action_confirm" string="Confirm" class="btn-primary" type="object" attrs="{'invisible': ['|','|','|',('state', 'not in', ['sent']),('authorized_1','=', False),('authorized_2','=', False),('authorized_3','=', False)]}"/>
+            </xpath>
+            <xpath expr="//button[@name='action_confirm_sent']" position="before">
+                <field name="authorized_1" invisible="True"/>
+                <field name="authorized_2" invisible="True"/>
+                <field name="authorized_3" invisible="True"/>
+                <button string="Authorize" type="object" name="authorize_1" class="btn-primary" attrs="{'invisible': [('authorized_1', '=', True)]}" groups="fertico-addons.group_autorize_1"></button>
+                <button string="Authorize" type="object" name="authorize_2" class="btn-primary" attrs="{'invisible': ['|',('authorized_2', '=', True),('authorized_1', '=', False)]}" groups="fertico-addons.group_autorize_2"></button>
+                <button string="Authorize" type="object" name="authorize_3" class="btn-primary" attrs="{'invisible': ['|',('authorized_3', '=', True),('authorized_2', '=', False)]}" groups="fertico-addons.group_autorize_3"></button>
+            </xpath>
+            <xpath expr="//button[@name='action_confirm']" position="replace">
+                <button name="action_confirm" string="Confirm Sale" type="object" attrs="{'invisible': ['|','|','|',('state', 'not in', ['draft']),('authorized_1','=', False),('authorized_2','=', False),('authorized_3','=', False)]}"/>
             </xpath>
         </field>
     </record>

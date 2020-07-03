@@ -18,4 +18,25 @@
         </record>
     </data>
 
+    <data noupdate="0">
+        <record id="group_autorize_1" model="res.groups">
+            <field name="name">First Authorization</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+    </data>
+
+    <data noupdate="0">
+        <record id="group_autorize_2" model="res.groups">
+            <field name="name">Second Authorization</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+    </data>
+
+    <data noupdate="0">
+        <record id="group_autorize_3" model="res.groups">
+            <field name="name">Third Authorization</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+    </data>
+
 </odoo>
