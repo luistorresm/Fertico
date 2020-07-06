@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--  TICKET 118  -  DEVELOPED BY SEBASTIAN MENDEZ  -  START   -->
+    <!--New custom layout for PIA & Albagro -->
+    <template id="external_layout_inherit" inherit_id="web.external_layout">
+        <xpath expr="//t[3]" position="replace">
+            <t t-if="docs._name == 'account.invoice' and (docs.company_id.id == 4 or docs.company_id.id == 5)" t-call="fertico-addons.custom_layout"><t t-raw="0"/></t>
+        </xpath>
+    </template>
+    <!--  TICKET 118  -  DEVELOPED BY SEBASTIAN MENDEZ  -  START   -->
+</odoo>

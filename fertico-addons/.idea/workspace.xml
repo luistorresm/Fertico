@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="be4de566-6367-41aa-8505-e0f4e5be4223" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/models/account_invoice_correction.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/contact.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/domain_terms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/price_list.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/account_invoice_correction.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/block_create_line.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/domain_terms.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/price_list.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__manifest__.py" beforeDir="false" afterPath="$PROJECT_DIR$/__manifest__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/i18n/es_MX.po" beforeDir="false" afterPath="$PROJECT_DIR$/i18n/es_MX.po" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/attendances.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/attendances.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/pos_init.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/pos_init.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/security/sales_security.xml" beforeDir="false" afterPath="$PROJECT_DIR$/security/sales_security.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/pos_init.xml" beforeDir="false" afterPath="$PROJECT_DIR$/views/pos_init.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../mexico" beforeDir="false" afterPath="$PROJECT_DIR$/../mexico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../vendor-bills" beforeDir="false" afterPath="$PROJECT_DIR$/../vendor-bills" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1eJl068NT3KI89MZCyfHggaxrrd" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="be4de566-6367-41aa-8505-e0f4e5be4223" name="Default Changelist" comment="" />
+      <created>1594047351406</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1594047351406</updated>
+    </task>
+    <servers />
+  </component>
+</project>

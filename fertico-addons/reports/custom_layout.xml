@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--  TICKET 118  -  DEVELOPED BY SEBASTIAN MENDEZ  -  START   -->
+    <!--New custom layout for PIA & Albagro -->
+    <template id="custom_layout">
+        <div class="header">
+        </div>
+
+        <div class="footer">
+        </div>
+    </template>
+    <!--  TICKET 118  -  DEVELOPED BY SEBASTIAN MENDEZ  -  START   -->
+</odoo>
