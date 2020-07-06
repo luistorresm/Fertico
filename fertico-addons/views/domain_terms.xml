@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_terms_sales" model="ir.ui.view">
+        <field name="model">account.payment.term</field>
+        <field name="inherit_id" ref="account.view_payment_term_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='note']" position="before">
+                <group>
+                    <field name="display_sales" groups="fertico-addons.group_credit_domain"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_terms_pricelist" model="ir.ui.view">
+        <field name="model">product.pricelist</field>
+        <field name="inherit_id" ref="product.product_pricelist_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='country_group_ids']" position="before">
+                <group>
+                    <field name="display_sales" groups="fertico-addons.group_credit_domain"/>
+                    <field name="force_term" groups="fertico-addons.group_credit_domain"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_terms_domain" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='pricelist_id']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='payment_term_id']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="pricelist_id_domain"/>
+                <field name="force" invisible="True"/>
+                <field name="payment_term_id_domain" attrs="{'required': [('force','=', True)]}"/>
+            </xpath>
+        </field>
+    </record>
+    
+</odoo>
