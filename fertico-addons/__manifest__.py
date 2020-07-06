@@ -38,6 +38,7 @@
 
 
         # reports
+        'views/report.xml'
     ],
     # only loaded in demonstration mode
     'demo': [

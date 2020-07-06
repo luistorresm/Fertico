@@ -30,3 +30,9 @@ class SaleOrder(models.Model):
         else:
             self.user_id=''
             return {'domain': {'user_id': [('sale_team_id','!=', None)]}}
+
+
+class ReportPartnerLedger(models.AbstractModel):
+    _name = 'report.account.report_partnerledger'
+
+    
