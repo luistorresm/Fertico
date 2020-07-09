@@ -25,7 +25,20 @@ class MailTrackingValue(models.Model):
         track.company_user=track.mail_message_id.author_id.company_id.name
         return track
 
+class MailMessage(models.Model):
+    _inherit='mail.message'
 
+    #------------------------------------------------------------------------------------
+    #SC_AL.LC_TK- Interno: TK 000119 Revisión trazabilidad de configuraciones eliminadas
+    #------------------------------------------------------------------------------------
+    #save company in mail message when change the credit limit
+    @api.model
+    def create(self, values):
+        mail = super(MailMessage, self).create(values)
+        if mail.model == 'res.partner':
+            company = self.env.user.company_id.name
+            mail.body="<ul style=\"margin:0px 0 9px 0\"><li><p style='margin:0px; font-size:13px; font-family:\"Lucida Grande\", Helvetica, Verdana, Arial, sans-serif'>Empresa: "+company+"</p></li></ul>"
+        return mail
 
     
 
