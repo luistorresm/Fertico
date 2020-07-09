@@ -334,3 +334,8 @@ msgstr "Viaje"
 #: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_tag_analytic_tag_type
 msgid "Analytic Tag Type"
 msgstr "Tipo de Etiqueta Analítica"
+
+#. module: fertico-addons
+#: model:res.groups,name:fertico-addons.analytic_tag_analysis
+msgid "Analytic Tags Analysis"
+msgstr "Análisis de Etiquetas Analíticas"
