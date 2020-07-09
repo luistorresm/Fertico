@@ -18,9 +18,47 @@ class AccountAnalyticTag(models.Model):
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
-    tag_trip = fields.Char('Trip')    
-    tag_route = fields.Char('Route')    
-    tag_operator = fields.Char('Operator')            
+    tag_trip = fields.Char('Trip', compute="_compute_trip")    
+    tag_route = fields.Char('Route', compute="_compute_route")    
+    tag_operator = fields.Char('Operator', compute="_compute_operator")   
+
+    @api.depends('analytic_tag_ids')
+    def _compute_trip(self):
+        for rec in self:
+            if rec.analytic_tag_ids:
+                tags = rec.analytic_tag_ids.ids.split(",")
+
+                for vals in tags:
+                    tag = self.env['account.analytic.tag'].browse(vals)
+
+                    if tag.mapped('analytic_tag_type') == 'trip':
+                        rec.tag_trip = vals
+
+
+    @api.depends('analytic_tag_ids')
+    def _compute_route(self):
+        for rec in self:
+            if rec.analytic_tag_ids:
+                tags = rec.analytic_tag_ids.ids.split(",")
+
+                for vals in tags:
+                    tag = self.env['account.analytic.tag'].browse(vals)
+
+                    if tag.mapped('analytic_tag_type') == 'route':
+                        rec.tag_route = vals                        
+
+
+    @api.depends('analytic_tag_ids')
+    def _compute_operator(self):
+        for rec in self:
+            if rec.analytic_tag_ids:
+                tags = rec.analytic_tag_ids.ids.split(",")
+
+                for vals in tags:
+                    tag = self.env['account.analytic.tag'].browse(vals)
+
+                    if tag.mapped('analytic_tag_type') == 'operator':
+                        rec.tag_operator = vals                
 #//////////////////////////////////////////////////////////////////////////////////////////////#
 #   TICKET 102    DEVELOPED BY SEBASTIAN MENDEZ    --     END
 #//////////////////////////////////////////////////////////////////////////////////////////////#
