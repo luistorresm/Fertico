@@ -33,7 +33,7 @@
         'views/block_sales_price.xml',
         'views/domain_terms.xml',        
         'views/pos_init.xml',
-        'views/price_list.xml'        
+        'views/price_list.xml',        
         'views/sales_chanel.xml',        
         'views/store_term.xml',        
 
