@@ -312,3 +312,25 @@ msgstr "pos.session"
 msgid "pricelist.load.xls"
 msgstr "pricelist.load.xls"
 
+#. module: fertico-addons
+#: selection:account.analytic.tag,analytic_tag_type:0
+#: model:ir.model.fields,field_description:fertico-addons.field_account_move_line_tag_route
+msgid "Route"
+msgstr "Ruta"
+
+#. module: fertico-addons
+#: selection:account.analytic.tag,analytic_tag_type:0
+#: model:ir.model.fields,field_description:fertico-addons.field_account_move_line_tag_operator
+msgid "Operator"
+msgstr "Operador"
+
+#. module: fertico-addons
+#: selection:account.analytic.tag,analytic_tag_type:0
+#: model:ir.model.fields,field_description:fertico-addons.field_account_move_line_tag_trip
+msgid "Trip"
+msgstr "Viaje"
+
+#. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_tag_analytic_tag_type
+msgid "Analytic Tag Type"
+msgstr "Tipo de Etiqueta Analítica"
