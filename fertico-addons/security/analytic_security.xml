@@ -8,5 +8,12 @@
             <field name="category_id" ref="base.module_category_hidden"/>
         </record>
 
+        <!--  TICKET 102  -  DEVELOPED BY SEBASTIAN MENDEZ  -  START   -->
+        <record id="analytic_tag_analysis" model="res.groups">
+            <field name="name">Analytic Tags Analysis</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+        <!--  TICKET 102  -  DEVELOPED BY SEBASTIAN MENDEZ  -  END   -->
+
     </data>
 </odoo>
