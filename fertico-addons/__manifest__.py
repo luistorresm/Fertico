@@ -27,7 +27,7 @@
         'views/templates.xml',
         'views/account_analytic.xml',
         'views/account_invoice_correction.xml',
-        'views/analytic_tag_new_control.xml',        
+        'views/analytic_tag_analysis.xml',        
         'views/attendances.xml', 
         'views/block_create_line.xml',              
         'views/block_sales_price.xml',

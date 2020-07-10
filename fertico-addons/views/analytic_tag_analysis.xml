@@ -10,7 +10,7 @@
         <field name="inherit_id" ref="account.view_move_line_tree"/>
         <field name="arch" type="xml">
             <field name="analytic_account_id" position="after">
-                <field name="analytic_tag_ids"/>
+                <field name="analytic_tag_ids" widget="many2many_tags"/>
                 <field name="tag_trip" groups="fertico-addons.analytic_tag_analysis"/>
                 <field name="tag_route" groups="fertico-addons.analytic_tag_analysis"/>
                 <field name="tag_operator" groups="fertico-addons.analytic_tag_analysis"/> 
