@@ -77,7 +77,7 @@ class AccountMoveLine(models.Model):
 
                     #Assign value into column of operator
                     if tag.analytic_tag_type == 'operator':
-                        rec.tag_operator = tag.operator              
+                        rec.tag_operator = tag.name             
 #//////////////////////////////////////////////////////////////////////////////////////////////#
 #   TICKET 102    DEVELOPED BY SEBASTIAN MENDEZ    --     END
 #//////////////////////////////////////////////////////////////////////////////////////////////#
