@@ -16,7 +16,7 @@ class AccountAnalyticTag(models.Model):
     analytic_tag_type = fields.Selection([('trip', 'Trip'),
                                           ('route', 'Route'),
                                           ('operator', 'Operator')],
-                                         'Analytic Tag Type', default="trip")
+                                         'Analytic Tag Type')
 
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
@@ -24,9 +24,9 @@ class AccountMoveLine(models.Model):
     #:::::::::::::::::::::::::::::::::::::::::::::
     #   MODEL FIELDS
     #:::::::::::::::::::::::::::::::::::::::::::::
-    tag_trip = fields.Char('Trip', compute="_compute_trip")    
-    tag_route = fields.Char('Route', compute="_compute_route")    
-    tag_operator = fields.Char('Operator', compute="_compute_operator")   
+    tag_trip = fields.Char('Trip', store=True, compute="_compute_trip")    
+    tag_route = fields.Char('Route', store=True, compute="_compute_route")    
+    tag_operator = fields.Char('Operator', store=True, compute="_compute_operator")   
 
 
     #:::::::::::::::::::::::::::::::::::::::::::::
