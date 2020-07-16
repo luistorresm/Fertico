@@ -37,8 +37,8 @@
         'views/account_invoice_correction.xml',
 
         # reports
-        #'reports/custom_layout.xml',
-        #'reports/report_invoice_document_inherit.xml',
+        'reports/custom_layout.xml',
+        'reports/report_invoice_document_inherit.xml',
     
     ],
     # only loaded in demonstration mode
