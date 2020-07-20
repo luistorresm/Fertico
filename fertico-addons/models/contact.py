@@ -37,21 +37,22 @@ class ResPartner(models.Model):
                         if dup_ids:
                             raise Warning('RFC debe ser unico, este ya ha sido registrado!')
         else:
-            if self.parent_id:
-                if values.get('vat'):
-                    parent_vat= self.env['res.partner'].search([('id', '=', self.parent_id.id)]).vat
-                    if values['vat'] != parent_vat:
-                        if values['vat'] != "XAXX010101000":
-                            dup_ids = self.env['res.partner'].search([('vat', '=', values['vat'])])
-                            if dup_ids:
-                                raise Warning('RFC debe ser unico, este ya ha sido registrado!')
-            else:
-                if values.get('vat'):
-                    if values['vat']:
-                        if values['vat'] != "XAXX010101000":
-                            dup_ids = self.env['res.partner'].search([('vat', '=', values['vat'])])
-                            if dup_ids:
-                                raise Warning('RFC debe ser unico, este ya ha sido registrado!')
+            for contact in self:
+                if contact.parent_id:
+                    if values.get('vat'):
+                        parent_vat= contact.env['res.partner'].search([('id', '=', contact.parent_id.id)]).vat
+                        if values['vat'] != parent_vat:
+                            if values['vat'] != "XAXX010101000":
+                                dup_ids = contact.env['res.partner'].search([('vat', '=', values['vat'])])
+                                if dup_ids:
+                                    raise Warning('RFC debe ser unico, este ya ha sido registrado!')
+                else:
+                    if values.get('vat'):
+                        if values['vat']:
+                            if values['vat'] != "XAXX010101000":
+                                dup_ids = contact.env['res.partner'].search([('vat', '=', values['vat'])])
+                                if dup_ids:
+                                    raise Warning('RFC debe ser unico, este ya ha sido registrado!')
             
         contact = super(ResPartner, self).write(values)
 
