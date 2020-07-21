@@ -11,3 +11,4 @@ from . import price_list
 from . import contact
 from . import domain_terms
 from . import account_invoice_correction
+from . import account_reconcile

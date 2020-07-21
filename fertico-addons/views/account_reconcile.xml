@@ -1,0 +1,43 @@
+<odoo>
+
+    <record id="report_reconcile_view_tree" model="ir.ui.view">
+        <field name="name">account.partial.report.tree</field>
+        <field name="model">account.partial.reconcile</field>
+        <field name="arch" type="xml">
+            <tree string="Tracking Value" delete="0" default_order="id desc">
+                <field name="invoice"/>
+                <field name="customer"/>
+                <field name="account"/>
+                <field name="account_type"/>
+                <field name="create_date" string="Date"/>
+                <field name="incial"/>
+                <field name="amount"/>
+                <field name="final"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="report_reconcile" model="ir.actions.act_window">
+        <field name="name">Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.partial.reconcile</field>
+        <field name="domain">[('account_type','=','receivable')]</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+            Click to add a track value.
+            </p>
+        </field>
+    </record>
+
+
+    <record id="action_all_customers_treee" model="ir.actions.act_window.view">
+        <field name="act_window_id" ref="report_reconcile" />
+        <field name="view_id" ref="report_reconcile_view_tree" />
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="menu_account_reconcile_report" name="Account reconcile" parent="account.menu_finance_reports" action="report_reconcile" sequence="1"/>
+
+</odoo>
