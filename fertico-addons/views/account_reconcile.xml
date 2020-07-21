@@ -4,7 +4,7 @@
         <field name="name">account.partial.report.tree</field>
         <field name="model">account.partial.reconcile</field>
         <field name="arch" type="xml">
-            <tree string="Tracking Value" delete="0" default_order="id desc">
+            <tree string="Tracking Value" delete="0" default_order="id desc" limit="50">
                 <field name="invoice"/>
                 <field name="customer"/>
                 <field name="account"/>
