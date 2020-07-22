@@ -85,5 +85,13 @@ class AccountInvoice(models.Model):
                             'product_uom_id': ml[10]
                         }
                         record = self.env['account.analytic.line'].create(vals)
-
         return res
+
+
+    @api.multi
+    @api.onchange('invoice_line_ids')
+    def _onchange_line(self):
+        if self.type == 'out_invoice':
+            for line in self.invoice_line_ids:
+                if line.product_id.type == 'product':
+                    raise Warning('No se pueden seleccionar productos almacenables')
