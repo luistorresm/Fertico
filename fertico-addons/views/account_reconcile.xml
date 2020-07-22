@@ -1,5 +1,7 @@
 <odoo>
 
+    <!--=======================================Reporte account reconcile==========================================-->
+    <!--=====================================Vista de arbol personalizada=========================================-->
     <record id="report_reconcile_view_tree" model="ir.ui.view">
         <field name="name">account.partial.report.tree</field>
         <field name="model">account.partial.reconcile</field>
@@ -39,5 +41,6 @@
     </record>
 
     <menuitem id="menu_account_reconcile_report" name="Account reconcile" parent="account.menu_finance_reports" action="report_reconcile" sequence="1"/>
+    <!--======================================Fin de reporte account reconcile====================================-->
 
 </odoo>
