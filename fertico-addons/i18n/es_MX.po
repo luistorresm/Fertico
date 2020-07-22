@@ -312,3 +312,9 @@ msgstr "pos.session"
 msgid "pricelist.load.xls"
 msgstr "pricelist.load.xls"
 
+#. module: fertico-addons
+#: code:addons/fertico-addons/models/account_aged_payable_inherited.py:17
+#: code:addons/fertico-addons/models/account_aged_receivable_inherited.py:17
+#, python-format
+msgid "Release Invoice Date"
+msgstr "Fecha de emisión de factura"
