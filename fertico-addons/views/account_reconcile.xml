@@ -4,7 +4,7 @@
         <field name="name">account.partial.report.tree</field>
         <field name="model">account.partial.reconcile</field>
         <field name="arch" type="xml">
-            <tree string="Tracking Value" delete="0" default_order="id desc" limit="50">
+            <tree string="Report reconcile" delete="0" default_order="id desc" limit="100" create="false">
                 <field name="invoice"/>
                 <field name="customer"/>
                 <field name="account"/>
@@ -18,7 +18,7 @@
     </record>
 
     <record id="report_reconcile" model="ir.actions.act_window">
-        <field name="name">Report</field>
+        <field name="name">Report reconcile</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">account.partial.reconcile</field>
         <field name="domain">[('account_type','=','receivable')]</field>
