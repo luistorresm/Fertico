@@ -12,7 +12,7 @@ class report_account_aged_receivable(models.AbstractModel):
     def get_columns_name(self, options):    
         """This method intends add a new column of Invoice Dates into Account Aged Receivable Report"""
         #Obtain columns of original header:
-        columns = super()._get_columns_name(options)
+        columns = super().get_columns_name(options)
         #Inserting new column of Invoice Date:
         columns.insert(1, {'name': _('Invoice Date'), 'class': 'number', 'style': 'white-space:nowrap;'})
         return columns
@@ -21,7 +21,7 @@ class report_account_aged_receivable(models.AbstractModel):
     def get_lines(self, options, line_id=None):
         """This method intends add a new values of Invoice Dates into Account Aged Receivable Report"""
         #Obtain original list of rows of the report:
-        lines = super()._get_lines(options, line_id)
+        lines = super().get_lines(options, line_id)
         for line in lines:
             #Inject an empty value into the new added column:
             if line['level'] == 2:
