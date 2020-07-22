@@ -34,7 +34,7 @@ class report_account_aged_payable(models.AbstractModel):
                 #Inserting new value for column of Release Invoice Date:
                 if invoice_id.date_invoice:
                     cr_date = invoice_id.date_invoice
-                    cr_date = datetime.strptime(cr_date, '%Y-%m-%d').strftime("%m/%d/%Y")                                    
+                    cr_date = datetime.strptime(cr_date, '%Y-%m-%d').strftime("%d/%m/%Y")                                    
                     line['columns'].insert(0, {'name': cr_date})
                 else:
                     line['columns'].insert(0, {'name': ""})
