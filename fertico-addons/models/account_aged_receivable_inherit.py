@@ -33,10 +33,10 @@ class report_account_aged_receivable(models.AbstractModel):
                 invoice_id = self.env['account.invoice'].search([('move_id', '=', move_id.id)])
                 #Inserting new value for column of Invoice Date:
                 if invoice_id.date_invoice:
-                    line['columns'].insert(1, {'name': invoice_id.date_invoice.strftime("%d-%m-%Y")})
+                    line['columns'].insert(1, {'name': invoice_id.date_invoice})
                 else:
                     line['columns'].insert(1, {'name': ""})
         return lines
 #\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\#
 #   TICKET 011 ALBAGRO    DEVELOPED BY SEBASTIAN MENDEZ    --     START
-#\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\#        
+#\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\#            
