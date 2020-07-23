@@ -88,9 +88,12 @@ class AccountInvoice(models.Model):
         return res
 
 
+    #=========================Desarrollo bloqueo de venta de productos almacenables=====================
+    #=========================directamente en facturas=================================================
     @api.multi
     @api.onchange('invoice_line_ids')
     def _onchange_line(self):
+    #detectamos los cambios en las lines de la factura
         if self.type == 'out_invoice':
             for line in self.invoice_line_ids:
                 if line.sale_line_ids:
@@ -100,8 +103,11 @@ class AccountInvoice(models.Model):
                     line.price_unit=line.sale_line_ids.price_unit
 
             for line in self.invoice_line_ids:
+                #por cada linea revisamos si tienes relacion con una linea de una orden de ventas
                 if not line.sale_line_ids:
+                    #si no tiene relacion, revisamos que no sea un producto alamcenable
                     if line.product_id.type == 'product':
+                        #en caso de ser así se elmina la linea y se muestra un mensaje de error
                         self.invoice_line_ids = [(3,line.id)]
                         res = {'warning': {
                             'title': 'Error de producto',
