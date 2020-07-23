@@ -93,5 +93,18 @@ class AccountInvoice(models.Model):
     def _onchange_line(self):
         if self.type == 'out_invoice':
             for line in self.invoice_line_ids:
-                if line.product_id.type == 'product':
-                    raise Warning('No se pueden seleccionar productos almacenables')
+                if line.sale_line_ids:
+                    line.product_id=line.sale_line_ids.product_id
+                    line.name=line.sale_line_ids.name
+                    line.quantity=line.sale_line_ids.product_uom_qty
+                    line.price_unit=line.sale_line_ids.price_unit
+
+            for line in self.invoice_line_ids:
+                if not line.sale_line_ids:
+                    if line.product_id.type == 'product':
+                        self.invoice_line_ids = [(3,line.id)]
+                        res = {'warning': {
+                            'title': 'Error de producto',
+                            'message': 'No puedes seleccionar un producto almacenable'
+                        }}
+                        return res
