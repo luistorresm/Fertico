@@ -4,6 +4,7 @@ from . import account_aged_payable_inherited
 from . import account_aged_receivable_inherited
 from . import account_analytic
 from . import account_invoice_correction
+from . import account_invoice_inherited
 from . import attendances
 from . import contact
 from . import domain_terms

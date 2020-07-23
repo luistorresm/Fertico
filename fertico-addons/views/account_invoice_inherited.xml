@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>    
+    <!--  TICKET 002 ALBAGRO -  DEVELOPED BY SEBASTIAN MENDEZ  -  START   -->
+    <!--Stock Move Tree View Inherited where new columns were added-->
+    <record id="fertico_invoice_supplier_tree_inherit" model="ir.ui.view">
+        <field name="name">account.invoice.supplier.tree.inherit</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_tree"/>
+        <field name="arch" type="xml">
+            <field name="state" position="before">
+                <field name="operative_qty"/>
+                <field name="inputs"/>
+                <field name="outputs"/>
+                <field name="transfers"/>                
+                <field name="price_unit"/>   
+            </field>
+        </field>
+    </record>     
+    <!--  TICKET 002 ALBAGRO -  DEVELOPED BY SEBASTIAN MENDEZ  -  END   -->
+  </data>
+</odoo>  
