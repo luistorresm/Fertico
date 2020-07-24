@@ -1,0 +1,20 @@
+<odoo>
+    
+    <!--===================Accion que abre la vista de arbol del modelo purchase order line===========================-->
+    <record model="ir.actions.act_window" id="purchase_list_action">
+        <field name="name">Purchase Order Lines</field>
+        <field name="res_model">purchase.order.line</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create the first line
+            </p>
+        </field>
+    </record>
+
+    <!--========================Menu que manda a la accion para abrir la vista de arbol========================-->
+    <menuitem id="menu_purchase_line" name="Purchase order lines" parent="purchase.purchase_report" action="purchase_list_action"/>
+
+    <menuitem id="purchase_report_ item" name="Reporting" parent="purchase.purchase_report" sequence="99" groups="purchase.group_purchase_manager" action="purchase.action_purchase_order_report_all"/>
+
+</odoo>

@@ -35,6 +35,7 @@
         'views/block_create_line.xml',
         'views/domain_terms.xml',
         'views/account_invoice_correction.xml',
+        'views/purchase_lines.xml',
 
         # reports
         'reports/custom_layout.xml',
