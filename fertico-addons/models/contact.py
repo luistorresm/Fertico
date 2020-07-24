@@ -58,4 +58,22 @@ class ResPartner(models.Model):
 
         return contact
         
-        
+    @api.depends('invoices')
+    def _get_total(self):
+        total_inv=0
+        for invoice in self.invoices:    
+            if invoice.type == 'out_invoice':
+                total_inv+=invoice.residual_signed
+            elif invoice.type == 'in_invoice':
+                total_inv-=invoice.residual_signed
+        if total_inv >= 0:
+            self.balance_client=False
+        else:
+            total_inv*=-1
+            self.balance_client=True
+        self.total=total_inv
+    
+    invoices = fields.One2many('account.invoice', 'partner_id', domain=[('state','=','open')])
+    total = fields.Float(compute="_get_total")
+    balance_client = fields.Boolean(compute="_get_total")
+    

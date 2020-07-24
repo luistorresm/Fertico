@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_invoices" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales_purchases']" position="after">
+                <page name="account_status" string="Account Status">
+                    <field name="invoices" readonly='True'/>
+                    <group>
+                        <field name="balance_client" invisible="True"/>
+                        <field name="total" string="Saldo a favor de la empresa" widget='monetary' attrs="{'invisible': [('balance_client','=',True)]}"/>
+                        <field name="total" string="Saldo a favor del contacto" widget='monetary' attrs="{'invisible': [('balance_client','=',False)]}"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+
+    
+
+</odoo>
