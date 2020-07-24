@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
 from odoo.tools.translate import _  
+
 import logging
 _logger = logging.getLogger(__name__)      
 
@@ -13,19 +14,17 @@ class AccountInvoice(models.Model):
     #:::::::::::::::::::::::
     # MODEL FIELDS
     #:::::::::::::::::::::::
-    supplier_bill_date = fields.Char("Supplier Bill Date", store=True, compute="_compute_sup_bll_dte")
+    supplier_bill_date = fields.Char("Supplier Bill Date", store=True, compute="compute_sup_bll_dte")
 
 
     #:::::::::::::::::::::::
     # MODEL METHODS
     #::::::::::::::::::::::: 
-    @api.multi
-    def _compute_sup_bll_dte(self):
-        for v in self:
-            if v.payments_widget:
-                _logger.info('\n\n\n v.payments_widget: %s\n\n\n', v.payments_widget)
-        
-         
+    @api.depends('number')
+    def compute_sup_bll_dte(self):
+        for rec in self:
+            _logger.info('\n\n\n ID: %s\n\n\n', rec.id)
+            _logger.info('\n\n\n payments_widget: %s\n\n\n', rec.payments_widget)
 #\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\#
 #   TICKET 002 ALBAGRO    DEVELOPED BY SEBASTIAN MENDEZ    --     END
 #\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\#             
