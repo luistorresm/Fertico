@@ -25,6 +25,7 @@ class AccountInvoice(models.Model):
         for rec in self:
             _logger.info('\n\n\n ID: %s\n\n\n', rec.id)
             _logger.info('\n\n\n payments_widget: %s\n\n\n', rec.payments_widget)
+            rec.supplier_bill_date = "1.0"
 #\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\#
 #   TICKET 002 ALBAGRO    DEVELOPED BY SEBASTIAN MENDEZ    --     END
 #\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\#             
