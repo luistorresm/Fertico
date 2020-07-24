@@ -9,23 +9,23 @@ _logger = logging.getLogger(__name__)
 #   TICKET 002 ALBAGRO    DEVELOPED BY SEBASTIAN MENDEZ    --     START
 #\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\#
 class AccountInvoice(models.Model):
-    _inherit = 'account.invoice'
-
+    _inherit = "account.invoice"
+    
     #:::::::::::::::::::::::
     # MODEL FIELDS
     #:::::::::::::::::::::::
-    supplier_bill_date = fields.Char("Supplier Bill Date", store=True, compute="compute_sup_bll_dte")
+    payment_date = fields.Char("Payment Date", store=True, compute="compute_payment_date")
 
 
     #:::::::::::::::::::::::
     # MODEL METHODS
     #::::::::::::::::::::::: 
     @api.depends('number')
-    def compute_sup_bll_dte(self):
+    def compute_payment_date(self):
         for rec in self:
             _logger.info('\n\n\n ID: %s\n\n\n', rec.id)
             _logger.info('\n\n\n payments_widget: %s\n\n\n', rec.payments_widget)
-            rec.supplier_bill_date = "1.0"
+            rec.payment_date = "1.0"
 #\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\#
 #   TICKET 002 ALBAGRO    DEVELOPED BY SEBASTIAN MENDEZ    --     END
 #\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\#             

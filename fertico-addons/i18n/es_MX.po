@@ -318,3 +318,8 @@ msgstr "pricelist.load.xls"
 #, python-format
 msgid "Release Invoice Date"
 msgstr "Fecha de emisión de factura"
+
+#. module: fertico-addons
+#: model:ir.model.fields,field_description:fertico-addons.field_account_invoice_payment_date
+msgid "Payment Date"
+msgstr "Fecha de pago"
