@@ -9,11 +9,7 @@
         <field name="inherit_id" ref="account.invoice_supplier_tree"/>
         <field name="arch" type="xml">
             <field name="state" position="before">
-                <field name="operative_qty"/>
-                <field name="inputs"/>
-                <field name="outputs"/>
-                <field name="transfers"/>                
-                <field name="price_unit"/>   
+                <field name="supplier_bill_date"/>  
             </field>
         </field>
     </record>     
