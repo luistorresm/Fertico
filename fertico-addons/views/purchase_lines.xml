@@ -12,6 +12,18 @@
         </field>
     </record>
 
+    <!--===============Agregamos los campos faltantes a la vista de lista========================================-->
+    <record model="ir.ui.view" id="purchse_view_fields">
+        <field name="model">purchase.order.line</field>
+        <field name="inherit_id" ref="purchase.purchase_order_line_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_qty']" position="after">
+                <field name="qty_invoiced"/>
+                <field name="qty_received"/>
+            </xpath>
+        </field>
+    </record>
+
     <!--========================Menu que manda a la accion para abrir la vista de arbol========================-->
     <menuitem id="menu_purchase_line" name="Purchase order lines" parent="purchase.purchase_report" action="purchase_list_action"/>
 
