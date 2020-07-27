@@ -20,20 +20,17 @@ class AccountInvoice(models.Model):
     #:::::::::::::::::::::::
     # MODEL METHODS
     #::::::::::::::::::::::: 
-    @api.depends('number')
+    @api.multi
     def compute_payment_date(self):
         for rec in self:
-            if rec.state: #== 'paid' or rec.state == 'open':
-                _logger.info('\n\n\n ID: %s\n\n\n', rec.id)
+            _logger.info('\n\n\n ID: %s\n\n\n', rec.id)
 
-                acc_mv_ln_id = self.env['account.move.line'].search([('invoice_id', '=', rec.id)]) 
-                _logger.info('\n\n\n acc_mv_ln_id: %s\n\n\n', acc_mv_ln_id.ids )
+            acc_mv_ln_id = self.env['account.move.line'].search([('invoice_id', '=', rec.id)]) 
+            _logger.info('\n\n\n acc_mv_ln_id: %s\n\n\n', acc_mv_ln_id.ids )
 
-                acc_par_rec_id = self.env['account.partial.reconcile'].search([('debit_move_id', 'in', acc_mv_ln_id.ids)])                
-                _logger.info('\n\n\n acc_par_rec_id: %s\n\n\n', acc_par_rec_id.ids)
-
-            else:
-                _logger.info('\n\n\n normal ID: %s\n\n\n', rec.id)              
+            for v in acc_mv_ln_id.ids:
+                acc_par_rec_id = self.env['account.partial.reconcile'].search([('debit_move_id', '=', v)])                
+                _logger.info('\n\n\n acc_par_rec_id: %s\n\n\n', acc_par_rec_id.id)              
 #\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\#
 #   TICKET 002 ALBAGRO    DEVELOPED BY SEBASTIAN MENDEZ    --     END
 #\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\#             
