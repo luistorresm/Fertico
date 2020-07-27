@@ -20,6 +20,7 @@
             <xpath expr="//field[@name='product_qty']" position="after">
                 <field name="qty_invoiced"/>
                 <field name="qty_received"/>
+                <field name="difference"/>
             </xpath>
         </field>
     </record>
@@ -28,5 +29,31 @@
     <menuitem id="menu_purchase_line" name="Purchase order lines" parent="purchase.purchase_report" action="purchase_list_action"/>
 
     <menuitem id="purchase_report_ item" name="Reporting" parent="purchase.purchase_report" sequence="99" groups="purchase.group_purchase_manager" action="purchase.action_purchase_order_report_all"/>
+
+    <!--=============================wizard para calcular los registros anteriores=============================-->
+    <!--=============================con su boton de accion, para llamarlo=========================-->
+    
+    <record model="ir.ui.view" id="wizard_difference_views">
+        <field name="name">wizard.form</field>
+        <field name="model">difference.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <label string="Calculate difference"/>
+                </group>
+                <footer>
+                    <button name="calculate_difference" type="object" string="Calculate" class="oe_highlight"></button>
+                </footer>
+            </form>
+        </field>        
+    </record>
+
+    <act_window id="launch_difference_wizard"
+                name="Calculate difference"
+                src_model="purchase.order.line"
+                res_model="difference.wizard"
+                view_mode="form"
+                target="new"
+                key2="client_action_multi"/>
 
 </odoo>
