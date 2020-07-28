@@ -40,7 +40,7 @@
         <field name="view_mode">tree</field>
     </record>
 
-    <menuitem id="menu_account_reconcile_report" name="Account reconcile" parent="account.menu_finance_reports" action="report_reconcile" sequence="1"/>
+    <menuitem id="menu_account_reconcile_report" name="Account reconcile sales" parent="account.menu_finance_reports" action="report_reconcile" sequence="1"/>
     <!--======================================Fin de reporte account reconcile====================================-->
 
     <!--=======================================Reporte account reconcile compras==========================================-->
@@ -83,7 +83,7 @@
         <field name="view_mode">tree</field>
     </record>
 
-    <menuitem id="menu_account_reconcile_report" name="Account reconcile" parent="account.menu_finance_reports" action="report_reconcile_purchase" sequence="1"/>
+    <menuitem id="menu_account_reconcile_purchase" name="Account reconcile purchases" parent="account.menu_finance_reports" action="report_reconcile_purchase" sequence="1"/>
     <!--======================================Fin de reporte account reconcile====================================-->
 
 </odoo>
