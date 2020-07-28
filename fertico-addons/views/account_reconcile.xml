@@ -50,10 +50,10 @@
         <field name="model">account.partial.reconcile</field>
         <field name="arch" type="xml">
             <tree string="Report reconcile" delete="0" default_order="id desc" limit="100" create="false">
-                <field name="invoice"/>
-                <field name="customer"/>
-                <field name="account"/>
-                <field name="account_type"/>
+                <field name="invoice_pur"/>
+                <field name="customer_purchase"/>
+                <field name="account_purchase"/>
+                <field name="account_type_purchase"/>
                 <field name="create_date" string="Date"/>
                 <field name="incial"/>
                 <field name="amount"/>
@@ -66,7 +66,7 @@
         <field name="name">Report reconcile</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">account.partial.reconcile</field>
-        <field name="domain">[('account_type','=','payable')]</field>
+        <field name="domain">[('account_type_purchase','=','payable')]</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
