@@ -7,7 +7,7 @@
         <field name="model">account.partial.reconcile</field>
         <field name="arch" type="xml">
             <tree string="Report reconcile" delete="0" default_order="id desc" limit="100" create="false">
-                <field name="invoice"/>
+                <field name="debit_move"/>
                 <field name="customer"/>
                 <field name="account"/>
                 <field name="account_type"/>
@@ -50,7 +50,7 @@
         <field name="model">account.partial.reconcile</field>
         <field name="arch" type="xml">
             <tree string="Report reconcile" delete="0" default_order="id desc" limit="100" create="false">
-                <field name="invoice_pur"/>
+                <field name="credit_move"/>
                 <field name="customer_purchase"/>
                 <field name="account_purchase"/>
                 <field name="account_type_purchase"/>
