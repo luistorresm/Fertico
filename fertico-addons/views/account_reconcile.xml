@@ -20,16 +20,18 @@
         </field>
     </record>
 
+                <!--================Vista search para buscar por facturas de compra o venta===================-->
     <record id="account_partial_reconcile_search" model="ir.ui.view">
         <field name="name">account.partial.reconcile.search</field>
         <field name="model">account.partial.reconcile</field>
         <field name="arch" type="xml">
             <search string="Search Reconcile">
                 <field name="debit_move"/>
-                <field name="debit_move"/>
+                <field name="credit_move"/>
             </search>
         </field>
     </record>
+                <!--===================================Fin de vista search====================================-->
 
     <record id="report_reconcile" model="ir.actions.act_window">
         <field name="name">Report reconcile</field>
