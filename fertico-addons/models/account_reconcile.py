@@ -12,10 +12,10 @@ class AccountPartialReconcile(models.Model):
     def get_paid(self):
         #obtenemos los datos de facturas de acuerdo al tipo
         for partial in self:
-            if partial.credit_move.invoice_id:
+            if partial.credit_move_id.invoice_id:
                 #facturas de compras
-                invoice=partial.credit_move.invoice_id
-                data = self.env['account.partial.reconcile'].search(['&',('credit_move.invoice_id', '=', invoice.id),('id', '<', partial.id)])
+                invoice=partial.credit_move_id.invoice_id
+                data = self.env['account.partial.reconcile'].search(['&',('credit_move_id.invoice_id', '=', invoice.id),('id', '<', partial.id)])
                 paid_total=0
                 for d in data:
                     paid_total+=d.amount
@@ -23,8 +23,8 @@ class AccountPartialReconcile(models.Model):
                 partial.final=partial.total_purchase-(paid_total+partial.amount)
             else:
                 #facturas de ventas
-                invoice=partial.debit_move.invoice_id
-                data = self.env['account.partial.reconcile'].search(['&',('debit_move.invoice_id', '=', invoice.id),('id', '<', partial.id)])
+                invoice=partial.debit_move_id.invoice_id
+                data = self.env['account.partial.reconcile'].search(['&',('debit_move_id.invoice_id', '=', invoice.id),('id', '<', partial.id)])
                 paid_total=0
                 for d in data:
                     paid_total+=d.amount
@@ -39,17 +39,17 @@ class AccountPartialReconcile(models.Model):
     #Campos relacionados de ventas
     total = fields.Monetary(related='debit_move_id.invoice_id.amount_total')
     
-    debit_move = fields.Many2one(related='debit_move_id', store=True)
+    debit_move = fields.Char(string="Debit", related='debit_move_id.invoice_id.number', store=True)
     customer = fields.Many2one(string="Customer", related='debit_move_id.invoice_id.partner_id', store=True)
     account = fields.Many2one(string="Account", related='debit_move_id.invoice_id.account_id')
-    account_type = fields.Selection(related='debit_move_id.invoice_id.account_id.user_type_id.type')
+    account_type_debit = fields.Selection(related='debit_move_id.invoice_id.account_id.user_type_id.type')
 
     #Campos relacionados de compras
     total_purchase = fields.Monetary(related='credit_move_id.invoice_id.amount_total')
     
-    credit_move = fields.Many2one(related='credit_move_id', store=True)
+    credit_move = fields.Char(string="Credit", related='credit_move_id.invoice_id.number', store=True)
     customer_purchase = fields.Many2one(string="Vendor", related='credit_move_id.invoice_id.partner_id', store=True)
     account_purchase = fields.Many2one(string="Account", related='credit_move_id.invoice_id.account_id')
-    account_type_purchase = fields.Selection(related='credit_move_id.invoice_id.account_id.user_type_id.type')    
+    account_type_credit = fields.Selection(related='credit_move_id.invoice_id.account_id.user_type_id.type')    
     
     invoice = fields.Char()

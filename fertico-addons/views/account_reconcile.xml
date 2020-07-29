@@ -8,9 +8,10 @@
         <field name="arch" type="xml">
             <tree string="Report reconcile" delete="0" default_order="id desc" limit="100" create="false">
                 <field name="debit_move"/>
+                <field name="credit_move"/>
                 <field name="customer"/>
                 <field name="account"/>
-                <field name="account_type"/>
+                <field name="account_type_debit"/>
                 <field name="create_date" string="Date"/>
                 <field name="incial"/>
                 <field name="amount"/>
@@ -19,13 +20,25 @@
         </field>
     </record>
 
+    <record id="account_partial_reconcile_search" model="ir.ui.view">
+        <field name="name">account.partial.reconcile.search</field>
+        <field name="model">account.partial.reconcile</field>
+        <field name="arch" type="xml">
+            <search string="Search Reconcile">
+                <field name="debit_move"/>
+                <field name="debit_move"/>
+            </search>
+        </field>
+    </record>
+
     <record id="report_reconcile" model="ir.actions.act_window">
         <field name="name">Report reconcile</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">account.partial.reconcile</field>
-        <field name="domain">[('account_type','=','receivable')]</field>
+        <field name="domain">['|',('account_type_debit','=','receivable'),('account_type_credit','=','receivable')]</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="account_partial_reconcile_search"/>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">
             Click to add a track value.
@@ -51,9 +64,10 @@
         <field name="arch" type="xml">
             <tree string="Report reconcile" delete="0" default_order="id desc" limit="100" create="false">
                 <field name="credit_move"/>
+                <field name="debit_move"/>
                 <field name="customer_purchase"/>
                 <field name="account_purchase"/>
-                <field name="account_type_purchase"/>
+                <field name="account_type_credit"/>
                 <field name="create_date" string="Date"/>
                 <field name="incial"/>
                 <field name="amount"/>
@@ -66,9 +80,10 @@
         <field name="name">Report reconcile</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">account.partial.reconcile</field>
-        <field name="domain">[('account_type_purchase','=','payable')]</field>
+        <field name="domain">['|',('account_type_debit','=','payable'),('account_type_credit','=','payable')]</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="account_partial_reconcile_search"/>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">
             Click to add a track value.
