@@ -314,19 +314,19 @@ msgstr "pricelist.load.xls"
 
 #. module: fertico-addons
 #: selection:account.analytic.tag,analytic_tag_type:0
-#: model:ir.model.fields,field_description:fertico-addons.field_account_move_line_tag_route
+#: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_line_route
 msgid "Route"
 msgstr "Ruta"
 
 #. module: fertico-addons
 #: selection:account.analytic.tag,analytic_tag_type:0
-#: model:ir.model.fields,field_description:fertico-addons.field_account_move_line_tag_operator
+#: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_line_operator
 msgid "Operator"
 msgstr "Operador"
 
 #. module: fertico-addons
 #: selection:account.analytic.tag,analytic_tag_type:0
-#: model:ir.model.fields,field_description:fertico-addons.field_account_move_line_tag_trip
+#: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_line_trip
 msgid "Trip"
 msgstr "Viaje"
 
