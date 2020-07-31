@@ -23,8 +23,6 @@
         'security/ir.model.access.csv',
 
         # views
-        'views/views.xml',
-        'views/templates.xml',
         'views/account_analytic.xml',
         'views/account_invoice_correction.xml',
         'views/analytic_tag_analysis.xml',        
@@ -35,7 +33,9 @@
         'views/pos_init.xml',
         'views/price_list.xml',        
         'views/sales_chanel.xml',        
-        'views/store_term.xml',        
+        'views/store_term.xml', 
+        'views/templates.xml',     
+        'views/views.xml',                  
 
         # reports
         'reports/custom_layout.xml',

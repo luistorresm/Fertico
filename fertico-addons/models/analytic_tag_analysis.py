@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import api, fields, models, _
+from odoo import api, fields, models
 
 #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\#
 #   TICKET 102    DEVELOPED BY SEBASTIAN MENDEZ    --     START
@@ -18,72 +18,50 @@ class AccountAnalyticTag(models.Model):
                                           ('operator', 'Operator')],
                                          'Analytic Tag Type')
 
-class AccountMoveLine(models.Model):
-    _inherit = "account.move.line"
+
+
+class AccountAnalyticLine(models.Model):
+    _inherit = "account.analytic.line"
 
     #:::::::::::::::::::::::::::::::::::::::::::::
     #   MODEL FIELDS
     #:::::::::::::::::::::::::::::::::::::::::::::
-    tag_trip = fields.Char('Trip', store=True, compute="_compute_trip")    
-    tag_route = fields.Char('Route', store=True, compute="_compute_route")    
-    tag_operator = fields.Char('Operator', store=True, compute="_compute_operator")   
+    trip     = fields.Many2one('account.analytic.tag', compute=get_trip, string='Trip', store=True)
+    route    = fields.Many2one('account.analytic.tag', compute=get_route, string='Route', store=True)
+    operator = fields.Many2one('account.analytic.tag', compute=get_operator, string='Operator', store=True)    
 
 
     #:::::::::::::::::::::::::::::::::::::::::::::
     #   MODEL METHODS
     #:::::::::::::::::::::::::::::::::::::::::::::
-    @api.depends('analytic_tag_ids')
-    def _compute_trip(self):
+    @api.depends('tag_ids')
+    def get_trip(self):
         """This method intends to distribute and assign trips in analytic tags in
-           their corresponding columns in account move lines"""
-        for rec in self:
-            #Obtain multiples IDs:
-            if rec.analytic_tag_ids:
-                tags_ids = rec.analytic_tag_ids.ids
-
-                #Get recordset from model of analytic tags:
-                for tag_id in tags_ids:
-                    tag = self.env['account.analytic.tag'].browse(tag_id)
-
-                    #Assign value into column of trips
-                    if tag.analytic_tag_type == 'trip':
-                        rec.tag_trip = tag.name
+           their corresponding columns in account move lines"""        
+        for line in self:
+            for tag in line.tag_ids:
+                if tag.tag_type == 'trip':
+                    line.travel=tag.id
 
 
-    @api.depends('analytic_tag_ids')
-    def _compute_route(self):
+    @api.depends('tag_ids')
+    def get_route(self):
         """This method intends to distribute and assign routes in analytic tags in
            their corresponding columns in account move lines"""        
-        for rec in self:
-            #Obtain multiples IDs:
-            if rec.analytic_tag_ids:
-                tags_ids = rec.analytic_tag_ids.ids
-
-                #Get recordset from model of analytic tags:
-                for tag_id in tags_ids:
-                    tag = self.env['account.analytic.tag'].browse(tag_id)
-
-                    #Assign value into column of route
-                    if tag.analytic_tag_type == 'route':
-                        rec.tag_route = tag.name                        
+        for line in self:
+            for tag in line.tag_ids:
+                if tag.tag_type == 'route':
+                    line.route=tag.id
 
 
-    @api.depends('analytic_tag_ids')
-    def _compute_operator(self):
+    @api.depends('tag_ids')
+    def get_operator(self):
         """This method intends to distribute and assign operators in analytic tags in
            their corresponding columns in account move lines"""        
-        for rec in self:
-            #Obtain multiples IDs:
-            if rec.analytic_tag_ids:
-                tags_ids = rec.analytic_tag_ids.ids
-
-                #Get recordset from model of analytic tags:
-                for tag_id in tags_ids:
-                    tag = self.env['account.analytic.tag'].browse(tag_id)
-
-                    #Assign value into column of operator
-                    if tag.analytic_tag_type == 'operator':
-                        rec.tag_operator = tag.name             
+        for line in self:
+            for tag in line.tag_ids:
+                if tag.tag_type == 'operator':
+                    line.operator=tag.id          
 #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\#
 #   TICKET 102    DEVELOPED BY SEBASTIAN MENDEZ    --     END
 #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\#
