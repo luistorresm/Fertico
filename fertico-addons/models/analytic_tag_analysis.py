@@ -26,9 +26,9 @@ class AccountAnalyticLine(models.Model):
     #:::::::::::::::::::::::::::::::::::::::::::::
     #   MODEL FIELDS
     #:::::::::::::::::::::::::::::::::::::::::::::
-    trip     = fields.Many2one('account.analytic.tag', compute=get_trip, string='Trip', store=True)
-    route    = fields.Many2one('account.analytic.tag', compute=get_route, string='Route', store=True)
-    operator = fields.Many2one('account.analytic.tag', compute=get_operator, string='Operator', store=True)    
+    trip     = fields.Many2one('account.analytic.tag', compute='get_trip', string='Trip', store=True)
+    route    = fields.Many2one('account.analytic.tag', compute='get_route', string='Route', store=True)
+    operator = fields.Many2one('account.analytic.tag', compute='get_operator', string='Operator', store=True)    
 
 
     #:::::::::::::::::::::::::::::::::::::::::::::
