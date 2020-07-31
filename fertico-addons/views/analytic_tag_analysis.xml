@@ -3,22 +3,19 @@
   <data>    
   <!--  TICKET 102  -  DEVELOPED BY SEBASTIAN MENDEZ  -  START   -->
     
-    <!--Account Move Line Tree View Inherited where new columns were added-->
-    <record id="account_move_linetree_inherited" model="ir.ui.view">
-        <field name="name">account.move.line.tree.inherit</field>
-        <field name="model">account.move.line</field>
-        <field name="inherit_id" ref="account.view_move_line_tree"/>
-        <field name="arch" type="xml">
-            <field name="analytic_account_id" position="after">
-                <field name="analytic_tag_ids" widget="many2many_tags"/>
-                <field name="tag_trip" groups="fertico-addons.analytic_tag_analysis"/>
-                <field name="tag_route" groups="fertico-addons.analytic_tag_analysis"/>
-                <field name="tag_operator" groups="fertico-addons.analytic_tag_analysis"/> 
-            </field>
-        </field>
-    </record>     
-
     <!--Analytic Tag Form Inherited where a new selection field was added-->
+    <record id="analytic_tagform_inherited" model="ir.ui.view">
+        <field name="name">account.analytic.tag.form.inherit</field>
+        <field name="model">account.analytic.tag</field>
+        <field name="inherit_id" ref="analytic.account_analytic_tag_form_view"/>
+        <field name="arch" type="xml">
+           <xpath expr="//field[@name='name']" position="after">
+                <field name="analytic_tag_type"/>
+            </xpath>        
+        </field>
+    </record>    
+
+    <!--Analytic Line Tree Inherited where a new columns were added-->
     <record id="account_analytic_tags_list" model="ir.ui.view">
         <field name="model">account.analytic.line</field>
         <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"></field>
@@ -27,12 +24,12 @@
                 <field name="tag_ids" widget="many2many_tags"/>
             </xpath>
             <xpath expr="//field[@name='tag_ids']" position="after">
-                <field name="trip"/>
-                <field name="route"/>
-                <field name="operator"/>
+                <field name="trip" groups="fertico-addons.analytic_tag_analysis"/>
+                <field name="route" groups="fertico-addons.analytic_tag_analysis"/>
+                <field name="operator" groups="fertico-addons.analytic_tag_analysis"/>
             </xpath>
         </field>
-        </record>
+    </record>
     
   <!--  TICKET 102  -  DEVELOPED BY SEBASTIAN MENDEZ  -  END   -->
   </data>
