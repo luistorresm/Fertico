@@ -40,8 +40,8 @@ class AccountAnalyticLine(models.Model):
            their corresponding columns in account move lines"""        
         for line in self:
             for tag in line.tag_ids:
-                if tag.tag_type == 'trip':
-                    line.travel=tag.id
+                if tag.analytic_tag_type == 'trip':
+                    line.trip = tag.id
 
 
     @api.depends('tag_ids')
@@ -50,8 +50,8 @@ class AccountAnalyticLine(models.Model):
            their corresponding columns in account move lines"""        
         for line in self:
             for tag in line.tag_ids:
-                if tag.tag_type == 'route':
-                    line.route=tag.id
+                if tag.analytic_tag_type == 'route':
+                    line.route = tag.id
 
 
     @api.depends('tag_ids')
@@ -60,8 +60,8 @@ class AccountAnalyticLine(models.Model):
            their corresponding columns in account move lines"""        
         for line in self:
             for tag in line.tag_ids:
-                if tag.tag_type == 'operator':
-                    line.operator=tag.id          
+                if tag.analytic_tag_type == 'operator':
+                    line.operator = tag.id          
 #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\#
 #   TICKET 102    DEVELOPED BY SEBASTIAN MENDEZ    --     END
 #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\#
