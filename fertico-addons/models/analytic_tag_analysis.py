@@ -19,7 +19,6 @@ class AccountAnalyticTag(models.Model):
                                          'Analytic Tag Type')
 
 
-
 class AccountAnalyticLine(models.Model):
     _inherit = "account.analytic.line"
 
