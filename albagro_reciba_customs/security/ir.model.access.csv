@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_albagro_reciba_customs_albagro_reciba_customs,albagro_reciba_customs.albagro_reciba_customs,model_albagro_reciba_customs_albagro_reciba_customs,,1,0,0,0
