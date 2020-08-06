@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "albagro_reciba_customs",
+    'name': "Albagro Reciba",
 
     'summary': """Módulo para agregar una serie de personalizaciones para Reciba de Alabagro""",
 
@@ -16,13 +16,17 @@
     'version': '11.0.1.0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base',
+    'purchase'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
+        'views/reciba.xml',
+        'views/cycle.xml',
+        'views/purchase.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
