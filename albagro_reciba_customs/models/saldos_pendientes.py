@@ -47,15 +47,15 @@ class PurchaseOrder(models.Model):
             
             #Iterate companies with residual and concatenate:
             for val in residual_companies:
-                company_name = contacts_obj.search([('id', '=', val[0])]).name
+                company_name = contacts_obj.search([('id', '=', int(val[0]))]).name
                 msg += _('\n[+] %s balance by $%s') % (company_name, val[1]) 
 
             for val in residual_companies2:
-                company_name = contacts_obj.search([('id', '=', val[0])]).name
+                company_name = contacts_obj.search([('id', '=', int(val[0]))]).name
                 msg += _('\n[+] %s balance by $%s') % (company_name, val[1]) 
 
-            for val in residual_companies3:
-                company_name = contacts_obj.search([('id', '=', val[0])]).name
+            for val in residual_companies3:company_name = contacts_obj.search([('id', '=', val[0])]).name
+                company_name = contacts_obj.search([('id', '=', int(val[0]))]).name
                 msg += _('\n[+] %s balance by $%s') % (company_name, val[1])                 
 
             #Concatenate last part of error message:
