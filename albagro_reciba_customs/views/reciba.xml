@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="reciba_form_view">
+            <field name="name">reciba.order.form</field>
+            <field name="model">reciba.order</field>
+            <field name="arch" type="xml">
+                <form string="Course Form">
+                    <sheet>
+                        <group>
+                            <field name="product_id"/>
+                            <field name="customer_id"/>
+                            <field name="no_ticket"/>
+                            <field name="cycle_id"/>
+                            <field name="gross_weight"/>
+                            <field name="tare_weight"/>
+                            <field name="net_weight"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+
+        <record model="ir.ui.view" id="reciba_tree_view">
+            <field name="name">reciba.order.tree</field>
+            <field name="model">reciba.order</field>
+            <field name="arch" type="xml">
+                <tree string="Course Tree">
+                    <field name="product_id"/>
+                    <field name="customer_id"/>
+                    <field name="no_ticket"/>
+                    <field name="cycle_id"/>
+                    <field name="gross_weight"/>
+                    <field name="tare_weight"/>
+                    <field name="net_weight"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="reciba_action">
+            <field name="name">Recibas</field>
+            <field name="res_model">reciba.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create the first cycle
+                </p>
+            </field>
+        </record>
+
+        <!-- Top menu item -->
+        <menuitem name="Reciba" id="menu_reciba" sequence="40" web_icon="albagro_reciba_customs,static/description/mazorca.jpg"/>
+
+        <menuitem id="menu_reciba_order" name="Recibas" parent="menu_reciba" action="reciba_action" sequence="1"/>
+
+    </data>
+</odoo>
