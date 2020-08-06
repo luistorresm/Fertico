@@ -16,17 +16,17 @@ class PurchaseOrder(models.Model):
         sql_query = """SELECT company_id, SUM(residual_signed) FROM account_invoice WHERE (partner_id = %s) AND (state = 'open') AND (type = 'in_invoice' OR type = 'in_refund') GROUP BY company_id;"""
         self.env.cr.execute(sql_query, (self.partner_id.id,))
         residual_companies = self.env.cr.fetchall()
-        _logger.info('\n\n\n residual_companies: %s\n\n\n', residual_companies)
+        _logger.info('\n\n\n residual_companies query super complicated with all filters: %s\n\n\n', residual_companies)
         
         sql_query = """SELECT company_id, SUM(residual_signed) FROM account_invoice WHERE (partner_id = %s) AND (type = 'in_invoice' OR type = 'in_refund') GROUP BY company_id;"""
         self.env.cr.execute(sql_query, (self.partner_id.id,))
         residual_companies2 = self.env.cr.fetchall()
-        _logger.info('\n\n\n residual_companies2: %s\n\n\n', residual_companies2)        
+        _logger.info('\n\n\n residual_companies query taking away state conditional: %s\n\n\n', residual_companies2)        
         
         sql_query = """SELECT company_id, SUM(residual_signed) FROM account_invoice WHERE (partner_id = %s) AND (state = 'open') GROUP BY company_id;"""
         self.env.cr.execute(sql_query, (self.partner_id.id,))
         residual_companies3 = self.env.cr.fetchall()
-        _logger.info('\n\n\n residual_companies3: %s\n\n\n', residual_companies3)        
+        _logger.info('\n\n\n residual_companiees query taking away types and just leaving state open: %s\n\n\n', residual_companies3)        
 
         msg = ""        
         flag = False
@@ -44,10 +44,19 @@ class PurchaseOrder(models.Model):
             debtor = contacts_obj.search([('id', '=', self.partner_id.id)]).name
             _logger.info('\n\n\n debtor: %s\n\n\n', debtor)
             msg = _('The related contact on the purchase order %s has outstanding balances on sales: \n') % (debtor)
+            
             #Iterate companies with residual and concatenate:
             for val in residual_companies:
                 company_name = contacts_obj.search([('id', '=', val[0])]).name
                 msg += _('\n[+] %s balance by $%s') % (company_name, val[1]) 
+
+            for val in residual_companies2:
+                company_name = contacts_obj.search([('id', '=', val[0])]).name
+                msg += _('\n[+] %s balance by $%s') % (company_name, val[1]) 
+
+            for val in residual_companies3:
+                company_name = contacts_obj.search([('id', '=', val[0])]).name
+                msg += _('\n[+] %s balance by $%s') % (company_name, val[1])                 
 
             #Concatenate last part of error message:
             msg += _('\n\nConsider making discounts for settlement.')
