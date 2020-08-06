@@ -12,7 +12,7 @@ class PurchaseOrder(models.Model):
     @api.multi
     def button_confirm(self):
         #Retrieve rows from "account.invoice" model where the present provider
-        #is revised to detect if has open invoices indicating that must pay its debts: 
+        #is revised to detect if has open invoices indicating that must pay its debts:         
         sql_query = """SELECT company_id, SUM(residual_signed) FROM account_invoice WHERE (partner_id = %s) AND (state = 'open') AND (type = 'in_invoice' OR type = 'in_refund') GROUP BY company_id;"""
         self.env.cr.execute(sql_query, (self.partner_id.id,))
         residual_companies = self.env.cr.fetchall()
@@ -22,11 +22,16 @@ class PurchaseOrder(models.Model):
         self.env.cr.execute(sql_query, (self.partner_id.id,))
         residual_companies2 = self.env.cr.fetchall()
         _logger.info('\n\n\n residual_companies2: %s\n\n\n', residual_companies2)        
+        
+        sql_query = """SELECT company_id, SUM(residual_signed) FROM account_invoice WHERE (partner_id = %s) AND (state = 'open') GROUP BY company_id;"""
+        self.env.cr.execute(sql_query, (self.partner_id.id,))
+        residual_companies3 = self.env.cr.fetchall()
+        _logger.info('\n\n\n residual_companies3: %s\n\n\n', residual_companies3)        
 
         msg = ""        
         contacts_obj = self.env['res.partner']
         
-        if residual_companies:
+        if residual_companies OR residual_companies2 OR residual_companies3:
             #Construct the error message:
             debtor = contacts_obj.search([('id', '=', self.partner_id.id)]).name
             _logger.info('\n\n\n debtor: %s\n\n\n', debtor)
