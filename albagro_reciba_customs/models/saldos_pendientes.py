@@ -47,19 +47,19 @@ class PurchaseOrder(models.Model):
             
             #Iterate companies with residual and concatenate:
             for val in residual_companies:
-                company_name = contacts_obj.search([('id', '=', val[0])]).name
+                company_name = self.env['res.company'].search([('id', '=', val[0])]).name
                 _logger.info('\n\n\n company_name: %s\n\n\n', company_name)
                 msg += _('\n[+] %s balance by $%s') % (company_name, val[1]) 
 
             #Iterate companies with residual and concatenate:
             for vl in residual_companies2:
-                company_name = contacts_obj.search([('id', '=', vl[0])]).name
+                company_name = self.env['res.company'].search([('id', '=', vl[0])]).name
                 _logger.info('\n\n\n company_name: %s\n\n\n', company_name)                
                 msg += _('\n[+] %s balance by $%s') % (company_name, vl[1]) 
 
             #Iterate companies with residual and concatenate:
             for v in residual_companies3:
-                company_name = contacts_obj.search([('id', '=', v[0])]).name
+                company_name = self.env['res.company'].search([('id', '=', v[0])]).name
                 _logger.info('\n\n\n company_name: %s\n\n\n', company_name)                
                 msg += _('\n[+] %s balance by $%s') % (company_name, v[1]) 
                 
