@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_albagro_reciba_customs_albagro_reciba_customs,albagro_reciba_customs.albagro_reciba_customs,model_albagro_reciba_customs_albagro_reciba_customs,,1,0,0,0
+access_reciba_read,albagro_reciba_customs.reciba_read,model_reciba_order,,1,1,1,1
+access_cycle_read,albagro_reciba_customs.cycle_read,model_reciba_cycle,,1,1,1,1
