@@ -60,7 +60,7 @@ class PurchaseOrder(models.Model):
 
             #Concatenate last part of error message:
             msg += _('\n\nConsider making discounts for settlement.')
-
+             
             #Display error message:
             raise UserError(msg)
         
