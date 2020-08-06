@@ -29,9 +29,17 @@ class PurchaseOrder(models.Model):
         _logger.info('\n\n\n residual_companies3: %s\n\n\n', residual_companies3)        
 
         msg = ""        
+        flag = False
         contacts_obj = self.env['res.partner']
         
-        if residual_companies OR residual_companies2 OR residual_companies3:
+        if residual_companies:
+            flag = True
+        if residual_companies2:
+            flag = True                        
+        if residual_companies3:  
+            flag = True  
+            
+        if flag == True:            
             #Construct the error message:
             debtor = contacts_obj.search([('id', '=', self.partner_id.id)]).name
             _logger.info('\n\n\n debtor: %s\n\n\n', debtor)
