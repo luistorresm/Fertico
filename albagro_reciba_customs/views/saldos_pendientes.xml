@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <!--Add a new checkbox for validation in Contacts-->
+    <record id="view_res_partner_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/notebook/page[@name='sales_purchases']//field[@name='supplier']" position="after">
+                <field name="validate_residual"/>
+            </xpath>
+        </field>
+    </record>      
+
+
+    <!--Add a new page to notebook in purchase order-->
+    <record id="view_purchase_order_form_inherit" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page name="pending_sales_invoices" string="Sales Invoices to settle">
+                    <field name="pending_sales_invoices">
+                        <tree string="Registered sessions">
+                            <field name="partner_id"/>
+                            <field name="date_invoice"/>
+                            <field name="number"/>
+                            <field name="company_id"/>
+                            <field name="payment_term_id"/>
+                            <field name="date_due"/>
+                            <field name="origin"/>
+                            <field name="amount_untaxed"/>
+                            <field name="amount_tax"/>
+                            <field name="amount_total_signed"/>
+                            <field name="residual_signed"/>
+                            <field name="state"/>
+                        </tree>
+                    </field>                    
+                </page>
+            </notebook>
+        </field>
+    </record> 
+
+  </data>
+</odoo>  

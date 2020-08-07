@@ -16,11 +16,12 @@
     'version': '11.0.1.0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'purchase'],
+    'depends': ['base', 'contacts', 'purchase'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
+        'views/saldos_pendientes.xml',
         'views/views.xml',
         'views/templates.xml',
     ],
