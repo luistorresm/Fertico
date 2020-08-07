@@ -17,6 +17,7 @@ class RecibaOrder(models.Model):
     net_weight = fields.Float(string="Net weight", compute="_get_net", store=True)
     cycle_id = fields.Many2one('reciba.cycle', string="Cycle")
     customer_id = fields.Many2one('res.partner', string="Productor name")
+    modality_id = fields.Many2one('reciba.modality', string="Modality")
 
 
 

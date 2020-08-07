@@ -40,7 +40,7 @@
             </field>
         </record>
 
-        <menuitem id="menu_modality" name="modalitys" parent="albagro_reciba_customs.menu_reciba" action="modality_action" sequence="3"/>
+        <menuitem id="menu_modality" name="Modalitys" parent="albagro_reciba_customs.menu_reciba" action="modality_action" sequence="3"/>
 
     </data>
 </odoo>

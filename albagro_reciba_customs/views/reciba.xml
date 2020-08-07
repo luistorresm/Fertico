@@ -13,6 +13,7 @@
                             <field name="customer_id"/>
                             <field name="no_ticket"/>
                             <field name="cycle_id"/>
+                            <field name="modality_id"/>
                             <field name="gross_weight"/>
                             <field name="tare_weight"/>
                             <field name="net_weight"/>
@@ -33,6 +34,7 @@
                     <field name="customer_id"/>
                     <field name="no_ticket"/>
                     <field name="cycle_id"/>
+                    <field name="modality_id"/>
                     <field name="gross_weight"/>
                     <field name="tare_weight"/>
                     <field name="net_weight"/>
