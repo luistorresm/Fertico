@@ -27,6 +27,7 @@
         'views/reciba.xml',
         'views/cycle.xml',
         'views/purchase.xml',
+        'views/modality.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

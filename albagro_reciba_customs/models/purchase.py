@@ -4,6 +4,7 @@ class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
 
     cycle_id = fields.Many2one('reciba.cycle', string="Cycle")
+    modality_id = fields.Many2one('reciba.modality', string="Modality")
 
     @api.multi
     @api.onchange('order_line')
@@ -11,7 +12,9 @@ class PurchaseOrder(models.Model):
         
         partner=self.partner_id.id
         cycle=self.cycle_id.id
+        modality=self.modality_id.id
         
+
         for line in self.order_line:
             if partner == False:
                 if line.reciba_id.customer_id:
@@ -19,6 +22,9 @@ class PurchaseOrder(models.Model):
             if cycle == False:
                 if line.reciba_id.cycle_id:
                     self.cycle_id = line.reciba_id.cycle_id
+            if modality == False:
+                if line.reciba_id.modality_id:
+                    self.modality_id = line.reciba_id.modality_id
     
     @api.multi
     @api.onchange('order_line')
@@ -39,10 +45,6 @@ class PurchaseOrder(models.Model):
                     'message': 'La boleta seleccionada ya está siendo utilizada'
                 }}
                 return res
-
-
-
-    
 
 
 class PurchaseOrderLine(models.Model):
@@ -73,3 +75,29 @@ class PurchaseOrderLine(models.Model):
         self.product_qty=self.reciba_id.net_weight
     
     
+class AccountInvoice(models.Model):
+    _inherit = 'account.invoice'
+
+    cycle_id = fields.Many2one('reciba.cycle', string="Cycle")
+    modality_id = fields.Many2one('reciba.modality', string="Modality")
+
+    @api.multi
+    @api.onchange('invoice_line_ids')
+    def _onchange_reciba_line(self):
+        
+        cycle=self.cycle_id.id
+        modality=self.modality_id.id
+
+        for line in self.invoice_line_ids:
+            if cycle == False:
+                if line.reciba_id.cycle_id:
+                    self.cycle_id = line.reciba_id.cycle_id
+            if modality == False:
+                if line.reciba_id.modality_id:
+                    self.modality_id = line.reciba_id.modality_id
+
+
+class AccountInvoiceLine(models.Model):
+    _inherit = 'account.invoice.line'
+
+    reciba_id = fields.Many2one(related='purchase_line_id.reciba_id', string="Ticket")

@@ -8,12 +8,30 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='currency_id']" position="after">
                     <field name="cycle_id"/>
+                    <field name="modality_id"/>
                 </xpath>
                 <xpath expr="//tree/field[@name='product_id']" position="before">
                     <field name="reciba_id"/>
                 </xpath>
             </field>
         </record>
+
+        
+        <record id="purchase_invoice_reciba" model="ir.ui.view">
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='purchase_id']" position="after">
+                    <field name="cycle_id"/>
+                    <field name="modality_id"/>
+                </xpath>
+                <xpath expr="//tree/field[@name='product_id']" position="before">
+                    <field name="reciba_id"/>
+                </xpath>
+            </field>
+        </record>
+
+
 
     </data>
 </odoo>
