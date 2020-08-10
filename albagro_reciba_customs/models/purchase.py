@@ -51,6 +51,10 @@ class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
 
     reciba_id = fields.Many2one('reciba.order', string="Ticket")
+    cycle = fields.Many2one(related='reciba_id.cycle_id', string="Cycle", store=True)
+    invoice_status = fields.Selection(related='invoice_lines.invoice_id.state', string="Invoiced status", store=True)
+    qty_invoice = fields.Float(related='invoice_lines.quantity', string="Invoiced quantity", store=True) 
+
 
     @api.multi
     @api.onchange('reciba_id')
