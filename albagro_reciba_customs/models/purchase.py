@@ -58,6 +58,7 @@ class PurchaseOrderLine(models.Model):
     cycle = fields.Many2one(related='reciba_id.cycle_id', string="Cycle", store=True)
     invoice_status = fields.Selection(related='invoice_lines.invoice_id.state', string="Invoiced status", store=True)
     qty_invoice = fields.Float(related='invoice_lines.quantity', string="Invoiced quantity", store=True)
+    ticket = fields.Boolean()
 
     #=======Revisamos si la reciba seleccionada ya ha sido usada y mostramos una advertencia=====
     @api.multi
