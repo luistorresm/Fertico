@@ -6,6 +6,7 @@ class PurchaseOrder(models.Model):
     cycle_id = fields.Many2one('reciba.cycle', string="Cycle")
     modality_id = fields.Many2one('reciba.modality', string="Modality")
 
+    #==============Revisamos si hay cambios en las lineas de compras========================================
     @api.multi
     @api.onchange('order_line')
     def _onchange_reciba_line(self):
@@ -14,7 +15,7 @@ class PurchaseOrder(models.Model):
         cycle=self.cycle_id.id
         modality=self.modality_id.id
         
-
+        #Si se agrega una reciba, toma el vendedor, ciclo y modalidad y se los asigna a la ordern de compra
         for line in self.order_line:
             if partner == False:
                 if line.reciba_id.customer_id:
@@ -26,6 +27,7 @@ class PurchaseOrder(models.Model):
                 if line.reciba_id.modality_id:
                     self.modality_id = line.reciba_id.modality_id
     
+    #=====================Revisamos si hay cambios en lineas de compra==============
     @api.multi
     @api.onchange('order_line')
     def _onchange_reciba_line_ticket(self):
@@ -33,11 +35,13 @@ class PurchaseOrder(models.Model):
         for line in self.order_line:
             n=0
             duplicate=[]
+            #===Revisamos si hay alguna boleta repetida y de ser así mostramos una advertencia y quitamos la linea===
             for l in self.order_line:
-                if line.reciba_id.id == l.reciba_id.id:
-                    n+=1
-                    if n > 1:
-                        duplicate.append(l.id)
+                if line.reciba_id:
+                    if line.reciba_id.id == l.reciba_id.id:
+                        n+=1
+                        if n > 1:
+                            duplicate.append(l.id)
             for d in duplicate:
                 self.order_line = [(3, d)]
                 res = {'warning': {
@@ -53,9 +57,9 @@ class PurchaseOrderLine(models.Model):
     reciba_id = fields.Many2one('reciba.order', string="Ticket")
     cycle = fields.Many2one(related='reciba_id.cycle_id', string="Cycle", store=True)
     invoice_status = fields.Selection(related='invoice_lines.invoice_id.state', string="Invoiced status", store=True)
-    qty_invoice = fields.Float(related='invoice_lines.quantity', string="Invoiced quantity", store=True) 
-    ticket = fields.Boolean(compute="get_reciba")
+    qty_invoice = fields.Float(related='invoice_lines.quantity', string="Invoiced quantity", store=True)
 
+    #=======Revisamos si la reciba seleccionada ya ha sido usada y mostramos una advertencia=====
     @api.multi
     @api.onchange('reciba_id')
     def _onchange_reciba(self):
@@ -71,22 +75,19 @@ class PurchaseOrderLine(models.Model):
             else:
                 self.product_id = self.reciba_id.product_id
 
-
+    #=========Asignamos la cantidad que tiene la reciba a la cantidad de la linea de compra========
     @api.multi
     @api.onchange('product_id')
     def onchange_product_id(self):
         product = super(PurchaseOrderLine, self).onchange_product_id()
         self.product_qty=self.reciba_id.net_weight
 
-
-    #===============Evaluamos si se tiene un ticket agregado y guardamos el resultado en un campo boolean=============
+    
     @api.multi
-    @api.depends('reciba_id','product_id')
-    def get_reciba(self):
+    @api.onchange('product_qty')
+    def get_qty(self):
         if self.reciba_id:
-            self.ticket = True
-        else:
-            self.ticket = False
+            self.product_qty = self.reciba_id.net_weight
     
     
 class AccountInvoice(models.Model):
