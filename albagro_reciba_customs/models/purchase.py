@@ -54,7 +54,7 @@ class PurchaseOrderLine(models.Model):
     cycle = fields.Many2one(related='reciba_id.cycle_id', string="Cycle", store=True)
     invoice_status = fields.Selection(related='invoice_lines.invoice_id.state', string="Invoiced status", store=True)
     qty_invoice = fields.Float(related='invoice_lines.quantity', string="Invoiced quantity", store=True) 
-
+    ticket = fields.Boolean(compute="get_reciba")
 
     @api.multi
     @api.onchange('reciba_id')
@@ -77,6 +77,16 @@ class PurchaseOrderLine(models.Model):
     def onchange_product_id(self):
         product = super(PurchaseOrderLine, self).onchange_product_id()
         self.product_qty=self.reciba_id.net_weight
+
+
+    #===============Evaluamos si se tiene un ticket agregado y guardamos el resultado en un campo boolean=============
+    @api.multi
+    @api.depends('reciba_id','product_id')
+    def get_reciba(self):
+        if self.reciba_id:
+            self.ticket = True
+        else:
+            self.ticket = False
     
     
 class AccountInvoice(models.Model):
