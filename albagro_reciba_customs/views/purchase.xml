@@ -32,23 +32,8 @@
         </record>
 
 
-        <!--===================================VIsta de lista lineas de compra===========================================-->
 
-
-        <!--<record model="ir.ui.view" id="order_line_form_view">
-            <field name="name">purchase.order.line.form</field>
-            <field name="model">purchase.order.line</field>
-            <field name="arch" type="xml">
-                <form string="Course Form">
-                    <sheet>
-                        <group>
-                            <field name="reciba_id"/>
-                        </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>-->
-
+        <!--===================Vista de formulario de linea de compra, botn de accion y menu==============-->
 
 
         <record id="purchase_order_line_reciba" model="ir.ui.view">
@@ -72,6 +57,7 @@
             <field name="res_model">purchase.order.line</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="domain">[('reciba_id', '!=',False)]</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">Create the first line
                 </p>
