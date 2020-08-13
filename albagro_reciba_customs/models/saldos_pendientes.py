@@ -31,13 +31,11 @@ class AccountInvoice(models.Model):
         invoice_recordset = self.env['account.invoice'].browse(self._origin.id)
         invoice_recordset.selected_sl_inv = True
         _logger.info('\n\n\n invoice_recordset.selected_sl_inv: %s\n\n\n', invoice_recordset.selected_sl_inv)
-        _logger.info('\n\n\n sí entró a intento 1 \n\n')
         
         #Update trial 2:
         values = {'selected_sl_inv': True}
         recordset = self.env['account.invoice'].write(values)
-        _logger.info('\n\n\n recordset: %s\n\n\n', recordset) 
-        _logger.info('\n\n\n sí entró a intento 2 \n\n')       
+        _logger.info('\n\n\n recordset: %s\n\n\n', recordset)   
 
 
 
@@ -79,8 +77,7 @@ class PurchaseOrder(models.Model):
         #Update trial 3:
         self.ensure_one()
         invoice_recordset = self.env['account.invoice'].browse(invoice_id)
-        invoice_recordset.selected_sl_inv = True
-        _logger.info('\n\n\n sí entró a intento 3 \n\n')                            
+        invoice_recordset.selected_sl_inv = True                       
               
         self.ammount_select_discounts = sum(line.residual_signed for line in self.pending_sales_invoices_ids if line.selected_sl_inv == True)         
 
@@ -105,7 +102,6 @@ class PurchaseOrder(models.Model):
         self.env.cr.execute(sql_query, (self.partner_id.id,))
         residual_companies = self.env.cr.fetchall()
 
-        _logger.info('\n\n\n summatory_residual: %s\n\n\n', residual_companies)
         
 
         #Validate if query has results:
@@ -130,19 +126,20 @@ class PurchaseOrder(models.Model):
             #Error message must be omitted when a given user has permission to invalidate it
             #being this indicated by a checkbox in res.partner:
             uid = self.env.user.id
-            _logger.info('\n\n\n uid: %s\n\n\n', uid)
             name_user = self.env['res.users'].search([('id', '=', uid)]).name        
 
             #is_valid_user_flag = self.pool.get('res.users').has_group(cr, uid, 'base.group_omit_balances') 
             #user = self.env['res.users'].browse(self._uid)
             #is_valid_user_flag = user.has_group('base.group_omit_balances')            
             is_valid_user_flag = self.env.user.has_group('base.group_omit_balances')         
-            _logger.info('\n\n\n is_valid_user_flag: %s\n\n\n', is_valid_user_flag)
-            
+
+            _logger.info('\n\n\n uid: %s\n\n\n', uid)            
+            _logger.info('\n\n\n is_valid_user_flag: %s\n\n\n', is_valid_user_flag)            
             _logger.info('\n\n\n summatory_residual: %s\n\n\n', summatory_residual)
+            _logger.info('\n\n\n ammount_select_discounts: %s\n\n\n', self.ammount_select_discounts)
 
         
-            if is_valid_user_flag == True: # or not summatory_residual:            
+            if is_valid_user_flag == True or not summatory_residual or self.ammount_select_discounts:            
                 #Display error message to user like a pop up window:
                 raise UserError(msg)
             else:
@@ -150,7 +147,7 @@ class PurchaseOrder(models.Model):
                 purchase_post =  "<ul style=\"margin:0px 0 9px 0\">"
                 purchase_post += "<li><p style='margin:0px; font-size:13px; font-family:\"Lucida Grande\", Helvetica, Verdana, Arial, sans-serif'>Usuario que autorizó la Orden de Compra: " + name_user + "</p></li>"
                 purchase_post += "<li><p style='margin:0px; font-size:13px; font-family:\"Lucida Grande\", Helvetica, Verdana, Arial, sans-serif'><strong>Monto de facturas de venta adeudadas:</strong> $" + str(summatory_residual) + "</p></li>"
-                purchase_post += "<li><p style='margin:0px; font-size:13px; font-family:\"Lucida Grande\", Helvetica, Verdana, Arial, sans-serif'><strong>Monto de descuentos seleccionados:</strong> $ #%#%#%#%#</p></li>"
+                purchase_post += "<li><p style='margin:0px; font-size:13px; font-family:\"Lucida Grande\", Helvetica, Verdana, Arial, sans-serif'><strong>Monto de descuentos seleccionados:</strong> $" + str(self.ammount_select_discounts) + "</p></li>"
                 purchase_post += "</ul>"
 
                 purchase_order_recorset = self.env['purchase.order'].browse(self.id)
