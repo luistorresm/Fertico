@@ -2,19 +2,6 @@
 <odoo>
   <data>
 
-    <!--Add a new checkbox for validation in Contacts-->
-    <record id="view_res_partner_form_inherit" model="ir.ui.view">
-        <field name="name">res.partner.form.inherit</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="/form/sheet/notebook/page[@name='sales_purchases']//field[@name='supplier']" position="after">
-                <field name="validate_residual"/>
-            </xpath>
-        </field>
-    </record>      
-
-
     <!--Add a new page to notebook in purchase order-->
     <record id="view_purchase_order_form_inherit" model="ir.ui.view">
         <field name="name">purchase.order.form.inherit</field>
@@ -23,8 +10,9 @@
         <field name="arch" type="xml">
             <notebook position="inside">
                 <page name="pending_sales_invoices" string="Sales Invoices to settle">
-                    <field name="pending_sales_invoices">
-                        <tree string="Registered sessions">
+                    <field name="pending_sales_invoices_ids" readonly="False">
+                        <tree string="Pending Sales Invoices" editable="bottom">
+                            <field name="selected_sl_inv"/>
                             <field name="partner_id"/>
                             <field name="date_invoice"/>
                             <field name="number"/>
@@ -38,7 +26,11 @@
                             <field name="residual_signed"/>
                             <field name="state"/>
                         </tree>
-                    </field>                    
+                    </field> 
+                    <group class="oe_subtotal_footer oe_right" modifiers="{}">
+                        <field name="ammount_sl_pending_inv" widget="monetary" options="{'currency_field': 'currency_id'}" modifiers="{'readonly':true}"/>
+                        <field name="ammount_select_discounts" widget="monetary" options="{'currency_field': 'currency_id'}" modifiers="{'readonly':true}"/>
+                    </group>                                                                      
                 </page>
             </notebook>
         </field>
