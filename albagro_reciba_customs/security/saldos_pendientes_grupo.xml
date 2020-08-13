@@ -2,8 +2,8 @@
 <odoo>
     <data noupdate="0">
 
-        <record id="group_omit_balances" model="res.groups">
-            <field name="name">Omit outstanding balances</field>
+        <record id="group_omit_validation_pending_invoices" model="res.groups">
+            <field name="name">Omit Reception Validation of Pending Invoices</field>
             <field name="category_id" ref="base.module_category_hidden"/>
         </record>
 

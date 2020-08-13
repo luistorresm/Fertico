@@ -131,7 +131,7 @@ class PurchaseOrder(models.Model):
             #is_valid_user_flag = self.pool.get('res.users').has_group(cr, uid, 'base.group_omit_balances') 
             #user = self.env['res.users'].browse(self._uid)
             #is_valid_user_flag = user.has_group('base.group_omit_balances')            
-            is_valid_user_flag = self.env.user.has_group('base.group_omit_balances')         
+            is_valid_user_flag = self.env.user.has_group('albagro_reciba_customs.group_omit_validation_pending_invoices')         
 
             _logger.info('\n\n\n uid: %s\n\n\n', uid)            
             _logger.info('\n\n\n is_valid_user_flag: %s\n\n\n', is_valid_user_flag)            
@@ -139,7 +139,7 @@ class PurchaseOrder(models.Model):
             _logger.info('\n\n\n ammount_select_discounts: %s\n\n\n', self.ammount_select_discounts)
 
         
-            if is_valid_user_flag == True or not summatory_residual or self.ammount_select_discounts:            
+            if is_valid_user_flag == False or not summatory_residual: #or self.ammount_select_discounts:            
                 #Display error message to user like a pop up window:
                 raise UserError(msg)
             else:
