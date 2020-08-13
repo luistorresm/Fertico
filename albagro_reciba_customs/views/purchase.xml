@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="purchase_order_reciba" model="ir.ui.view">
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='currency_id']" position="after">
+                    <field name="cycle_id"/>
+                    <field name="modality_id"/>
+                </xpath>
+                <xpath expr="//tree/field[@name='product_id']" position="before">
+                    <field name="reciba_id"/>
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <record id="purchase_invoice_reciba" model="ir.ui.view">
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='purchase_id']" position="after">
+                    <field name="cycle_id"/>
+                    <field name="modality_id"/>
+                </xpath>
+                <xpath expr="//tree/field[@name='product_id']" position="before">
+                    <field name="reciba_id"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="purchase_order_line_reciba" model="ir.ui.view">
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id" ref="purchase.purchase_order_line_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_id']" position="before">
+                    <field name="reciba_id"/>
+                    <field name="cycle"/>
+                    <field name="invoice_status"/>
+                </xpath>
+                <xpath expr="//field[@name='product_qty']" position="before">
+                    <field name="qty_invoice"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="order_line_action">
+            <field name="name">Purchase order lines</field>
+            <field name="res_model">purchase.order.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('reciba_id', '!=',False)]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create the first line
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_order_line" name="Order lines" parent="purchase.menu_procurement_management" action="order_line_action" sequence="20"/>
+
+
+
+        <!--===================Vista de formulario de linea de compra, botn de accion y menu==============-->
+
+
+        <record id="purchase_order_line_reciba" model="ir.ui.view">
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id" ref="purchase.purchase_order_line_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_id']" position="before">
+                    <field name="reciba_id"/>
+                    <field name="cycle"/>
+                    <field name="invoice_status"/>
+                </xpath>
+                <xpath expr="//field[@name='product_qty']" position="before">
+                    <field name="qty_invoice"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="order_line_action">
+            <field name="name">Purchase order lines</field>
+            <field name="res_model">purchase.order.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('reciba_id', '!=',False)]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create the first line
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_order_line" name="Order lines" parent="purchase.menu_procurement_management" action="order_line_action" sequence="20"/>
+
+
+
+    </data>
+</odoo>

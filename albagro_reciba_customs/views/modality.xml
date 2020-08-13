@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="modality_form_view">
+            <field name="name">reciba.modality.form</field>
+            <field name="model">reciba.modality</field>
+            <field name="arch" type="xml">
+                <form string="Course Form">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+
+        <record model="ir.ui.view" id="modality_tree_view">
+            <field name="name">reciba.modality.tree</field>
+            <field name="model">reciba.modality</field>
+            <field name="arch" type="xml">
+                <tree string="Course Tree">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="modality_action">
+            <field name="name">modalitys</field>
+            <field name="res_model">reciba.modality</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create the first modality
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_modality" name="Modalitys" parent="albagro_reciba_customs.menu_reciba" action="modality_action" sequence="3"/>
+
+    </data>
+</odoo>
