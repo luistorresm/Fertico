@@ -114,7 +114,7 @@ class PurchaseOrder(models.Model):
             else:
                 #Construction of post's content in Purchase Order Chatter:
                 purchase_post =  "<ul style=\"margin:0px 0 9px 0\">"
-                purchase_post += "<li><p style='margin:0px; font-size:13px; font-family:\"Lucida Grande\", Helvetica, Verdana, Arial, sans-serif'>Usuario que autorizó la Orden de Compra: " + name_user + "</p></li>"
+                purchase_post += "<li><p style='margin:0px; font-size:13px; font-family:\"Lucida Grande\", Helvetica, Verdana, Arial, sans-serif'>Usuario que autorizó la Orden de Compra: <strong>" + name_user + "</strong></p></li>"
                 purchase_post += "<li><p style='margin:0px; font-size:13px; font-family:\"Lucida Grande\", Helvetica, Verdana, Arial, sans-serif'><strong>Monto de facturas de venta adeudadas:</strong> $" + str(summatory_residual) + "</p></li>"
                 purchase_post += "<li><p style='margin:0px; font-size:13px; font-family:\"Lucida Grande\", Helvetica, Verdana, Arial, sans-serif'><strong>Monto de descuentos seleccionados:</strong> $" + str(self.ammount_select_discounts) + "</p></li>"
                 purchase_post += "</ul>"

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-06 14:43+0000\n"
-"PO-Revision-Date: 2020-08-06 14:43+0000\n"
+"POT-Creation-Date: 2020-08-14 18:00+0000\n"
+"PO-Revision-Date: 2020-08-14 18:00+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: albagro_reciba_customs
-#: code:addons/albagro_reciba_customs/models/saldos_pendientes.py:33
+#: code:addons/albagro_reciba_customs/models/saldos_pendientes.py:102
 #, python-format
 msgid "\n"
 "\n"
@@ -26,7 +26,7 @@ msgstr "\n"
 "Considere hacer descuentos para su liquidacion."
 
 #. module: albagro_reciba_customs
-#: code:addons/albagro_reciba_customs/models/saldos_pendientes.py:30
+#: code:addons/albagro_reciba_customs/models/saldos_pendientes.py:97
 #, python-format
 msgid "\n"
 "[+] %s balance by $%s"
@@ -34,15 +34,286 @@ msgstr "\n"
 "[+] %s, saldo por $%s"
 
 #. module: albagro_reciba_customs
+#: model:ir.model.fields,help:albagro_reciba_customs.field_purchase_order_line_invoice_status
+msgid " * The 'Draft' status is used when a user is encoding a new and unconfirmed Invoice.\n"
+" * The 'Open' status is used when user creates invoice, an invoice number is generated. It stays in the open status till the user pays the invoice.\n"
+" * The 'Paid' status is set automatically when the invoice is paid. Its related journal entries may or may not be reconciled.\n"
+" * The 'Cancelled' status is used when user cancel invoice."
+msgstr "* El estado \"Borrador\" se usa cuando un usuario confecciona un nueva factura no confirmada.\n"
+"* El estado \"Abierto\" se usa cuando el usuario crea una factura, y se genera un número de factura. Este estado se mantiene hasta que el usuario paga la factura\n"
+"* El Estado \"Pagado\" se establece automáticamente cuando la factura se paga.  Sus entradas relacionadas en el diario pueden o no estar conciliadas.\n"
+"* El estado \"Cancelado\" se usa cuando el usuario cancela una factura"
+
+#. module: albagro_reciba_customs
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_purchase_order_ammount_sl_pending_inv
+msgid "Ammount of Pedinng Sales Invoices"
+msgstr "Monto de Facturas de Venta Pendientes"
+
+#. module: albagro_reciba_customs
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_purchase_order_ammount_select_discounts
+msgid "Ammount of Selected Discounts"
+msgstr "Monto de Descuentos Seleccionados"
+
+#. module: albagro_reciba_customs
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_account_invoice_assigned_pur_ord
+msgid "Assigned Purchase Order"
+msgstr "Orden de Compra Asignada"
+
+#. module: albagro_reciba_customs
+#: model:ir.model,name:albagro_reciba_customs.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: albagro_reciba_customs
+#: model:ir.ui.view,arch_db:albagro_reciba_customs.cycle_form_view
+#: model:ir.ui.view,arch_db:albagro_reciba_customs.modality_form_view
+#: model:ir.ui.view,arch_db:albagro_reciba_customs.reciba_form_view
+msgid "Course Form"
+msgstr "Course Form"
+
+#. module: albagro_reciba_customs
+#: model:ir.ui.view,arch_db:albagro_reciba_customs.cycle_tree_view
+#: model:ir.ui.view,arch_db:albagro_reciba_customs.modality_tree_view
+#: model:ir.ui.view,arch_db:albagro_reciba_customs.reciba_tree_view
+msgid "Course Tree"
+msgstr "Course Tree"
+
+#. module: albagro_reciba_customs
+#: model:ir.actions.act_window,help:albagro_reciba_customs.cycle_action
+#: model:ir.actions.act_window,help:albagro_reciba_customs.reciba_action
+msgid "Create the first cycle"
+msgstr "Crear el primer ciclo"
+
+#. module: albagro_reciba_customs
+#: model:ir.actions.act_window,help:albagro_reciba_customs.order_line_action
+msgid "Create the first line"
+msgstr "Crear la primera línea"
+
+#. module: albagro_reciba_customs
+#: model:ir.actions.act_window,help:albagro_reciba_customs.modality_action
+msgid "Create the first modality"
+msgstr "Crear la primera modalidad"
+
+#. module: albagro_reciba_customs
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_cycle_create_uid
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_modality_create_uid
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_order_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: albagro_reciba_customs
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_cycle_create_date
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_modality_create_date
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_order_create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: albagro_reciba_customs
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_account_invoice_cycle_id
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_purchase_order_cycle_id
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_purchase_order_line_cycle
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_order_cycle_id
+msgid "Cycle"
+msgstr "Ciclo"
+
+#. module: albagro_reciba_customs
+#: model:ir.model,name:albagro_reciba_customs.model_reciba_cycle
+msgid "Cycle of reciba"
+msgstr "Ciclo de reciba"
+
+#. module: albagro_reciba_customs
+#: model:ir.actions.act_window,name:albagro_reciba_customs.cycle_action
+#: model:ir.ui.menu,name:albagro_reciba_customs.menu_cycle
+msgid "Cycles"
+msgstr "Ciclos"
+
+#. module: albagro_reciba_customs
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_cycle_display_name
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_modality_display_name
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_order_display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: albagro_reciba_customs
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_order_gross_weight
+msgid "Gross weight"
+msgstr "Gross weight"
+
+#. module: albagro_reciba_customs
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_cycle_id
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_modality_id
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_order_id
+msgid "ID"
+msgstr "ID (identificación)"
+
+#. module: albagro_reciba_customs
+#: model:ir.model,name:albagro_reciba_customs.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: albagro_reciba_customs
+#: model:ir.model,name:albagro_reciba_customs.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Linea de Factura"
+
+#. module: albagro_reciba_customs
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_purchase_order_line_qty_invoice
+msgid "Invoiced quantity"
+msgstr "Invoiced quantity"
+
+#. module: albagro_reciba_customs
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_purchase_order_line_invoice_status
+msgid "Invoiced status"
+msgstr "Invoiced status"
+
+#. module: albagro_reciba_customs
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_cycle___last_update
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_modality___last_update
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_order___last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: albagro_reciba_customs
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_cycle_write_uid
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_modality_write_uid
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_order_write_uid
+msgid "Last Updated by"
+msgstr "Última actualización de"
+
+#. module: albagro_reciba_customs
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_cycle_write_date
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_modality_write_date
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_order_write_date
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: albagro_reciba_customs
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_account_invoice_modality_id
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_purchase_order_modality_id
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_order_modality_id
+msgid "Modality"
+msgstr "Modalidad"
+
+#. module: albagro_reciba_customs
+#: model:ir.model,name:albagro_reciba_customs.model_reciba_modality
+msgid "Modality of reciba"
+msgstr "Modalidad de reciba"
+
+#. module: albagro_reciba_customs
+#: model:ir.ui.menu,name:albagro_reciba_customs.menu_modality
+msgid "Modalitys"
+msgstr "Modalidades"
+
+#. module: albagro_reciba_customs
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_cycle_name
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_modality_name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: albagro_reciba_customs
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_order_net_weight
+msgid "Net weight"
+msgstr "Peso Neto"
+
+#. module: albagro_reciba_customs
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_order_no_ticket
+msgid "No. ticket"
+msgstr "No. ticket"
+
+#. module: albagro_reciba_customs
+#: model:res.groups,name:albagro_reciba_customs.group_omit_validation_pending_invoices
+msgid "Omit Reception Validation of Pending Invoices"
+msgstr "Omitir Validación de Reciba de Facturas Pendientes"
+
+#. module: albagro_reciba_customs
+#: model:ir.ui.menu,name:albagro_reciba_customs.menu_order_line
+msgid "Order lines"
+msgstr "Líneas de Orden"
+
+#. module: albagro_reciba_customs
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_purchase_order_pending_sales_invoices_ids
+#: model:ir.ui.view,arch_db:albagro_reciba_customs.view_purchase_order_form_inherit
+msgid "Pending Sales Invoices"
+msgstr "Facturas de Venta Pendientes"
+
+#. module: albagro_reciba_customs
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_order_product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: albagro_reciba_customs
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_order_customer_id
+msgid "Productor name"
+msgstr "Nombre de Productor"
+
+#. module: albagro_reciba_customs
 #: model:ir.model,name:albagro_reciba_customs.model_purchase_order
 msgid "Purchase Order"
 msgstr "Pedido de compra"
 
 #. module: albagro_reciba_customs
-#: code:addons/albagro_reciba_customs/models/saldos_pendientes.py:26
+#: model:ir.model,name:albagro_reciba_customs.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Línea de pedido de compra"
+
+#. module: albagro_reciba_customs
+#: model:ir.actions.act_window,name:albagro_reciba_customs.order_line_action
+msgid "Purchase order lines"
+msgstr "Líneas de pedido de compra"
+
+#. module: albagro_reciba_customs
+#: model:ir.model,name:albagro_reciba_customs.model_reciba_order
+#: model:ir.ui.menu,name:albagro_reciba_customs.menu_reciba
+msgid "Reciba"
+msgstr "Reciba"
+
+#. module: albagro_reciba_customs
+#: model:ir.actions.act_window,name:albagro_reciba_customs.reciba_action
+#: model:ir.ui.menu,name:albagro_reciba_customs.menu_reciba_order
+msgid "Recibas"
+msgstr "Recibas"
+
+#. module: albagro_reciba_customs
+#: model:ir.ui.view,arch_db:albagro_reciba_customs.view_purchase_order_form_inherit
+msgid "Sales Invoices to settle"
+msgstr "Facturas de Venta por saldar"
+
+#. module: albagro_reciba_customs
+#: model:ir.ui.view,arch_db:albagro_reciba_customs.view_purchase_order_form_inherit
+msgid "Select"
+msgstr "Seleccionar"
+
+#. module: albagro_reciba_customs
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_account_invoice_selected_sl_inv
+msgid "Selected Discount"
+msgstr "Descuento Seleccionado"
+
+#. module: albagro_reciba_customs
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_reciba_order_tare_weight
+msgid "Tare weight"
+msgstr "Tare weight"
+
+#. module: albagro_reciba_customs
+#: code:addons/albagro_reciba_customs/models/saldos_pendientes.py:92
 #, python-format
 msgid "The related contact on the purchase order %s has outstanding balances on sales: \n"
 ""
 msgstr "El Contacto relacionado en la Orden de Compra %s tiene Saldos Pendientes en Ventas: \n"
 ""
+
+#. module: albagro_reciba_customs
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_account_invoice_line_reciba_id
+#: model:ir.model.fields,field_description:albagro_reciba_customs.field_purchase_order_line_reciba_id
+msgid "Ticket"
+msgstr "Ticket"
+
+#. module: albagro_reciba_customs
+#: model:ir.model,name:albagro_reciba_customs.model_res_users
+msgid "Users"
+msgstr "Usuarios"
+
+#. module: albagro_reciba_customs
+#: model:ir.actions.act_window,name:albagro_reciba_customs.modality_action
+msgid "modalitys"
+msgstr "modalidades"
 
