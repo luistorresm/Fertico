@@ -12,7 +12,9 @@
                 <page name="pending_sales_invoices" string="Sales Invoices to settle">
                     <field name="pending_sales_invoices_ids" readonly="False">
                         <tree string="Pending Sales Invoices" editable="bottom">
+                            <button name="change_selected_sl_inv" type="object" string="Select"></button>
                             <field name="selected_sl_inv"/>
+                            <field name="assigned_pur_ord"/>
                             <field name="partner_id"/>
                             <field name="date_invoice"/>
                             <field name="number"/>
