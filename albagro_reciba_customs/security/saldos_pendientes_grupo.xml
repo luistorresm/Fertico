@@ -6,6 +6,6 @@
             <field name="name">Omit Reception Validation of Pending Invoices</field>
             <field name="category_id" ref="base.module_category_hidden"/>
         </record>
-
+        
     </data>
 </odoo>
