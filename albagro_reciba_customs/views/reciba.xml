@@ -10,9 +10,9 @@
                     <sheet>
                         <div class="alert alert-danger" role="alert" style="margin-bottom:0px;"
                              attrs="{'invisible': [('has_debts', '=', False)]}">
-                            <p>
+                            <div>
                                 <field name="error_message"/>
-                            </p>
+                            </div>
                             <bold>
                                 <a class="alert-link" role="button">
                                     <field name="product_id" readonly="True"/>

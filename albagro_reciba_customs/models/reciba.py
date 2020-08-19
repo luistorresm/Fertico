@@ -33,7 +33,7 @@ class RecibaOrder(models.Model):
     def display_debts_pop_up(self):
         #Retrieve rows from "account.invoice" model where the present provider
         #is revised to detect if has open invoices indicating that must pay its debts:         
-        msg = ""
+        msg = ""; summatory_residual = 0
         sql_query = """SELECT company_id, SUM(residual_signed) 
                          FROM account_invoice 
                         WHERE (partner_id = %s)
@@ -47,17 +47,19 @@ class RecibaOrder(models.Model):
         #Validate if query has results:
         if residual_companies:           
             #Construct the error message, beginning with client with open sales invoices:
-            debtor = self.env['res.partner'].search([('id', '=', self.partner_id.id)]).name
-            msg = _('The related contact on the purchase order %s has outstanding balances on sales: \n') % (debtor)
-                          
+            debtor = self.env['res.partner'].search([('id', '=', self.customer_id.id)]).name
+            msg = "<p>El cliente " + debtor + " tiene saldos pendientes en ventas <p>"
+
+            msg += "<ul>"                          
             for val in residual_companies:
                 #Iterate companies with residual (outstanding balance) and concatenate
                 company_name = self.env['res.company'].search([('id', '=', val[0])]).name
-                msg += _('\n[+] %s balance by $%s') % (company_name, val[1])                    
+                msg += "<li> " + company_name + ", saldo por $" + val[1] + "</li>"                
                 #Sum up residuals in order to indicate how much is debted
                 summatory_residual += val[1] 
-                         
+
+            msg += "</ul>"                         
             #Concatenate last part of error message:
-            msg += _('\n\nConsider making discounts for settlement.')
+            msg += "Considere efectuar descuentos"
             self.has_debts = True
             self.error_message = msg
