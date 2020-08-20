@@ -2,3 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_reciba_read,albagro_reciba_customs.reciba_read,model_reciba_order,,1,1,1,1
 access_cycle_read,albagro_reciba_customs.cycle_read,model_reciba_cycle,,1,1,1,1
 access_modality_read,albagro_reciba_customs.modality_read,model_reciba_modality,,1,1,1,1
+access_td_read,albagro_reciba_customs.td_read,model_reciba_datatd,,1,1,1,1

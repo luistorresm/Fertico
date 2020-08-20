@@ -28,6 +28,7 @@
         'views/cycle.xml',
         'views/purchase.xml',
         'views/modality.xml',
+        'views/data_td.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
