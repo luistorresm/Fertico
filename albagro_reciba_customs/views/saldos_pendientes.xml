@@ -40,10 +40,10 @@
 
     <!--Add new submenu into Account > Purchase in order to display a new tree view of reciba payments follow-up-->
     <record id="view_reciba_followup_tree" model="ir.ui.view">
-        <field name="name">reciba.followup.invoice.tree</field>
+        <field name="name">Reciba Payments Follow-up</field>
         <field name="model">account.invoice</field>
         <field name="arch" type="xml">
-            <tree string="Follow-up">
+            <tree>
                 <field name="cycle_id"/>
                 <field name="partner_id"/>
                 <field name="date_invoice"/>
@@ -53,30 +53,25 @@
                 <field name="reference"/>
                 <field name="number"/>
                 <field name="company_id"/>
-                <field name="ammount_compensate"/>
-                <field name="ammount_transfer"/>                                
-                <field name="residual_signed"/>
-                <field name="state"/>
+                <field name="state" invisible="1"/>
              </tree>
         </field>
     </record>
 
-
-    <record id="reciba_invoices_followup" model="ir.actions.act_window">
-        <field name="name">reciba.invoices.followup</field>
+    <record id="action_reciba_followup" model="ir.actions.act_window">
+        <field name="name">Reciba Payments Follow-up</field>
         <field name="res_model">account.invoice</field>
         <field name="view_type">form</field>
-        <field name="view_mode">tree</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Create the first modality
-            </p>
-        </field>
-    </record>    
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_reciba_followup_tree"/>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+    </record>
+      
 
     <menuitem id="menu_reciba_followup_invoices" 
               name="Reciba Invoices Follow-up" 
-              action="reciba_invoices_followup"
+              action="action_reciba_followup"
               parent="account.menu_finance_payables_documents"
               sequence="30"/>    
 

@@ -23,10 +23,10 @@ class AccountInvoice(models.Model):
     ammount_compensate = fields.Float(string='Ammount of Selected Discounts', 
                                       digits=dp.get_precision('Product Unit of Measure'))#, 
                                       #compute='set_ammount_comp')
-    ammount_transfer   = fields.Float(string='Ammount of Difference / Transfers', 
-                                      digits=dp.get_precision('Product Unit of Measure'))#, 
-                                      #compute='set_ammount_dif')                                     
-
+    ammount_transfer = fields.Float(string='Ammount of Difference / Transfers', 
+                                    digits=dp.get_precision('Product Unit of Measure'))#, 
+                                    #compute='set_ammount_dif')    
+                                 
     def change_selected_sl_inv(self):           
         '''This method permits to change status of checkbox and assigning a purchase order'''
         if self.selected_sl_inv:
@@ -34,17 +34,16 @@ class AccountInvoice(models.Model):
             self.write(values)
         else:
             values = {'selected_sl_inv': True, 'assigned_pur_ord': self.id}
-            self.write(values)  
+            self.write(values)
 
     '''
     def set_ammount_comp(self):
         #self.ammount_difference = self.ammount_sl_pending_inv - self.ammount_select_discounts
         pass
-
+    
     def set_ammount_dif(self):
-        pass         
-    '''   
-
+        pass 
+    '''
 
 
 class PurchaseOrder(models.Model):
