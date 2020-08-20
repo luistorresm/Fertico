@@ -31,12 +31,54 @@
                     </field> 
                     <group class="oe_subtotal_footer oe_right" modifiers="{}">
                         <field name="ammount_sl_pending_inv" widget="monetary" options="{'currency_field': 'currency_id'}" modifiers="{'readonly':true}"/>
-                        <field name="ammount_select_discounts" widget="monetary" options="{'currency_field': 'currency_id'}" modifiers="{'readonly':true}"/>
+                        <field name="ammount_select_discounts" widget="monetary" options="{'currency_field': 'currency_id'}" modifiers="{'readonly':true}"/>                        
                     </group>                                                                      
                 </page>
             </notebook>
         </field>
     </record> 
+
+    <!--Add new submenu into Account > Purchase in order to display a new tree view of reciba payments follow-up-->
+    <record id="view_reciba_followup_tree" model="ir.ui.view">
+        <field name="name">reciba.followup.invoice.tree</field>
+        <field name="model">account.invoice</field>
+        <field name="arch" type="xml">
+            <tree string="Follow-up">
+                <field name="cycle_id"/>
+                <field name="partner_id"/>
+                <field name="date_invoice"/>
+                <field name="modality_id"/>
+                <field name="origin"/>
+                <field name="number"/>
+                <field name="reference"/>
+                <field name="number"/>
+                <field name="company_id"/>
+                <field name="ammount_compensate"/>
+                <field name="ammount_transfer"/>                                
+                <field name="residual_signed"/>
+                <field name="state"/>
+             </tree>
+        </field>
+    </record>
+
+
+    <record id="reciba_invoices_followup" model="ir.actions.act_window">
+        <field name="name">reciba.invoices.followup</field>
+        <field name="res_model">account.invoice</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create the first modality
+            </p>
+        </field>
+    </record>    
+
+    <menuitem id="menu_reciba_followup_invoices" 
+              name="Reciba Invoices Follow-up" 
+              action="reciba_invoices_followup"
+              parent="account.menu_finance_payables_documents"
+              sequence="30"/>    
 
   </data>
 </odoo>  

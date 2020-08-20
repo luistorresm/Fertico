@@ -18,8 +18,14 @@ from odoo.tools.translate import _
 class AccountInvoice(models.Model):
     _inherit = "account.invoice"
 
-    selected_sl_inv  = fields.Boolean(string='Selected Discount') 
-    assigned_pur_ord = fields.Char(string='Assigned Purchase Order') 
+    selected_sl_inv    = fields.Boolean(string='Selected Discount') 
+    assigned_pur_ord   = fields.Char(string='Assigned Purchase Order') 
+    ammount_compensate = fields.Float(string='Ammount of Selected Discounts', 
+                                      digits=dp.get_precision('Product Unit of Measure'))#, 
+                                      #compute='set_ammount_comp')
+    ammount_transfer   = fields.Float(string='Ammount of Difference / Transfers', 
+                                      digits=dp.get_precision('Product Unit of Measure'))#, 
+                                      #compute='set_ammount_dif')                                     
 
     def change_selected_sl_inv(self):           
         '''This method permits to change status of checkbox and assigning a purchase order'''
@@ -30,17 +36,23 @@ class AccountInvoice(models.Model):
             values = {'selected_sl_inv': True, 'assigned_pur_ord': self.id}
             self.write(values)  
 
+    '''
+    def set_ammount_comp(self):
+        #self.ammount_difference = self.ammount_sl_pending_inv - self.ammount_select_discounts
+        pass
+
+    def set_ammount_dif(self):
+        pass         
+    '''   
+
 
 
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
-    pending_sales_invoices_ids = fields.One2many('account.invoice', 'partner_id', string='Pending Sales Invoices',
-                                                 compute='get_invoices')   
-    ammount_sl_pending_inv     = fields.Float(string='Ammount of Pedinng Sales Invoices', digits=dp.get_precision('Product Unit of Measure'),
-                                              compute='sum_residual_signed') 
-    ammount_select_discounts   = fields.Float(string='Ammount of Selected Discounts', digits=dp.get_precision('Product Unit of Measure'),
-                                              compute='sum_select_discounts')     
+    pending_sales_invoices_ids = fields.One2many('account.invoice', 'partner_id', string='Pending Sales Invoices', compute='get_invoices')   
+    ammount_sl_pending_inv     = fields.Float(string='Ammount of Pedinng Sales Invoices', digits=dp.get_precision('Product Unit of Measure'), compute='sum_residual_signed') 
+    ammount_select_discounts   = fields.Float(string='Ammount of Selected Discounts', digits=dp.get_precision('Product Unit of Measure'), compute='sum_select_discounts')
 
     def get_invoices(self):       
         '''Fill new One2Many field with debted bills belonging to a client, determining its state as open:''' 
