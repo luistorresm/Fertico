@@ -47,13 +47,19 @@
                 <field name="cycle_id"/>
                 <field name="partner_id"/>
                 <field name="date_invoice"/>
+                <field name="product_id"/>
                 <field name="modality_id"/>
                 <field name="origin"/>
                 <field name="number"/>
                 <field name="reference"/>
-                <field name="number"/>
                 <field name="company_id"/>
-                <field name="state" invisible="1"/>
+                <field name="date_due"/>
+                <field name="ammount_transfer"/>                   
+                <field name="ammount_compensate"/>                
+                <field name="payment_date"/>
+                <field name="name"/>                             
+                <field name="residual_signed"/>                
+                <field name="state"/>
              </tree>
         </field>
     </record>
