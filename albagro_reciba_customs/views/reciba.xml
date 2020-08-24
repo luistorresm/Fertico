@@ -7,20 +7,8 @@
             <field name="model">reciba.order</field>
             <field name="arch" type="xml">
                 <form string="Reciba Form">
-                    <sheet>
-                        <div class="alert alert-danger" role="alert" style="margin-bottom:0px;"
-                             attrs="{'invisible': [('has_debts', '=', False)]}">
-                            <div>
-                                <field name="error_message"/>
-                            </div>
-                            <bold>
-                                <a class="alert-link" role="button">
-                                    <field name="product_id" readonly="True"/>
-                                </a>
-                            </bold>
-                        </div>                    
+                    <sheet>                   
                         <group>
-                            <field name="has_debts" invisible="1"/>
                             <field name="product_id"/>
                             <field name="customer_id"/>
                             <field name="no_ticket"/>
