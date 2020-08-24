@@ -112,13 +112,14 @@ class RecibaOrder(models.Model):
     observations = fields.Text("Observations")
 
     
-
+    #=========================Nombre que se muestra en los campos relacionados con este modelo==============
     def name_get(self):
         res=[]
         for reciba in self:
             res.append((reciba.id,reciba.no_ticket))
         return res
 
+    #=========================Search para encontrar el nombre en un campo relacionado=======================
     @api.model
     def name_search(self, name, args=None, operator='ilike', limit=100):
         args = args or []
