@@ -60,6 +60,7 @@ class RecibaOrder(models.Model):
     def _get_amount_cheque(self):
         self.amount_cheque = self.amount_pay - self.freigh_threshing_discount
 
+
     date = fields.Date(string="Date")
     customer_id = fields.Many2one('res.partner', string="Productor name")
     cycle_id = fields.Many2one('reciba.cycle', string="Cycle")
@@ -118,4 +119,12 @@ class RecibaOrder(models.Model):
             res.append((reciba.id,reciba.no_ticket))
         return res
 
-
+    @api.model
+    def name_search(self, name, args=None, operator='ilike', limit=100):
+        args = args or []
+        recs = self.browse()
+        if name:
+            recs = self.search([('no_ticket', '=', name)] + args, limit=limit)
+        if not recs:
+            recs = self.search([('no_ticket', operator, name)] + args, limit=limit)
+        return recs.name_get()
