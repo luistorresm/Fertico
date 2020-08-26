@@ -9,11 +9,9 @@
                 <form string="Reciba Form">
                     <sheet>                   
                         <group>
-                            <field name="product_id"/>
                             <field name="customer_id"/>
                             <field name="no_ticket"/>
                             <field name="date"/>
-                            <field name="customer_id"/>
                             <field name="cycle_id"/>
                         </group>
                         <notebook>
