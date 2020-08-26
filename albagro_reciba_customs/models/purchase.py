@@ -58,6 +58,8 @@ class PurchaseOrderLine(models.Model):
     cycle = fields.Many2one(related='reciba_id.cycle_id', string="Cycle", store=True)
     invoice_status = fields.Selection(related='invoice_lines.invoice_id.state', string="Invoiced status", store=True)
     qty_invoice = fields.Float(related='invoice_lines.quantity', string="Invoiced quantity", store=True)
+    discount = fields.Float(string="Discount of quantity")
+    humidity = fields.Float(string="Humidity %")
 
     #=======Revisamos si la reciba seleccionada ya ha sido usada y mostramos una advertencia=====
     @api.multi
@@ -80,14 +82,17 @@ class PurchaseOrderLine(models.Model):
     @api.onchange('product_id')
     def onchange_product_id(self):
         product = super(PurchaseOrderLine, self).onchange_product_id()
-        self.product_qty=self.reciba_id.net_weight
+        self.product_qty=self.reciba_id.free_qty
+        self.discount = self.reciba_id.discount_applied
+        self.humidity = self.reciba_id.percentage_humidity.percentage
+        
 
     
     @api.multi
     @api.onchange('product_qty')
     def get_qty(self):
         if self.reciba_id:
-            self.product_qty = self.reciba_id.net_weight
+            self.product_qty = self.reciba_id.free_qty
     
     
 class AccountInvoice(models.Model):

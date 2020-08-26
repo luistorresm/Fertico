@@ -13,7 +13,10 @@
                 <xpath expr="//tree/field[@name='product_id']" position="before">
                     <field name="reciba_id"/>
                 </xpath>
-
+                <xpath expr="//tree/field[@name='date_planned']" position="after">
+                    <field name="discount"/>
+                    <field name="humidity"/>
+                </xpath>
             </field>
         </record>
 
