@@ -36,7 +36,7 @@ class AccountInvoice(models.Model):
     @api.one
     @api.depends('number')
     def _get_product_id(self):
-        self.seed_id = self.env['account.invoice.line'].search([('invoice_id', '=', self.id)]).name
+        self.seed_id = self.env['account.invoice.line'].search([('invoice_id', '=', self.id)], limit=1).name
     
     @api.one
     @api.depends('number')
