@@ -80,7 +80,7 @@ class PurchaseOrder(models.Model):
 
     def set_amount_pending_difference(self):
         '''Determine the amount of selected sales invoices to charge by operator'''
-        self.amount_pending_difference = self.amount_sl_pending_inv - self.amount_total
+        self.amount_pending_difference = self.amount_total - self.amount_sl_pending_inv
 
     #/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/
     #Inherit native method "button_confirm" in order 
