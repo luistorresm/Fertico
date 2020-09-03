@@ -1,0 +1,90 @@
+<odoo>
+
+
+    <template id="report_reciba">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <t t-foreach="docs" t-as="reciba">
+                    <th>Boleta Folio: <t t-esc="reciba['no_ticket']"/>
+                    </th>
+                    <table>
+                        <tr>
+                            <th>Nombre del productor</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <t t-esc="reciba['customer_id'].name"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <th>Bascula</th>
+                        </tr>
+                        <tr>
+                            <th>Folio de tercero</th>
+                            <th>Reciba para tercero comprador</th>
+                            <th>Producto</th>
+                            <th>Modalidad</th>
+                            <th>Bodega o silo</th>
+                            <th>Cantidad de toneladas</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <t t-esc="reciba['third_folio']"/>
+                            </td>
+                            <td>
+                                <t t-esc="reciba['reciba_third']"/>
+                            </td>
+                            <td>
+                                <t t-esc="reciba['product_id'].name"/>
+                            </td>
+                            <td>
+                                <t t-esc="reciba['modality']"/>
+                            </td>
+                            <td>
+                                <t t-esc="reciba['silo']"/>
+                            </td>
+                            <td>
+                                <t t-esc="reciba['net_weight']"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                </t>
+                <!--<table t-foreach="docs" t-as="partner" class="table table-condensed" style="font-size: 15px; height: 60px; text-align: center;">
+                        <tr><th colspan="10" style="padding: 5px; border: 0;"><t t-esc="partner['name']"/></th></tr>
+                        <tr>
+                            <th style="padding-top: 0; padding-bottom: 0; border-bottom: gray 1px solid;"></th>
+                            <th style="padding-top: 0; padding-bottom: 0; color: rgb(88, 88, 88); border-bottom: gray 1px solid;">JRNL</th>
+                            <th style="padding-top: 0; padding-bottom: 0; color: rgb(88, 88, 88); border-bottom: gray 1px solid;">Account</th>
+                            <th style="padding-top: 0; padding-bottom: 0; color: rgb(88, 88, 88); border-bottom: gray 1px solid;">Ref</th>
+                            <th style="padding-top: 0; padding-bottom: 0; color: rgb(88, 88, 88); border-bottom: gray 1px solid;">Due date</th>
+                            <th style="padding-top: 0; padding-bottom: 0; color: rgb(88, 88, 88); border-bottom: gray 1px solid;">Matching number</th>
+                            <th style="padding-top: 0; padding-bottom: 0; color: rgb(88, 88, 88); border-bottom: gray 1px solid;">Initial balance</th>
+                            <th style="padding-top: 0; padding-bottom: 0; color: rgb(88, 88, 88); border-bottom: gray 1px solid;">Debit</th>
+                            <th style="padding-top: 0; padding-bottom: 0; color: rgb(88, 88, 88); border-bottom: gray 1px solid;">Credit</th>
+                            <th style="padding-top: 0; padding-bottom: 0; color: rgb(88, 88, 88); border-bottom: gray 1px solid;">Balance</th>
+                        </tr>
+                        <tr t-foreach="partner['moves']" t-as="move" t-if="move.debit != 0">
+                            <td style="padding-top: 0; padding-bottom: 0; color: rgb(117, 117, 117);"><t t-esc="move.date"/></td>
+                            <td style="padding-top: 0; padding-bottom: 0; color: rgb(117, 117, 117);"><t t-esc="move.move_id.name"/></td>
+                            <td style="padding-top: 0; padding-bottom: 0; color: rgb(117, 117, 117);"><t t-esc="move.account_id.code"/></td>
+                            <td style="padding-top: 0; padding-bottom: 0; color: rgb(117, 117, 117);"><t t-esc="move.ref"/></td>
+                            <td style="padding-top: 0; padding-bottom: 0; color: rgb(117, 117, 117);"><t t-esc="move.date_maturity"/></td>
+                            <td style="padding-top: 0; padding-bottom: 0; color: rgb(117, 117, 117);"></td>
+                            <td style="padding-top: 0; padding-bottom: 0; color: rgb(117, 117, 117);">0</td>
+                            <td style="padding-top: 0; padding-bottom: 0; color: rgb(117, 117, 117);"><t t-esc="move.debit"/></td>
+                            <td style="padding-top: 0; padding-bottom: 0; color: rgb(117, 117, 117);"><t t-esc="move.credit"/></td>
+                            <td style="padding-top: 0; padding-bottom: 0; color: rgb(117, 117, 117);">0</td>
+                        </tr>
+
+                    </table>-->
+            </t>
+        </t>
+    </template>
+
+    <report id="report_reciba_ticket" string="Imprimir reciba" model="reciba.order" report_type="qweb-html" name="albagro_reciba_customs.report_reciba"/>
+
+
+</odoo>
