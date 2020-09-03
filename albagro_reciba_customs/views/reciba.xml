@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="reciba_form_view">
+            <field name="name">reciba.order.form</field>
+            <field name="model">reciba.order</field>
+            <field name="arch" type="xml">
+                <form string="Reciba Form">
+                    <sheet>
+                        <div class="alert alert-info" role="alert" style="margin-bottom:0px;">
+                            <field name="error_message"/>
+                        </div>                    
+                        <group>
+                            <field name="customer_id"/>
+                            <field name="no_ticket"/>
+                            <field name="date"/>
+                            <field name="cycle_id"/>
+                        </group>
+                        <notebook>
+                            <page string="Bascula">
+                                <group>
+                                    <field name="third_folio"/>
+                                    <field name="reciba_third"/>
+                                    <field name="product_id"/>
+                                    <field name="modality_id"/>
+                                    <field name="silo"/>
+                                    <field name="net_weight" string="Quantity of tons"/>
+                                </group>
+                            </page>
+                            <page string="Descuentos">
+                                <group>
+                                    <group>
+                                        <field name="percentage_humidity"/>
+                                        <field name="discount_kilos_humidity"/>
+                                        <field name="discount_humidity"/>
+                                        <field name="percentage_impurity"/>
+                                        <field name="discount_kilos_impurity"/>
+                                        <field name="discount_impurity"/>
+                                    </group>
+                                    <group>
+                                        <field name="percentage_damaged"/>
+                                        <field name="discount_kilos_damaged"/>
+                                        <field name="discount_damaged"/>
+                                        <field name="percentage_broken"/>
+                                        <field name="discount_kilos_broken"/>
+                                        <field name="discount_broken"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <field name="sum_discounts"/>
+                                    <field name="discount_applied"/>
+                                </group>
+                            </page>
+                            <page string="Logistica">
+                                <group>
+                                    <field name="operator"/>
+                                    <field name="plate"/>
+                                    <field name="gross_weight"/>
+                                    <field name="tare_weight"/>
+                                    <field name="net_weight"/>
+                                    <field name="net_weight_w_discount"/>
+                                    <field name="free_qty"/>
+                                </group>
+                            </page>
+                            <page string="Pago">
+                                <group>
+                                    <field name="net_weight_w_discount"/>
+                                    <field name="change_type"/>
+                                    <field name="price_usd"/>
+                                    <field name="unit_price"/>
+                                    <field name="currency"/>
+                                    <field name="amount_pay"/>
+                                    <field name="incentive"/>
+                                    <field name="freigh_threshing_discount"/>
+                                </group>
+                            </page>
+                            <page string="Programacion de pagos">
+                                <group>
+                                    <field name="number_cheque"/>
+                                    <field name="amount_cheque"/>
+                                    <field name="collection_date"/>
+                                    <field name="folio_bill"/>
+                                    <field name="payment_date"/>
+                                    <field name="observations"/>
+                                </group>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+
+        <record model="ir.ui.view" id="reciba_tree_view">
+            <field name="name">reciba.order.tree</field>
+            <field name="model">reciba.order</field>
+            <field name="arch" type="xml">
+                <tree string="Reciba Tree">
+                    <field name="no_ticket"/>
+                    <field name="date"/>
+                    <field name="customer_id"/>
+                    <field name="cycle_id"/>
+                    <field name="gross_weight"/>
+                    <field name="tare_weight"/>
+                    <field name="net_weight"/>
+                    <field name="net_weight_w_discount"/>
+                    <field name="free_qty"/>
+                    <field name="unit_price"/>
+                    <field name="amount_pay"/>
+                    <field name="amount_cheque"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="reciba_action">
+            <field name="name">Recibas</field>
+            <field name="res_model">reciba.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create the first cycle
+                </p>
+            </field>
+        </record>
+
+        <!-- Top menu item -->
+        <menuitem name="Reciba" id="menu_reciba" sequence="40" web_icon="albagro_reciba_customs,static/description/mazorca.jpg"/>
+
+        <menuitem id="menu_reciba_order" name="Recibas" parent="menu_reciba" action="reciba_action" sequence="1"/>
+
+    </data>
+</odoo>

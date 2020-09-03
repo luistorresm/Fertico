@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <!--Add a new page to notebook in purchase order-->
+    <record id="view_purchase_order_form_inherit" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page name="pending_sales_invoices" string="Facturas de Venta por saldar">
+                    <field name="pending_sales_invoices_ids" readonly="False">
+                        <tree string="Facturas de Venta Pendientes" editable="bottom">
+                            <button name="change_selected_sl_inv" type="object" string="Seleccionar"/>
+                            <field name="selected_sl_inv"/>
+                            <!--<field name="assigned_pur_ord"/>-->
+                            <field name="partner_id"/>
+                            <field name="date_invoice"/>
+                            <field name="number"/>
+                            <field name="company_id"/>
+                            <field name="payment_term_id"/>
+                            <field name="date_due"/>
+                            <field name="origin"/>
+                            <field name="amount_untaxed"/>
+                            <field name="amount_tax"/>
+                            <field name="amount_total_signed"/>
+                            <field name="residual_signed"/>
+                            <field name="state"/>
+                        </tree>
+                    </field> 
+                    <group class="oe_subtotal_footer oe_right" modifiers="{}">
+                        <field name="amount_sl_pending_inv" widget="monetary" options="{'currency_field': 'currency_id'}" modifiers="{'readonly':true}"/>
+                        <field name="amount_select_discounts" widget="monetary" options="{'currency_field': 'currency_id'}" modifiers="{'readonly':true}"/>                        
+                        <field name="amount_pending_difference" widget="monetary" options="{'currency_field': 'currency_id'}" modifiers="{'readonly':true}"/>  
+                    </group>                                                                      
+                </page>
+            </notebook>
+        </field>
+    </record> 
+ 
+
+    <!--Add new submenu into Account > Purchase in order to display a new tree view of reciba payments follow-up-->
+    <record id="view_reciba_followup_tree" model="ir.ui.view">
+        <field name="name">Seguimiento de Pagos Reciba</field>
+        <field name="model">account.invoice</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="cycle_id"/>
+                <field name="partner_id"/>
+                <field name="date_invoice"/>
+                <field name="seed_id"/>
+                <field name="modality_id"/>
+                <field name="origin"/>
+                <field name="number"/>
+                <field name="reference"/>
+                <field name="company_id"/>
+                <field name="date_due"/>             
+                <field name="amount_transfer"/>                   
+                <field name="amount_compensate"/>                
+                <field name="name"/>                             
+                <field name="residual_signed"/>                
+                <field name="state"/>
+             </tree>
+        </field>
+    </record>
+    
+    <!--Override label for date_due field-->
+    <record id="view_reciba_followup_tree_2" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="albagro_reciba_customs.view_reciba_followup_tree"/>
+        <field name="arch" type="xml">  
+          <field name="date_due" position="attributes">
+            <attribute name="string">Fecha de pago</attribute>
+          </field>  
+        </field>
+    </record>          
+
+    <!--Add new menuitem-->
+    <record id="action_reciba_followup" model="ir.actions.act_window">
+        <field name="name">Seguimiento de Pagos Reciba</field>
+        <field name="res_model">account.invoice</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_reciba_followup_tree"/>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+    </record>      
+
+    <menuitem id="menu_reciba_followup_invoices" 
+              name="Seguimiento de Pagos Reciba" 
+              action="action_reciba_followup"
+              parent="account.menu_finance_payables_documents"
+              sequence="30"/>    
+
+  </data>
+</odoo>  
