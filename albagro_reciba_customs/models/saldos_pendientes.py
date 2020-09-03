@@ -33,14 +33,14 @@ class AccountInvoice(models.Model):
             values = {'selected_sl_inv': True}
             self.write(values)
     
+    @api.one
     @api.depends('number')
     def set_amount_comp(self):
-        self.ensure_one()
         self.amount_compensate = self.env['purchase.order'].search([('id', '=', self.purchase_id.id)]).amount_select_discounts
 
+    @api.one
     @api.depends('number')
     def set_amount_dif(self):
-        self.ensure_one()
         self.amount_transfer = self.env['purchase.order'].search([('id', '=', self.purchase_id.id)]).amount_pending_difference
     
 
