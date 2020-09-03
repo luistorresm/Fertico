@@ -33,7 +33,7 @@ class AccountInvoice(models.Model):
             values = {'selected_sl_inv': True}
             self.write(values)
 
-    @api.one
+    #@api.one
     @api.depends('number')
     def get_product_id(self):
         self.seed_id = self.env['account.invoice.line'].search([('invoice_id', '=', self.id)], limit=1).name
