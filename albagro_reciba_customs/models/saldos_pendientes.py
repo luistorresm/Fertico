@@ -20,7 +20,7 @@ class AccountInvoice(models.Model):
 
     selected_sl_inv   = fields.Boolean(string='Descuento Seleccionado') 
     #assigned_pur_ord  = fields.Integer(string='Orden de Compra Asignada') 
-    seed_id = fields.Char(string='Semilla/Producto' compute='get_product_id')
+    #seed_id = fields.Char(string='Semilla/Producto' compute='get_product_id')
     amount_compensate = fields.Float(string='Monto de Compensación', digits=dp.get_precision('Product Unit of Measure'), compute='set_amount_comp')
     amount_transfer   = fields.Float(string='Monto de Transferencia', digits=dp.get_precision('Product Unit of Measure'), compute='set_amount_dif')    
                                    
@@ -34,9 +34,9 @@ class AccountInvoice(models.Model):
             self.write(values)
 
     #@api.one
-    @api.depends('number')
-    def get_product_id(self):
-        self.seed_id = self.env['account.invoice.line'].search([('invoice_id', '=', self.id)], limit=1).name
+    #@api.depends('number')
+    #def get_product_id(self):
+    #    self.seed_id = self.env['account.invoice.line'].search([('invoice_id', '=', self.id)], limit=1).name
     
     @api.one
     @api.depends('number')
