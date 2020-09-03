@@ -20,13 +20,10 @@ class AccountInvoice(models.Model):
 
     selected_sl_inv   = fields.Boolean(string='Descuento Seleccionado') 
     #assigned_pur_ord  = fields.Integer(string='Orden de Compra Asignada') 
-    seed_id = fields.Many2one('account.invoice.line', string='Semilla/Producto' default=_get_product)
+    seed_id = fields.Many2one('account.invoice.line', string='Semilla' compute='get_product_id')
     amount_compensate = fields.Float(string='Monto de Compensación', digits=dp.get_precision('Product Unit of Measure'), compute='set_amount_comp')
     amount_transfer   = fields.Float(string='Monto de Transferencia', digits=dp.get_precision('Product Unit of Measure'), compute='set_amount_dif')    
                                    
-    def _get_product(self):
-        self.seed_id = self.env['account.invoice.line'].search([('id', '=', invoice_id.id)], limit=1).product_id.id
-
     def change_selected_sl_inv(self):           
         '''This method permits to change status of checkbox and assigning a purchase order'''
         if self.selected_sl_inv:
@@ -35,6 +32,11 @@ class AccountInvoice(models.Model):
         else:
             values = {'selected_sl_inv': True}
             self.write(values)
+
+    @api.one
+    @api.depends('number')
+    def get_product_id(self):
+        self.seed_id = self.env['account.invoice.line'].search([('id', '=', invoice_id.id)], limit=1).product_id.id
     
     @api.one
     @api.depends('number')
