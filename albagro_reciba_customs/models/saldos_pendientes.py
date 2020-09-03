@@ -20,6 +20,7 @@ class AccountInvoice(models.Model):
 
     selected_sl_inv   = fields.Boolean(string='Descuento Seleccionado') 
     #assigned_pur_ord  = fields.Integer(string='Orden de Compra Asignada') 
+    #seed_id = fields.Many2one('account.invoice.line', string='Semilla/Producto')
     amount_compensate = fields.Float(string='Monto de Compensación', digits=dp.get_precision('Product Unit of Measure'), compute='set_amount_comp')
     amount_transfer   = fields.Float(string='Monto de Transferencia', digits=dp.get_precision('Product Unit of Measure'), compute='set_amount_dif')    
                                    
