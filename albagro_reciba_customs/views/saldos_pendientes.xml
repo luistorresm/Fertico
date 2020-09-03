@@ -14,7 +14,7 @@
                         <tree string="Facturas de Venta Pendientes" editable="bottom">
                             <button name="change_selected_sl_inv" type="object" string="Seleccionar"/>
                             <field name="selected_sl_inv"/>
-                            <field name="assigned_pur_ord"/>
+                            <!--<field name="assigned_pur_ord"/>-->
                             <field name="partner_id"/>
                             <field name="date_invoice"/>
                             <field name="number"/>
