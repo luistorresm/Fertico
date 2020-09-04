@@ -85,7 +85,7 @@ class PurchaseOrderLine(models.Model):
         self.product_qty=self.reciba_id.free_qty
         self.discount = self.reciba_id.discount_applied
         self.humidity = self.reciba_id.percentage_humidity.percentage
-        
+        self.price_unit = self.reciba_id.unit_price
 
     
     @api.multi
