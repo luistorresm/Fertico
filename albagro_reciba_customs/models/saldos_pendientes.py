@@ -3,8 +3,6 @@ from odoo import models, fields, api
 from odoo.addons import decimal_precision as dp
 from odoo.exceptions import UserError
 from odoo.tools.translate import _
-import logging
-_logger = logging.getLogger(__name__)
 
 #\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\
 
@@ -44,13 +42,11 @@ class AccountInvoice(models.Model):
     @api.depends('number')
     def set_amount_comp(self):
         self.amount_compensate = self.env['purchase.order'].search([('name', '=', self.origin)]).amount_select_discounts
-        _logger.info('\n\n\n self.amount_compensate: %s\n\n\n', self.amount_compensate)
 
     @api.one
     @api.depends('number')
     def set_amount_dif(self):
         self.amount_transfer = self.env['purchase.order'].search([('name', '=', self.origin)]).amount_pending_difference
-        _logger.info('\n\n\n self.amount_transfer: %s\n\n\n', self.amount_transfer)
     
 
 
