@@ -3,6 +3,8 @@ from odoo import models, fields, api
 from odoo.addons import decimal_precision as dp
 from odoo.exceptions import UserError
 from odoo.tools.translate import _
+import logging
+_logger = logging.getLogger(__name__)
 
 #\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\
 
@@ -41,12 +43,14 @@ class AccountInvoice(models.Model):
     @api.one
     @api.depends('number')
     def set_amount_comp(self):
-        self.amount_compensate = self.env['purchase.order'].search([('id', '=', self.purchase_id.id)]).amount_select_discounts
+        self.amount_compensate = self.env['purchase.order'].search([('name', '=', self.origin)]).amount_select_discounts
+        _logger.info('\n\n\n self.amount_compensate: %s\n\n\n', self.amount_compensate)
 
     @api.one
     @api.depends('number')
     def set_amount_dif(self):
-        self.amount_transfer = self.env['purchase.order'].search([('id', '=', self.purchase_id.id)]).amount_pending_difference
+        self.amount_transfer = self.env['purchase.order'].search([('name', '=', self.origin)]).amount_pending_difference
+        _logger.info('\n\n\n self.amount_transfer: %s\n\n\n', self.amount_transfer)
     
 
 
@@ -55,8 +59,8 @@ class PurchaseOrder(models.Model):
 
     pending_sales_invoices_ids = fields.One2many('account.invoice', 'partner_id', string='Facturas de Venta Pendientes', compute='get_invoices')   
     amount_sl_pending_inv      = fields.Float(string='Monto Facturas de Venta Pendientes', digits=dp.get_precision('Product Unit of Measure'), compute='sum_residual_signed') 
-    amount_select_discounts    = fields.Float(string='Monto de descuentos seleccionados', digits=dp.get_precision('Product Unit of Measure'), compute='sum_select_discounts')
-    amount_pending_difference  = fields.Float(string='Monto de Compensación', digits=dp.get_precision('Product Unit of Measure'), compute='set_amount_pending_difference')
+    amount_select_discounts    = fields.Float(string='Monto de Compensación', digits=dp.get_precision('Product Unit of Measure'), compute='sum_select_discounts')
+    amount_pending_difference  = fields.Float(string='Monto de Transferencia', digits=dp.get_precision('Product Unit of Measure'), compute='set_amount_pending_difference')
 
     def get_invoices(self):       
         '''Fill new One2Many field with debted bills belonging to a client, determining its state as open:''' 
