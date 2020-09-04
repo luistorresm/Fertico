@@ -169,3 +169,23 @@ class RecibaOrder(models.Model):
         if not recs:
             recs = self.search([('no_ticket', operator, name)] + args, limit=limit)
         return recs.name_get()
+
+
+class ReportReciba(models.AbstractModel):
+    _name = 'report.albagro_reciba_customs.report_reciba'
+
+    @api.model
+    def get_report_values(self, docids, data=None): 
+        recibas = self.env['reciba.order'].browse(docids)
+
+        data = []
+
+        for reciba in recibas:
+            data.append(reciba)
+            
+        
+        return {
+            'doc_ids': docids,
+            'doc_model': 'reciba.order',
+            'docs': data
+        }
