@@ -31,6 +31,7 @@
         'views/modality.xml',
         'views/data_td.xml',    
         'views/saldos_pendientes.xml',
+        
     ],
     # only loaded in demonstration mode
     'demo': [
