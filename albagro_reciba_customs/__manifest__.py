@@ -16,7 +16,8 @@
     'version': '11.0.1.0.4',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'purchase'],
+    'depends': ['base',
+    'purchase'],
 
     # always loaded
     'data': [
@@ -28,10 +29,11 @@
         'views/reciba.xml',
         'views/cycle.xml',
         'views/purchase.xml',
-        'views/modality.xml',
-        'views/data_td.xml',    
+        'views/modality.xml',  
         'views/saldos_pendientes.xml',
-        
+        'views/data_td.xml',
+
+        'views/report_reciba.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

@@ -1,0 +1,204 @@
+<odoo>
+
+
+    <template id="report_reciba">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <t t-foreach="docs" t-as="reciba">
+                    <br/>
+                    <table style="width: 100%;">
+                        <tr>
+                            <th style="border: 1px black solid; background-color: red; color: white; width: 50%; padding-right: 10px; padding-left: 10px;">Boleta Folio: </th>
+                            <td style="border: 1px black solid; width: 50%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['no_ticket']"/></td>
+                        </tr>
+                        <tr>
+                            <th style="border: 1px black solid; background-color: red; color: white; width: 50%; padding-right: 10px; padding-left: 10px;">Nombre del productor: </th>
+                            <td style="border: 1px black solid; width: 50%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['customer_id'].name"/></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table style="width: 100%;">
+                        <tr>
+                            <th style="text-align: center; border: 2px black solid; background-color: green; color: white; padding-right: 10px; padding-left: 10px;" colspan="6">Bascula</th>
+                        </tr>
+                        <tr>
+                            <th style="border: 1px black solid; background-color: green; color: white; width: 15%; padding-right: 10px; padding-left: 10px;">Folio de tercero</th>
+                            <th style="border: 1px black solid; background-color: green; color: white; width: 17%; padding-right: 10px; padding-left: 10px;">Reciba para tercero comprador</th>
+                            <th style="border: 1px black solid; background-color: green; color: white; width: 17%; padding-right: 10px; padding-left: 10px;">Producto</th>
+                            <th style="border: 1px black solid; background-color: green; color: white; width: 17%; padding-right: 10px; padding-left: 10px;">Modalidad</th>
+                            <th style="border: 1px black solid; background-color: green; color: white; width: 17%; padding-right: 10px; padding-left: 10px;">Bodega o silo</th>
+                            <th style="border: 1px black solid; background-color: green; color: white; width: 17%; padding-right: 10px; padding-left: 10px;">Cantidad de toneladas</th>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px black solid; width: 15%; padding-right: 10px; padding-left: 10px;">
+                                <t t-esc="reciba['third_folio']"/>
+                            </td>
+                            <td style="border: 1px black solid; width: 17%; padding-right: 10px; padding-left: 10px;">
+                                <t t-esc="reciba['reciba_third']"/>
+                            </td>
+                            <td style="border: 1px black solid; width: 17%; padding-right: 10px; padding-left: 10px;">
+                                <t t-esc="reciba['product_id'].name"/>
+                            </td>
+                            <td style="border: 1px black solid; width: 17%; padding-right: 10px; padding-left: 10px;">
+                                <t t-esc="reciba['modality_id'].name"/>
+                            </td>
+                            <td style="border: 1px black solid; width: 17%; padding-right: 10px; padding-left: 10px;">
+                                <t t-esc="reciba['silo']"/>
+                            </td>
+                            <td style="border: 1px black solid; width: 17%; padding-right: 10px; padding-left: 10px;">
+                                <t t-esc="reciba['net_weight']"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table style="width: 100%;">
+                        <tr>
+                            <th style="text-align: center; border: 2px black solid; background-color: red; color: white; padding-right: 10px; padding-left: 10px;" colspan="4">Descuentos</th>
+                        </tr>
+                        <tr>
+                            <th style="border: 1px black solid; background-color: black; color: white; width: 25%; padding-right: 10px; padding-left: 10px;">Humedad</th>
+                            <td style="border: 1px black solid; width: 25%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['percentage_humidity'].percentage"/>%</td>
+                            <th style="border: 1px black solid; background-color: black; color: white; width: 25%; padding-right: 10px; padding-left: 10px;">Grano dañado</th>
+                            <td style="border: 1px black solid; width: 25%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['percentage_damaged'].percentage"/>%</td>
+                        </tr>
+                        <tr>
+                            <th style="border: 1px black solid; background-color: black; color: white; width: 25%; padding-right: 10px; padding-left: 10px;">Descuento en Kg humedad</th>
+                            <td style="border: 1px black solid; width: 25%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['discount_kilos_humidity']"/></td>
+                            <th style="border: 1px black solid; background-color: black; color: white; width: 25%; padding-right: 10px; padding-left: 10px;">Descuento en kg grano dañado</th>
+                            <td style="border: 1px black solid; width: 25%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['discount_kilos_damaged']"/></td>
+                        </tr>
+                        <tr>
+                            <th style="border: 1px black solid; background-color: black; color: white; width: 25%; padding-right: 10px; padding-left: 10px;">Descuento de humedad 14% a mas</th>
+                            <td style="border: 1px black solid; width: 25%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['discount_humidity']"/></td>
+                            <th style="border: 1px black solid; background-color: black; color: white; width: 25%; padding-right: 10px; padding-left: 10px;">Descuento de grano dañado</th>
+                            <td style="border: 1px black solid; width: 25%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['discount_damaged']"/></td>
+                        </tr>
+                        <tr>
+                            <th style="border: 1px black solid; background-color: black; color: white; width: 25%; padding-right: 10px; padding-left: 10px;">Impureza</th>
+                            <td style="border: 1px black solid; width: 25%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['percentage_impurity'].percentage"/>%</td>
+                            <th style="border: 1px black solid; background-color: black; color: white; width: 25%; padding-right: 10px; padding-left: 10px;">Grano quebrado</th>
+                            <td style="border: 1px black solid; width: 25%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['percentage_broken'].percentage"/>%</td>
+                        </tr>
+                        <tr>
+                            <th style="border: 1px black solid; background-color: black; color: white; width: 25%; padding-right: 10px; padding-left: 10px;">Desceunto en Kg impureza</th>
+                            <td style="border: 1px black solid; width: 25%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['discount_kilos_impurity']"/></td>
+                            <th style="border: 1px black solid; background-color: black; color: white; width: 25%; padding-right: 10px; padding-left: 10px;">Descuento en kg grano quebrado</th>
+                            <td style="border: 1px black solid; width: 25%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['discount_kilos_broken']"/></td>
+                        </tr>
+                        <tr>
+                            <th style="border: 1px black solid; background-color: black; color: white; width: 25%; padding-right: 10px; padding-left: 10px;">Desceunto de impureza 2.5% a mas</th>
+                            <td style="border: 1px black solid; width: 25%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['discount_impurity']"/></td>
+                            <th style="border: 1px black solid; background-color: black; color: white; width: 25%; padding-right: 10px; padding-left: 10px;">Descuento de grano quebrado 5.5% a mas</th>
+                            <td style="border: 1px black solid; width: 25%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['discount_broken']"/></td>
+                        </tr>
+                        <tr>
+                            <th style="border: 1px black solid; background-color: red; color: white; width: 25%; padding-right: 10px; padding-left: 10px;">Suma de descuentos calculado</th>
+                            <td style="border: 1px black solid; width: 25%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['sum_discounts']"/></td>
+                        </tr>
+                        <tr>
+                            <th style="border: 1px black solid; background-color: red; color: white; width: 25%; padding-right: 10px; padding-left: 10px;">Desceunto aplicado</th>
+                            <td style="border: 1px black solid; width: 25%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['discount_applied']"/></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table style="width: 100%;">
+                        <tr>
+                            <th style="text-align: center; border: 2px black solid; background-color: green; color: white; padding-right: 10px; padding-left: 10px;" colspan="5">Logistica</th>
+                        </tr>
+                        <tr>
+                            <th style="border: 1px black solid; background-color: green; color: white; width: 20%; padding-right: 10px; padding-left: 10px;">Nombre del operador</th>
+                            <td style="border: 1px black solid; width: 40%; padding-right: 10px; padding-left: 10px;" colspan="2"><t t-esc="reciba['operator']"/></td>
+                            <th style="border: 1px black solid; background-color: green; color: white; width: 20%; padding-right: 10px; padding-left: 10px;">Placas</th>
+                            <td style="border: 1px black solid; width: 20%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['plate']"/></td>
+                        </tr>
+                        <tr>
+                            <th style="border: 1px black solid; background-color: green; color: white; width: 20%; padding-right: 10px; padding-left: 10px;">Peso bruto</th>
+                            <th style="border: 1px black solid; background-color: green; color: white; width: 20%; padding-right: 10px; padding-left: 10px;">Peso tara</th>
+                            <th style="border: 1px black solid; background-color: green; color: white; width: 20%; padding-right: 10px; padding-left: 10px;">Peso neto</th>
+                            <th style="border: 1px black solid; background-color: green; color: white; width: 20%; padding-right: 10px; padding-left: 10px;">Peso neto a pagar con descuento tons.</th>
+                            <th style="border: 1px black solid; background-color: green; color: white; width: 20%; padding-right: 10px; padding-left: 10px;">Cantidad libre</th>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px black solid; width: 20%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['gross_weight']"/></td>
+                            <td style="border: 1px black solid; width: 20%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['tare_weight']"/></td>
+                            <td style="border: 1px black solid; width: 20%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['net_weight']"/></td>
+                            <td style="border: 1px black solid; width: 20%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['net_weight_w_discount']"/></td>
+                            <td style="border: 1px black solid; width: 20%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['free_qty']"/></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table style="width: 100%;">
+                        <tr>
+                            <th style="text-align: center; border: 2px black solid; background-color: red; color: white; padding-right: 10px; padding-left: 10px;" colspan="4">Pago</th>
+                        </tr>
+                        <tr>
+                            <th style="border: 1px black solid; background-color: red; color: white; width: 25%; padding-right: 10px; padding-left: 10px;">Peso neto a pagar con descuento tons.</th>
+                            <th style="border: 1px black solid; background-color: red; color: white; width: 25%; padding-right: 10px; padding-left: 10px;">Tipo de cambio</th>
+                            <th style="border: 1px black solid; background-color: red; color: white; width: 25%; padding-right: 10px; padding-left: 10px;">Precio pactado USD</th>
+                            <th style="border: 1px black solid; background-color: red; color: white; width: 25%; padding-right: 10px; padding-left: 10px;">Precio unitario por toneladas</th>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px black solid; width: 25%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['net_weight_w_discount']"/></td>
+                            <td style="border: 1px black solid; width: 25%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['change_type']"/></td>
+                            <td style="border: 1px black solid; width: 25%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['price_usd']"/></td>
+                            <td style="border: 1px black solid; width: 25%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['unit_price']"/></td>
+                        </tr>
+                        <tr>
+                            <th style="border: 1px black solid; background-color: red; color: white; width: 25%; padding-right: 10px; padding-left: 10px;">Moneda</th>
+                            <th style="border: 1px black solid; background-color: red; color: white; width: 25%; padding-right: 10px; padding-left: 10px;">Importe a pagar cheque</th>
+                            <th style="border: 1px black solid; background-color: red; color: white; width: 25%; padding-right: 10px; padding-left: 10px;">Incent.</th>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px black solid; width: 25%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['currency'].name"/></td>
+                            <td style="border: 1px black solid; width: 25%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['amount_pay']"/></td>
+                            <td style="border: 1px black solid; width: 25%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['incentive']"/></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table style="width: 100%;">
+                        <tr>
+                            <th style="text-align: center; border: 2px black solid; background-color: green; color: white; padding-right: 10px; padding-left: 10px;" colspan="5">Programación de pagos</th>
+                        </tr>
+                        <tr>
+                            <th style="border: 1px black solid; background-color: green; color: white; width: 20%; padding-right: 10px; padding-left: 10px;">Numero de cheque</th>
+                            <th style="border: 1px black solid; background-color: green; color: white; width: 20%; padding-right: 10px; padding-left: 10px;">Importe del cheque</th>
+                            <th style="border: 1px black solid; background-color: green; color: white; width: 20%; padding-right: 10px; padding-left: 10px;">Fecha de cobro</th>
+                            <th style="border: 1px black solid; background-color: green; color: white; width: 20%; padding-right: 10px; padding-left: 10px;">Folio de factura</th>
+                            <th style="border: 1px black solid; background-color: green; color: white; width: 20%; padding-right: 10px; padding-left: 10px;">Fecha a pagar</th>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px black solid; width: 20%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['number_cheque']"/></td>
+                            <td style="border: 1px black solid; width: 20%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['amount_cheque']"/></td>
+                            <td style="border: 1px black solid; width: 20%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['collection_date']"/></td>
+                            <td style="border: 1px black solid; width: 20%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['folio_bill']"/></td>
+                            <td style="border: 1px black solid; width: 20%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['payment_date']"/></td>
+                        </tr>
+                        <tr>
+                            <th style="border: 1px black solid; background-color: green; color: white;" colspan="5">Observaciones</th>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px black solid; padding-right: 10px; padding-left: 10px;" colspan="5"><t t-esc="reciba['observations']"/></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table style="width: 100%; padding-right: 10px; padding-left: 10px;">
+                        <tr>
+                            <td style="border: 1px black solid; height: 50px; width: 33%; padding-right: 10px; padding-left: 10px;"></td>
+                            <td style="border: 1px black solid; height: 50px; width: 33%; padding-right: 10px; padding-left: 10px;"></td>
+                            <td style="border: 1px black solid; height: 50px; width: 33%; padding-right: 10px; padding-left: 10px;"></td>
+                        </tr>
+                        <tr>
+                            <th style="border: 1px black solid; width: 33%; text-align: center; padding-right: 10px; padding-left: 10px;">Báscula</th>
+                            <th style="border: 1px black solid; width: 33%; text-align: center; padding-right: 10px; padding-left: 10px;">Analista</th>
+                            <th style="border: 1px black solid; width: 33%; text-align: center; padding-right: 10px; padding-left: 10px;">Cliente conformidad</th>
+                        </tr>
+                    </table>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <report id="report_reciba_ticket" string="Imprimir reciba" model="reciba.order" report_type="qweb-pdf" name="albagro_reciba_customs.report_reciba"/>
+
+
+</odoo>
