@@ -33,6 +33,7 @@
         'views/saldos_pendientes.xml',
         'views/data_td.xml',
 
+
         'views/report_reciba.xml',
     ],
     # only loaded in demonstration mode
