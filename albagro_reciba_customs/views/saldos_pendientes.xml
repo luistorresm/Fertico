@@ -70,7 +70,7 @@
         <field name="arch" type="xml">
             <search>
                 <filter name="cycle_id" string="Ciclo está establecido" 
-                        domain="[('cycle_id', '=', True)]"/> 
+                        domain="[('cycle_id', '!=', 0)]"/> 
                 <field name="partner_id"/>
                 <field name="date_invoice"/>
                 <field name="seed_id"/>
@@ -101,7 +101,7 @@
         <field name="name">Seguimiento de Pagos Reciba</field>
         <field name="res_model">account.invoice</field>
         <field name="view_type">form</field>
-        <field name="view_mode">tree,form,search</field>
+        <field name="view_mode">tree, search, form</field>
         <field name="view_id" ref="view_reciba_followup_tree"/>
         <field name="search_view_id" ref="view_reciba_followup_search"/>
         <field name="target">current</field>
