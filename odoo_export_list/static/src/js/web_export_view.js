@@ -59,8 +59,34 @@ odoo.define('web_export_view', function (require) {
 								 var val = elt.substring(elt.indexOf(">") + 1) // get the td content
 								 if(val != undefined){
 									 if(val.indexOf(">") < 0 ){ // if the content of the td is not html content
-										 rows_tab.push(val)
-									 }
+											// desarrollo para quitar &nbsp;===============================================
+											var search = val.search("&nbsp;");
+											if (search > -1){
+												var val_array = val.split("&nbsp;")
+												var new_val=""
+												for(var i=0; i < val_array.length; i++){
+													new_val+=val_array[i]
+												}  
+												rows_tab.push(new_val)
+											}else{
+												rows_tab.push(val)
+											}
+											console.log("=================================================")
+										 }else{
+											var val_array = val.split(">");
+											var val_array_aux = val_array[1].split("<");
+											var data = val_array_aux[0];
+											
+											var search = data.search("&nbsp;");
+											if (search > -1){
+												var val_array = data.split("&nbsp;")
+												var new_val=""
+												for(var i=0; i < val_array.length; i++){
+													new_val+=val_array[i]
+												}  
+												rows_tab.push(new_val)
+											}
+										 }//===============================================================================
 								 }
 							 });
 							 export_rows.push(rows_tab)
@@ -75,8 +101,34 @@ odoo.define('web_export_view', function (require) {
 									 var val = elt.substring(elt.indexOf(">") + 1)
 									 if(val != undefined){
 										 if(val.indexOf(">") <0 ){
-											 rows_tab.push(val)
-										 }
+											// desarrollo para quitar &nbsp;===============================================
+											var search = val.search("&nbsp;");
+											if (search > -1){
+												var val_array = val.split("&nbsp;")
+												var new_val=""
+												for(var i=0; i < val_array.length; i++){
+													new_val+=val_array[i]
+												}  
+												rows_tab.push(new_val)
+											}else{
+												rows_tab.push(val)
+											}
+											
+										 }else{
+											var val_array = val.split(">");
+											var val_array_aux = val_array[1].split("<");
+											var data = val_array_aux[0];
+											
+											var search = data.search("&nbsp;");
+											if (search > -1){
+												var val_array = data.split("&nbsp;")
+												var new_val=""
+												for(var i=0; i < val_array.length; i++){
+													new_val+=val_array[i]
+												}  
+												rows_tab.push(new_val)
+											}
+										 }//===============================================================================
 									 }
 								 });
 								 export_rows.push(rows_tab)

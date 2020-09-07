@@ -1,0 +1,27 @@
+<odoo>
+
+    <record model="ir.ui.view" id="wizard_form_views">
+        <field name="name">wizard.form</field>
+        <field name="model">download.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Add attendees">
+                <group>
+                    <label string="Confirm download"/>
+                </group>
+                <footer>
+                    <button name="download_xml_function" type="object" string="Download" class="oe_highlight"></button>
+                </footer>
+            </form>
+        </field>        
+    </record>
+
+    <act_window id="launch_session_wizard"
+                name="Download xml files"
+                src_model="account.invoice"
+                res_model="download.wizard"
+                view_mode="form"
+                target="new"
+                key2="client_action_multi"/>
+
+
+</odoo>
