@@ -70,7 +70,7 @@
         <field name="arch" type="xml">
             <search>
                 <filter name="cycle_id" string="Ciclo está establecido" 
-                        domain="[('cycle_id', 'in', [True])]"/> 
+                        domain="[('cycle_id', 'not in', [False])]"/> 
                 <field name="partner_id"/>
                 <field name="date_invoice"/>
                 <field name="seed_id"/>
