@@ -60,6 +60,12 @@
                 <field name="amount_compensate"/>                                           
                 <field name="residual_signed"/>                
                 <field name="state"/>
+                <field name="payment_date_cust"/>
+                <field name="payer_bank"/>
+                <field name="bank_cust"/>
+                <field name="clabe_account"/>
+                <field name="operation"/> 
+                <field name="payment_method"/>                 
              </tree>
         </field>
     </record>
@@ -80,13 +86,7 @@
                 <field name="reference"/>
                 <field name="company_id"/>
                 <field name="date_due"/>                             
-                <field name="state"/>   
-                <field name="payment_date_cust"/>
-                <field name="payer_bank"/>
-                <field name="bank_cust"/>
-                <field name="clabe_account"/>
-                <field name="operation"/> 
-                <field name="payment_method"/>                                                         
+                <field name="state"/>                                                           
             </search>
         </field>
     </record>
