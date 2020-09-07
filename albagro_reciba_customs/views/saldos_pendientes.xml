@@ -85,14 +85,17 @@
         </field>
     </record>
     
-    <!--Override label for date_due field-->
+    <!--Override label for date_due & reference field-->
     <record id="view_reciba_followup_tree_2" model="ir.ui.view">
         <field name="model">account.invoice</field>
         <field name="inherit_id" ref="albagro_reciba_customs.view_reciba_followup_tree"/>
         <field name="arch" type="xml">  
           <field name="date_due" position="attributes">
             <attribute name="string">Fecha de pago</attribute>
-          </field>  
+          </field>
+          <field name="reference" position="attributes">
+            <attribute name="string">Referencia de Proveedor (Boleta)</attribute>
+          </field>             
         </field>
     </record>          
 
