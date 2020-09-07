@@ -23,7 +23,13 @@ class AccountInvoice(models.Model):
     seed_id           = fields.Char(string='Semilla/Producto', compute='_get_product_id')
     amount_compensate = fields.Float(string='Monto de Compensación', digits=dp.get_precision('Product Unit of Measure'), compute='set_amount_comp')
     amount_transfer   = fields.Float(string='Monto de Transferencia', digits=dp.get_precision('Product Unit of Measure'), compute='set_amount_dif')    
-                                   
+    payment_date_cust = fields.Date(string='Fecha Pago', compute='_get_payment_date_cust')
+    payer_bank        = fields.Char(string='Banco Pagador', compute='_get_payer_bank')
+    bank_cust         = fields.Char(string='Banco', compute='_get_bank_cust')
+    clabe_account     = fields.Char(string='Clabe/Cta', compute='_get_clabe')
+    operation         = fields.Char(string='Operación')
+    payment_method    = fields.Char(string='Método Pago', compute='_get_payment_method')
+                                      
     def change_selected_sl_inv(self):           
         '''This method permits to change status of checkbox and assigning a purchase order'''
         if self.selected_sl_inv:
@@ -48,7 +54,32 @@ class AccountInvoice(models.Model):
     def set_amount_dif(self):
         self.amount_transfer = self.env['purchase.order'].search([('name', '=', self.origin)]).amount_pending_difference
     
+    @api.one
+    @api.depends('number')
+    def _get_payment_date_cust(self):
+        self.payment_date_cust = self.env['account.payment'].search([('communication', '=', self.name)]).payment_date
+        
+    @api.one
+    @api.depends('number')
+    def _get_payer_bank(self):
+        pass
 
+    @api.one
+    @api.depends('number')
+    def _get_bank_cust(self):
+        pass
+
+    @api.one
+    @api.depends('number')
+    def _get_clabe(self):
+        pass 
+
+    @api.one
+    @api.depends('number')
+    def _get_payment_method(self):
+        pass
+
+    
 
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
@@ -80,7 +111,7 @@ class PurchaseOrder(models.Model):
 
     def set_amount_pending_difference(self):
         '''Determine the amount of selected sales invoices to charge by operator'''
-        self.amount_pending_difference = self.amount_total - self.amount_sl_pending_inv
+        self.amount_pending_difference = self.amount_total - self.amount_select_discounts
 
     #/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/
     #Inherit native method "button_confirm" in order 
