@@ -76,6 +76,8 @@ class PurchaseOrderLine(models.Model):
                 return res
             else:
                 self.product_id = self.reciba_id.product_id
+            
+            
 
     #=========Asignamos la cantidad que tiene la reciba a la cantidad de la linea de compra========
     @api.multi
@@ -93,7 +95,14 @@ class PurchaseOrderLine(models.Model):
     def get_qty(self):
         if self.reciba_id:
             self.product_qty = self.reciba_id.free_qty
-    
+
+    #==================modificamos el subtotal con descuentos e incentivos
+    @api.depends('product_qty', 'price_unit', 'taxes_id')
+    def _compute_amount(self):
+        line = super(PurchaseOrderLine, self)._compute_amount()
+        if self.reciba_id:
+            self.price_subtotal=( self.price_subtotal - self.reciba_id.freigh_threshing_discount ) + self.reciba_id.incentive
+
     
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'

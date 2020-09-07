@@ -60,9 +60,9 @@ class RecibaOrder(models.Model):
         self.amount_pay = self.net_weight_w_discount * self.unit_price
 
     @api.one
-    @api.depends('amount_pay', 'freigh_threshing_discount')
+    @api.depends('amount_pay', 'freigh_threshing_discount','incentive')
     def _get_amount_cheque(self):
-        self.amount_cheque = self.amount_pay - self.freigh_threshing_discount
+        self.amount_cheque = ( self.amount_pay - self.freigh_threshing_discount ) + self.incentive
 
     date = fields.Date(string="Date")
     customer_id = fields.Many2one('res.partner', string="Productor name")
