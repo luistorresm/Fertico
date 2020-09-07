@@ -104,7 +104,7 @@
         <field name="view_mode">tree,form,search</field>
         <field name="view_id" ref="view_reciba_followup_tree"/>
         <field name="search_view_id" ref="view_reciba_followup_search"/>
-        <field name="target">current</field1>
+        <field name="target">current</field>
         <field name="context">{}</field>
     </record>      
 
