@@ -57,8 +57,9 @@ class AccountInvoice(models.Model):
     @api.one
     @api.depends('number')
     def _get_payment_date_cust(self):
-        self.payment_date_cust = self.env['account.payment'].search([('communication', '=', self.name)]).payment_date
-        
+        #self.payment_date_cust = self.env['account.payment'].search([('communication', '=', self.name)]).payment_date
+        pass
+    
     @api.one
     @api.depends('number')
     def _get_payer_bank(self):
@@ -79,7 +80,7 @@ class AccountInvoice(models.Model):
     def _get_payment_method(self):
         pass
 
-    
+
 
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
