@@ -105,7 +105,7 @@
         <field name="view_id" ref="view_reciba_followup_tree"/>
         <field name="search_view_id" ref="view_reciba_followup_search"/>
         <field name="target">current</field>
-        <field name="context">{'search_default_cycle_id':True}</field>
+        <field name="context">{'search_default_cycle_id':1}</field>
     </record>      
 
     <menuitem id="menu_reciba_followup_invoices" 
