@@ -73,14 +73,14 @@ class AccountInvoice(models.Model):
     def _get_bank_cust(self):
         '''This method intends to retrieve from account journal the bank_id '''
         journal_id_aux = self.env['account.payment'].search([('communication', '=', self.name)], limit=1).journal_id.id
-        self.bank_cust = self.env['account.journal'].search([('id', '=', journal_id_aux)]).bank_id
+        self.bank_cust = self.env['account.journal'].search([('id', '=', journal_id_aux)]).bank_id.id
 
     @api.one
     @api.depends('number')
     def _get_clabe(self):
         '''This method intends to retrieve from account journal the bank_account_id '''
         journal_id_aux = self.env['account.payment'].search([('communication', '=', self.name)], limit=1).journal_id.id
-        self.bank_cust = self.env['account.journal'].search([('id', '=', journal_id_aux)]).bank_account_id
+        self.bank_cust = self.env['account.journal'].search([('id', '=', journal_id_aux)]).bank_account_id.id
 
 
 

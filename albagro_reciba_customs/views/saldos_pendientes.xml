@@ -45,7 +45,7 @@
         <field name="name">Seguimiento de Pagos Reciba</field>
         <field name="model">account.invoice</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree create="false" delete="false" editable="bottom">
                 <field name="cycle_id"/>
                 <field name="partner_id"/>
                 <field name="date_invoice"/>
