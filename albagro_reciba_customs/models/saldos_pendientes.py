@@ -23,12 +23,11 @@ class AccountInvoice(models.Model):
     seed_id           = fields.Char(string='Semilla/Producto', compute='_get_product_id')
     amount_compensate = fields.Float(string='Monto de Compensación', digits=dp.get_precision('Product Unit of Measure'), compute='set_amount_comp')
     amount_transfer   = fields.Float(string='Monto de Transferencia', digits=dp.get_precision('Product Unit of Measure'), compute='set_amount_dif')    
-    payment_date_cust = fields.Date(string='Fecha Pago', compute='_get_payment_date_cust')
+    payment_date_cust = fields.Date(string='Fecha Depósito', compute='_get_payment_date_cust')
     payer_bank        = fields.Char(string='Banco Pagador', compute='_get_payer_bank')
     bank_cust         = fields.Char(string='Banco', compute='_get_bank_cust')
     clabe_account     = fields.Char(string='Clabe/Cta', compute='_get_clabe')
     operation         = fields.Char(string='Operación')
-    payment_method    = fields.Char(string='Método Pago', compute='_get_payment_method')
                                       
     def change_selected_sl_inv(self):           
         '''This method permits to change status of checkbox and assigning a purchase order'''
@@ -42,43 +41,47 @@ class AccountInvoice(models.Model):
     @api.one
     @api.depends('number')
     def _get_product_id(self):
+        '''This method intends to retrieve product_id from lines with header data'''
         self.seed_id = self.env['account.invoice.line'].search([('invoice_id', '=', self.id)], limit=1).name
     
     @api.one
     @api.depends('number')
     def set_amount_comp(self):
+        '''This method intends to retrieve from purchase order info about compensantion amount'''
         self.amount_compensate = self.env['purchase.order'].search([('name', '=', self.origin)]).amount_select_discounts
 
     @api.one
     @api.depends('number')
     def set_amount_dif(self):
+        '''This method intends to retrieve from purchase order info about transfer amount'''
         self.amount_transfer = self.env['purchase.order'].search([('name', '=', self.origin)]).amount_pending_difference
     
     @api.one
     @api.depends('number')
     def _get_payment_date_cust(self):
-        #self.payment_date_cust = self.env['account.payment'].search([('communication', '=', self.name)]).payment_date
-        pass
+        '''This method intends to retrieve from account payment the date of payment'''
+        self.payment_date_cust = self.env['account.payment'].search([('communication', '=', self.name)], limit=1).payment_date
     
     @api.one
     @api.depends('number')
     def _get_payer_bank(self):
+        '''This method intends to retrieve from ### the #### '''
         pass
 
     @api.one
     @api.depends('number')
     def _get_bank_cust(self):
-        pass
+        '''This method intends to retrieve from account journal the bank_id '''
+        journal_id_aux = self.env['account.payment'].search([('communication', '=', self.name)], limit=1).journal_id.id
+        self.bank_cust = self.env['account.journal'].search([('id', '=', journal_id_aux)]).bank_id
 
     @api.one
     @api.depends('number')
     def _get_clabe(self):
-        pass 
+        '''This method intends to retrieve from account journal the bank_account_id '''
+        journal_id_aux = self.env['account.payment'].search([('communication', '=', self.name)], limit=1).journal_id.id
+        self.bank_cust = self.env['account.journal'].search([('id', '=', journal_id_aux)]).bank_account_id
 
-    @api.one
-    @api.depends('number')
-    def _get_payment_method(self):
-        pass
 
 
 
