@@ -147,11 +147,13 @@
                             <th style="border: 1px black solid; background-color: red; color: white; width: 25%; padding-right: 10px; padding-left: 10px;">Moneda</th>
                             <th style="border: 1px black solid; background-color: red; color: white; width: 25%; padding-right: 10px; padding-left: 10px;">Importe a pagar cheque</th>
                             <th style="border: 1px black solid; background-color: red; color: white; width: 25%; padding-right: 10px; padding-left: 10px;">Incent.</th>
+                            <th style="border: 1px black solid; background-color: red; color: white; width: 25%; padding-right: 10px; padding-left: 10px;">Descuento flete y trilla</th>
                         </tr>
                         <tr>
                             <td style="border: 1px black solid; width: 25%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['currency'].name"/></td>
                             <td style="border: 1px black solid; width: 25%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['amount_pay']"/></td>
                             <td style="border: 1px black solid; width: 25%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['incentive']"/></td>
+                            <td style="border: 1px black solid; width: 25%; padding-right: 10px; padding-left: 10px;"><t t-esc="reciba['freigh_threshing_discount']"/></td>
                         </tr>
                     </table>
                     <br/>

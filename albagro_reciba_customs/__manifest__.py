@@ -21,7 +21,9 @@
 
     # always loaded
     'data': [
+        'security/reciba_security.xml',
         'security/ir.model.access.csv',
+
         'views/views.xml',
         'views/templates.xml',
         'views/reciba.xml',
