@@ -21,6 +21,7 @@
 
     # always loaded
     'data': [
+        'security/reciba_security.xml',
         'security/ir.model.access.csv',
         'security/saldos_pendientes_grupo.xml',           
 

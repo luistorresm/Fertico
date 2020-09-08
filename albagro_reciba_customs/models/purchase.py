@@ -99,9 +99,11 @@ class PurchaseOrderLine(models.Model):
     #==================modificamos el subtotal con descuentos e incentivos
     @api.depends('product_qty', 'price_unit', 'taxes_id')
     def _compute_amount(self):
-        line = super(PurchaseOrderLine, self)._compute_amount()
-        if self.reciba_id:
-            self.price_subtotal=( self.price_subtotal - self.reciba_id.freigh_threshing_discount ) + self.reciba_id.incentive
+        computed = super(PurchaseOrderLine, self)._compute_amount()
+        
+        for line in self:
+            if line.reciba_id:
+                line.price_subtotal=( line.price_subtotal - line.reciba_id.freigh_threshing_discount ) + line.reciba_id.incentive
 
     
 class AccountInvoice(models.Model):
