@@ -64,8 +64,11 @@ class AccountInvoice(models.Model):
         '''This method intends to retrieve from account payment the date of payment'''
         date_list = self.env['account.payment'].search([('communication', '=', self.name)]).payment_date
         _logger.info('\n\n\n multiple_dates: %s\n\n\n', date_list)
-        self.payment_date_cust = ','.join(date_list) 
-    
+        if date_list:
+            self.payment_date_cust = ','.join(date_list) 
+        else:
+            self.payment_date_cust = ''
+
     @api.one
     @api.depends('number')
     def _get_payer_bank(self):
