@@ -58,7 +58,7 @@ class AccountInvoice(models.Model):
         '''This method intends to retrieve from purchase order info about transfer amount'''
         self.amount_transfer = self.env['purchase.order'].search([('name', '=', self.origin)]).amount_pending_difference
     
-    @api.one
+    @api.multi
     @api.depends('number')
     def _get_payment_date_cust(self):
         '''This method intends to retrieve from account payment the date of payment'''
@@ -69,13 +69,13 @@ class AccountInvoice(models.Model):
         else:
             self.payment_date_cust = ''
 
-    @api.one
+    @api.multi
     @api.depends('number')
     def _get_payer_bank(self):
         '''This method intends to retrieve from ### the #### '''
         pass
 
-    @api.one
+    @api.multi
     @api.depends('number')
     def _get_bank_cust(self):
         '''This method intends to retrieve from account journal the bank_id '''
@@ -92,7 +92,7 @@ class AccountInvoice(models.Model):
         else:
             self.bank_cust = ''
 
-    @api.one
+    @api.multi
     @api.depends('number')
     def _get_clabe(self):
         '''This method intends to retrieve from account journal the bank_account_id '''
@@ -105,7 +105,7 @@ class AccountInvoice(models.Model):
                 bank_account_list.append(self.env['account.journal'].search([('id', '=', journal)]).bank_account_id.id)
             
             _logger.info('\n\n\n bank_account_list: %s\n\n\n', bank_account_list)
-            self.clabe_account = self.bank_cust = ','.join(bank_account_list)
+            self.clabe_account = ','.join(bank_account_list)
         else:
             self.clabe_account = ''
 
