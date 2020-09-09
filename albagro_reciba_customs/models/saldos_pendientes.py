@@ -65,7 +65,7 @@ class AccountInvoice(models.Model):
     def _get_payment_date_cust(self):
         '''This method intends to retrieve from account payment the date of payment'''                
         sql_query = """SELECT id, payment_date FROM account_payment WHERE communication = %s;"""
-        self.env.cr.execute(sql_query, (self.name))
+        self.env.cr.execute(sql_query, (str(self.name),))
         payments = self.env.cr.fetchall()
         _logger.info('\n\n\npayments: %s\n\n\n', payments)            
         self.payment_date_cust = 'dato'
