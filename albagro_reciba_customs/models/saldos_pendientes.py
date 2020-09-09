@@ -25,7 +25,7 @@ class AccountInvoice(models.Model):
     seed_id           = fields.Char(string='Semilla/Producto', compute='_get_product_id')
     amount_compensate = fields.Float(string='Monto de Compensación', digits=dp.get_precision('Product Unit of Measure'), compute='set_amount_comp')
     amount_transfer   = fields.Float(string='Monto de Transferencia', digits=dp.get_precision('Product Unit of Measure'), compute='set_amount_dif')    
-    payment_date_cust = fields.Date(string='Fecha Depósito', compute='_get_payment_date_cust')
+    payment_date_cust = fields.Char(string='Fecha Depósito', compute='_get_payment_date_cust')
     observation       = fields.Char(string='Observaciones')
     payer_bank        = fields.Char(string='Banco Pagador', compute='_get_payer_bank')
     bank_cust         = fields.Char(string='Banco', compute='_get_bank_cust')
@@ -68,8 +68,9 @@ class AccountInvoice(models.Model):
         _logger.info('\n\n\npayments: %s\n\n\n', payments)
         
         if payments:
-            for p in payments.ids:
-                date_list.append(p.payment_date)                
+            for pay in payments:
+                for i in pay.ids:
+                    date_list.append(i.payment_date)                
             self.payment_date_cust = ','.join(date_list) 
         else:
             self.payment_date_cust = ''
@@ -81,7 +82,7 @@ class AccountInvoice(models.Model):
 
     @api.depends('number')
     def _get_bank_cust(self):
-        '''This method intends to retrieve from account journal the bank_id '''
+        '''This method intends to retrieve from account journal the bank_id 
         bank_list = []
         multiple_journals = self.env['account.payment'].search([('communication', '=', self.name)]).journal_id.id
         _logger.info('\n\n\n multiple_journals: %s\n\n\n', multiple_journals)
@@ -94,10 +95,12 @@ class AccountInvoice(models.Model):
             self.bank_cust = ','.join(bank_list)
         else:
             self.bank_cust = ''
+            '''
+        pass    
 
     @api.depends('number')
     def _get_clabe(self):
-        '''This method intends to retrieve from account journal the bank_account_id '''
+        '''This method intends to retrieve from account journal the bank_account_id 
         bank_account_list = []
         multiple_journals = self.env['account.payment'].search([('communication', '=', self.name)]).journal_id.id
         _logger.info('\n\n\n multiple_journals: %s\n\n\n', multiple_journals)
@@ -110,6 +113,8 @@ class AccountInvoice(models.Model):
             self.clabe_account = ','.join(bank_account_list)
         else:
             self.clabe_account = ''
+        '''
+        pass
 
 
 
