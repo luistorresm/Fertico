@@ -64,10 +64,12 @@ class AccountInvoice(models.Model):
     def _get_payment_date_cust(self):
         '''This method intends to retrieve from account payment the date of payment'''
         date_list = []; 
+        
         payments = self.env['account.payment'].search([('communication', '=', self.name)]).ids
+        payments_rcdst = self.env['account.payment'].browse(payments)
         _logger.info('\n\n\npayments: %s\n\n\n', payments)
         
-        if payments:
+        if payments_rcdst:
             for p in payments:
                 date_list.append(p.payment_date)                
             self.payment_date_cust = ','.join(date_list) 
