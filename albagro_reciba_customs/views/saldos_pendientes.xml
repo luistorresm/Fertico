@@ -61,6 +61,7 @@
                 <field name="residual_signed"/>                
                 <field name="state"/>
                 <field name="payment_date_cust"/>
+                <field name="observation"/>
                 <field name="payer_bank"/>
                 <field name="bank_cust"/>
                 <field name="clabe_account"/>

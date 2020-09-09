@@ -26,6 +26,7 @@ class AccountInvoice(models.Model):
     amount_compensate = fields.Float(string='Monto de Compensación', digits=dp.get_precision('Product Unit of Measure'), compute='set_amount_comp')
     amount_transfer   = fields.Float(string='Monto de Transferencia', digits=dp.get_precision('Product Unit of Measure'), compute='set_amount_dif')    
     payment_date_cust = fields.Date(string='Fecha Depósito', compute='_get_payment_date_cust')
+    observation       = fields.Char(string='Observaciones')
     payer_bank        = fields.Char(string='Banco Pagador', compute='_get_payer_bank')
     bank_cust         = fields.Char(string='Banco', compute='_get_bank_cust')
     clabe_account     = fields.Char(string='Clabe/Cta', compute='_get_clabe')
@@ -62,9 +63,12 @@ class AccountInvoice(models.Model):
     @api.depends('number')
     def _get_payment_date_cust(self):
         '''This method intends to retrieve from account payment the date of payment'''
-        date_list = self.env['account.payment'].search([('communication', '=', self.name)]).payment_date
-        _logger.info('\n\n\n multiple_dates: %s\n\n\n', date_list)
-        if date_list:
+        date_list = []
+        payments = self.env['account.payment'].search([('communication', '=', self.name)])
+        _logger.info('\n\n\npayments: %s\n\n\n', payments)
+        if payments:
+            for p in payments:
+                date_list.append(p.payment_date)                
             self.payment_date_cust = ','.join(date_list) 
         else:
             self.payment_date_cust = ''
