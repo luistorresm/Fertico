@@ -59,7 +59,7 @@ class AccountInvoice(models.Model):
         '''This method intends to retrieve from purchase order info about transfer amount'''
         self.amount_transfer = self.env['purchase.order'].search([('name', '=', self.origin)]).amount_pending_difference
     
-    @api.one
+    @api.multi
     @api.depends('number')
     def _get_payment_date_cust(self):
         '''This method intends to retrieve from account payment the date of payment'''
