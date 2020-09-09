@@ -70,7 +70,7 @@ class AccountInvoice(models.Model):
         _logger.info('\n\n\npayments: %s\n\n\n', payments)
         
         if payments_rcdst:
-            for p in payments:
+            for p in payments_rcdst:
                 date_list.append(p.payment_date)                
             self.payment_date_cust = ','.join(date_list) 
         else:
