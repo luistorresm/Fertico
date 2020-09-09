@@ -3,7 +3,9 @@ from odoo import models, fields, api
 from odoo.addons import decimal_precision as dp
 from odoo.exceptions import UserError
 from odoo.tools.translate import _
-
+import logging
+_logger = logging.getLogger(__name__)
+ 
 #\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\
 
 # Tickets de PROYECTO DE RECIBA:
@@ -60,7 +62,9 @@ class AccountInvoice(models.Model):
     @api.depends('number')
     def _get_payment_date_cust(self):
         '''This method intends to retrieve from account payment the date of payment'''
-        self.payment_date_cust = self.env['account.payment'].search([('communication', '=', self.name)], limit=1).payment_date
+        date_list = self.env['account.payment'].search([('communication', '=', self.name)]).payment_date
+        _logger.info('\n\n\n multiple_dates: %s\n\n\n', date_list)
+        self.payment_date_cust = ','.join(date_list) 
     
     @api.one
     @api.depends('number')
@@ -72,15 +76,35 @@ class AccountInvoice(models.Model):
     @api.depends('number')
     def _get_bank_cust(self):
         '''This method intends to retrieve from account journal the bank_id '''
-        journal_id_aux = self.env['account.payment'].search([('communication', '=', self.name)], limit=1).journal_id.id
-        self.bank_cust = self.env['account.journal'].search([('id', '=', journal_id_aux)]).bank_id.id
+        bank_list = []
+        multiple_journals = self.env['account.payment'].search([('communication', '=', self.name)]).journal_id.id
+        _logger.info('\n\n\n multiple_journals: %s\n\n\n', multiple_journals)
+        
+        if multiple_journals:
+            for journal in multiple_journals:
+                bank_list.append(self.env['account.journal'].search([('id', '=', journal)]).bank_id.id)
+            
+            _logger.info('\n\n\n bank_list: %s\n\n\n', bank_list)        
+            self.bank_cust = ','.join(bank_list)
+        else:
+            self.bank_cust = ''
 
     @api.one
     @api.depends('number')
     def _get_clabe(self):
         '''This method intends to retrieve from account journal the bank_account_id '''
-        journal_id_aux = self.env['account.payment'].search([('communication', '=', self.name)], limit=1).journal_id.id
-        self.bank_cust = self.env['account.journal'].search([('id', '=', journal_id_aux)]).bank_account_id.id
+        bank_account_list = []
+        multiple_journals = self.env['account.payment'].search([('communication', '=', self.name)]).journal_id.id
+        _logger.info('\n\n\n multiple_journals: %s\n\n\n', multiple_journals)
+        
+        if multiple_journals:
+            for journal in multiple_journals:
+                bank_account_list.append(self.env['account.journal'].search([('id', '=', journal)]).bank_account_id.id)
+            
+            _logger.info('\n\n\n bank_account_list: %s\n\n\n', bank_account_list)
+            self.clabe_account = self.bank_cust = ','.join(bank_account_list)
+        else:
+            self.clabe_account = ''
 
 
 
