@@ -61,19 +61,13 @@ class AccountInvoice(models.Model):
     
     @api.depends('number')
     def _get_payment_date_cust(self):
-        '''This method intends to retrieve from account payment the date of payment'''
-        date_list = []; 
-        
-        payments = self.env['account.payment'].search([('communication', '=', self.name)])        
+        '''This method intends to retrieve from account payment the date of payment'''        
+        sql_query = """SELECT payment_date FROM account_payment WHERE communication = %s;"""
+        self.env.cr.execute(sql_query, self.name)
+        payments = self.env.cr.fetchall()
         _logger.info('\n\n\npayments: %s\n\n\n', payments)
         
-        if payments:
-            for pay in payments:
-                for i in pay.ids:
-                    date_list.append(i.payment_date)                
-            self.payment_date_cust = ','.join(date_list) 
-        else:
-            self.payment_date_cust = ''
+        self.payment_date_cust = ''
 
     @api.depends('number')
     def _get_payer_bank(self):
