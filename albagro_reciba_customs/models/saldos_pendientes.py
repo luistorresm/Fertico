@@ -60,17 +60,15 @@ class AccountInvoice(models.Model):
         '''This method intends to retrieve from purchase order info about transfer amount'''
         self.amount_transfer = self.env['purchase.order'].search([('name', '=', self.origin)]).amount_pending_difference
     
-    @api.multi
+    @api.one
     @api.depends('number')
     def _get_payment_date_cust(self):
-        '''This method intends to retrieve from account payment the date of payment'''        
-        sql_query = """SELECT payment_date FROM account_payment WHERE communication = %s;"""
+        '''This method intends to retrieve from account payment the date of payment'''                
+        sql_query = """SELECT id, payment_date FROM account_payment WHERE communication = %s;"""
         self.env.cr.execute(sql_query, (self.name,))
         payments = self.env.cr.fetchall()
-        _logger.info('\n\n\npayments: %s\n\n\n', payments)
-
-        for rec in self:
-            rec.payment_date_cust = 'dato'
+        _logger.info('\n\n\npayments: %s\n\n\n', payments)            
+        self.payment_date_cust = 'dato'
 
     @api.depends('number')
     def _get_payer_bank(self):
