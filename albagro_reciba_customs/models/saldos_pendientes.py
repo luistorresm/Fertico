@@ -3,6 +3,7 @@ from odoo import models, fields, api
 from odoo.addons import decimal_precision as dp
 from odoo.exceptions import UserError
 from odoo.tools.translate import _
+
 import logging
 _logger = logging.getLogger(__name__)
  
@@ -59,6 +60,7 @@ class AccountInvoice(models.Model):
         '''This method intends to retrieve from purchase order info about transfer amount'''
         self.amount_transfer = self.env['purchase.order'].search([('name', '=', self.origin)]).amount_pending_difference
     
+    @api.multi
     @api.depends('number')
     def _get_payment_date_cust(self):
         '''This method intends to retrieve from account payment the date of payment'''        
@@ -66,8 +68,9 @@ class AccountInvoice(models.Model):
         self.env.cr.execute(sql_query, (self.name,))
         payments = self.env.cr.fetchall()
         _logger.info('\n\n\npayments: %s\n\n\n', payments)
-        
-        self.payment_date_cust = ''
+
+        for rec in self:
+            rec.payment_date_cust = 'dato'
 
     @api.depends('number')
     def _get_payer_bank(self):
