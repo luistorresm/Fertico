@@ -68,7 +68,7 @@ class AccountInvoice(models.Model):
         _logger.info('\n\n\npayments: %s\n\n\n', payments)
         
         if payments:
-            for p in payments:
+            for p in payments.ids:
                 date_list.append(p.payment_date)                
             self.payment_date_cust = ','.join(date_list) 
         else:
@@ -87,7 +87,7 @@ class AccountInvoice(models.Model):
         _logger.info('\n\n\n multiple_journals: %s\n\n\n', multiple_journals)
         
         if multiple_journals:
-            for journal in multiple_journals:
+            for journal in multiple_journals.ids:
                 bank_list.append(self.env['account.journal'].search([('id', '=', journal)]).bank_id.id)
             
             _logger.info('\n\n\n bank_list: %s\n\n\n', bank_list)        
@@ -103,7 +103,7 @@ class AccountInvoice(models.Model):
         _logger.info('\n\n\n multiple_journals: %s\n\n\n', multiple_journals)
         
         if multiple_journals:
-            for journal in multiple_journals:
+            for journal in multiple_journals.ids:
                 bank_account_list.append(self.env['account.journal'].search([('id', '=', journal)]).bank_account_id.id)
             
             _logger.info('\n\n\n bank_account_list: %s\n\n\n', bank_account_list)
