@@ -67,8 +67,18 @@ class AccountInvoice(models.Model):
         sql_query = """SELECT id, payment_date FROM account_payment WHERE communication = %s;"""
         self.env.cr.execute(sql_query, (str(self.name),))
         payments = self.env.cr.fetchall()
-        _logger.info('\n\n\npayments: %s\n\n\n', payments)            
-        self.payment_date_cust = 'dato'
+        _logger.info('\n\n\npayments: %s\n\n\n', payments) 
+
+        payments_list = []
+        payments_ids = self.env['account.payment'].search([('communication', '=', self.name)]).ids
+        _logger.info('\n\n\npayments_ids: %s\n\n\n', payments_ids)          
+        for rec in payments_ids:
+            payment_rec = self.env['account.payment'].browse(rec)
+            payments_list.append(payment_rec.payment_date)
+        
+        _logger.info('\n\n\npayments_list: %s\n\n\n', payments_list)
+
+        self.payment_date_cust = ','.join(payments_list)
 
     @api.depends('number')
     def _get_payer_bank(self):
