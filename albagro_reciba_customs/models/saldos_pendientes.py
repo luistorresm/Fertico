@@ -33,7 +33,7 @@ class AccountInvoice(models.Model):
     bank_cust         = fields.Char(string='Banco', compute='_get_bank_cust')
     clabe_account     = fields.Char(string='Clabe/Cta', compute='_get_clabe')
     operation         = fields.Char(string='Operación')
-                                      
+
     def change_selected_sl_inv(self):           
         '''This method permits to change status of checkbox and assigning a purchase order'''
         if self.selected_sl_inv:
@@ -48,6 +48,7 @@ class AccountInvoice(models.Model):
     def _get_product_id(self):
         '''This method intends to retrieve product_id from lines with header data'''
         self.seed_id = self.env['account.invoice.line'].search([('invoice_id', '=', self.id)], limit=1).name
+
     
     @api.one
     @api.depends('number')
@@ -55,11 +56,13 @@ class AccountInvoice(models.Model):
         '''This method intends to retrieve from purchase order info about compensantion amount'''
         self.amount_compensate = self.env['purchase.order'].search([('name', '=', self.origin)]).amount_select_discounts
 
+
     @api.one
-    @api.depends('number')
+    @api.depends('number')    
     def set_amount_dif(self):
         '''This method intends to retrieve from purchase order info about transfer amount'''
         self.amount_transfer = self.env['purchase.order'].search([('name', '=', self.origin)]).amount_pending_difference
+    
     
     @api.one
     @api.depends('number')
@@ -84,50 +87,69 @@ class AccountInvoice(models.Model):
             payment_date_lst.append(formatted_date)    
         
         _logger.info('\n\n\n payment_date_lst: %s\n\n\n', payment_date_lst)
-        self.payment_date_cust = 'le probe'            
-        #payments_list.append(payment_rec.payment_date)
-        #self.payment_date_cust = ','.join(payments_list)
+        self.payment_date_cust = ','.join(payment_date_lst)
 
+    
     @api.depends('number')
     def _get_payer_bank(self):
         '''This method intends to retrieve from ### the #### '''
         pass
 
+    
     @api.depends('number')
     def _get_bank_cust(self):
-        '''This method intends to retrieve from account journal the bank_id 
-        bank_list = []
-        multiple_journals = self.env['account.payment'].search([('communication', '=', self.name)]).journal_id.id
-        _logger.info('\n\n\n multiple_journals: %s\n\n\n', multiple_journals)
+        """This method intends to retrieve from account journal the bank_id"""
+        bank_lst = []
+        #Retrieve journals from multiple payments:
+        sql_query = """SELECT journal_id 
+                         FROM account_payment 
+                        WHERE communication = %s;"""
+        self.env.cr.execute(sql_query, (self.number,))
+        result = self.env.cr.fetchall()
         
-        if multiple_journals:
-            for journal in multiple_journals.ids:
-                bank_list.append(self.env['account.journal'].search([('id', '=', journal)]).bank_id.id)
+        for rslt in result:
+            journal_aux = rslt[0] #Obtain first element in tuple
+            #Retrieve bank_id & name of bank:
+            sql_query = """SELECT bank_id 
+                            FROM account_journal 
+                            WHERE id = %s;"""
+            self.env.cr.execute(sql_query, (journal_aux,))
+            bank = self.env.cr.fetchone()
+
+            sql_query = """SELECT name 
+                            FROM res_bank 
+                            WHERE id = %s;"""
+            self.env.cr.execute(sql_query, (bank[0],))
+            bank_name = self.env.cr.fetchone()            
+            #Fill list with bank names:
+            bank_lst.append(bank_name[0]) 
             
-            _logger.info('\n\n\n bank_list: %s\n\n\n', bank_list)        
-            self.bank_cust = ','.join(bank_list)
-        else:
-            self.bank_cust = ''
-            '''
-        pass    
+        self.bank_cust = ','.join(bank_lst)  
+
 
     @api.depends('number')
     def _get_clabe(self):
-        '''This method intends to retrieve from account journal the bank_account_id 
-        bank_account_list = []
-        multiple_journals = self.env['account.payment'].search([('communication', '=', self.name)]).journal_id.id
-        _logger.info('\n\n\n multiple_journals: %s\n\n\n', multiple_journals)
+        '''This method intends to retrieve from account journal the bank_account_id'''
+        bank_account_lst = []
+        #Retrieve journals from multiple payments:
+        sql_query = """SELECT journal_id 
+                         FROM account_payment 
+                        WHERE communication = %s;"""
+        self.env.cr.execute(sql_query, (self.number,))
+        result = self.env.cr.fetchall()
         
-        if multiple_journals:
-            for journal in multiple_journals.ids:
-                bank_account_list.append(self.env['account.journal'].search([('id', '=', journal)]).bank_account_id.id)
+        for rslt in result:
+            journal_aux = rslt[0] #Obtain first element in tuple
+            #Retrieve bank_id & name of bank:
+            sql_query = """SELECT bank_account_id 
+                            FROM account_journal 
+                            WHERE id = %s;"""
+            self.env.cr.execute(sql_query, (journal_aux,))
+            bank_account = self.env.cr.fetchone()           
+            #Fill list with bank names:
+            bank_account_lst.append(bank_account[0]) 
             
-            _logger.info('\n\n\n bank_account_list: %s\n\n\n', bank_account_list)
-            self.clabe_account = ','.join(bank_account_list)
-        else:
-            self.clabe_account = ''
-        '''
-        pass
+        self.clabe_account = ','.join(bank_account_lst)
 
 
 
