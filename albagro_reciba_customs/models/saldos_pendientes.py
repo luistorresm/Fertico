@@ -77,16 +77,17 @@ class AccountInvoice(models.Model):
         result = self.env.cr.fetchall()          
         
         for date in result:
-            date_aux = date[0] #Obtain first element in tuple
+            #Obtain first element in tuple:
+            date_aux = date[0]
             year  = date_aux[0:4]
             month = date_aux[5:7]
             day   = date_aux[8:10]
-            #Split string of date and concatenate it into a new format            
+            #Split string of date and concatenate it into a new format:            
             formatted_date = day + '/' + month + '/' + year
+            #Fill list of dates:
             payment_date_lst.append(formatted_date)    
         
-        _logger.info('\n\n\n payment_date_lst: %s\n\n\n', payment_date_lst)
-        self.payment_date_cust = ','.join(payment_date_lst)
+        self.payment_date_cust = ', '.join(payment_date_lst)
 
 
     @api.one
@@ -106,56 +107,42 @@ class AccountInvoice(models.Model):
                          FROM account_payment 
                         WHERE communication = %s;"""
         self.env.cr.execute(sql_query, (self.number,))
-        result = self.env.cr.fetchall()
-        _logger.info('\n\n\n result de journals: %s\n\n\n', result)
+        result = self.env.cr.fetchall()        
         
         for rslt in result:
-            journal_aux = rslt[0] #Obtain first element in tuple
-            _logger.info('\n\n\n journal_aux: %s\n\n\n', journal_aux)
+            #Obtain first element in tuple:
+            journal_aux = rslt[0] 
             #Retrieve bank_id & name of bank:
             bank = self.env['account.journal'].search([('id', '=', journal_aux)]).bank_id.id
-            _logger.info('\n\n\n result de bank: %s\n\n\n', bank)
             bank_name = self.env['res.bank'].search([('id', '=', bank)]).name
-            _logger.info('\n\n\n bank_name: %s\n\n\n', bank_name)
-
             #Fill list with bank names:
             bank_lst.append(bank_name) 
-
-        _logger.info('\n\n\n bank_lst: %s\n\n\n', bank_lst)
                         
-        self.bank_cust = ','.join(bank_lst)  
+        self.bank_cust = ', '.join(bank_lst)  
 
     
     @api.one
     @api.depends('number')
     def _get_clabe(self):
-        '''This method intends to retrieve from account journal the bank_account_id'''
-        '''
+        '''This method intends to retrieve from account journal the bank_account_id'''        
         bank_account_lst = []
         #Retrieve journals from multiple payments:
         sql_query = """SELECT journal_id 
                          FROM account_payment 
                         WHERE communication = %s;"""
         self.env.cr.execute(sql_query, (self.number,))
-        result = self.env.cr.fetchall()
-        _logger.info('\n\n\n result de journals de clabe: %s\n\n\n', result)        
+        result = self.env.cr.fetchall()        
         
         for rslt in result:
-            journal_aux = rslt[0] #Obtain first element in tuple
+            #Obtain first element in tuple:
+            journal_aux = rslt[0]
             #Retrieve bank_id & name of bank:
-            sql_query = """SELECT bank_account_id 
-                            FROM account_journal 
-                            WHERE id = %s;"""
-            self.env.cr.execute(sql_query, (journal_aux,))
-            bank_account = self.env.cr.fetchone()           
-            #Fill list with bank names:
-            bank_account_lst.append(bank_account[0]) 
-        _logger.info('\n\n\n bank_account_lst: %s\n\n\n', bank_account_lst)
-            
-        self.clabe_account = ','.join(bank_account_lst)
-        '''
-        pass
-
+            bank_account = self.env['account.journal'].search([('id', '=', journal_aux)]).bank_account_id.id
+            account_name = self.env['res.partner.bank'].search([('id', '=', bank_account)]).acc_number
+            #Fill list with bank accounts:
+            bank_account_lst.append(account_name) 
+                        
+        self.clabe_account = ', '.join(bank_account_lst)
 
 
 
