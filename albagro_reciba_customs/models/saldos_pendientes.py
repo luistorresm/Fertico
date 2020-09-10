@@ -68,13 +68,15 @@ class AccountInvoice(models.Model):
             _logger.info('\n\n\nself.name: %s\n\n\n', self.name)
             self.payment_date_cust = 'le probe'
         else:
+            _logger.info('\n\n\nself.name: %s\n\n\n', self.name)
             sql_query = """SELECT payment_date 
                              FROM account_payment 
                             WHERE communication = %s;"""
             self.env.cr.execute(sql_query, (self.name,))
             result = self.env.cr.fetchall()
-            _logger.info('\n\n\npayments: %s\n\n\n', result)             
-            self.payment_date_cust = 'le probe'            #payments_list.append(payment_rec.payment_date)
+            _logger.info('\n\n\npayments [result_query]: %s\n\n\n', result)             
+            self.payment_date_cust = 'le probe'            
+            #payments_list.append(payment_rec.payment_date)
             #self.payment_date_cust = ','.join(payments_list)
 
     @api.depends('number')
