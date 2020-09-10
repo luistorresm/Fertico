@@ -75,8 +75,9 @@ class AccountInvoice(models.Model):
         _logger.info('\n\n\npayments [result_query]: %s\n\n\n', result)             
         
         for date in result:
-            payments_list.append(date.strftime("%d-%m-%Y"))    
-            _logger.info('\n\n\n payments_list: %s\n\n\n', result)
+            payment_date_lst.append(date.strftime("%d-%m-%Y"))    
+        
+        _logger.info('\n\n\n payment_date_lst: %s\n\n\n', payment_date_lst)
         self.payment_date_cust = 'le probe'            
         #payments_list.append(payment_rec.payment_date)
         #self.payment_date_cust = ','.join(payments_list)
