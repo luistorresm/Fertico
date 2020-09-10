@@ -115,7 +115,7 @@ class AccountInvoice(models.Model):
             #Retrieve bank_id & name of bank:
             sql_query = """SELECT bank_id
                              FROM account_journal 
-                            WHERE id = %d;"""
+                            WHERE id = %s;"""
             self.env.cr.execute(sql_query, (journal_aux,))
             bank = self.env.cr.fetchone()
             _logger.info('\n\n\n result de bank: %s\n\n\n', bank)
