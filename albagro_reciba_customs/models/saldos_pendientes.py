@@ -74,8 +74,7 @@ class AccountInvoice(models.Model):
                          FROM account_payment 
                         WHERE communication = %s;"""
         self.env.cr.execute(sql_query, (self.number,))
-        result = self.env.cr.fetchall()
-        _logger.info('\n\n\npayments [result_query]: %s\n\n\n', result)             
+        result = self.env.cr.fetchall()          
         
         for date in result:
             date_aux = date[0] #Obtain first element in tuple
@@ -106,6 +105,7 @@ class AccountInvoice(models.Model):
                         WHERE communication = %s;"""
         self.env.cr.execute(sql_query, (self.number,))
         result = self.env.cr.fetchall()
+        _logger.info('\n\n\n result de journals: %s\n\n\n', result)
         
         for rslt in result:
             journal_aux = rslt[0] #Obtain first element in tuple
@@ -115,15 +115,19 @@ class AccountInvoice(models.Model):
                             WHERE id = %s;"""
             self.env.cr.execute(sql_query, (journal_aux,))
             bank = self.env.cr.fetchone()
-
+            _logger.info('\n\n\n result de bank: %s\n\n\n', bank)
+            
             sql_query = """SELECT name 
                             FROM res_bank 
                             WHERE id = %s;"""
             self.env.cr.execute(sql_query, (bank[0],))
-            bank_name = self.env.cr.fetchone()            
+            bank_name = self.env.cr.fetchone()  
+            _logger.info('\n\n\n bank_name: %s\n\n\n', bank_name)
+
             #Fill list with bank names:
             bank_lst.append(bank_name[0]) 
-            
+        _logger.info('\n\n\n bank_lst: %s\n\n\n', bank_lst)
+                        
         self.bank_cust = ','.join(bank_lst)  
 
 
@@ -137,6 +141,7 @@ class AccountInvoice(models.Model):
                         WHERE communication = %s;"""
         self.env.cr.execute(sql_query, (self.number,))
         result = self.env.cr.fetchall()
+        _logger.info('\n\n\n result de journals de clabe: %s\n\n\n', result)        
         
         for rslt in result:
             journal_aux = rslt[0] #Obtain first element in tuple
@@ -148,6 +153,7 @@ class AccountInvoice(models.Model):
             bank_account = self.env.cr.fetchone()           
             #Fill list with bank names:
             bank_account_lst.append(bank_account[0]) 
+        _logger.info('\n\n\n bank_account_lst: %s\n\n\n', bank_account_lst)
             
         self.clabe_account = ','.join(bank_account_lst)
 
