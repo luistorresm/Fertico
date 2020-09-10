@@ -88,13 +88,15 @@ class AccountInvoice(models.Model):
         _logger.info('\n\n\n payment_date_lst: %s\n\n\n', payment_date_lst)
         self.payment_date_cust = ','.join(payment_date_lst)
 
-    
+
+    @api.one
     @api.depends('number')
     def _get_payer_bank(self):
         '''This method intends to retrieve from ### the #### '''
         pass
 
-    
+
+    @api.one
     @api.depends('number')
     def _get_bank_cust(self):
         """This method intends to retrieve from account journal the bank_id"""
@@ -130,7 +132,8 @@ class AccountInvoice(models.Model):
                         
         self.bank_cust = ','.join(bank_lst)  
 
-
+    
+    @api.one
     @api.depends('number')
     def _get_clabe(self):
         '''This method intends to retrieve from account journal the bank_account_id'''
