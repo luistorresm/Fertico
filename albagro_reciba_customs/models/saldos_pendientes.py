@@ -113,22 +113,14 @@ class AccountInvoice(models.Model):
             journal_aux = rslt[0] #Obtain first element in tuple
             _logger.info('\n\n\n journal_aux: %s\n\n\n', journal_aux)
             #Retrieve bank_id & name of bank:
-            sql_query = """SELECT bank_id
-                             FROM account_journal 
-                            WHERE id = %d;"""
-            self.env.cr.execute(sql_query, (journal_aux,))
-            bank = self.env.cr.fetchone()
+            bank = self.env['account.journal'].search([('id', '=', journal_aux)]).bank_id.id
             _logger.info('\n\n\n result de bank: %s\n\n\n', bank)
-            
-            sql_query = """SELECT name 
-                            FROM res_bank 
-                            WHERE id = %s;"""
-            self.env.cr.execute(sql_query, (bank[0],))
-            bank_name = self.env.cr.fetchone()  
+            bank_name = self.env['res.bank'].search([('id', '=', bank)]).name
             _logger.info('\n\n\n bank_name: %s\n\n\n', bank_name)
 
             #Fill list with bank names:
-            bank_lst.append(bank_name[0]) 
+            bank_lst.append(bank_name) 
+
         _logger.info('\n\n\n bank_lst: %s\n\n\n', bank_lst)
                         
         self.bank_cust = ','.join(bank_lst)  
@@ -138,6 +130,7 @@ class AccountInvoice(models.Model):
     @api.depends('number')
     def _get_clabe(self):
         '''This method intends to retrieve from account journal the bank_account_id'''
+        '''
         bank_account_lst = []
         #Retrieve journals from multiple payments:
         sql_query = """SELECT journal_id 
@@ -160,6 +153,8 @@ class AccountInvoice(models.Model):
         _logger.info('\n\n\n bank_account_lst: %s\n\n\n', bank_account_lst)
             
         self.clabe_account = ','.join(bank_account_lst)
+        '''
+        pass
 
 
 
