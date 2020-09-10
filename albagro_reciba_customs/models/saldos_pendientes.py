@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
 from odoo import models, fields, api
 from odoo.addons import decimal_precision as dp
 from odoo.exceptions import UserError
@@ -64,20 +65,21 @@ class AccountInvoice(models.Model):
     @api.depends('number')
     def _get_payment_date_cust(self):
         '''This method intends to retrieve from account payment the date of payment''' 
-        if self.number == False:
-            _logger.info('\n\n\n self.number: %s\n\n\n', self.number)
-            self.payment_date_cust = 'le probe'
-        else:
-            _logger.info('\n\n\n self.number: %s\n\n\n', self.number)
-            sql_query = """SELECT payment_date 
-                             FROM account_payment 
-                            WHERE communication = %s;"""
-            self.env.cr.execute(sql_query, (self.number,))
-            result = self.env.cr.fetchall()
-            _logger.info('\n\n\npayments [result_query]: %s\n\n\n', result)             
-            self.payment_date_cust = 'le probe'            
-            #payments_list.append(payment_rec.payment_date)
-            #self.payment_date_cust = ','.join(payments_list)
+        payment_date_lst = []
+
+        sql_query = """SELECT payment_date 
+                         FROM account_payment 
+                        WHERE communication = %s;"""
+        self.env.cr.execute(sql_query, (self.number,))
+        result = self.env.cr.fetchall()
+        _logger.info('\n\n\npayments [result_query]: %s\n\n\n', result)             
+        
+        for date in result:
+            payments_list.append(date.strftime("%d-%m-%Y"))    
+            _logger.info('\n\n\n payments_list: %s\n\n\n', result)
+        self.payment_date_cust = 'le probe'            
+        #payments_list.append(payment_rec.payment_date)
+        #self.payment_date_cust = ','.join(payments_list)
 
     @api.depends('number')
     def _get_payer_bank(self):
