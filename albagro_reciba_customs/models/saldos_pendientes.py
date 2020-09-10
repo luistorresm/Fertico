@@ -111,10 +111,11 @@ class AccountInvoice(models.Model):
         
         for rslt in result:
             journal_aux = rslt[0] #Obtain first element in tuple
+            _logger.info('\n\n\n journal_aux: %s\n\n\n', journal_aux)
             #Retrieve bank_id & name of bank:
-            sql_query = """SELECT bank_id 
-                            FROM account_journal 
-                            WHERE id = %s;"""
+            sql_query = """SELECT bank_id
+                             FROM account_journal 
+                            WHERE id = %d;"""
             self.env.cr.execute(sql_query, (journal_aux,))
             bank = self.env.cr.fetchone()
             _logger.info('\n\n\n result de bank: %s\n\n\n', bank)
