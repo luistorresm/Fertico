@@ -4,9 +4,6 @@ from odoo import models, fields, api
 from odoo.addons import decimal_precision as dp
 from odoo.exceptions import UserError
 from odoo.tools.translate import _
-
-import logging
-_logger = logging.getLogger(__name__)
  
 #\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\
 
@@ -29,9 +26,10 @@ class AccountInvoice(models.Model):
     amount_transfer   = fields.Float(string='Monto de Transferencia', digits=dp.get_precision('Product Unit of Measure'), compute='set_amount_dif')    
     payment_date_cust = fields.Char(string='Fecha Depósito', compute='_get_payment_date_cust')
     observation       = fields.Char(string='Observaciones')
-    payer_bank        = fields.Char(string='Banco Pagador', compute='_get_payer_bank')
-    bank_cust         = fields.Char(string='Banco', compute='_get_bank_cust')
-    clabe_account     = fields.Char(string='Clabe/Cta', compute='_get_clabe')
+    bank              = fields.Char(string='Banco', compute='_get_bank')
+    clabe_deposit     = fields.Char(string='Clabe/Cta Déposito', compute='_get_clabe_deposit')
+    bank_payer        = fields.Char(string='Banco Pagador', compute='_get_bank_payer')
+    clabe_payer       = fields.Char(string='Clabe/Cta Pagador', compute='_get_clabe_payer')
     operation         = fields.Char(string='Operación')
 
     def change_selected_sl_inv(self):           
@@ -92,14 +90,21 @@ class AccountInvoice(models.Model):
 
     @api.one
     @api.depends('number')
-    def _get_payer_bank(self):
+    def _get_bank(self):
         '''This method intends to retrieve from res.partner.bank the bank_name'''
-        self.payer_bank = self.env['res.partner.bank'].search([('partner_id', '=', self.partner_id.id)]).bank_name
+        self.bank = self.env['res.partner.bank'].search([('partner_id', '=', self.partner_id.id)]).bank_name
+
+
+    @api.one
+    @api.depends('number')    
+    def _get_clabe_deposit(self):        
+        '''This method intends to retrieve from res.partner.bank the acc_'''
+        self.clabe_deposit = self.env['res.partner.bank'].search([('partner_id', '=', self.partner_id.id)]).acc_number
 
 
     @api.one
     @api.depends('number')
-    def _get_bank_cust(self):
+    def _get_bank_payer(self):
         """This method intends to retrieve from account journal the bank_id"""
         bank_lst = []
         #Retrieve journals from multiple payments:
@@ -118,12 +123,12 @@ class AccountInvoice(models.Model):
             #Fill list with bank names:
             bank_lst.append(bank_name) 
                         
-        self.bank_cust = ', '.join(bank_lst)  
+        self.bank_payer = ', '.join(bank_lst)  
 
     
     @api.one
     @api.depends('number')
-    def _get_clabe(self):
+    def _get_clabe_payer(self):
         '''This method intends to retrieve from account journal the bank_account_id'''        
         bank_account_lst = []
         #Retrieve journals from multiple payments:
@@ -142,7 +147,8 @@ class AccountInvoice(models.Model):
             #Fill list with bank accounts:
             bank_account_lst.append(account_name) 
                         
-        self.clabe_account = ', '.join(bank_account_lst)
+        self.clabe_payer = ', '.join(bank_account_lst)
+
 
 
 
