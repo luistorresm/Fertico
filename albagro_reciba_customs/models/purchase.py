@@ -132,3 +132,12 @@ class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
 
     reciba_id = fields.Many2one(related='purchase_line_id.reciba_id', string="Ticket")
+
+    @api.one
+    @api.depends('price_unit', 'discount', 'invoice_line_tax_ids', 'quantity',
+        'product_id', 'invoice_id.partner_id', 'invoice_id.currency_id', 'invoice_id.company_id',
+        'invoice_id.date_invoice', 'invoice_id.date')
+    def _compute_price(self):
+        computed = super(AccountInvoiceLine, self)._compute_price()
+        if self.reciba_id:
+            self.price_subtotal=( self.price_subtotal - self.reciba_id.freigh_threshing_discount ) + self.reciba_id.incentive
