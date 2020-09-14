@@ -65,27 +65,30 @@ class AccountInvoice(models.Model):
     @api.one
     @api.depends('number')
     def _get_payment_date_cust(self):
-        '''This method intends to retrieve from account payment the date of payment''' 
-        payment_date_lst = []
-
-        sql_query = """SELECT payment_date 
-                         FROM account_payment 
-                        WHERE communication = %s;"""
-        self.env.cr.execute(sql_query, (self.number,))
-        result = self.env.cr.fetchall()          
-        
-        for date in result:
-            #Obtain first element in tuple:
-            date_aux = date[0]
-            year  = date_aux[0:4]
-            month = date_aux[5:7]
-            day   = date_aux[8:10]
-            #Split string of date and concatenate it into a new format:            
-            formatted_date = day + '/' + month + '/' + year
-            #Fill list of dates:
-            payment_date_lst.append(formatted_date)    
-        
-        self.payment_date_cust = ', '.join(payment_date_lst)
+        '''This method intends to retrieve from account payment the date of payment'''         
+        if self.number:
+            payment_date_lst = []
+            
+            sql_query = """SELECT payment_date 
+                            FROM account_payment 
+                            WHERE communication = %s;"""
+            self.env.cr.execute(sql_query, (self.number,))
+            result = self.env.cr.fetchall()          
+            
+            for date in result:
+                #Obtain first element in tuple:
+                date_aux = date[0]
+                year  = date_aux[0:4]
+                month = date_aux[5:7]
+                day   = date_aux[8:10]
+                #Split string of date and concatenate it into a new format:            
+                formatted_date = day + '/' + month + '/' + year
+                #Fill list of dates:
+                payment_date_lst.append(formatted_date)    
+            
+            self.payment_date_cust = ', '.join(payment_date_lst)
+        else:
+            self.payment_date_cust = ''
 
 
     @api.one
@@ -105,50 +108,56 @@ class AccountInvoice(models.Model):
     @api.one
     @api.depends('number')
     def _get_bank_payer(self):
-        """This method intends to retrieve from account journal the bank_id"""
-        bank_lst = []
-        #Retrieve journals from multiple payments:
-        sql_query = """SELECT journal_id 
-                         FROM account_payment 
-                        WHERE communication = %s;"""
-        self.env.cr.execute(sql_query, (self.number,))
-        result = self.env.cr.fetchall()        
-        
-        for rslt in result:
-            #Obtain first element in tuple:
-            journal_aux = rslt[0] 
-            #Retrieve bank_id & name of bank:
-            bank = self.env['account.journal'].search([('id', '=', journal_aux)]).bank_id.id
-            bank_name = self.env['res.bank'].search([('id', '=', bank)]).name
-            #Fill list with bank names:
-            bank_lst.append(bank_name) 
-                        
-        self.bank_payer = ', '.join(bank_lst)  
+        """This method intends to retrieve from account journal the bank_id"""        
+        if self.number:
+            bank_lst = []
+            
+            #Retrieve journals from multiple payments:
+            sql_query = """SELECT journal_id 
+                            FROM account_payment 
+                            WHERE communication = %s;"""
+            self.env.cr.execute(sql_query, (self.number,))
+            result = self.env.cr.fetchall()        
+            
+            for rslt in result:
+                #Obtain first element in tuple:
+                journal_aux = rslt[0] 
+                #Retrieve bank_id & name of bank:
+                bank = self.env['account.journal'].search([('id', '=', journal_aux)]).bank_id.id
+                bank_name = self.env['res.bank'].search([('id', '=', bank)]).name
+                #Fill list with bank names:
+                bank_lst.append(bank_name) 
+                            
+            self.bank_payer = ', '.join(bank_lst) 
+        else:
+             self.bank_payer = ''
 
     
     @api.one
     @api.depends('number')
     def _get_clabe_payer(self):
         '''This method intends to retrieve from account journal the bank_account_id'''        
-        bank_account_lst = []
-        #Retrieve journals from multiple payments:
-        sql_query = """SELECT journal_id 
-                         FROM account_payment 
-                        WHERE communication = %s;"""
-        self.env.cr.execute(sql_query, (self.number,))
-        result = self.env.cr.fetchall()        
-        
-        for rslt in result:
-            #Obtain first element in tuple:
-            journal_aux = rslt[0]
-            #Retrieve bank_id & name of bank:
-            bank_account = self.env['account.journal'].search([('id', '=', journal_aux)]).bank_account_id.id
-            account_name = self.env['res.partner.bank'].search([('id', '=', bank_account)]).acc_number
-            #Fill list with bank accounts:
-            bank_account_lst.append(account_name) 
-                        
-        self.clabe_payer = ', '.join(bank_account_lst)
-
+        if self.number:
+            bank_account_lst = []
+            #Retrieve journals from multiple payments:
+            sql_query = """SELECT journal_id 
+                            FROM account_payment 
+                            WHERE communication = %s;"""
+            self.env.cr.execute(sql_query, (self.number,))
+            result = self.env.cr.fetchall()        
+            
+            for rslt in result:
+                #Obtain first element in tuple:
+                journal_aux = rslt[0]
+                #Retrieve bank_id & name of bank:
+                bank_account = self.env['account.journal'].search([('id', '=', journal_aux)]).bank_account_id.id
+                account_name = self.env['res.partner.bank'].search([('id', '=', bank_account)]).acc_number
+                #Fill list with bank accounts:
+                bank_account_lst.append(account_name) 
+                            
+            self.clabe_payer = ', '.join(bank_account_lst)
+        else:
+            self.clabe_payer = ''
 
 
 
