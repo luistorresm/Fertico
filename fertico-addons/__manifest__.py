@@ -13,13 +13,15 @@
     'version': '11.0.1.0.3',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'analytic', 'account', 'hr', 'hr_attendance', 'sale', 'point_of_sale', 'pos_sale', 'web'],
+    'depends': ['base', 'analytic', 'account', 'hr', 'hr_attendance', 'sale', 
+    'point_of_sale', 'pos_sale', 'web'],
 
     # always loaded
     'data': [
         # security files
         'security/analytic_security.xml',
         'security/sales_security.xml',
+        'security/inventory_security.xml',
         'security/ir.model.access.csv',
 
         # views
