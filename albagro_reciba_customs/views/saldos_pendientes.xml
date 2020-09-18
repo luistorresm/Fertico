@@ -97,7 +97,7 @@
     <!--Override label for date_due, reference & payment_term_id fields-->
     <record id="view_reciba_followup_2_tree_cust" model="ir.ui.view">
         <field name="model">account.invoice</field>
-        <field name="inherit_id" ref="albagro_reciba_customs.view_reciba_followup_tree"/>
+        <field name="inherit_id" ref="albagro_reciba_customs.view_reciba_followup_tree_cust"/>
         <field name="arch" type="xml">
           <field name="date_due" position="attributes">
             <attribute name="string">Fecha de pago</attribute>
