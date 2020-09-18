@@ -41,7 +41,7 @@
  
 
     <!--Add new submenu into Account > Purchase in order to display a new tree view of reciba payments follow-up-->
-    <record id="view_reciba_followup_tree" model="ir.ui.view">
+    <record id="view_reciba_followup_tree_cust" model="ir.ui.view">
         <field name="name">Seguimiento de Pagos Reciba</field>
         <field name="model">account.invoice</field>
         <field name="arch" type="xml">
@@ -53,9 +53,9 @@
                 <field name="modality_id"/>
                 <field name="origin"/>
                 <field name="number"/>
-                <field name="reference" string="Referencia de Proveedor (Boleta)"/>
+                <field name="reference"/>
                 <field name="company_id"/>
-                <field name="date_due" string="Fecha de pago"/>             
+                <field name="date_due"/>             
                 <field name="amount_transfer"/>                   
                 <field name="amount_compensate"/>                                           
                 <field name="residual_signed"/>                
@@ -67,13 +67,13 @@
                 <field name="bank_payer"/>
                 <field name="clabe_payer"/>
                 <field name="operation" readonly="False"/> 
-                <field name="payment_term_id" sring="Método de Pago"/>                 
+                <field name="payment_term_id"/>                 
              </tree>
         </field>
     </record>
 
-    <!-- Add new submenu into Account > Purchase in order to display a new search view of reciba payments follow-up-->
-    <record id="view_reciba_followup_search" model="ir.ui.view">
+    <!--Add new submenu into Account > Purchase in order to display a new search view of reciba payments follow-up-->
+    <record id="view_reciba_followup_search_cust" model="ir.ui.view">
         <field name="name">Seguimiento de Pagos Reciba Búsqueda</field>
         <field name="model">account.invoice</field>
         <field name="arch" type="xml">
@@ -94,23 +94,40 @@
         </field>
     </record>
     
+    <!--Override label for date_due, reference & payment_term_id fields-->
+    <record id="view_reciba_followup_2_tree_cust" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="albagro_reciba_customs.view_reciba_followup_tree"/>
+        <field name="arch" type="xml">
+          <field name="date_due" position="attributes">
+            <attribute name="string">Fecha de pago</attribute>
+          </field>
+          <field name="reference" position="attributes">
+            <attribute name="string">Referencia de Proveedor (Boleta)</attribute>
+          </field>  
+          <field name="payment_term_id" position="attributes">
+            <attribute name="string">Método de Pago</attribute>
+          </field>                      
+        </field>
+    </record>          
+
     <!--Add new menuitem-->
-    <record id="action_reciba_followup" model="ir.actions.act_window">
+    <record id="action_reciba_followup_cust" model="ir.actions.act_window">
         <field name="name">Seguimiento de Pagos Reciba</field>
         <field name="res_model">account.invoice</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree, search, form</field>
-        <field name="view_id" ref="view_reciba_followup_tree"/>
-        <field name="search_view_id" ref="view_reciba_followup_search"/>
+        <field name="view_id" ref="view_reciba_followup_tree_cust"/>
+        <field name="search_view_id" ref="view_reciba_followup_search_cust"/>
         <field name="target">current</field>
         <field name="context">{'search_default_cycle_id':1}</field>
     </record>      
 
     <menuitem id="menu_reciba_followup_invoices" 
               name="Seguimiento de Pagos Reciba" 
-              action="action_reciba_followup"
+              action="action_reciba_followup_cust"
               parent="account.menu_finance_payables_documents"
-              sequence="30"/>    
+              sequence="60"/>    
 
   </data>
 </odoo>  
