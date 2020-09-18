@@ -95,7 +95,7 @@ class AccountInvoice(models.Model):
     @api.depends('number')
     def _get_bank(self):
         '''This method intends to retrieve from res.partner.bank the bank_name'''
-        self.bank_cust = self.env['res.partner.bank'].search([('partner_id', '=', self.partner_id.id)]).bank_name
+        self.bank_cust = self.env['res.partner.bank'].search([('partner_id', '=', self.partner_id.id)], limit=1).bank_name
 
 
     @api.one
