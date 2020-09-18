@@ -62,7 +62,7 @@
                 <field name="state"/>
                 <field name="payment_date_cust"/>
                 <field name="observation"/>
-                <field name="bank"/>
+                <field name="bank_cust"/>
                 <field name="clabe_deposit"/>
                 <field name="bank_payer"/>
                 <field name="clabe_payer"/>
