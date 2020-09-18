@@ -26,7 +26,7 @@ class AccountInvoice(models.Model):
     amount_transfer   = fields.Float(string='Monto de Transferencia', digits=dp.get_precision('Product Unit of Measure'), compute='set_amount_dif')    
     payment_date_cust = fields.Char(string='Fecha Depósito', compute='_get_payment_date_cust')
     observation       = fields.Char(string='Observaciones')
-    bank              = fields.Char(string='Banco', compute='_get_bank')
+    bank_cust         = fields.Char(string='Banco', compute='_get_bank')
     clabe_deposit     = fields.Char(string='Clabe/Cta Déposito', compute='_get_clabe_deposit')
     bank_payer        = fields.Char(string='Banco Pagador', compute='_get_bank_payer')
     clabe_payer       = fields.Char(string='Clabe/Cta Pagador', compute='_get_clabe_payer')
@@ -95,7 +95,7 @@ class AccountInvoice(models.Model):
     @api.depends('number')
     def _get_bank(self):
         '''This method intends to retrieve from res.partner.bank the bank_name'''
-        self.bank = self.env['res.partner.bank'].search([('partner_id', '=', self.partner_id.id)]).bank_name
+        self.bank_cust = self.env['res.partner.bank'].search([('partner_id', '=', self.partner_id.id)]).bank_name
 
 
     @api.one
