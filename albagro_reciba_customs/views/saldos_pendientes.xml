@@ -123,7 +123,7 @@
         <field name="context">{'search_default_cycle_id':1}</field>
     </record>      
 
-    <menuitem id="menu_reciba_followup_invoices" 
+    <menuitem id="menu_reciba_followup_invoices_cust" 
               name="Seguimiento de Pagos Reciba" 
               action="action_reciba_followup_cust"
               parent="account.menu_finance_payables_documents"
