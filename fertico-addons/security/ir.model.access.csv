@@ -13,6 +13,7 @@ account_inventory_analytic_line,account.analytic.line,account.model_account_anal
 account_inventory_partial_reconcile,account.partial.reconcile,account.model_account_partial_reconcile,inventory_account,0,1,1,0
 account_inventory_full_reconcile,account.full.reconcile,account.model_account_full_reconcile,inventory_account,0,1,1,0
 account_inventory_payment_method,account.payment.method,account.model_account_payment_method,inventory_account,0,1,1,1
+account_inventory_payment,account.payment,account.model_account_payment,inventory_account,0,1,1,1
 account_inventory_report_manager,account.report.manager,account_reports.model_account_report_manager,inventory_account,0,1,1,1
 account_inventory_sale_order,sale.order,sale.model_sale_order,inventory_account,0,1,0,0
 account_inventory_sale_order_line,sale.order.line,sale.model_sale_order_line,inventory_account,0,1,0,0
