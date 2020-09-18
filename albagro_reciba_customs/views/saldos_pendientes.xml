@@ -127,7 +127,7 @@
               name="Seguimiento de Pagos Reciba" 
               action="action_reciba_followup_cust"
               parent="account.menu_finance_payables_documents"
-              sequence="60"/>    
+              sequence="29"/>    
 
   </data>
 </odoo>  
