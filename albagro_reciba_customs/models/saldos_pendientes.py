@@ -102,7 +102,7 @@ class AccountInvoice(models.Model):
     @api.depends('number')    
     def _get_clabe_deposit(self):        
         '''This method intends to retrieve from res.partner.bank the acc_'''
-        self.clabe_deposit = self.env['res.partner.bank'].search([('partner_id', '=', self.partner_id.id)]).acc_number
+        self.clabe_deposit = self.env['res.partner.bank'].search([('partner_id', '=', self.partner_id.id)], limit=1).acc_number
 
 
     @api.one
