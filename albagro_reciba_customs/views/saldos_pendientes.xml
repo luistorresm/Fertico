@@ -72,7 +72,7 @@
         </field>
     </record>
 
-    <!--Add new submenu into Account > Purchase in order to display a new search view of reciba payments follow-up-->
+    <!-- Add new submenu into Account > Purchase in order to display a new search view of reciba payments follow-up-->
     <record id="view_reciba_followup_search" model="ir.ui.view">
         <field name="name">Seguimiento de Pagos Reciba Búsqueda</field>
         <field name="model">account.invoice</field>
