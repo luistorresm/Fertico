@@ -53,9 +53,9 @@
                 <field name="modality_id"/>
                 <field name="origin"/>
                 <field name="number"/>
-                <field name="reference"/>
+                <field name="reference" string="Referencia de Proveedor (Boleta)"/>
                 <field name="company_id"/>
-                <field name="date_due"/>             
+                <field name="date_due" string="Fecha de pago"/>             
                 <field name="amount_transfer"/>                   
                 <field name="amount_compensate"/>                                           
                 <field name="residual_signed"/>                
@@ -67,7 +67,7 @@
                 <field name="bank_payer"/>
                 <field name="clabe_payer"/>
                 <field name="operation" readonly="False"/> 
-                <field name="payment_term_id"/>                 
+                <field name="payment_term_id" sring="Método de Pago"/>                 
              </tree>
         </field>
     </record>
@@ -94,23 +94,6 @@
         </field>
     </record>
     
-    <!--Override label for date_due, reference & payment_term_id fields-->
-    <record id="view_reciba_followup_tree_2" model="ir.ui.view">
-        <field name="model">account.invoice</field>
-        <field name="inherit_id" ref="albagro_reciba_customs.view_reciba_followup_tree"/>
-        <field name="arch" type="xml">
-          <field name="date_due" position="attributes">
-            <attribute name="string">Fecha de pago</attribute>
-          </field>
-          <field name="reference" position="attributes">
-            <attribute name="string">Referencia de Proveedor (Boleta)</attribute>
-          </field>  
-          <field name="payment_term_id" position="attributes">
-            <attribute name="string">Método de Pago</attribute>
-          </field>                      
-        </field>
-    </record>          
-
     <!--Add new menuitem-->
     <record id="action_reciba_followup" model="ir.actions.act_window">
         <field name="name">Seguimiento de Pagos Reciba</field>
