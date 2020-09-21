@@ -1,17 +1,10 @@
 # -*- coding: utf-8 -*-
-<<<<<<< HEAD
-=======
 from datetime import datetime
->>>>>>> origin/Wobin_Reciba_11.0
 from odoo import models, fields, api
 from odoo.addons import decimal_precision as dp
 from odoo.exceptions import UserError
 from odoo.tools.translate import _
-<<<<<<< HEAD
-
-=======
  
->>>>>>> origin/Wobin_Reciba_11.0
 #\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\
 
 # Tickets de PROYECTO DE RECIBA:
