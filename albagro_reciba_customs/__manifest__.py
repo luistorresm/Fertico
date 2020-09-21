@@ -13,23 +13,28 @@
     # Check https://github.com/odoo/odoo/blob/11.0/odoo/addons/base/module/module_data.xml
     # for the full list
     'category': 'Uncategorized',
-    'version': '11.0.1.0.3',
+    'version': '11.0.1.0.4',
 
     # any module necessary for this one to work correctly
     'depends': ['base', 'purchase'],
 
     # always loaded
     'data': [
+        'security/reciba_security.xml',
         'security/ir.model.access.csv',
-        'security/saldos_pendientes_grupo.xml',      
+        'security/saldos_pendientes_grupo.xml',           
 
         'views/views.xml',
         'views/templates.xml',
         'views/reciba.xml',
         'views/cycle.xml',
         'views/purchase.xml',
-        'views/modality.xml',
-        'views/saldos_pendientes.xml',      
+        'views/modality.xml',  
+        'views/saldos_pendientes.xml',
+        'views/data_td.xml',
+
+
+        'views/report_reciba.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

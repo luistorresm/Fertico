@@ -21,11 +21,6 @@ msgid "Analytic Account"
 msgstr "Cuenta analítica"
 
 #. module: fertico-addons
-#: model:ir.model,name:fertico-addons.model_account_analytic_distribution
-msgid "Analytic Account Distribution"
-msgstr "Distribución analítica de contabilidad"
-
-#. module: fertico-addons
 #: model:ir.model.fields,field_description:fertico-addons.field_account_analytic_tag_analytic_distribution_ids
 msgid "Analytic Accounts"
 msgstr "Contabilidad analítica"

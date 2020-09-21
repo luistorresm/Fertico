@@ -7,13 +7,16 @@
             <field name="inherit_id" ref="purchase.purchase_order_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='currency_id']" position="after">
-                    <field name="cycle_id"/>
-                    <field name="modality_id"/>
+                    <field name="cycle_id" groups="albagro_reciba_customs.group_reciba_module"/>
+                    <field name="modality_id" groups="albagro_reciba_customs.group_reciba_module"/>
                 </xpath>
                 <xpath expr="//tree/field[@name='product_id']" position="before">
-                    <field name="reciba_id"/>
+                    <field name="reciba_id" groups="albagro_reciba_customs.group_reciba_module"/>
                 </xpath>
-
+                <xpath expr="//tree/field[@name='date_planned']" position="after">
+                    <field name="discount" groups="albagro_reciba_customs.group_reciba_module"/>
+                    <field name="humidity" groups="albagro_reciba_customs.group_reciba_module"/>
+                </xpath>
             </field>
         </record>
 
@@ -23,11 +26,11 @@
             <field name="inherit_id" ref="account.invoice_supplier_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='purchase_id']" position="after">
-                    <field name="cycle_id"/>
-                    <field name="modality_id"/>
+                    <field name="cycle_id" groups="albagro_reciba_customs.group_reciba_module"/>
+                    <field name="modality_id" groups="albagro_reciba_customs.group_reciba_module"/>
                 </xpath>
                 <xpath expr="//tree/field[@name='product_id']" position="before">
-                    <field name="reciba_id"/>
+                    <field name="reciba_id" groups="albagro_reciba_customs.group_reciba_module"/>
                 </xpath>
             </field>
         </record>
@@ -96,7 +99,7 @@
             </field>
         </record>
 
-        <menuitem id="menu_order_line" name="Order lines" parent="purchase.menu_procurement_management" action="order_line_action" sequence="20"/>
+        <menuitem id="menu_order_line" name="Order lines" parent="purchase.menu_procurement_management" action="order_line_action" sequence="20" groups="albagro_reciba_customs.group_reciba_module"/>
 
 
 
