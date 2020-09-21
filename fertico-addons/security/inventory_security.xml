@@ -11,5 +11,9 @@
             <field name="name">Inventario sin contabilidad *</field>
         </record>
 
+        <record id="res_wo_account" model="res.groups">
+            <field name="name">Responsable sin contabilidad *</field>
+        </record>
+
     </data>
 </odoo>
