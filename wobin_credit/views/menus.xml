@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+    
+        <menuitem name="Creditos" id="credit_root" sequence="40"/>
+
+        <menuitem id="preapplication_main_menu" name="Pre-aplicación" parent="credit_root" sequence="1"/>
+    
+    </data>
+
+</odoo>
