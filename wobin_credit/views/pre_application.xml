@@ -4,8 +4,8 @@
     <data>
 
         <record model="ir.ui.view" id="form_view_preapplication">
-            <field name="name">reciba.ticket.form</field>
-            <field name="model">reciba.ticket</field>
+            <field name="name">credit.preapplication.form</field>
+            <field name="model">credit.preapplication</field>
             <field name="arch" type="xml">
                 <form string="Entregas">
                     <sheet>
@@ -36,15 +36,14 @@
         </record>
 
         <record id="tree_view_preapplication" model="ir.ui.view">
-            <field name="name">reciba.ticket.reception.tree</field>
-            <field name="model">reciba.ticket</field>
+            <field name="name">credit.preapplication.tree</field>
+            <field name="model">credit.preapplication</field>
             <field name="arch" type="xml">
                 <tree string="Entregas" delete="0" default_order="id desc">
                     <field name="name" />
                     <field name="crop_type" />
                     <field name="crop_method" />
                     <field name="hectares" />
-                    <field name="origin_id" />
                     <field name="requested_amount" />
                     <field name="authorized_amount" />
                     <field name="credit_type_id" />
@@ -55,7 +54,7 @@
         <record id="credit_preapplication" model="ir.actions.act_window">
             <field name="name">Entregas</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">reciba.ticket</field>
+            <field name="res_model">credit.preapplication</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">

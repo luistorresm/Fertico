@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record model="ir.ui.view" id="form_view_parameters">
+            <field name="name">credit.parameters.form</field>
+            <field name="model">credit.parameters</field>
+            <field name="arch" type="xml">
+                <form string="Entregas">
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                            <field name="crop_type" />
+                            <field name="crop_method" />
+                            <field name="amount" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="tree_view_parameters" model="ir.ui.view">
+            <field name="name">credit.parameters.tree</field>
+            <field name="model">credit.parameters</field>
+            <field name="arch" type="xml">
+                <tree string="Entregas" delete="0" default_order="id desc">
+                    <field name="name" />
+                    <field name="crop_type" />
+                    <field name="crop_method" />
+                    <field name="amount" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="credit_parameters" model="ir.actions.act_window">
+            <field name="name">Entregas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">credit.parameters</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                Click to add a parameter.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="parameters_menu" name="Parametros de créditos" parent="wobin_credit.params_menu" action="credit_parameters" sequence="1" />
+
+        <!--=======================================================================================================-->
+
+        <record model="ir.ui.view" id="form_view_types">
+            <field name="name">credit.types.form</field>
+            <field name="model">credit.types</field>
+            <field name="arch" type="xml">
+                <form string="Tipos de crédito">
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                            <field name="payment_terms" />
+                            <field name="interest" />
+                            <field name="interest_mo" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="tree_view_types" model="ir.ui.view">
+            <field name="name">credit.types.tree</field>
+            <field name="model">credit.types</field>
+            <field name="arch" type="xml">
+                <tree string="Tipos de crédito" delete="0" default_order="id desc">
+                    <field name="name" />
+                    <field name="payment_terms" />
+                    <field name="interest" />
+                    <field name="interest_mo" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="credit_types" model="ir.actions.act_window">
+            <field name="name">Tipos de crédito</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">credit.types</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                Click to add a type.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="types_menu" name="Tipos de crédito" parent="wobin_credit.params_menu" action="credit_types" sequence="2" />
+
+
+    </data>
+
+
+</odoo>
