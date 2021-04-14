@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <!--================================Reporte de estado contable======================================-->
+
+        <!--Plantilla-->
+        <template id="report_account_status">
+            <t t-call="web.html_container">
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div style="width: 100%;">
+                        <table style="width: 100%; text-align: left;">
+                            <tr t-foreach="invoices" t-as="invoice">
+                                <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                    <t t-esc="invoice['number']" />
+                                </td>
+                                <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                    <t t-esc="invoice['date']" />
+                                </td>
+                                <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                    <t t-esc="invoice['partner_id'].name" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+            </t>
+        </template>
+
+        <!--Reporte-->
+        <report id="report_credit_account_status" model="credit.account.status" string="Recepciones por facturar" report_type="qweb-html" name="wobin_credit.report_account_status" />
+
+        <!--Ventana de ingreso de datos-->
+        <record model="ir.ui.view" id="report_data_account_status">
+            <field name="name">Estado de cuenta</field>
+            <field name="model">credit.account.status</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="partner_id" />
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="Cancel" special="cancel" class="oe_highlight" />
+                        <button name="%(wobin_credit.report_credit_account_status)d" string="Submit" type="action" class="oe_highlight" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!--Accion para la ventana emergente-->
+        <act_window id="action_account_status" name="Selecciona el cliente" res_model="credit.account.status" view_mode="form" target="new" multi="True" />
+
+        <!--Menu-->
+        <menuitem id="menu_account_status" name="Recepciones por facturar v2" parent="wobin_credit.reports_menu" action="action_account_status" />
+    
+    
+    </data>
+    
+
+</odoo>

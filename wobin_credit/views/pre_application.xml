@@ -7,7 +7,7 @@
             <field name="name">credit.preapplication.form</field>
             <field name="model">credit.preapplication</field>
             <field name="arch" type="xml">
-                <form string="Entregas">
+                <form string="Pre-aplicaciones">
                     <sheet>
                         <group>
                             <h1>
@@ -15,11 +15,12 @@
                             </h1>
                         </group>
                         <group>
+                            <field name="partner_id" />
                             <field name="crop_type" />
                             <field name="crop_method" />
                             <field name="hectares" />
-                            <field name="requested_amount" />
                             <field name="calculated_amount" />
+                            <field name="requested_amount" />
                             <field name="authorized_amount" />
                             <field name="credit_type_id" />
                             <field name="payment_terms" />
@@ -39,8 +40,9 @@
             <field name="name">credit.preapplication.tree</field>
             <field name="model">credit.preapplication</field>
             <field name="arch" type="xml">
-                <tree string="Entregas" delete="0" default_order="id desc">
+                <tree string="Pre-aplicaciones" delete="0" default_order="id desc">
                     <field name="name" />
+                    <field name="partner_id" />
                     <field name="crop_type" />
                     <field name="crop_method" />
                     <field name="hectares" />
@@ -52,7 +54,7 @@
         </record>
 
         <record id="credit_preapplication" model="ir.actions.act_window">
-            <field name="name">Entregas</field>
+            <field name="name">Pre-aplicaciones</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">credit.preapplication</field>
             <field name="view_type">form</field>

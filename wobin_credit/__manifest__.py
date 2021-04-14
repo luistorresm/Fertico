@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'mail'],
+    'depends': ['base', 'mail', 'web'],
 
     # always loaded
     'data': [
@@ -30,6 +30,7 @@
         'views/menus.xml',
         'views/params.xml',
         'views/pre_application.xml',
+        'views/reports.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

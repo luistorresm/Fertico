@@ -7,7 +7,7 @@
             <field name="name">credit.parameters.form</field>
             <field name="model">credit.parameters</field>
             <field name="arch" type="xml">
-                <form string="Entregas">
+                <form string="Parametros">
                     <sheet>
                         <group>
                             <field name="name" />
@@ -24,7 +24,7 @@
             <field name="name">credit.parameters.tree</field>
             <field name="model">credit.parameters</field>
             <field name="arch" type="xml">
-                <tree string="Entregas" delete="0" default_order="id desc">
+                <tree string="Parametros" delete="0" default_order="id desc">
                     <field name="name" />
                     <field name="crop_type" />
                     <field name="crop_method" />
@@ -34,7 +34,7 @@
         </record>
 
         <record id="credit_parameters" model="ir.actions.act_window">
-            <field name="name">Entregas</field>
+            <field name="name">Parametros</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">credit.parameters</field>
             <field name="view_type">form</field>
