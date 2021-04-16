@@ -15,8 +15,14 @@ class CreditPreApplication(models.Model):
 
         self.calculated_amount = amount
 
+    def _get_name(self):
+        count = self.env['credit.preapplication'].search([('company_id','=',self.env.user.company_id.id)])
+        number = str(len(count)+1).zfill(4)
+        return 'PRE-'+number
+
+
     company_id = fields.Many2one('res.company', default=lambda self: self.env['res.company']._company_default_get('credit.preapplication'))
-    name = fields.Char('Preaplicación', default='PRE-00')
+    name = fields.Char('Preaplicación', default=_get_name, readonly=True)
     partner_id = fields.Many2one('res.partner', string="Cliente")
     cycle =  fields.Many2one('credit.cycles', string="Ciclo")
     crop_type = fields.Many2one('product.product', string="Tipo de cultivo")
