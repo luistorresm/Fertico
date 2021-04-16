@@ -18,7 +18,7 @@ class CreditPreApplication(models.Model):
     company_id = fields.Many2one('res.company', default=lambda self: self.env['res.company']._company_default_get('credit.preapplication'))
     name = fields.Char('Preaplicación', default='PRE-00')
     partner_id = fields.Many2one('res.partner', string="Cliente")
-    cycle =  fields.Char(string="Ciclo")
+    cycle =  fields.Many2one('credit.cycles', string="Ciclo")
     crop_type = fields.Many2one('product.product', string="Tipo de cultivo")
     crop_method = fields.Selection([('irrigation', 'Riego'),('rainwater', 'Temporal')], string="Metodo de cultivo")
     hectares = fields.Float(string="Hectareas")

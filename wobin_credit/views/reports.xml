@@ -33,7 +33,7 @@
                                     Ciclo
                                 </th>
                             <td style="text-align:center; border: black 1px solid; padding: 5px">
-                                <t t-esc="data['cycle']" />
+                                <t t-esc="data['cycle'].name" />
                             </td>
                         </tr>
                         <tr>
@@ -148,7 +148,7 @@
     <data>
 
         <!--Reporte-->
-        <report id="report_credit_account_status" model="credit.account.status" string="Recepciones por facturar" report_type="qweb-html" name="wobin_credit.report_account_status" />
+        <report id="report_credit_account_status" model="credit.account.status" string="Estado de cuenta" report_type="qweb-html" name="wobin_credit.report_account_status" />
 
         <!--Ventana de ingreso de datos-->
         <record model="ir.ui.view" id="report_data_account_status">
