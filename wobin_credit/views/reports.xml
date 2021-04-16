@@ -8,11 +8,94 @@
         <!--Plantilla-->
         <template id="report_account_status">
             <t t-call="web.html_container">
+                <t t-call="web.internal_layout">
                     <br/>
                     <br/>
                     <br/>
                     <div style="width: 100%;">
                         <table style="width: 100%; text-align: left;">
+                            <tr>
+                                <th style="text-align:center; border: black 1px solid; padding: 5px">
+                                    Crédito autorizado
+                                </th>
+                                <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                    <t t-esc="data['authorized']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="text-align:center; border: black 1px solid; padding: 5px">
+                                    Seguro agrícola
+                                </th>
+                                <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                    <t t-esc="docs['insurance']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="text-align:center; border: black 1px solid; padding: 5px">
+                                    Total producto
+                                </th>
+                                <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                    <t t-esc="data['sum_invoices']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="text-align:center; border: black 1px solid; padding: 5px">
+                                    Total intereses
+                                </th>
+                                <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                    <t t-esc="data['sum_interest']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="text-align:center; border: black 1px solid; padding: 5px">
+                                    Tasa fija
+                                </th>
+                                <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                    <t t-esc="data['interest']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="text-align:center; border: black 1px solid; padding: 5px">
+                                    Total a pagar
+                                </th>
+                                <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                    <t t-esc="data['total']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="text-align:center; border: black 1px solid; padding: 5px">
+                                    Fecha de pago
+                                </th>
+                                <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                    <t t-esc="data['date']" />
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <table style="width: 100%; text-align: left;">
+                            <tr>
+                                <th style="text-align:center; border: black 1px solid; padding: 5px">
+                                    Factura
+                                </th>
+                                <th style="text-align:center; border: black 1px solid; padding: 5px">
+                                    Fecha
+                                </th>
+                                <th style="text-align:center; border: black 1px solid; padding: 5px">
+                                    Total factura
+                                </th>
+                                <th style="text-align:center; border: black 1px solid; padding: 5px">
+                                    Fecha de pago
+                                </th>
+                                <th style="text-align:center; border: black 1px solid; padding: 5px">
+                                    Interes
+                                </th>
+                                <th style="text-align:center; border: black 1px solid; padding: 5px">
+                                    Interes moratorio
+                                </th>
+                                <th style="text-align:center; border: black 1px solid; padding: 5px">
+                                    Suma total a pagar
+                                </th>
+                            </tr>
                             <tr t-foreach="invoices" t-as="invoice">
                                 <td style="text-align:center; border: black 1px solid; padding: 5px">
                                     <t t-esc="invoice['number']" />
@@ -21,11 +104,24 @@
                                     <t t-esc="invoice['date']" />
                                 </td>
                                 <td style="text-align:center; border: black 1px solid; padding: 5px">
-                                    <t t-esc="invoice['partner_id'].name" />
+                                    <t t-esc="invoice['amount']" />
+                                </td>
+                                <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                    <t t-esc="invoice['date_payment']" />
+                                </td>
+                                <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                    <t t-esc="invoice['interest']" />
+                                </td>
+                                <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                    <t t-esc="invoice['interest_mo']" />
+                                </td>
+                                <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                    <t t-esc="invoice['total']" />
                                 </td>
                             </tr>
                         </table>
                     </div>
+                </t>
             </t>
         </template>
 
@@ -42,6 +138,7 @@
                     <group>
                         <group>
                             <field name="partner_id" />
+                            <field name="insurance" />
                         </group>
                     </group>
                     <footer>
@@ -56,7 +153,7 @@
         <act_window id="action_account_status" name="Selecciona el cliente" res_model="credit.account.status" view_mode="form" target="new" multi="True" />
 
         <!--Menu-->
-        <menuitem id="menu_account_status" name="Recepciones por facturar v2" parent="wobin_credit.reports_menu" action="action_account_status" />
+        <menuitem id="menu_account_status" name="Estado de cuenta" parent="wobin_credit.reports_menu" action="action_account_status" />
     
     
     </data>

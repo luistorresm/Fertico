@@ -7,6 +7,7 @@ class CreditAccountStatus(models.TransientModel):
     _name='credit.account.status'
     
     partner_id = fields.Many2one('res.partner', string="Cliente")
+    insurance = fields.Float(string="Seguro Agrícola")
 
 class ReportAccountStatus(models.AbstractModel):
     #Reporte recepciones por facturar
@@ -15,39 +16,71 @@ class ReportAccountStatus(models.AbstractModel):
     @api.model
     def get_report_values(self, docids, data=None):
         report = self.env['credit.account.status'].browse(docids)
-        print("========================", report.partner_id.name)
-        invoices = self.env['account.invoice'].search([('partner_id','=',report.partner_id.id)])
-        
-        print("========================", invoices)
+        credit = self.env['credit.preapplication'].search([('partner_id','=',report.partner_id.id)], limit=1)
+        invoices = self.env['account.invoice'].search([('partner_id','=',report.partner_id.id),('type','=','out_invoice'),('state','=','open')])
+        inv_data = []
+        total = 0
+        sum_invoices = 0
+        sum_interest = 0
 
-        '''sum_net = 0
-        count = 0
-        tickets_uninvoiced = []
-        for receipt in tickets:
-            sum_net += receipt.net_weight
-            count += 1
-            data = {
-                'name': receipt.name,
-                'date': receipt.date.strftime("%d/%m/%Y %H:%M:%S"),
-                'partner_id': receipt.partner_id,
-                'net_weight': "{:,.0f}".format(receipt.net_weight)
+        for invoice in invoices:
+            interest = invoice.amount_total*(credit.interest/100)
+            interest_mo = 0
+            date_invoice = datetime.strptime(invoice.date, '%Y-%m-%d')
+            date_now = datetime.now()
+
+            term = credit.payment_terms.line_ids[1].days
+            
+            if term == 30:
+                days = (date_now - date_invoice).days
+            
+                if  days > 30 and days <= 60:
+                    interest = ((invoice.amount_total*(credit.interest/100))/30)*(days-30)
+                elif days > 60:
+                    interest = ((invoice.amount_total*(credit.interest/100))/30)*(days-30)
+                    interest_mo = ((invoice.amount_total*(credit.interest_mo/100))/30)*(days-60)
+            
+            elif term == 180:
+                days = (date_now - date_invoice).days
+                date_limit = datetime.strptime(credit.date_limit, '%Y-%m-%d')
+                days_limit = (date_limit - date_invoice).days
+
+                if  date_now <= date_limit:
+                    interest = ((invoice.amount_total*(credit.interest/100))/30)*(days-30)
+                elif days > date_limit:
+                    interest = ((invoice.amount_total*(credit.interest/100))/30)*(days-30)
+                    interest_mo = ((invoice.amount_total*(credit.interest_mo/100))/30)*(days-days_limit)
+            
+            total_inv = invoice.amount_total+interest+interest_mo
+            total += total_inv
+            sum_invoices += invoice.amount_total
+            sum_interest += interest + interest_mo
+
+            inv = {
+                'number': invoice.number,
+                'date': invoice.date_invoice,
+                'amount' : invoice.amount_total,
+                'date_payment' : date.today(),
+                'interest': interest,
+                'interest_mo': interest_mo,
+                'total': total_inv
             }
-            tickets_uninvoiced.append(data)
+            inv_data.append(inv)
         
+        data = {
+            'authorized' : credit.authorized_amount,
+            'interest' : credit.interest,
+            'sum_invoices' : sum_invoices,
+            'sum_interest' : sum_interest,
+            'total' : total,
+            'date' : date.today()
+        }
 
-        report_data = {
-            'i_date' : report.init_date.strftime("%d/%m/%Y"),
-            'e_date': report.end_date.strftime("%d/%m/%Y"),
-            'today' : date.today(),
-            'product' : report.product.name,
-            'location' : report.location.name,
-            'sum_net' : "{:,.0f}".format(sum_net),
-            'count' : count
-        }'''
 
         return {
             'doc_ids': docids,
             'doc_model': 'credit.preapplication',
             'docs' : report,
-            'invoices' : invoices
+            'data' : data,
+            'invoices' : inv_data
         }
