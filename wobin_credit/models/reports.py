@@ -72,6 +72,7 @@ class ReportAccountStatus(models.AbstractModel):
         total += report.insurance
         
         data = {
+            'cycle' : credit.cycle,
             'authorized' : "{:,.2f}".format(credit.authorized_amount),
             'interest' : "{:,.2f}".format(credit.interest),
             'sum_invoices' : "{:,.2f}".format(sum_invoices),
