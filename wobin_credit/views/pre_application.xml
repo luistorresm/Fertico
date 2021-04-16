@@ -17,6 +17,7 @@
                         <group>
                             <field name="company_id" />
                             <field name="partner_id" />
+                            <field name="cycle" />
                             <field name="crop_type" />
                             <field name="crop_method" />
                             <field name="hectares" />

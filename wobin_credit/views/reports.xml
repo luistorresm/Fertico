@@ -16,6 +16,14 @@
                         <table style="width: 100%; text-align: left;">
                             <tr>
                                 <th style="text-align:center; border: black 1px solid; padding: 5px">
+                                    Cliente
+                                </th>
+                                <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                    <t t-esc="docs['partner_id'].name" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="text-align:center; border: black 1px solid; padding: 5px">
                                     Crédito autorizado
                                 </th>
                                 <td style="text-align:center; border: black 1px solid; padding: 5px">
@@ -87,6 +95,9 @@
                                     Fecha de pago
                                 </th>
                                 <th style="text-align:center; border: black 1px solid; padding: 5px">
+                                    Dias transcurridos
+                                </th>
+                                <th style="text-align:center; border: black 1px solid; padding: 5px">
                                     Interes
                                 </th>
                                 <th style="text-align:center; border: black 1px solid; padding: 5px">
@@ -108,6 +119,9 @@
                                 </td>
                                 <td style="text-align:center; border: black 1px solid; padding: 5px">
                                     <t t-esc="invoice['date_payment']" />
+                                </td>
+                                <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                    <t t-esc="invoice['days']" />
                                 </td>
                                 <td style="text-align:center; border: black 1px solid; padding: 5px">
                                     <t t-esc="invoice['interest']" />

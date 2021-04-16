@@ -28,9 +28,10 @@ class ReportAccountStatus(models.AbstractModel):
             interest_mo = 0
             date_invoice = datetime.strptime(invoice.date, '%Y-%m-%d')
             date_now = datetime.now()
-
             term = credit.payment_terms.line_ids[1].days
-            
+            days = 0
+            days_limit = 0
+
             if term == 30:
                 days = (date_now - date_invoice).days
             
@@ -58,22 +59,25 @@ class ReportAccountStatus(models.AbstractModel):
 
             inv = {
                 'number': invoice.number,
-                'date': invoice.date_invoice,
-                'amount' : invoice.amount_total,
-                'date_payment' : date.today(),
-                'interest': interest,
-                'interest_mo': interest_mo,
-                'total': total_inv
+                'date': invoice.date_invoice.strftime("%d/%m/%Y"),
+                'amount' : "{:,.0f}".format(invoice.amount_total),
+                'date_payment' : date.today().strftime("%d/%m/%Y"),
+                'days' : days,
+                'interest': "{:,.0f}".format(interest),
+                'interest_mo': "{:,.0f}".format(interest_mo),
+                'total': "{:,.0f}".format(total_inv)
             }
             inv_data.append(inv)
         
+        total += report.insurance
+        
         data = {
-            'authorized' : credit.authorized_amount,
-            'interest' : credit.interest,
-            'sum_invoices' : sum_invoices,
-            'sum_interest' : sum_interest,
-            'total' : total,
-            'date' : date.today()
+            'authorized' : "{:,.0f}".format(credit.authorized_amount),
+            'interest' : "{:,.0f}".format(credit.interest),
+            'sum_invoices' : "{:,.0f}".format(sum_invoices),
+            'sum_interest' : "{:,.0f}".format(sum_interest),
+            'total' : "{:,.0f}".format(total),
+            'date' : date.today().strftime("%d/%m/%Y")
         }
 
 
