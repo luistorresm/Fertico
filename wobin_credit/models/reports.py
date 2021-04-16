@@ -49,7 +49,7 @@ class ReportAccountStatus(models.AbstractModel):
                 if  date_now <= date_limit:
                     interest = ((invoice.amount_total*(credit.interest/100))/30)*(days)
                 elif date_now > date_limit:
-                    interest = ((invoice.amount_total*(credit.interest/100))/30)*(days)
+                    interest = ((invoice.amount_total*(credit.interest/100))/30)*(days_limit)
                     interest_mo = ((invoice.amount_total*(credit.interest_mo/100))/30)*(days-days_limit)
             
             total_inv = invoice.amount_total+interest+interest_mo
