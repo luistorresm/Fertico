@@ -21,6 +21,8 @@ class CreditPreApplication(models.Model):
         return 'PRE-'+number
 
 
+    state = fields.Selection([('draft', 'Borrador'),
+    ('locked', 'Bloqueado')], default='draft')
     company_id = fields.Many2one('res.company', default=lambda self: self.env['res.company']._company_default_get('credit.preapplication'))
     name = fields.Char('Preaplicación', default=_get_name, readonly=True)
     partner_id = fields.Many2one('res.partner', string="Cliente")
@@ -31,6 +33,7 @@ class CreditPreApplication(models.Model):
     calculated_amount = fields.Float(string="Monto permitido", compute="get_amount", store=True)
     requested_amount = fields.Float(string="Monto solicitado")
     authorized_amount = fields.Float(string="Monto autorizado")
+    insurance = fields.Float(string="Seguro Agrícola")
     credit_type_id = fields.Many2one('credit.types', string="Tipo de crédito")
     payment_terms = fields.Many2one(related='credit_type_id.payment_terms', string="Plazo de pago", readonly='True')
     date_limit_flag = fields.Boolean(default="False")
@@ -51,6 +54,10 @@ class CreditPreApplication(models.Model):
         else:
             self.date_limit_flag = False
             self.date_limit = ''
+
+    def lock_credit(self):
+
+        self.state = 'locked'
 
 
     

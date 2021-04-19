@@ -6,112 +6,126 @@
     <!--Plantilla-->
     <template id="report_account_status">
         <t t-call="web.html_container">
-            <t t-call="web.internal_layout">
-                <br />
-                <br />
+            <t t-call="web.external_layout">
                 <br />
                 <div style="width: 100%;">
-                    <table style="width: 100%; text-align: left;">
+                    <table style="width: 100%;">
                         <tr>
-                            <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                    Cliente
-                                </th>
-                            <td style="text-align:center; border: black 1px solid; padding: 5px">
+                            <td style="text-align:center; padding: 5px">
+                                Cliente
+                            </td>
+                            <th style="text-align:center; padding: 5px; color: white; background: black;">
                                 <t t-esc="docs['partner_id'].name" />
+                            </th>
+                            <td style="text-align:right; padding: 5px">
+                                Ciclo:
                             </td>
-                        </tr>
-                        <tr>
-                            <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                    Crédito autorizado
-                                </th>
-                            <td style="text-align:center; border: black 1px solid; padding: 5px">
-                                <t t-esc="data['authorized']" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                    Ciclo
-                                </th>
-                            <td style="text-align:center; border: black 1px solid; padding: 5px">
+                            <th style="padding: 5px; width: min-content">
                                 <t t-esc="data['cycle'].name" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                    Seguro agrícola
-                                </th>
-                            <td style="text-align:center; border: black 1px solid; padding: 5px">
-                                <t t-esc="docs['insurance']" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                    Total producto
-                                </th>
-                            <td style="text-align:center; border: black 1px solid; padding: 5px">
-                                <t t-esc="data['sum_invoices']" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                    Total intereses
-                                </th>
-                            <td style="text-align:center; border: black 1px solid; padding: 5px">
-                                <t t-esc="data['sum_interest']" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                    Tasa fija
-                                </th>
-                            <td style="text-align:center; border: black 1px solid; padding: 5px">
-                                <t t-esc="data['interest']" /> %
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                    Total a pagar
-                                </th>
-                            <td style="text-align:center; border: black 1px solid; padding: 5px">
-                                <t t-esc="data['total']" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                    Fecha de pago
-                                </th>
-                            <td style="text-align:center; border: black 1px solid; padding: 5px">
-                                <t t-esc="data['date']" />
-                            </td>
+                            </th>
                         </tr>
                     </table>
                     <br />
-                    <table style="width: 100%; text-align: left;">
+                    <br />
+                    <table style="width: 100%;">
                         <tr>
+                            <td style="width: 50%"></td>
+                            <td style="width: 50%">
+                                <table style="width: 100%; text-align: left;">
+                                    <tr>
+                                        <th style="text-align:right; padding-right: 5px; padding-top: 10px">
+                                            Crédito autorizado
+                                        </th>
+                                        <td style="text-align:center; border-bottom: black 1px solid; padding-top: 10px">
+                                            $
+                                            <t t-esc="data['authorized']" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align:right; padding-right: 5px; padding-top: 10px">
+                                            Seguro agrícola
+                                        </th>
+                                        <td style="text-align:center; border-bottom: black 1px solid; padding-top: 10px">
+                                            $
+                                            <t t-esc="data['insurance']" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align:right; padding-right: 5px; padding-top: 10px">
+                                            Total producto
+                                        </th>
+                                        <td style="text-align:center; border-bottom: black 1px solid; padding-top: 10px">
+                                            $
+                                            <t t-esc="data['sum_invoices']" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align:right; padding-right: 5px; padding-top: 10px">
+                                            Total intereses
+                                        </th>
+                                        <td style="text-align:center; border-bottom: black 1px solid; padding-top: 10px">
+                                            $
+                                            <t t-esc="data['sum_interest']" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align:right; padding-right: 5px; padding-top: 10px">
+                                            Tasa fija
+                                        </th>
+                                        <td style="text-align:center; border-bottom: black 1px solid; padding-top: 10px">
+                                            <t t-esc="data['interest']" />
+                                            %
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align:right; color: rgb(18, 110, 214); padding-right: 5px; padding-top: 10px">
+                                            Total a pagar
+                                        </th>
+                                        <th style="text-align:center; border-bottom: black 1px solid; padding-top: 10px; color: rgb(18, 110, 214)">
+                                            $
+                                            <t t-esc="data['total']" />
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align:right; padding-right: 5px; padding-top: 10px">
+                                            Fecha de pago
+                                        </th>
+                                        <td style="text-align:center; border-bottom: black 1px solid; padding-top: 10px">
+                                            <t t-esc="data['date']" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <br />
+                    <table style="width: 100%; text-align: left;">
+                        <tr style="background: gray;">
                             <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                    Factura
-                                </th>
+                                Factura
+                            </th>
                             <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                    Fecha
-                                </th>
+                                Fecha
+                            </th>
                             <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                    Total factura
-                                </th>
+                                Total factura
+                            </th>
                             <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                    Fecha de pago
-                                </th>
+                                Fecha de pago
+                            </th>
                             <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                    Dias transcurridos
-                                </th>
+                                Dias transcurridos
+                            </th>
                             <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                    Interes
-                                </th>
+                                Interes
+                            </th>
                             <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                    Interes moratorio
-                                </th>
+                                Interes moratorio
+                            </th>
                             <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                    Suma total a pagar
-                                </th>
+                                Suma total a pagar
+                            </th>
                         </tr>
                         <tr t-foreach="invoices" t-as="invoice">
                             <td style="text-align:center; border: black 1px solid; padding: 5px">
@@ -121,6 +135,7 @@
                                 <t t-esc="invoice['date']" />
                             </td>
                             <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                $
                                 <t t-esc="invoice['amount']" />
                             </td>
                             <td style="text-align:center; border: black 1px solid; padding: 5px">
@@ -130,12 +145,15 @@
                                 <t t-esc="invoice['days']" />
                             </td>
                             <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                $
                                 <t t-esc="invoice['interest']" />
                             </td>
                             <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                $
                                 <t t-esc="invoice['interest_mo']" />
                             </td>
                             <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                $
                                 <t t-esc="invoice['total']" />
                             </td>
                         </tr>
@@ -160,7 +178,6 @@
                     <group>
                         <group>
                             <field name="partner_id" />
-                            <field name="insurance" />
                         </group>
                     </group>
                     <footer>
