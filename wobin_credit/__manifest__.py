@@ -32,6 +32,7 @@
         'views/menus.xml',
         'views/params.xml',
         'views/pre_application.xml',
+        'views/record.xml',
         'views/reports.xml',
     ],
     # only loaded in demonstration mode

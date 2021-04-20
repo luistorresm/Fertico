@@ -3,6 +3,8 @@ from odoo import models, fields, api
 class CreditPreApplication(models.Model):
     _name = "credit.preapplication"
     _inherit = ['mail.thread']
+    #Pre-aplicaciones
+
 
     @api.depends('crop_type','crop_method','hectares')
     def get_amount(self):
@@ -21,6 +23,7 @@ class CreditPreApplication(models.Model):
         return 'PRE-'+number
 
 
+    #==============================================Capos de pre-aplicación=====================================
     state = fields.Selection([('draft', 'Borrador'),
     ('locked', 'Bloqueado')], default='draft')
     company_id = fields.Many2one('res.company', default=lambda self: self.env['res.company']._company_default_get('credit.preapplication'))
