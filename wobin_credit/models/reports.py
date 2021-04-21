@@ -31,6 +31,8 @@ class ReportAccountStatus(models.AbstractModel):
             term = credit.payment_terms.line_ids[1].days
             days = 0
             days_limit = 0
+            days_nat = 0
+            days_mo = 0
 
             if term == 30:
                 days = (date_now - date_invoice).days
@@ -47,10 +49,13 @@ class ReportAccountStatus(models.AbstractModel):
                 days_limit = (date_limit - date_invoice).days
 
                 if  date_now <= date_limit:
+                    days_nat = days
                     interest = ((invoice.amount_total*(credit.interest/100))/30)*(days)
                 elif date_now > date_limit:
-                    interest = ((invoice.amount_total*(credit.interest/100))/30)*(days_limit)
-                    interest_mo = ((invoice.amount_total*(credit.interest_mo/100))/30)*(days-days_limit)
+                    days_nat = days_limit
+                    days_mo = days-days_limit
+                    interest = ((invoice.amount_total*(credit.interest/100))/30)*(days_nat)
+                    interest_mo = ((invoice.amount_total*(credit.interest_mo/100))/30)*(days_mo)
             
             total_inv = invoice.amount_total+interest+interest_mo
             total += total_inv
@@ -62,7 +67,8 @@ class ReportAccountStatus(models.AbstractModel):
                 'date': date_invoice.strftime("%d/%m/%Y"),
                 'amount' : "{:,.2f}".format(invoice.amount_total),
                 'date_payment' : date.today().strftime("%d/%m/%Y"),
-                'days' : days,
+                'days_nat' : days_nat,
+                'days_mo' : days_mo,
                 'interest': "{:,.2f}".format(interest),
                 'interest_mo': "{:,.2f}".format(interest_mo),
                 'total': "{:,.2f}".format(total_inv)
