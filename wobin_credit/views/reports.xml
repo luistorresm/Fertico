@@ -128,10 +128,10 @@
                                 Dias con interés
                             </th>
                             <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                Dias moratorios
+                                Interes ordinario
                             </th>
                             <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                Interes ordinario
+                                Dias moratorios
                             </th>
                             <th style="text-align:center; border: black 1px solid; padding: 5px">
                                 Interes moratorio
@@ -161,11 +161,11 @@
                                 <t t-esc="invoice['days_int']" />
                             </td>
                             <td style="text-align:center; border: black 1px solid; padding: 5px">
-                                <t t-esc="invoice['days_mo']" />
-                            </td>
-                            <td style="text-align:center; border: black 1px solid; padding: 5px">
                                 $
                                 <t t-esc="invoice['interest']" />
+                            </td>
+                            <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                <t t-esc="invoice['days_mo']" />
                             </td>
                             <td style="text-align:center; border: black 1px solid; padding: 5px">
                                 $
