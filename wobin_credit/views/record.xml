@@ -48,6 +48,7 @@
                                 <field name="lan_images">
                                     <tree>
                                         <field name="image" widget="image" />
+                                        <field name="comments"/>
                                     </tree>
                                 </field>
                             </page>
@@ -99,6 +100,25 @@
         </record>
 
         <menuitem id="record_avio_menu" name="Expedientes" parent="wobin_credit.avio_menu" action="credit_record_avio" sequence="1" />
+
+        <!-- ===========================Fotos================================ -->
+
+        <record model="ir.ui.view" id="form_view_lands_record">
+            <field name="name">credit.lands.form</field>
+            <field name="model">credit.lands</field>
+            <field name="arch" type="xml">
+                <form string="Imágenes">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="image" />
+                                <field name="comments" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
 
     </data>
 

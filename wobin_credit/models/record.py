@@ -4,6 +4,7 @@ class CreditLands(models.Model):
     _name = "credit.lands"
 
     image = fields.Binary(string="Foto")
+    comments = fields.Char(string="Comentarios")
     record_id = fields.Many2one('credit.record', string="Expediente")
 
 class CreditRecord(models.Model):
