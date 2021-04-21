@@ -122,7 +122,13 @@
                                 Fecha de cálculo
                             </th>
                             <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                Dias transcurridos
+                                Dias naturales
+                            </th>
+                            <th style="text-align:center; border: black 1px solid; padding: 5px">
+                                Dias con interés
+                            </th>
+                            <th style="text-align:center; border: black 1px solid; padding: 5px">
+                                Dias moratorios
                             </th>
                             <th style="text-align:center; border: black 1px solid; padding: 5px">
                                 Interes ordinario
@@ -149,7 +155,13 @@
                                 <t t-esc="invoice['date_payment']" />
                             </td>
                             <td style="text-align:center; border: black 1px solid; padding: 5px">
-                                <t t-esc="invoice['days']" />
+                                <t t-esc="invoice['days_nat']" />
+                            </td>
+                            <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                <t t-esc="invoice['days_int']" />
+                            </td>
+                            <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                <t t-esc="invoice['days_mo']" />
                             </td>
                             <td style="text-align:center; border: black 1px solid; padding: 5px">
                                 $
