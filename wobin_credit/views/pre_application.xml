@@ -9,7 +9,7 @@
             <field name="name">credit.preapplication.form</field>
             <field name="model">credit.preapplication</field>
             <field name="arch" type="xml">
-                <form string="Pre-aplicaciones">
+                <form string="Pre-solicitudes">
                     <header>
                         <button name="lock_credit" type="object" states="draft" string="Bloquear" class="btn-primary" />
                         <field name="state" widget="statusbar" statusbar_visible="draft,locked" />
@@ -50,7 +50,7 @@
             <field name="name">credit.preapplication.tree</field>
             <field name="model">credit.preapplication</field>
             <field name="arch" type="xml">
-                <tree string="Pre-aplicaciones" delete="0" default_order="id desc">
+                <tree string="Pre-solicitudes" delete="0" default_order="id desc">
                     <field name="name" />
                     <field name="partner_id" />
                     <field name="crop_type" />
@@ -65,7 +65,7 @@
         </record>
 
         <record id="credit_preapplication_avio" model="ir.actions.act_window">
-            <field name="name">Pre-aplicaciones</field>
+            <field name="name">Pre-solicitudes</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">credit.preapplication</field>
             <field name="view_type">form</field>
@@ -89,7 +89,7 @@
             <field name="view_mode">form</field>
         </record>
 
-        <menuitem id="preapplication_avio_menu" name="Pre-aplicaciones" parent="wobin_credit.avio_menu" action="credit_preapplication_avio" sequence="2" />
+        <menuitem id="preapplication_avio_menu" name="Pre-solicitudes" parent="wobin_credit.avio_menu" action="credit_preapplication_avio" sequence="2" />
 
     </data>
 

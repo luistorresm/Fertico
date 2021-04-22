@@ -10,10 +10,11 @@
             <field name="model">credit.record</field>
             <field name="arch" type="xml">
                 <form string="Expedientes">
-                    <!--<header>
+                    <header>
                         <button name="lock_credit" type="object" states="draft" string="Bloquear" class="btn-primary" />
+                        <button name="%(wobin_credit.report_credit_commitment)d" type="action" string="Imprimir carta compromiso" class="btn-primary" />
                         <field name="state" widget="statusbar" statusbar_visible="draft,locked" />
-                    </header>-->
+                    </header>
                     <sheet>
                         <group>
                             <h1>

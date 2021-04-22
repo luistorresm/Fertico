@@ -169,39 +169,70 @@
         </t>
     </template>
 
-    <data>
 
-        <!--Reporte-->
-        <report id="report_credit_account_status" model="credit.account.status" string="Estado de cuenta" report_type="qweb-html" name="wobin_credit.report_account_status" />
+    <!--Reporte-->
+    <report id="report_credit_account_status" model="credit.account.status" string="Estado de cuenta" report_type="qweb-html" name="wobin_credit.report_account_status" />
 
-        <!--Ventana de ingreso de datos-->
-        <record model="ir.ui.view" id="report_data_account_status">
-            <field name="name">Estado de cuenta</field>
-            <field name="model">credit.account.status</field>
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                <form>
+    <!--Ventana de ingreso de datos-->
+    <record model="ir.ui.view" id="report_data_account_status">
+        <field name="name">Estado de cuenta</field>
+        <field name="model">credit.account.status</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
                     <group>
-                        <group>
-                            <field name="partner_id" />
-                        </group>
+                        <field name="partner_id" />
                     </group>
-                    <footer>
-                        <button string="Cancel" special="cancel" class="oe_highlight" />
-                        <button name="%(wobin_credit.report_credit_account_status)d" string="Submit" type="action" class="oe_highlight" />
-                    </footer>
-                </form>
-            </field>
-        </record>
+                </group>
+                <footer>
+                    <button string="Cancel" special="cancel" class="oe_highlight" />
+                    <button name="%(wobin_credit.report_credit_account_status)d" string="Submit" type="action" class="oe_highlight" />
+                </footer>
+            </form>
+        </field>
+    </record>
 
-        <!--Accion para la ventana emergente-->
-        <act_window id="action_account_status" name="Selecciona el cliente" res_model="credit.account.status" view_mode="form" target="new" multi="True" />
+    <!--Accion para la ventana emergente-->
+    <act_window id="action_account_status" name="Selecciona el cliente" res_model="credit.account.status" view_mode="form" target="new" multi="True" />
 
-        <!--Menu-->
-        <menuitem id="menu_account_status" name="Estado de cuenta" parent="wobin_credit.reports_menu" action="action_account_status" />
+    <!--Menu-->
+    <menuitem id="menu_account_status" name="Estado de cuenta" parent="wobin_credit.reports_menu" action="action_account_status" />
 
 
-    </data>
+    <!--==========================================Carta compromiso=======================================-->
+
+    <!--Plantilla-->
+    <template id="report_commitment">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <br />
+                <div style="width: 100%; text-align: justify;">
+                    <table style="width: 100%;">
+                        <tr>
+                            <th style="text-align:center; padding: 5px;">
+                                <t t-esc="docs['partner_id'].name" />
+                            </th>
+                        </tr>
+                    </table>
+                    <p style="padding-left: 10%; padding-right: 10%;">
+                        En solicitud al trámite de Crédito Agrario para obtención de insumos agrícolas en esta empresa para el cicloPV 2021, yo estoy en acuerdo y me comprometo a cumplir las siguientes políticas establecidas por la empresa para la autorización del crédito solicitado:
+                    </p>
+                    <ul style="padding-left: 20%; padding-right: 10%;">
+                        <li>Entregar la documentación requerida completa y en tiempo.</li>
+                        <li>Asumir el COMPROMISO de entrega de grano de la cosecha del ciclo PV 2021, para la liquidación total del crédito.</li>
+                        <li>Pagar el SEGURO AGRÍCOLA correspondiente al total de la superficie solicitada a acreditar.</li>
+                    </ul>
+                    <p style="padding-left: 10%; padding-right: 10%;">
+                        Confío que este será el inicio de una excelente relación comercial.
+                    </p>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <!--Reporte-->
+    <report id="report_credit_commitment" model="credit.record" string="Estado de cuenta" report_type="qweb-html" name="wobin_credit.report_commitment" />
 
 
 </odoo>

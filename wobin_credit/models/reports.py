@@ -3,14 +3,14 @@ from datetime import date, datetime
 from odoo.exceptions import UserError
 
 class CreditAccountStatus(models.TransientModel):
-    #Recepciones por facturar    
+    #Estado de cuenta    
     _name='credit.account.status'
     
     partner_id = fields.Many2one('res.partner', string="Cliente")
     insurance = fields.Float(string="Seguro Agrícola")
 
 class ReportAccountStatus(models.AbstractModel):
-    #Reporte recepciones por facturar
+    #Reporte estado de cuenta
     _name = 'report.wobin_credit.report_account_status'
 
     @api.model
@@ -94,4 +94,23 @@ class ReportAccountStatus(models.AbstractModel):
             'docs' : report,
             'data' : data,
             'invoices' : inv_data
+        }
+
+#=====================================================================================================================
+
+class ReportCommitment(models.AbstractModel):
+    #Reporte estado de cuenta
+    _name = 'report.wobin_credit.report_commitment'
+
+    @api.model
+    def get_report_values(self, docids, data=None):
+        record = self.env['credit.record'].browse(docids)
+
+        
+
+        return {
+            'doc_ids': docids,
+            'doc_model': 'credit.record',
+            'docs' : record,
+            'company' : self.env.user.company_id,
         }

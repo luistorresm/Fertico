@@ -11,6 +11,7 @@ class CreditRecord(models.Model):
     _name = "credit.record"
 
     name = fields.Char(default="Expediente borrador")
+    state = fields.Selection([('draft','Borrador')], default='draft')
     partner_id = fields.Many2one('res.partner', string="Contacto")
     credit_id = fields.Many2one('credit.preapplication', string="Credito en curso")
     credit_initial = fields.Float(string="Crédito inicial")
@@ -24,4 +25,3 @@ class CreditRecord(models.Model):
     surface = fields.Binary(string="Comprobante de superficie")
     insurance_policy = fields.Binary(string="Póliza de seguro agrícola")
     lan_images = fields.One2many('credit.lands', 'record_id', string="Fotos del terreno")
-

@@ -3,7 +3,7 @@ from odoo import models, fields, api
 class CreditPreApplication(models.Model):
     _name = "credit.preapplication"
     _inherit = ['mail.thread']
-    #Pre-aplicaciones
+    #Pre-solicitudes
 
 
     @api.depends('crop_type','crop_method','hectares')
@@ -61,6 +61,7 @@ class CreditPreApplication(models.Model):
     def lock_credit(self):
 
         self.state = 'locked'
+
 
 
     
