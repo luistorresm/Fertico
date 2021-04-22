@@ -1,0 +1,15 @@
+<odoo>
+
+    <record id="group_credit_responsable" model="res.groups">
+        <field name="name">Responsabe</field>
+        <field name="comment">Usuario con acceso a todos los apartados del modulo</field>
+    </record>
+    
+    <record id="preapplication_comp_rule" model="ir.rule">
+        <field name="name">Preapplication multi-company</field>
+        <field name="model_id" ref="model_credit_preapplication"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+</odoo>
