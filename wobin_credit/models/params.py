@@ -6,13 +6,13 @@ class CreditParameters(models.Model):
     name = fields.Char(string="Nombre")
     crop_type = fields.Many2one('product.product', string="Tipo de cultivo")
     crop_method = fields.Selection([('irrigation', 'Riego'),('rainwater', 'Temporal')], string="Metodo de cultivo")
-    amount = fields.Float("Monto por hectarea ($)") 
+    insurance = fields.Float(string="Cálculo de seguro")
+    amount = fields.Float("Monto por hectarea ($)")
 
 class CreditTypes(models.Model):
     _name = "credit.types"
 
-    name = fields.Selection([('avio', 'Avio'),
-    ('commercial','Comercial'),]string="Tipo de crédito")
+    name = fields.Char(string="Tipo de crédito", readonly=True)
     payment_terms = fields.Many2one('account.payment.term', string="Plazo de pago")
     interest = fields.Float(string="Interes")
     interest_mo = fields.Float(string="Interes moratorio")

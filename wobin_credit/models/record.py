@@ -26,7 +26,7 @@ class CreditRecord(models.Model):
     surface = fields.Binary(string="Comprobante de superficie")
     insurance_policy = fields.Binary(string="Póliza de seguro agrícola")
     lan_images = fields.One2many('credit.lands', 'record_id', string="Fotos del terreno")
-    credit_type_id
+    credit_type_id = fields.Many2one('credit.types')
 
     def create_preapplication(self):
         print("")

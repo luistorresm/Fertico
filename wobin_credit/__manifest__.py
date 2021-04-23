@@ -23,13 +23,17 @@
 
     # always loaded
     'data': [
+        #data
+        'data/credit_data.xml',
+
+        #security
         'security/ir.model.access.csv',
         
         
         #'views/views.xml',
         #'views/templates.xml',
-        'views/reports.xml',
         'views/menus.xml',
+        'views/reports.xml',
         'views/params.xml',
         'views/pre_application.xml',
         'views/record.xml',

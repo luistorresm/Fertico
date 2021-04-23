@@ -44,7 +44,7 @@ class CreditPreApplication(models.Model):
     requested_amount = fields.Float(string="Monto solicitado")
     authorized_amount = fields.Float(string="Monto autorizado")
     insurance = fields.Float(string="Seguro Agrícola")
-    credit_type_id = fields.Many2one('credit.types', string="Tipo de crédito")
+    credit_type_id = fields.Many2one(related='record_id.credit_type_id', string="Tipo de crédito")
     payment_terms = fields.Many2one(related='credit_type_id.payment_terms', string="Plazo de pago", readonly='True')
     date_limit_flag = fields.Boolean(default="False")
     date_limit = fields.Date(string="Fecha límite")
