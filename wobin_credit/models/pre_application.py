@@ -25,7 +25,14 @@ class CreditPreApplication(models.Model):
 
     #==============================================Capos de pre-aplicación=====================================
     state = fields.Selection([('draft', 'Borrador'),
+    ('pre', 'Pre-solicitud'),
+    ('committee','Comité de crédito'),
+    ('credit','Crédito en curso'),
+    ('rejected','Rechazado'),
+    ('liquidated','Liquidado'),
     ('locked', 'Bloqueado')], default='draft')
+    record_id = fields.Many2one('credit.record', string="Expediente")
+    partner_id = fields.Many2one(related='record_id.partner_id', string="Solicitante")
     company_id = fields.Many2one('res.company', default=lambda self: self.env['res.company']._company_default_get('credit.preapplication'))
     name = fields.Char('Preaplicación', default=_get_name, readonly=True)
     partner_id = fields.Many2one('res.partner', string="Cliente")

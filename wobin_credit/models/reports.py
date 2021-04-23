@@ -93,7 +93,8 @@ class ReportAccountStatus(models.AbstractModel):
             'doc_model': 'credit.preapplication',
             'docs' : report,
             'data' : data,
-            'invoices' : inv_data
+            'invoices' : inv_data,
+            'company' : self.env.user.company_id,
         }
 
 #=====================================================================================================================
@@ -105,12 +106,12 @@ class ReportCommitment(models.AbstractModel):
     @api.model
     def get_report_values(self, docids, data=None):
         record = self.env['credit.record'].browse(docids)
-
+        date_now =  date.today().strftime("%d/%m/%Y")
         
-
         return {
             'doc_ids': docids,
             'doc_model': 'credit.record',
             'docs' : record,
+            'date' : date_now,
             'company' : self.env.user.company_id,
         }
