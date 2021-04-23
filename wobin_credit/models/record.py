@@ -14,7 +14,6 @@ class CreditRecord(models.Model):
     state = fields.Selection([('draft','Borrador')], default='draft')
     partner_id = fields.Many2one('res.partner', string="Contacto")
     credit_id = fields.Many2one('credit.preapplication', string="Credito en curso")
-    cycle =  fields.Many2one('credit.cycles', string="Ciclo")
     credit_initial = fields.Float(string="Crédito inicial")
     credit_consumed = fields.Float(string="Crédito consumido")
     credit_favor = fields.Float(string="Credito a favor")

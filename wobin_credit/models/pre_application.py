@@ -23,7 +23,8 @@ class CreditPreApplication(models.Model):
         return 'PRE-'+number
 
 
-    #==============================================Capos de pre-aplicación=====================================
+    #==============================================Campos generales de pre-aplicación=====================================
+    company_id = fields.Many2one('res.company', default=lambda self: self.env['res.company']._company_default_get('credit.preapplication'))
     state = fields.Selection([('draft', 'Borrador'),
     ('pre', 'Pre-solicitud'),
     ('committee','Comité de crédito'),
@@ -31,31 +32,32 @@ class CreditPreApplication(models.Model):
     ('rejected','Rechazado'),
     ('liquidated','Liquidado'),
     ('locked', 'Bloqueado')], default='draft')
+    name = fields.Char('Preaplicación', default=_get_name, readonly=True)
     record_id = fields.Many2one('credit.record', string="Expediente")
     partner_id = fields.Many2one(related='record_id.partner_id', string="Solicitante")
-    company_id = fields.Many2one('res.company', default=lambda self: self.env['res.company']._company_default_get('credit.preapplication'))
-    name = fields.Char('Preaplicación', default=_get_name, readonly=True)
-    partner_id = fields.Many2one('res.partner', string="Cliente")
-    cycle =  fields.Many2one('credit.cycles', string="Ciclo")
-    crop_type = fields.Many2one('product.product', string="Tipo de cultivo")
-    crop_method = fields.Selection([('irrigation', 'Riego'),('rainwater', 'Temporal')], string="Metodo de cultivo")
-    hectares = fields.Float(string="Hectareas")
-    calculated_amount = fields.Float(string="Monto permitido", compute="get_amount", store=True)
-    requested_amount = fields.Float(string="Monto solicitado")
-    authorized_amount = fields.Float(string="Monto autorizado")
-    insurance = fields.Float(string="Seguro Agrícola")
     credit_type_id = fields.Many2one(related='record_id.credit_type_id', string="Tipo de crédito")
+    cycle =  fields.Many2one('credit.cycles', string="Ciclo")
     payment_terms = fields.Many2one(related='credit_type_id.payment_terms', string="Plazo de pago", readonly='True')
     date_limit_flag = fields.Boolean(default="False")
     date_limit = fields.Date(string="Fecha límite")
+    
+    date = fields.Date(string="Fecha de solicitud")
+    calculated_amount = fields.Float(string="Monto permitido", compute="get_amount", store=True)
+    requested_amount = fields.Float(string="Monto solicitado")
+    investment_concept = fields.Char(string="Concepto de inversión")
+    authorized_amount = fields.Float(string="Monto autorizado")
+    insurance = fields.Float(string="Seguro Agrícola")
     interest = fields.Float(related='credit_type_id.interest', string="Interes", readonly='True')
     interest_mo = fields.Float(related='credit_type_id.interest_mo', string="Interes moratorio", readonly='True')
+    
+    #========================================== Datos de cultivo ===============================================
+    crop_method = fields.Selection([('irrigation', 'Riego'),('rainwater', 'Temporal')], string="Metodo de cultivo")
+    crop_type_ids = fields.One2many('credit.crop.type', 'preapplication_id', string="Tipo de cultivo")
 
     @api.onchange('payment_terms')
     def get_payment_term(self):
 
         if self.payment_terms and len(self.payment_terms.line_ids) > 1:
-            
             if self.payment_terms.line_ids[1].days == 180:
                 self.date_limit_flag = True
             else:
@@ -70,5 +72,10 @@ class CreditPreApplication(models.Model):
         self.state = 'locked'
 
 
+class CreditCropType(models.Model):
+    _name = "credit.crop.type"
 
-    
+    preapplication_id = fields.Many2one('credit.preapplication')
+    crop_type_id = fields.Many2one('product.product', string="Tipo de cultivo")
+    hectares = fields.Float(string="Hectareas")
+

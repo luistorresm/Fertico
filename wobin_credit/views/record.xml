@@ -25,7 +25,6 @@
                             <group>
                                 <field name="partner_id" />
                                 <field name="credit_id" />
-                                <field name="cycle" />
                             </group>
                             <group>
                                 <field name="credit_initial" />
