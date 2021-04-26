@@ -6,14 +6,12 @@ class CreditPreApplication(models.Model):
     #Pre-solicitudes
 
 
-    @api.depends('crop_type','crop_method','hectares')
+    @api.depends('crop_type_ids')
     def get_amount(self):
         amount = 0
         
-        if self.crop_type and self.crop_method:
-            param = self.env['credit.parameters'].search([('crop_type','=',self.crop_type.id),('crop_method','=',self.crop_method)])
-            if param:
-                amount = param.amount*self.hectares
+        for line in self.crop_type_ids:
+            amount += line.calculated_amount
 
         self.calculated_amount = amount
 
@@ -42,7 +40,7 @@ class CreditPreApplication(models.Model):
     date_limit = fields.Date(string="Fecha límite")
     
     date = fields.Date(string="Fecha de solicitud")
-    calculated_amount = fields.Float(string="Monto permitido", compute="get_amount", store=True)
+    calculated_amount = fields.Float(string="Monto permitido total", compute="get_amount", store=True)
     requested_amount = fields.Float(string="Monto solicitado")
     investment_concept = fields.Char(string="Concepto de inversión")
     authorized_amount = fields.Float(string="Monto autorizado")
@@ -52,7 +50,7 @@ class CreditPreApplication(models.Model):
     
     #========================================== Datos de cultivo ===============================================
     crop_method = fields.Selection([('irrigation', 'Riego'),('rainwater', 'Temporal')], string="Metodo de cultivo")
-    crop_type_ids = fields.One2many('credit.crop.type', 'preapplication_id', string="Tipo de cultivo")
+    crop_type_ids = fields.One2many('credit.crop.type', 'preapplication_id', string="Tipos de cultivo")
 
     @api.onchange('payment_terms')
     def get_payment_term(self):
@@ -74,8 +72,23 @@ class CreditPreApplication(models.Model):
 
 class CreditCropType(models.Model):
     _name = "credit.crop.type"
+    #Tipos de cultivo
+
+    @api.one
+    @api.depends('crop_type_id','crop_method','hectares')
+    def get_amount(self):
+        amount = 0
+        
+        if self.crop_type_id and self.crop_method:
+            param = self.env['credit.parameters'].search([('crop_type','=',self.crop_type_id.id),('crop_method','=',self.crop_method)])
+            if param:
+                amount = param.amount*self.hectares
+
+        self.calculated_amount = amount
 
     preapplication_id = fields.Many2one('credit.preapplication')
+    crop_method = fields.Selection(related="preapplication_id.crop_method", string="Metodo de cultivo", readonly=True)
     crop_type_id = fields.Many2one('product.product', string="Tipo de cultivo")
     hectares = fields.Float(string="Hectareas")
+    calculated_amount = fields.Float(string="Monto permitido", compute="get_amount", store=True)
 
