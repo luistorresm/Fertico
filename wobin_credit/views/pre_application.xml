@@ -38,6 +38,7 @@
                                     <field name="crop_type_id" />
                                     <field name="hectares" />
                                     <field name="calculated_amount" />
+                                    <field name="calculated_insurance" />
                                 </tree>
                             </field>
                         </group>
