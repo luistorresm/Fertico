@@ -25,7 +25,7 @@ class ReportAccountStatus(models.AbstractModel):
         sum_interest = 0
 
         for invoice in invoices:
-            interest = invoice.amount_total*(credit.interest/100)
+            interest = invoice.residual*(credit.interest/100)
             interest_mo = 0
             date_invoice = datetime.strptime(invoice.date, '%Y-%m-%d')
             term = credit.payment_terms.line_ids[1].days
@@ -41,13 +41,13 @@ class ReportAccountStatus(models.AbstractModel):
                 if  days > 30 and days <= 60:
                     days_nat = 30
                     days_int = days-30
-                    interest = ((invoice.amount_total*(credit.interest/100))/30)*(days_int)
+                    interest = ((invoice.residual*(credit.interest/100))/30)*(days_int)
                 elif days > 60:
                     days_nat = 30
                     days_int = days-30
                     days_mo = days-60
-                    interest = ((invoice.amount_total*(credit.interest/100))/30)*(days_int)
-                    interest_mo = ((invoice.amount_total*(credit.interest_mo/100))/30)*(days_mo)
+                    interest = ((invoice.residual*(credit.interest/100))/30)*(days_int)
+                    interest_mo = ((invoice.residual*(credit.interest_mo/100))/30)*(days_mo)
             
             elif term == 180:
                 days = (date_payment - date_invoice).days
@@ -56,22 +56,22 @@ class ReportAccountStatus(models.AbstractModel):
 
                 if  date_payment <= date_limit:
                     days_int = days
-                    interest = ((invoice.amount_total*(credit.interest/100))/30)*(days_int)
+                    interest = ((invoice.residual*(credit.interest/100))/30)*(days_int)
                 elif date_payment > date_limit:
                     days_int = days_limit
                     days_mo = days-days_limit
-                    interest = ((invoice.amount_total*(credit.interest/100))/30)*(days_int)
-                    interest_mo = ((invoice.amount_total*(credit.interest_mo/100))/30)*(days_mo)
+                    interest = ((invoice.residual*(credit.interest/100))/30)*(days_int)
+                    interest_mo = ((invoice.residual*(credit.interest_mo/100))/30)*(days_mo)
             
-            total_inv = invoice.amount_total+interest+interest_mo
+            total_inv = invoice.residual+interest+interest_mo
             total += total_inv
-            sum_invoices += invoice.amount_total
+            sum_invoices += invoice.residual
             sum_interest += interest + interest_mo
 
             inv = {
                 'number': invoice.number,
                 'date': date_invoice.strftime("%d/%m/%Y"),
-                'amount' : "{:,.2f}".format(invoice.amount_total),
+                'amount' : "{:,.2f}".format(invoice.residual),
                 'date_payment' : date_payment.strftime("%d/%m/%Y"),
                 'days_nat' : days_nat,
                 'days_int' : days_int,
