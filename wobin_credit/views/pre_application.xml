@@ -25,7 +25,7 @@
                             <field name="calculated_amount"/>
                             <field name="requested_amount" attrs="{'readonly':[('state', '=', 'locked')]}"/>
                             <field name="authorized_amount" attrs="{'readonly':[('state', '=', 'locked')]}"/>
-                            <field name="insurance" attrs="{'readonly':[('state', '=', 'locked')]}"/>
+                            <field name="insurance" />
                             <field name="credit_type_id" attrs="{'readonly':[('state', '=', 'locked')]}"/>
                             <field name="payment_terms" />
                             <field name="date_limit_flag" invisible='1'/>

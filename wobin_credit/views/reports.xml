@@ -21,7 +21,7 @@
                             <td style="text-align:center; padding: 5px">
                                 Cliente
                             </td>
-                            <th style="text-align:center; padding: 5px; color: white; background: black;">
+                            <th style="text-align:center; padding: 5px; color: white; background: black; font-size: 14px;">
                                 <t t-esc="docs['partner_id'].name" />
                             </th>
                             <td style="text-align:right; padding: 5px">
@@ -85,21 +85,23 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th style="text-align:right; color: rgb(18, 110, 214); padding-right: 5px; padding-top: 10px">
-                                            Total a pagar
-                                        </th>
-                                        <th style="text-align:center; border-bottom: black 1px solid; padding-top: 10px; color: rgb(18, 110, 214)">
-                                            $
-                                            <t t-esc="data['total']" />
-                                        </th>
-                                    </tr>
-                                    <tr>
                                         <th style="text-align:right; padding-right: 5px; padding-top: 10px">
                                             Fecha de cálculo
                                         </th>
                                         <td style="text-align:center; border-bottom: black 1px solid; padding-top: 10px">
                                             <t t-esc="data['date']" />
                                         </td>
+                                    </tr>
+                                </table>
+                                <table style="width: 100%; text-align: left;">
+                                    <tr>
+                                        <th style="text-align:right; color: rgb(18, 110, 214); padding-right: 5px; padding-top: 10px">
+                                            Total a pagar
+                                        </th>
+                                        <th style="text-align:center; border: black 1px solid; padding-top: 10px; color: rgb(18, 110, 214); font-size: 14px">
+                                            $
+                                            <t t-esc="data['total']" />
+                                        </th>
                                     </tr>
                                 </table>
                             </td>
