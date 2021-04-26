@@ -9,11 +9,14 @@ class CreditPreApplication(models.Model):
     @api.depends('crop_type_ids')
     def get_amount(self):
         amount = 0
+        insurance = 0
         
         for line in self.crop_type_ids:
             amount += line.calculated_amount
+            insurance += line.calculated_insurance
 
         self.calculated_amount = amount
+        self.insurance = insurance
 
     def _get_name(self):
         count = self.env['credit.preapplication'].search([('company_id','=',self.env.user.company_id.id)])
@@ -44,7 +47,7 @@ class CreditPreApplication(models.Model):
     requested_amount = fields.Float(string="Monto solicitado")
     investment_concept = fields.Char(string="Concepto de inversión")
     authorized_amount = fields.Float(string="Monto autorizado")
-    insurance = fields.Float(string="Seguro Agrícola")
+    insurance = fields.Float(string="Seguro Agrícola", compute="get_amount", store=True)
     interest = fields.Float(related='credit_type_id.interest', string="Interes", readonly='True')
     interest_mo = fields.Float(related='credit_type_id.interest_mo', string="Interes moratorio", readonly='True')
     
@@ -78,17 +81,20 @@ class CreditCropType(models.Model):
     @api.depends('crop_type_id','crop_method','hectares')
     def get_amount(self):
         amount = 0
+        insurance = 0
         
         if self.crop_type_id and self.crop_method:
             param = self.env['credit.parameters'].search([('crop_type','=',self.crop_type_id.id),('crop_method','=',self.crop_method)])
             if param:
                 amount = param.amount*self.hectares
+                insurance = param.insurance*self.hectares
 
         self.calculated_amount = amount
+        self.calculated_insurance = insurance
 
     preapplication_id = fields.Many2one('credit.preapplication')
     crop_method = fields.Selection(related="preapplication_id.crop_method", string="Metodo de cultivo", readonly=True)
     crop_type_id = fields.Many2one('product.product', string="Tipo de cultivo")
     hectares = fields.Float(string="Hectareas")
     calculated_amount = fields.Float(string="Monto permitido", compute="get_amount", store=True)
-
+    calculated_insurance = fields.Float(string="Seguro agrícola", compute="get_amount", store=True)
