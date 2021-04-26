@@ -12,8 +12,7 @@ class CreditParameters(models.Model):
 class CreditTypes(models.Model):
     _name = "credit.types"
 
-    name = fields.Selection([('avio', 'Avio'),
-    ('commercial','Comercial')], string="Tipo de crédito")
+    name = fields.Char(string="Tipo de crédito", readonly=True)
     payment_terms = fields.Many2one('account.payment.term', string="Plazo de pago")
     interest = fields.Float(string="Interes")
     interest_mo = fields.Float(string="Interes moratorio")
