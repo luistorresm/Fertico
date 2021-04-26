@@ -23,7 +23,7 @@
 
     # always loaded
     'data': [
-        'data/credit_default.xml',
+        'data/credit_data.xml',
 
         'security/credit_security.xml',
         'security/ir.model.access.csv',
