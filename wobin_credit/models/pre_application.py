@@ -7,11 +7,23 @@ class CreditPreApplication(models.Model):
     @api.depends('crop_type_ids')
     def get_amount(self):
         amount = 0
+        insurance = 0
+        
+        for line in self.crop_type_ids:
+            amount += line.calculated_amount
+            insurance += line.calculated_insurance
+
+        self.calculated_amount = amount
+        self.insurance = insurance
+
+    @api.depends('crop_type_ids')
+    def get_insurance(self):
+        amount = 0
         
         for line in self.crop_type_ids:
             amount += line.calculated_amount
 
-        self.calculated_amount = amount
+        self.insurance = amount
 
     def _get_name(self):
         count = self.env['credit.preapplication'].search([('company_id','=',self.env.user.company_id.id)])
@@ -29,7 +41,7 @@ class CreditPreApplication(models.Model):
     calculated_amount = fields.Float(string="Monto permitido", compute="get_amount", store=True)
     requested_amount = fields.Float(string="Monto solicitado")
     authorized_amount = fields.Float(string="Monto autorizado")
-    insurance = fields.Float(string="Seguro Agrícola", compute="get_amount", store=True)
+    insurance = fields.Float(string="Seguro Agrícola total", compute="get_amount", store=True)
     credit_type_id = fields.Many2one('credit.types', string="Tipo de crédito")
     payment_terms = fields.Many2one(related='credit_type_id.payment_terms', string="Plazo de pago", readonly='True')
     date_limit_flag = fields.Boolean(default="False")
@@ -65,17 +77,21 @@ class CreditCropType(models.Model):
     @api.depends('crop_type_id','crop_method','hectares')
     def get_amount(self):
         amount = 0
+        insurance = 0
         
         if self.crop_type_id and self.crop_method:
             param = self.env['credit.parameters'].search([('crop_type','=',self.crop_type_id.id),('crop_method','=',self.crop_method)])
             if param:
                 amount = param.amount*self.hectares
+                insurance = param.insurance*self.hectares
 
         self.calculated_amount = amount
+        self.calculated_insurance = insurance
 
     preapplication_id = fields.Many2one('credit.preapplication')
     crop_method = fields.Selection(related="preapplication_id.crop_method", string="Metodo de cultivo", readonly=True)
     crop_type_id = fields.Many2one('product.product', string="Tipo de cultivo")
     hectares = fields.Float(string="Hectareas")
     calculated_amount = fields.Float(string="Monto permitido", compute="get_amount", store=True)
+    calculated_insurance = fields.Float(string="Seguro agrícola", compute="get_amount", store=True)
     
