@@ -62,7 +62,7 @@ class ReportAccountStatus(models.AbstractModel):
                                 'total_mo' : 0}
                             payments.append(pay)
                         
-                        if  days_int <= 30 and days_end > 30 and days_end <= 60:
+                        if  days_init <= 30 and days_end > 30 and days_end <= 60:
                             days_nat = 30
                             days_int = days_payment-30
                             days_payment = (days_end - days_init)
@@ -79,7 +79,7 @@ class ReportAccountStatus(models.AbstractModel):
                                 'total_mo' : 0}
                             payments.append(pay)
                         
-                        elif days_int > 30 and days_end <= 60:
+                        elif days_init > 30 and days_end <= 60:
                             days_nat = 30
                             days_int = days_end-days_init
                             interest += ((total_invoice*(credit.interest/100))/30)*(days_int)
@@ -95,7 +95,7 @@ class ReportAccountStatus(models.AbstractModel):
                                 'total_mo' : 0}
                             payments.append(pay)
                         
-                        elif days_int > 30 and days_int <= 60 and days_end > 60:
+                        elif days_init > 30 and days_int <= 60 and days_end > 60:
                             days_nat = 30
                             days_int = 30
                             days_mo = days_end-60
@@ -113,7 +113,7 @@ class ReportAccountStatus(models.AbstractModel):
                                 'total_mo' : ((total*(credit.interest_mo/100))/30)*(days_mo)}
                             payments.append(pay)
                         
-                        elif days_int <= 30 and days_end > 60:
+                        elif days_init <= 30 and days_end > 60:
                             days_nat = 30
                             days_int = 30
                             days_mo = days_end-60
@@ -131,7 +131,7 @@ class ReportAccountStatus(models.AbstractModel):
                                 'total_mo' : ((total*(credit.interest_mo/100))/30)*(days_mo)}
                             payments.append(pay)
                         
-                        elif days_int > 60:
+                        elif days_init > 60:
                             days_nat = 30
                             days_int = 30
                             days_mo = days_end-60
@@ -158,32 +158,32 @@ class ReportAccountStatus(models.AbstractModel):
                     if  days_end <= 30:
                         days_nat = days_end-days_init                      
                 
-                    if  days_int <= 30 and days_end > 30 and days_end <= 60:
+                    if  days_init <= 30 and days_end > 30 and days_end <= 60:
                         days_nat = 30
                         days_int = days_payment-30
                         days_payment = (days_end - days_init)
                         interest += ((total_invoice*(credit.interest/100))/30)*(days_int)
                         
-                    elif days_int > 30 and days_end <= 60:
+                    elif days_init > 30 and days_end <= 60:
                         days_nat = 30
                         days_int = days_end-days_init
                         interest += ((total_invoice*(credit.interest/100))/30)*(days_int)
                         
-                    elif days_int > 30 and days_int <= 60 and days_end > 60:
+                    elif days_init > 30 and days_int <= 60 and days_end > 60:
                         days_nat = 30
                         days_int = 30
                         days_mo = days_end-60
                         interest += ((total_invoice*(credit.interest/100))/30)*(60 - days_init)
                         interest_mo += ((total*(credit.interest_mo/100))/30)*(days_mo)
                         
-                    elif days_int <= 30 and days_end > 60:
+                    elif days_init <= 30 and days_end > 60:
                         days_nat = 30
                         days_int = 30
                         days_mo = days_end-60
                         interest += ((total_invoice*(credit.interest/100))/30)*(days_int)
                         interest_mo += ((total*(credit.interest_mo/100))/30)*(days_mo)
                         
-                    elif days_int > 60:
+                    elif days_init > 60:
                         days_nat = 30
                         days_int = 30
                         days_mo = days_end-60
