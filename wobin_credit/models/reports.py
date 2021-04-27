@@ -42,7 +42,7 @@ class ReportAccountStatus(models.AbstractModel):
                     date_end = ''
                     total_invoice = invoice.amount_total
 
-                    for payment in invoice.payment_ids:
+                    for payment in invoice.payment_ids.reverse():
                         date_end = datetime.strptime(payment.payment_date, '%Y-%m-%d')
                         days_init = (date_init - date_invoice).days
                         days_end = (date_end - date_invoice).days
