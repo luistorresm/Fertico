@@ -100,7 +100,7 @@ class ReportAccountStatus(models.AbstractModel):
                             days_int = 30
                             days_mo = days_end-60
                             interest += ((total_invoice*(credit.interest/100))/30)*(60 - days_init)
-                            interest_mo += ((total*(credit.interest_mo/100))/30)*(days_mo)
+                            interest_mo += ((total_invoice*(credit.interest_mo/100))/30)*(days_mo)
                             pay = {'invoice' : invoice.number,
                                 'total' : total_invoice,
                                 'payment_amount' : payment.amount,
@@ -118,7 +118,7 @@ class ReportAccountStatus(models.AbstractModel):
                             days_int = 30
                             days_mo = days_end-60
                             interest += ((total_invoice*(credit.interest/100))/30)*(days_int)
-                            interest_mo += ((total*(credit.interest_mo/100))/30)*(days_mo)
+                            interest_mo += ((total_invoice*(credit.interest_mo/100))/30)*(days_mo)
                             pay = {'invoice' : invoice.number,
                                 'total' : total_invoice,
                                 'payment_amount' : payment.amount,
@@ -135,7 +135,7 @@ class ReportAccountStatus(models.AbstractModel):
                             days_nat = 30
                             days_int = 30
                             days_mo = days_end-60
-                            interest_mo += ((total*(credit.interest_mo/100))/30)*(days_end-days_init)
+                            interest_mo += ((total_invoice*(credit.interest_mo/100))/30)*(days_end-days_init)
                             pay = {'invoice' : invoice.number,
                                 'total' : total_invoice,
                                 'payment_amount' : payment.amount,
@@ -154,7 +154,7 @@ class ReportAccountStatus(models.AbstractModel):
                     days_init = (date_init - date_invoice).days
                     days_end = (date_payment - date_invoice).days
                     days_payment = 0
-                        
+
                     if  days_end <= 30:
                         days_nat = days_end-days_init                      
                 
@@ -174,21 +174,21 @@ class ReportAccountStatus(models.AbstractModel):
                         days_int = 30
                         days_mo = days_end-60
                         interest += ((total_invoice*(credit.interest/100))/30)*(60 - days_init)
-                        interest_mo += ((total*(credit.interest_mo/100))/30)*(days_mo)
+                        interest_mo += ((total_invoice*(credit.interest_mo/100))/30)*(days_mo)
                         
                     elif days_init <= 30 and days_end > 60:
                         days_nat = 30
                         days_int = 30
                         days_mo = days_end-60
                         interest += ((total_invoice*(credit.interest/100))/30)*(days_int)
-                        interest_mo += ((total*(credit.interest_mo/100))/30)*(days_mo)
+                        interest_mo += ((total_invoice*(credit.interest_mo/100))/30)*(days_mo)
                         
                     elif days_init > 60:
                         days_nat = 30
                         days_int = 30
                         days_mo = days_end-60
-                        interest_mo += ((total*(credit.interest_mo/100))/30)*(days_end-days_init)
-                    
+                        interest_mo += ((total_invoice*(credit.interest_mo/100))/30)*(days_end-days_init)
+                        
                 else:
                     interest = 0
                     days = (date_payment - date_invoice).days
