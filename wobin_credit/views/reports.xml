@@ -180,6 +180,77 @@
                             </td>
                         </tr>
                     </table>
+                    <br />
+                    <br />
+                    <table style="width: 100%; text-align: left;">
+                        <tr style="background: gray;">
+                            <th style="text-align:center; border: black 1px solid; padding: 5px">
+                                Factura
+                            </th>
+                            <th style="text-align:center; border: black 1px solid; padding: 5px">
+                                Total a pagar
+                            </th>
+                            <th style="text-align:center; border: black 1px solid; padding: 5px">
+                                Pago (Abono)
+                            </th>
+                            <th style="text-align:center; border: black 1px solid; padding: 5px">
+                                Fecha de pago
+                            </th>
+                            <th style="text-align:center; border: black 1px solid; padding: 5px">
+                                Dias pagados
+                            </th>
+                            <th style="text-align:center; border: black 1px solid; padding: 5px">
+                                Dias naturales
+                            </th>
+                            <th style="text-align:center; border: black 1px solid; padding: 5px">
+                                Dias con interés
+                            </th>
+                            <th style="text-align:center; border: black 1px solid; padding: 5px">
+                                Interes ordinario
+                            </th>
+                            <th style="text-align:center; border: black 1px solid; padding: 5px">
+                                Dias moratorios
+                            </th>
+                            <th style="text-align:center; border: black 1px solid; padding: 5px">
+                                Interes moratorio
+                            </th>
+                        </tr>
+                        <tr t-foreach="payments" t-as="payment">
+                            <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                <t t-esc="payment['invoice']" />
+                            </td>
+                            <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                $<t t-esc="payment['total']" />
+                            </td>
+                            <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                $
+                                <t t-esc="payment['payment_amount']" />
+                            </td>
+                            <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                <t t-esc="payment['date']" />
+                            </td>
+                            <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                <t t-esc="payment['days']" />
+                            </td>
+                            <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                <t t-esc="payment['days_nat']" />
+                            </td>
+                            <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                <t t-esc="payment['days_int']" />
+                            </td>
+                            <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                $
+                                <t t-esc="payment['total_int']" />
+                            </td>
+                            <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                <t t-esc="payment['days_mo']" />
+                            </td>
+                            <td style="text-align:center; border: black 1px solid; padding: 5px">
+                                $
+                                <t t-esc="payment['total_mo']" />
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </t>
         </t>
