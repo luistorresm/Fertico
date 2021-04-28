@@ -46,139 +46,174 @@ class ReportAccountStatus(models.AbstractModel):
                     for payment in invoice.payment_ids:
                         payments_array.append(payment)
                     payments_array.reverse()
-                    for payment in payments_array:
-                        date_end = datetime.strptime(payment.payment_date, '%Y-%m-%d')
-                        days_init = (date_init - date_invoice).days
-                        days_end = (date_end - date_invoice).days
-                        days_payment = 0
-                        
-                        if  days_end <= 30:
-                            days_nat = days_end-days_init                      
-                            pay = {'invoice' : invoice.number,
-                                'total' : total_invoice,
-                                'payment_amount' : payment.amount,
-                                'date' : payment.payment_date,
-                                'days' : days_end-days_init,
-                                'days_nat' : days_nat,
-                                'days_int' : 0,
-                                'total_int' : 0,
-                                'days_mo' : 0,
-                                'total_mo' : 0}
-                            payments.append(pay)
-                        
-                        if  days_init <= 30 and days_end > 30 and days_end <= 60:
-                            days_nat = 30
-                            days_int = days_payment-30
-                            days_payment = (days_end - days_init)
-                            interest += ((total_invoice*(credit.interest/100))/30)*(days_int)
-                            pay = {'invoice' : invoice.number,
-                                'total' : total_invoice,
-                                'payment_amount' : payment.amount,
-                                'date' : payment.payment_date,
-                                'days' : days_end-days_init,
-                                'days_nat' : 30-days_init,
-                                'days_int' : days_int,
-                                'total_int' : ((total_invoice*(credit.interest/100))/30)*(days_int),
-                                'days_mo' : 0,
-                                'total_mo' : 0}
-                            payments.append(pay)
-                        
-                        elif days_init > 30 and days_end <= 60:
-                            days_nat = 30
-                            days_int = days_end-days_init
-                            interest += ((total_invoice*(credit.interest/100))/30)*(days_int)
-                            pay = {'invoice' : invoice.number,
-                                'total' : total_invoice,
-                                'payment_amount' : payment.amount,
-                                'date' : payment.payment_date,
-                                'days' : days_end-days_init,
-                                'days_nat' : 0,
-                                'days_int' : days_int,
-                                'total_int' : ((total_invoice*(credit.interest/100))/30)*(days_int),
-                                'days_mo' : 0,
-                                'total_mo' : 0}
-                            payments.append(pay)
-                        
-                        elif days_init > 30 and days_int <= 60 and days_end > 60:
-                            days_nat = 30
-                            days_int = 30
-                            days_mo = days_end-60
-                            interest += ((total_invoice*(credit.interest/100))/30)*(60 - days_init)
-                            interest_mo += ((total_invoice*(credit.interest_mo/100))/30)*(days_mo)
-                            pay = {'invoice' : invoice.number,
-                                'total' : total_invoice,
-                                'payment_amount' : payment.amount,
-                                'date' : payment.payment_date,
-                                'days' : days_end-days_init,
-                                'days_nat' : 0,
-                                'days_int' : 60 - days_init,
-                                'total_int' : ((total_invoice*(credit.interest/100))/30)*(60 - days_init),
-                                'days_mo' : days_mo,
-                                'total_mo' : ((total*(credit.interest_mo/100))/30)*(days_mo)}
-                            payments.append(pay)
-                        
-                        elif days_init <= 30 and days_end > 60:
-                            days_nat = 30
-                            days_int = 30
-                            days_mo = days_end-60
-                            interest += ((total_invoice*(credit.interest/100))/30)*(days_int)
-                            interest_mo += ((total_invoice*(credit.interest_mo/100))/30)*(days_mo)
-                            pay = {'invoice' : invoice.number,
-                                'total' : total_invoice,
-                                'payment_amount' : payment.amount,
-                                'date' : payment.payment_date,
-                                'days' : days_end-days_init,
-                                'days_nat' : 30-days_init,
-                                'days_int' : days_int,
-                                'total_int' : ((total_invoice*(credit.interest/100))/30)*(days_int),
-                                'days_mo' : days_mo,
-                                'total_mo' : ((total*(credit.interest_mo/100))/30)*(days_mo)}
-                            payments.append(pay)
-                        
-                        elif days_init > 60:
-                            days_nat = 30
-                            days_int = 30
-                            days_mo = days_end-60
-                            interest_mo += ((total_invoice*(credit.interest_mo/100))/30)*(days_end-days_init)
-                            pay = {'invoice' : invoice.number,
-                                'total' : total_invoice,
-                                'payment_amount' : payment.amount,
-                                'date' : payment.payment_date,
-                                'days' : days_end-days_init,
-                                'days_nat' : 0,
-                                'days_int' : 0,
-                                'total_int' : 0,
-                                'days_mo' : days_mo,
-                                'total_mo' : ((total*(credit.interest_mo/100))/30)*(days_end-days_init)}
-                            payments.append(pay)
 
-                        date_init = date_end
-                        total_invoice -= payment.amount
+                    for payment in payments_array:
+                        if payment.state == 'posted':
+                            pay = {}
+                            pay_date = datetime.strptime(payment.payment_date, '%Y-%m-%d').strftime("%d/%m/%Y")
+                            date_end = datetime.strptime(payment.payment_date, '%Y-%m-%d')
+                            days_init = (date_init - date_invoice).days
+                            days_end = (date_end - date_invoice).days
+                            
+                            if  days_end <= 30:
+                                days_nat = days_end-days_init                      
+                                pay = {'invoice' : invoice.number,
+                                    'total' : total_invoice,
+                                    'payment_amount' : payment.amount,
+                                    'date' : pay_date,
+                                    'days' : days_end-days_init,
+                                    'days_nat' : days_nat,
+                                    'days_int' : 0,
+                                    'total_int' : 0,
+                                    'days_mo' : 0,
+                                    'total_mo' : 0}
+                            
+                            elif  days_init <= 30 and days_end > 30 and days_end <= 60:
+                                days_nat = 30
+                                days_int = days_end-30
+                                interest += ((total_invoice*(credit.interest/100))/30)*(days_int)
+                                pay = {'invoice' : invoice.number,
+                                    'total' : total_invoice,
+                                    'payment_amount' : payment.amount,
+                                    'date' : pay_date,
+                                    'days' : days_end-days_init,
+                                    'days_nat' : 30-days_init,
+                                    'days_int' : days_int,
+                                    'total_int' : "{:,.2f}".format(((total_invoice*(credit.interest/100))/30)*(days_int)),
+                                    'days_mo' : 0,
+                                    'total_mo' : 0}
+                            
+                            elif days_init > 30 and days_end <= 60:
+                                days_nat = 30
+                                days_int = days_end-30
+                                interest += ((total_invoice*(credit.interest/100))/30)*(days_end-days_init)
+                                pay = {'invoice' : invoice.number,
+                                    'total' : total_invoice,
+                                    'payment_amount' : payment.amount,
+                                    'date' : pay_date,
+                                    'days' : days_end-days_init,
+                                    'days_nat' : 0,
+                                    'days_int' : days_int,
+                                    'total_int' : "{:,.2f}".format(((total_invoice*(credit.interest/100))/30)*(days_int)),
+                                    'days_mo' : 0,
+                                    'total_mo' : 0}
+                            
+                            elif days_init > 30 and days_init <= 60 and days_end > 60:
+                                days_nat = 30
+                                days_int = 30
+                                days_mo = days_end-60
+                                interest += ((total_invoice*(credit.interest/100))/30)*(60 - days_init)
+                                interest_mo += ((total_invoice*(credit.interest_mo/100))/30)*(days_mo)
+                                pay = {'invoice' : invoice.number,
+                                    'total' : total_invoice,
+                                    'payment_amount' : payment.amount,
+                                    'date' : pay_date,
+                                    'days' : days_end-days_init,
+                                    'days_nat' : 0,
+                                    'days_int' : 60 - days_init,
+                                    'total_int' : "{:,.2f}".format(((total_invoice*(credit.interest/100))/30)*(60 - days_init)),
+                                    'days_mo' : days_mo,
+                                    'total_mo' : "{:,.2f}".format(((total*(credit.interest_mo/100))/30)*(days_mo))}
+                            
+                            elif days_init <= 30 and days_end > 60:
+                                days_nat = 30
+                                days_int = 30
+                                days_mo = days_end-60
+                                interest += ((total_invoice*(credit.interest/100))/30)*(days_int)
+                                interest_mo += ((total_invoice*(credit.interest_mo/100))/30)*(days_mo)
+                                pay = {'invoice' : invoice.number,
+                                    'total' : total_invoice,
+                                    'payment_amount' : payment.amount,
+                                    'date' : pay_date,
+                                    'days' : days_end-days_init,
+                                    'days_nat' : 30-days_init,
+                                    'days_int' : days_int,
+                                    'total_int' : "{:,.2f}".format(((total_invoice*(credit.interest/100))/30)*(days_int)),
+                                    'days_mo' : days_mo,
+                                    'total_mo' : "{:,.2f}".format(((total*(credit.interest_mo/100))/30)*(days_mo))}
+                            
+                            elif days_init > 60:
+                                days_nat = 30
+                                days_int = 30
+                                days_mo = days_end-60
+                                interest_mo += ((total_invoice*(credit.interest_mo/100))/30)*(days_end-days_init)
+                                pay = {'invoice' : invoice.number,
+                                    'total' : total_invoice,
+                                    'payment_amount' : payment.amount,
+                                    'date' : pay_date,
+                                    'days' : days_end-days_init,
+                                    'days_nat' : 0,
+                                    'days_int' : 0,
+                                    'total_int' : 0,
+                                    'days_mo' : days_mo,
+                                    'total_mo' : "{:,.2f}".format(((total*(credit.interest_mo/100))/30)*(days_end-days_init))}
+
+                            payments.append(pay)
+                            date_init = date_end
+                            total_invoice -= payment.amount
                     
                     days_init = (date_init - date_invoice).days
                     days_end = (date_payment - date_invoice).days
-                    days_payment = 0
 
                     if  days_end <= 30:
-                        days_nat = days_end-days_init                      
+                        days_nat = days_end-days_init
+                        pay = {'invoice' : invoice.number,
+                                'total' : total_invoice,
+                                'payment_amount' : total_invoice,
+                                'date' : date_payment.strftime("%d/%m/%Y"),
+                                'days' : days_end-days_init,
+                                'days_nat' : days_end-days_init,
+                                'days_int' : 0,
+                                'total_int' : 0,
+                                'days_mo' : 0,
+                                'total_mo' : 0}                  
                 
-                    if  days_init <= 30 and days_end > 30 and days_end <= 60:
+                    elif  days_init <= 30 and days_end > 30 and days_end <= 60:
                         days_nat = 30
-                        days_int = days_payment-30
-                        days_payment = (days_end - days_init)
+                        days_int = days_end-30
                         interest += ((total_invoice*(credit.interest/100))/30)*(days_int)
+                        pay = {'invoice' : invoice.number,
+                                'total' : total_invoice,
+                                'payment_amount' : total_invoice,
+                                'date' : date_payment.strftime("%d/%m/%Y"),
+                                'days' : days_end-days_init,
+                                'days_nat' : 30-days_init,
+                                'days_int' : days_end-30,
+                                'total_int' : "{:,.2f}".format(((total_invoice*(credit.interest/100))/30)*(days_int)),
+                                'days_mo' : 0,
+                                'total_mo' : 0} 
                         
                     elif days_init > 30 and days_end <= 60:
                         days_nat = 30
-                        days_int = days_end-days_init
-                        interest += ((total_invoice*(credit.interest/100))/30)*(days_int)
+                        days_int = days_end-30
+                        interest += ((total_invoice*(credit.interest/100))/30)*(days_end-days_init)
+                        pay = {'invoice' : invoice.number,
+                                'total' : total_invoice,
+                                'payment_amount' : total_invoice,
+                                'date' : date_payment.strftime("%d/%m/%Y"),
+                                'days' : days_end-days_init,
+                                'days_nat' : 0,
+                                'days_int' : days_end-days_init,
+                                'total_int' : "{:,.2f}".format(((total_invoice*(credit.interest/100))/30)*(days_end-days_init)),
+                                'days_mo' : 0,
+                                'total_mo' : 0}
                         
-                    elif days_init > 30 and days_int <= 60 and days_end > 60:
+                    elif days_init > 30 and days_init <= 60 and days_end > 60:
                         days_nat = 30
                         days_int = 30
                         days_mo = days_end-60
                         interest += ((total_invoice*(credit.interest/100))/30)*(60 - days_init)
                         interest_mo += ((total_invoice*(credit.interest_mo/100))/30)*(days_mo)
+                        pay = {'invoice' : invoice.number,
+                                'total' : total_invoice,
+                                'payment_amount' : total_invoice,
+                                'date' : date_payment.strftime("%d/%m/%Y"),
+                                'days' : days_end-days_init,
+                                'days_nat' : 0,
+                                'days_int' : 60 - days_init,
+                                'total_int' : "{:,.2f}".format(((total_invoice*(credit.interest/100))/30)*(60 - days_init)),
+                                'days_mo' :days_mo,
+                                'total_mo' : "{:,.2f}".format(((total_invoice*(credit.interest_mo/100))/30)*(days_mo))}
                         
                     elif days_init <= 30 and days_end > 60:
                         days_nat = 30
@@ -186,12 +221,36 @@ class ReportAccountStatus(models.AbstractModel):
                         days_mo = days_end-60
                         interest += ((total_invoice*(credit.interest/100))/30)*(days_int)
                         interest_mo += ((total_invoice*(credit.interest_mo/100))/30)*(days_mo)
+                        pay = {'invoice' : invoice.number,
+                                'total' : total_invoice,
+                                'payment_amount' : total_invoice,
+                                'date' : date_payment.strftime("%d/%m/%Y"),
+                                'days' : days_end-days_init,
+                                'days_nat' : 30 - days_init,
+                                'days_int' : days_int,
+                                'total_int' : "{:,.2f}".format(((total_invoice*(credit.interest/100))/30)*(days_int)),
+                                'days_mo' :days_mo,
+                                'total_mo' : "{:,.2f}".format(((total_invoice*(credit.interest_mo/100))/30)*(days_mo))}
                         
                     elif days_init > 60:
                         days_nat = 30
                         days_int = 30
                         days_mo = days_end-60
                         interest_mo += ((total_invoice*(credit.interest_mo/100))/30)*(days_end-days_init)
+                        pay = {'invoice' : invoice.number,
+                                'total' : total_invoice,
+                                'payment_amount' : total_invoice,
+                                'date' : date_payment.strftime("%d/%m/%Y"),
+                                'days' : days_end-days_init,
+                                'days_nat' : 0,
+                                'days_int' : 0,
+                                'total_int' : 0,
+                                'days_mo' : days_end-days_init,
+                                'total_mo' : "{:,.2f}".format(((total_invoice*(credit.interest_mo/100))/30)*(days_end-days_init))}
+                        
+                    
+                    payments.append(pay)
+                    total_invoice -= payment.amount
                         
                 else:
                     interest = 0
