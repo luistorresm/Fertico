@@ -296,6 +296,7 @@ class ReportAccountStatus(models.AbstractModel):
                     payments_array.reverse()
 
                     for payment in payments_array:
+                        #Por cada pago revisamos los intereses que generó
                         if payment.state == 'posted':
                             pay_date = datetime.strptime(payment.payment_date, '%Y-%m-%d').strftime("%d/%m/%Y")
                             date_end = datetime.strptime(payment.payment_date, '%Y-%m-%d')
@@ -303,6 +304,7 @@ class ReportAccountStatus(models.AbstractModel):
                             days_end = (date_end - date_invoice).days
                             
                             if date_init <= date_limit and date_end <= date_limit:
+                                #C1 si el pago abarca un intervalo antes del día limite
                                 days_int = (date_end-date_invoice).days
                                 interest += ((total_invoice*(credit.interest/100))/30)*(days_end-days_init)
                                 pay = {'invoice' : invoice.number,
@@ -317,6 +319,7 @@ class ReportAccountStatus(models.AbstractModel):
                                     'total_mo' : 0}
 
                             elif date_init <= date_limit and date_end > date_limit:
+                                #C2 si el pago abarca un intervalo antes y despues del día límite
                                 days_int = (date_limit-date_invoice).days
                                 days_mo = (date_end-date_limit).days
                                 interest += ((total_invoice*(credit.interest/100))/30)*(days_limit-days_init)
@@ -333,6 +336,7 @@ class ReportAccountStatus(models.AbstractModel):
                                     'total_mo' : "{:,.2f}".format(((total_invoice*(credit.interest_mo/100))/30)*(days_mo))}
 
                             elif date_init > date_limit and date_end > date_limit:
+                                #C3 si el pago abarca un intervalo despues del dia límite
                                 days_int = (date_limit-date_invoice).days
                                 days_mo = (date_end-date_limit).days
                                 interest_mo += ((total_invoice*(credit.interest_mo/100))/30)*(days_mo)
@@ -355,6 +359,7 @@ class ReportAccountStatus(models.AbstractModel):
                     days_end = (date_end - date_invoice).days
                     days_init = (date_init - date_invoice).days
                             
+                    #Hacemos un ultimo registro con el pago a realizar
                     if date_init <= date_limit and date_end <= date_limit:
                         days_int = (date_end-date_invoice).days
                         interest += ((total_invoice*(credit.interest/100))/30)*(days_end-days_init)
@@ -404,6 +409,7 @@ class ReportAccountStatus(models.AbstractModel):
                         
 
                 else:
+                    #Si no hay pagos  parciales se hace el calculo con la fecha del reporte para obtener los intereses
                     days = (date_payment - date_invoice).days
                     date_limit = datetime.strptime(credit.date_limit, '%Y-%m-%d')
                     days_limit = (date_limit - date_invoice).days
