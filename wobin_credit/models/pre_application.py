@@ -57,6 +57,18 @@ class CreditPreApplication(models.Model):
     check_insurance = fields.Boolean(string="Se compromete a adquirir un seguro de siembra")
     check_deliver = fields.Boolean(string="Se compromete a entregar grano")
 
+    #========================================== Datos generales de contacto ===================================
+    address = fields.Text(string="Dirección completa")
+    email = fields.Char(string="E-mail")
+    activity = fields.Char(string="Actividad económica")
+    activity_second = fields.Char(string="Actividad económica alterna")
+    sector = fields.Char(string="Sector en que opera")
+
+    date_birth = fields.Date(string="Fecha de nacimiento")
+    country = fields.Char("País de nacimiento")
+    education = fields.
+
+
     @api.onchange('payment_terms')
     def get_payment_term(self):
 
