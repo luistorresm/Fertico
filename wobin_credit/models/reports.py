@@ -55,7 +55,7 @@ class ReportAccountStatus(models.AbstractModel):
                     for payment in payments_array:
                         #Por cada pago revisamos los intereses que generó
                         
-                        if payment.state == 'posted':
+                        if payment.state == 'posted' or payment.state == 'reconciled':
 
                             pay_date = datetime.strptime(payment.payment_date, '%Y-%m-%d').strftime("%d/%m/%Y")
                             date_end = datetime.strptime(payment.payment_date, '%Y-%m-%d')
@@ -297,7 +297,7 @@ class ReportAccountStatus(models.AbstractModel):
 
                     for payment in payments_array:
                         #Por cada pago revisamos los intereses que generó
-                        if payment.state == 'posted':
+                        if payment.state == 'posted' or payment.state == 'reconciled':
                             pay_date = datetime.strptime(payment.payment_date, '%Y-%m-%d').strftime("%d/%m/%Y")
                             date_end = datetime.strptime(payment.payment_date, '%Y-%m-%d')
                             days_init = (date_init - date_invoice).days
