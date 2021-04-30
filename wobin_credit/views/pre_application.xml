@@ -21,28 +21,47 @@
                             </h1>
                         </group>
                         <group>
-                            <field name="partner_id" attrs="{'readonly':[('state', '=', 'locked')]}"/>
-                            <field name="cycle" attrs="{'readonly':[('state', '=', 'locked')]}"/>
-                            <field name="crop_method" attrs="{'readonly':[('state', '=', 'locked')]}"/>
-                            <field name="calculated_amount"/>
-                            <field name="requested_amount" attrs="{'readonly':[('state', '=', 'locked')]}"/>
-                            <field name="authorized_amount" attrs="{'readonly':[('state', '=', 'locked')]}"/>
-                            <field name="insurance" attrs="{'readonly':[('state', '=', 'locked')]}"/>
-                            <field name="credit_type_id" attrs="{'readonly':[('state', '=', 'locked')]}"/>
-                            <field name="payment_terms" />
-                            <field name="date_limit_flag" invisible='1'/>
-                            <field name="date_limit" attrs="{'invisible':[('date_limit_flag', '=', False)], 'readonly':[('state', '=', 'locked')]}" />
-                            <field name="interest" />
-                            <field name="interest_mo" />
-                            <field name="crop_type_ids" attrs="{'readonly':[('state', '=', 'locked')]}">
-                                <tree editable="bottom">
-                                    <field name="crop_method" />
-                                    <field name="crop_type_id" />
-                                    <field name="hectares" />
-                                    <field name="calculated_amount" />
-                                </tree>
-                            </field>
+                            <group>
+                                <field name="record_id" attrs="{'readonly':[('state', '=', 'locked')]}" />
+                                <field name="partner_id" attrs="{'readonly':[('state', '=', 'locked')]}" />
+                                <field name="credit_type_id" attrs="{'readonly':[('state', '=', 'locked')]}" />
+                                <field name="cycle" attrs="{'readonly':[('state', '=', 'locked')]}" />
+                                <field name="payment_terms" />
+                                <field name="date_limit" />
+                            </group>
+                            <group>
+                                <field name="date" attrs="{'readonly':[('state', '=', 'locked')]}" />
+                                <field name="calculated_amount" attrs="{'readonly':[('state', '=', 'locked')]}" />
+                                <field name="requested_amount" attrs="{'readonly':[('state', '=', 'locked')]}" />
+                                <field name="investment_concept" attrs="{'readonly':[('state', '=', 'locked')]}" />
+                                <field name="authorized_amount" />
+                                <field name="interest" />
+                                <field name="interest_mo" />
+                            </group>
                         </group>
+                        <notebook>
+                            <page string="Datos de cultivo" name="crop_page">
+                                <group>
+                                    <field name="crop_method" />
+                                </group>
+                                <field name="crop_type_ids">
+                                    <tree editable="bottom">
+                                        <field name="crop_type_id" />
+                                        <field name="hectares" />
+                                        <field name="calculated_amount" />
+                                    </tree>
+                                </field>
+                                <group>
+                                    <group>
+                                        <field name="check_insurance" />
+                                    </group>
+                                    <group>
+                                        <field name="check_deliver" />
+                                    </group>
+                                </group>
+
+                            </page>
+                        </notebook>
                     </sheet>
                     <div class="oe_chatter">
                         <field name="message_follower_ids" widget="mail_followers" />
