@@ -124,7 +124,7 @@ class ReportAccountStatus(models.AbstractModel):
                                     'days_int' : 60 - days_init,
                                     'total_int' : "{:,.2f}".format(((total_invoice*(credit.interest/100))/30)*(60 - days_init)),
                                     'days_mo' : days_mo,
-                                    'total_mo' : "{:,.2f}".format(((total*(credit.interest_mo/100))/30)*(days_mo))}
+                                    'total_mo' : "{:,.2f}".format(((total_invoice*(credit.interest_mo/100))/30)*(days_mo))}
                             
                             elif days_init <= 30 and days_end > 60:
                                 #C5 si el pago abarca un periodo antes del dia 30 y despues del dia 60 - genera interes normal e interes moratorio
@@ -142,7 +142,7 @@ class ReportAccountStatus(models.AbstractModel):
                                     'days_int' : days_int,
                                     'total_int' : "{:,.2f}".format(((total_invoice*(credit.interest/100))/30)*(days_int)),
                                     'days_mo' : days_mo,
-                                    'total_mo' : "{:,.2f}".format(((total*(credit.interest_mo/100))/30)*(days_mo))}
+                                    'total_mo' : "{:,.2f}".format(((total_invoice*(credit.interest_mo/100))/30)*(days_mo))}
                             
                             elif days_init > 60:
                                 #C6 si el pago abarca un periodo despues del dia 60 - genera solo interes moratorio
@@ -159,7 +159,7 @@ class ReportAccountStatus(models.AbstractModel):
                                     'days_int' : 0,
                                     'total_int' : 0,
                                     'days_mo' : days_mo,
-                                    'total_mo' : "{:,.2f}".format(((total*(credit.interest_mo/100))/30)*(days_end-days_init))}
+                                    'total_mo' : "{:,.2f}".format(((total_invoice*(credit.interest_mo/100))/30)*(days_end-days_init))}
 
                             payments.append(pay)
                             date_init = date_end
