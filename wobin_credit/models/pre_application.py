@@ -63,10 +63,11 @@ class CreditPreApplication(models.Model):
     activity = fields.Char(string="Actividad económica")
     activity_second = fields.Char(string="Actividad económica alterna")
     sector = fields.Char(string="Sector en que opera")
+    phone_house = fields.Char(string="Teléfono (casa)")
+    phone_personal = fields.Char(string="Teléfono (celular)")
 
     date_birth = fields.Date(string="Fecha de nacimiento")
-    country = fields.Char("País de nacimiento")
-    education = fields.
+    country = fields.Char(string="País de nacimiento")
 
 
     @api.onchange('payment_terms')
