@@ -125,19 +125,19 @@
                                 Fecha de cálculo
                             </th>
                             <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                Dias naturales
+                                Días naturales
                             </th>
                             <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                Dias con interés
+                                Días con interés
                             </th>
                             <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                Interes ordinario
+                                Interés ordinario
                             </th>
                             <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                Dias moratorios
+                                Días moratorios
                             </th>
                             <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                Interes moratorio
+                                Interés moratorio
                             </th>
                             <th style="text-align:center; border: black 1px solid; padding: 5px">
                                 Suma total a pagar
@@ -198,22 +198,22 @@
                                 Fecha de pago
                             </th>
                             <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                Dias pagados
+                                Días pagados
                             </th>
                             <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                Dias naturales
+                                Días naturales
                             </th>
                             <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                Dias con interés
+                                Días con interés
                             </th>
                             <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                Interes ordinario
+                                Interés ordinario
                             </th>
                             <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                Dias moratorios
+                                Días moratorios
                             </th>
                             <th style="text-align:center; border: black 1px solid; padding: 5px">
-                                Interes moratorio
+                                Interés moratorio
                             </th>
                         </tr>
                         <tr t-foreach="payments" t-as="payment">
