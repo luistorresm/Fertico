@@ -97,7 +97,7 @@ class ReportAccountStatus(models.AbstractModel):
             'company' : self.env.user.company_id,
         }
 
-#=====================================================================================================================
+#===============================================Carta compromiso========================================================
 
 class ReportCommitment(models.AbstractModel):
     #Reporte estado de cuenta
@@ -114,4 +114,24 @@ class ReportCommitment(models.AbstractModel):
             'docs' : record,
             'date' : date_now,
             'company' : self.env.user.company_id,
+        }
+
+#===============================================Solicitud========================================================
+
+class ReportCommitment(models.AbstractModel):
+    #Reporte estado de cuenta
+    _name = 'report.wobin_credit.report_application'
+
+    @api.model
+    def get_report_values(self, docids, data=None):
+        pre_application = self.env['credit.preapplication'].browse(docids)
+        date_now =  date.today().strftime("%d/%m/%Y")
+        
+        return {
+            'doc_ids': docids,
+            'doc_model': 'credit.record',
+            'docs' : pre_application,
+            'date' : date_now,
+            'company' : self.env.user.company_id,
+            'user' : self.env.user.name,
         }

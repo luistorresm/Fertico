@@ -218,7 +218,7 @@
                     <br/>
                     <br/>
                     <p style="padding-left: 10%; padding-right: 10%;">
-                        En solicitud al trámite de Crédito Agrario para obtención de insumos agrícolas en esta empresa para el <b><t t-esc="docs['cycle'].name" /></b>, yo <u><b><t t-esc="docs['partner_id'].name" /></b></u> estoy en acuerdo y me comprometo a cumplir las siguientes políticas establecidas por la empresa para la autorización del crédito solicitado:
+                        En solicitud al trámite de Crédito Agrario para obtención de insumos agrícolas en esta empresa para el ciclo <b><t t-esc="docs['cycle'].name" /></b>, yo <u><b><t t-esc="docs['partner_id'].name" /></b></u> estoy en acuerdo y me comprometo a cumplir las siguientes políticas establecidas por la empresa para la autorización del crédito solicitado:
                     </p>
                     <br/>
                     <ul style="padding-left: 20%; padding-right: 10%;">
@@ -255,5 +255,59 @@
     <!--Reporte-->
     <report id="report_credit_commitment" model="credit.record" string="Carta compromiso" report_type="qweb-html" name="wobin_credit.report_commitment" menu="False"/>
 
+    <!--==========================================Solicitud=======================================-->
+
+    <!--Plantilla-->
+    <template id="report_application">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div style="width: 100%; text-align: right; padding-right: 10%;">
+                    <label>Fecha: <u>  <t t-esc="date" />  </u></label>
+                </div>
+                <br />
+                <br />
+                <br />
+                <div style="width: 100%; text-align: justify;">
+                    
+                    <br/>
+                    <br/>
+                    <br/>
+                    <p style="padding-left: 10%; padding-right: 10%;">
+                        En solicitud al trámite de Crédito Agrario para obtención de insumos agrícolas en esta empresa para el ciclo <b><t t-esc="docs['cycle'].name" /></b>, yo <u><b><t t-esc="docs['partner_id'].name" /></b></u> estoy en acuerdo y me comprometo a cumplir las siguientes políticas establecidas por la empresa para la autorización del crédito solicitado:
+                    </p>
+                    <br/>
+                    <ul style="padding-left: 20%; padding-right: 10%;">
+                        <li>Entregar la documentación requerida completa y en tiempo.</li>
+                        <br/>
+                        <li>Asumir el <b>COMPROMISO</b> de entrega de grano de la cosecha del ciclo <t t-esc="docs['cycle'].name" />, para la liquidación total del crédito.</li>
+                        <br/>
+                        <li>Pagar el <b>SEGURO AGRÍCOLA</b> correspondiente al total de la superficie solicitada a acreditar.</li>
+                    </ul>
+                    <br/>
+                    <p style="padding-left: 10%; padding-right: 10%;">
+                        Confío que este será el inicio de una excelente relación comercial.
+                    </p>
+                </div>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <div style="width: 100%; text-align: center;">
+                    <label>Atentamente</label>
+                    <br />
+                    <br />
+                    <br />
+                    <label style="width: 400px; border-bottom: black 1px solid"></label>
+                    <br />
+                    <label>Nombre completo y firma del solicitante</label>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <!--Reporte-->
+    <report id="report_credit_application" model="credit.preapplication" string="Carta compromiso" report_type="qweb-html" name="wobin_credit.report_application" menu="False"/>
 
 </odoo>

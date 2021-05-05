@@ -58,16 +58,26 @@ class CreditPreApplication(models.Model):
     check_deliver = fields.Boolean(string="Se compromete a entregar grano")
 
     #========================================== Datos generales de contacto ===================================
-    address = fields.Text(string="Dirección completa")
-    email = fields.Char(string="E-mail")
-    activity = fields.Char(string="Actividad económica")
-    activity_second = fields.Char(string="Actividad económica alterna")
-    sector = fields.Char(string="Sector en que opera")
+    address = fields.Text(string="Dirección")
+    locality = fields.Char(string="Municipio/Localidad")
+    postal_code = fields.Char(string="Código postal")
     phone_house = fields.Char(string="Teléfono (casa)")
     phone_personal = fields.Char(string="Teléfono (celular)")
+    gender = fields.Selection([('m','Masculino'),('f','Femenino')], string="Género")
+    email = fields.Char(string="E-mail")
+    activity = fields.Char(string="Actividad económica")
+    activity_second = fields.Char(string="Actividad económica secundaria")
+    identification = fields.Selection([('ine','IFE/INE'),('pass','Pasaporte')], string="Identificación")
+    identification_number = fields.Char(string="No. de identificación")
+    civil_status = fields.Selection([('single', 'Soltero'),
+    ('married','Casado'),
+    ('property', 'Regimen separación bienes'),
+    ('society','Sociedad conyugal'),
+    ('widower', 'Viudo'),
+    ('free', 'Union libre')])
+    rfc = fields.Char(string="RFC")
+    curp = fields.Char(string="CURP")
 
-    date_birth = fields.Date(string="Fecha de nacimiento")
-    country = fields.Char(string="País de nacimiento")
 
 
     @api.onchange('payment_terms')

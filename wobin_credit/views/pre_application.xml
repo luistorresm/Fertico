@@ -11,7 +11,8 @@
             <field name="arch" type="xml">
                 <form string="Pre-solicitudes">
                     <header>
-                        <button name="lock_credit" type="object" states="draft" string="Bloquear" class="btn-primary" />
+                        <!--<button name="lock_credit" type="object" states="draft" string="Bloquear" class="btn-primary" />-->
+                        <button name="%(wobin_credit.report_credit_application)d" type="action" string="Imprimir solicitud" class="btn-primary" />
                         <field name="state" widget="statusbar" statusbar_visible="draft,locked" />
                     </header>
                     <sheet>
@@ -60,6 +61,28 @@
                                     </group>
                                 </group>
 
+                            </page>
+                            <page string="Datos de solicitante" name="contact_page">
+                                <group>
+                                    <group>
+                                        <field name="address" />
+                                        <field name="locality" />
+                                        <field name="postal_code" />
+                                        <field name="phone_house" />
+                                        <field name="phone_personal" />
+                                        <field name="email" />
+                                        <field name="gender" />
+                                        <field name="civil_status" />
+                                    </group>
+                                    <group>
+                                        <field name="activity" />
+                                        <field name="activity_second" />
+                                        <field name="identification" />
+                                        <field name="identification_number" />
+                                        <field name="rfc" />
+                                        <field name="curp" />
+                                    </group>
+                                </group>
                             </page>
                         </notebook>
                     </sheet>

@@ -11,7 +11,7 @@
             <field name="arch" type="xml">
                 <form string="Expedientes">
                     <header>
-                        <button name="lock_credit" type="object" states="draft" string="Bloquear" class="btn-primary" />
+                        <!--<button name="lock_credit" type="object" states="draft" string="Bloquear" class="btn-primary" />-->
                         <button name="%(wobin_credit.report_credit_commitment)d" type="action" string="Imprimir carta compromiso" class="btn-primary" />
                         <field name="state" widget="statusbar" statusbar_visible="draft,locked" />
                     </header>
@@ -25,6 +25,7 @@
                             <group>
                                 <field name="partner_id" />
                                 <field name="credit_id" />
+                                <field name="cycle" />
                             </group>
                             <group>
                                 <field name="credit_initial" />
