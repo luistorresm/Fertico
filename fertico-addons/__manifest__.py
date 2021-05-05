@@ -25,6 +25,7 @@
         'security/ir.model.access.csv',
 
         # views
+        'views/account_add_receipt_file_field.xml',
         'views/account_analytic.xml',
         'views/account_invoice_correction.xml',
         'views/analytic_tag_analysis.xml',        

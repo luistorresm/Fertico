@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from . import account_add_receipt_file_field
 from . import account_analytic
 from . import account_invoice_correction
 from . import analytic_tag_analysis
