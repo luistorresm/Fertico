@@ -4,8 +4,9 @@
         <field name="inherit_id" ref="account.invoice_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='cash_rounding_id']" position="after">
-                <field name="receipt_payment_use_ids"  attrs="{'invisible': ['|', ('payment_term_id.name', 'ilike', 'Contado'), ('l10n_mx_edi_usage', '!=', 'G01'), ('l10n_mx_edi_payment_method_id.name', 'ilike', 'Transferencia electrónica de fondos'), ('l10n_mx_edi_payment_method_id.name', 'ilike', 'Cheque nominativo'), ('l10n_mx_edi_payment_method_id.name', 'ilike', 'Tarjeta de Débito'), ('l10n_mx_edi_payment_method_id.name', 'ilike', 'Tarjeta de Crédito')], 'required': ['|', ('payment_term_id.name', 'ilike', 'Contado'), ('l10n_mx_edi_usage', '!=', 'G01'), ('l10n_mx_edi_payment_method_id.name', 'ilike', 'Transferencia electrónica de fondos'), ('l10n_mx_edi_payment_method_id.name', 'ilike', 'Cheque nominativo'), ('l10n_mx_edi_payment_method_id.name', 'ilike', 'Tarjeta de Débito'), ('l10n_mx_edi_payment_method_id.name', 'ilike', 'Tarjeta de Crédito')]}" widget="many2many_binary"/>
+                <field name="receipt_payment_use_ids"  attrs="{'invisible': ['|', ('val_payment_term', 'not ilike', 'Contado'), ('l10n_mx_edi_usage', '!=', 'G01'), ('val_l10n_mx_edi_payment_method', 'not ilike', 'Transferencia electrónica de fondos'), ('val_l10n_mx_edi_payment_method', 'not ilike', 'Cheque nominativo'), ('val_l10n_mx_edi_payment_method', 'not ilike', 'Tarjeta de Débito'), ('val_l10n_mx_edi_payment_method', 'not ilike', 'Tarjeta de Crédito')], 'required': ['|', ('val_payment_term', 'ilike', 'Contado'), ('l10n_mx_edi_usage', '==', 'G01'), ('val_l10n_mx_edi_payment_method', 'ilike', 'Transferencia electrónica de fondos'), ('val_l10n_mx_edi_payment_method', 'ilike', 'Cheque nominativo'), ('val_l10n_mx_edi_payment_method', 'ilike', 'Tarjeta de Débito'), ('val_l10n_mx_edi_payment_method', 'ilike', 'Tarjeta de Crédito')]}" widget="many2many_binary"/>
             </xpath>
         </field>
     </record>
 </odoo>
+
