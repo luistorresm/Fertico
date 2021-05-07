@@ -334,7 +334,7 @@
                                 <t t-esc="docs['requested_amount']" />
                             </u>
                             <br />
-                            Seguro agricola: $
+                            Seguro agrícola: $
                             <u>
                                 <t t-esc="docs['insurance']" />
                             </u>
@@ -437,8 +437,8 @@
                 <br />
                 <table style="width: 100%">
                     <tr>
-                        <td>
-                            <div style="width: 50%; text-align: center;">
+                        <td style="width: 50%;">
+                            <div style="width: 100%; text-align: center;">
                                 <label><t t-esc="docs['partner_id'].name" /></label>
                                 <br />
                                 <label style="width: 400px; border-bottom: black 1px solid"></label>
@@ -446,8 +446,8 @@
                                 <label>Nombre completo de la persona interesada</label>
                             </div>
                         </td>
-                        <td>
-                            <div style="width: 50%; text-align: center;">
+                        <td style="width: 50%;">
+                            <div style="width: 100%; text-align: center;">
                                 <label><t t-esc="user['name']" /></label>
                                 <br />
                                 <label style="width: 400px; border-bottom: black 1px solid"></label>
@@ -458,7 +458,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <div style="width: 50%; text-align: center;">
+                            <div style="width: 100%; text-align: center;">
                                 <br />
                                 <br />
                                 <br />
@@ -476,6 +476,6 @@
     </template>
 
     <!--Reporte-->
-    <report id="report_credit_application" model="credit.preapplication" string="Carta compromiso" report_type="qweb-html" name="wobin_credit.report_application" menu="False" />
+    <report id="report_credit_application" model="credit.preapplication" string="Solicitud" report_type="qweb-html" name="wobin_credit.report_application" menu="False" />
 
 </odoo>
