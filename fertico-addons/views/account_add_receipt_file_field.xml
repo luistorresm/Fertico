@@ -1,12 +1,15 @@
 <odoo>
+
     <record id="view_account_receipt_file_field" model="ir.ui.view">
         <field name="model">account.invoice</field>
         <field name="inherit_id" ref="account.invoice_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='cash_rounding_id']" position="after">
-                <field name="receipt_payment_use_ids"  attrs="{'required': [('val_payment_term', 'in', ['AL.(PUE) Contado', 'CL.(PUE) Contado', 'LC.(PUE) Contado', 'PI.(PUE) Contado', 'PM.(PUE) Contado'])]}"  widget="many2many_binary"/>
+                <field name="receipt_payment_use_ids" attrs="{'required': [('flag_value_pay_term', '=', True)], 'invisible': [('flag_value_pay_term', '=', False)]}"/>
+                <field name="val_payment_term" invisible="1"/>
+                <field name="flag_value_pay_term" invisible="1"/>
             </xpath>
         </field>
     </record>
-</odoo>
 
+</odoo>
