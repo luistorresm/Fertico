@@ -36,6 +36,7 @@
                                 <field name="requested_amount" attrs="{'readonly':[('state', '=', 'locked')]}" />
                                 <field name="investment_concept" attrs="{'readonly':[('state', '=', 'locked')]}" />
                                 <field name="authorized_amount" />
+                                <field name="insurance" />
                                 <field name="interest" />
                                 <field name="interest_mo" />
                             </group>

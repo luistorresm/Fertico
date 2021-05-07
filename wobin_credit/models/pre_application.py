@@ -33,7 +33,7 @@ class CreditPreApplication(models.Model):
     ('rejected','Rechazado'),
     ('liquidated','Liquidado'),
     ('locked', 'Bloqueado')], default='draft')
-    name = fields.Char('Preaplicación', default=_get_name, readonly=True)
+    name = fields.Char('Preaplicación', default="Solicitud borrador", readonly=True)
     record_id = fields.Many2one('credit.record', string="Expediente")
     partner_id = fields.Many2one(related='record_id.partner_id', string="Solicitante")
     credit_type_id = fields.Many2one(related='record_id.credit_type_id', string="Tipo de crédito")

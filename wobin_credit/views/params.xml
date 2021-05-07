@@ -15,6 +15,7 @@
                             <field name="name" />
                             <field name="crop_type" />
                             <field name="crop_method" />
+                            <field name="insurance" />
                             <field name="amount" />
                         </group>
                     </sheet>
@@ -30,6 +31,7 @@
                     <field name="name" />
                     <field name="crop_type" />
                     <field name="crop_method" />
+                    <field name="insurance" />
                     <field name="amount" />
                 </tree>
             </field>
