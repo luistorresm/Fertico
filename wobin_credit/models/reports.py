@@ -133,5 +133,5 @@ class ReportCommitment(models.AbstractModel):
             'docs' : pre_application,
             'date' : date_now,
             'company' : self.env.user.company_id,
-            'user' : self.env.user.name,
+            'user' : self.env.user,
         }

@@ -207,28 +207,53 @@
         <t t-call="web.html_container">
             <t t-call="web.external_layout">
                 <div style="width: 100%; text-align: right; padding-right: 10%;">
-                    <label>Fecha: <u>  <t t-esc="date" />  </u></label>
+                    <label>
+                        Fecha:
+                        <u>
+                            <t t-esc="date" />
+                        </u>
+                    </label>
                 </div>
                 <br />
                 <br />
                 <br />
                 <div style="width: 100%; text-align: justify;">
-                    
-                    <br/>
-                    <br/>
-                    <br/>
+
+                    <br />
+                    <br />
+                    <br />
                     <p style="padding-left: 10%; padding-right: 10%;">
-                        En solicitud al trámite de Crédito Agrario para obtención de insumos agrícolas en esta empresa para el ciclo <b><t t-esc="docs['cycle'].name" /></b>, yo <u><b><t t-esc="docs['partner_id'].name" /></b></u> estoy en acuerdo y me comprometo a cumplir las siguientes políticas establecidas por la empresa para la autorización del crédito solicitado:
+                        En solicitud al trámite de Crédito Agrario para obtención de insumos agrícolas en esta empresa para el ciclo
+                        <b>
+                            <t t-esc="docs['cycle'].name" />
+                        </b>
+                        , yo
+                        <u>
+                            <b>
+                                <t t-esc="docs['partner_id'].name" />
+                            </b>
+                        </u>
+                        estoy en acuerdo y me comprometo a cumplir las siguientes políticas establecidas por la empresa para la autorización del crédito solicitado:
                     </p>
-                    <br/>
+                    <br />
                     <ul style="padding-left: 20%; padding-right: 10%;">
                         <li>Entregar la documentación requerida completa y en tiempo.</li>
-                        <br/>
-                        <li>Asumir el <b>COMPROMISO</b> de entrega de grano de la cosecha del ciclo <t t-esc="docs['cycle'].name" />, para la liquidación total del crédito.</li>
-                        <br/>
-                        <li>Pagar el <b>SEGURO AGRÍCOLA</b> correspondiente al total de la superficie solicitada a acreditar.</li>
+                        <br />
+                        <li>
+                            Asumir el
+                            <b>COMPROMISO</b>
+                            de entrega de grano de la cosecha del ciclo
+                            <t t-esc="docs['cycle'].name" />
+                            , para la liquidación total del crédito.
+                        </li>
+                        <br />
+                        <li>
+                            Pagar el
+                            <b>SEGURO AGRÍCOLA</b>
+                            correspondiente al total de la superficie solicitada a acreditar.
+                        </li>
                     </ul>
-                    <br/>
+                    <br />
                     <p style="padding-left: 10%; padding-right: 10%;">
                         Confío que este será el inicio de una excelente relación comercial.
                     </p>
@@ -253,7 +278,7 @@
     </template>
 
     <!--Reporte-->
-    <report id="report_credit_commitment" model="credit.record" string="Carta compromiso" report_type="qweb-html" name="wobin_credit.report_commitment" menu="False"/>
+    <report id="report_credit_commitment" model="credit.record" string="Carta compromiso" report_type="qweb-html" name="wobin_credit.report_commitment" menu="False" />
 
     <!--==========================================Solicitud=======================================-->
 
@@ -261,53 +286,191 @@
     <template id="report_application">
         <t t-call="web.html_container">
             <t t-call="web.external_layout">
-                <div style="width: 100%; text-align: right; padding-right: 10%;">
-                    <label>Fecha: <u>  <t t-esc="date" />  </u></label>
+                <table style="width: 100%;">
+                    <tr>
+                        <th style="text-align: right">SOLICITUD DE CRÉDITO</th>
+                        <th style="text-align: right">
+                            Fecha:
+                            <u>
+                                <t t-esc="date" />
+                            </u>
+                        </th>
+                    </tr>
+                </table>
+                <br />
+                <div style="width: 100%; text-align: left; padding: 5px; background: gray;">
+                    <label style="margin: 0px;">Solicitante de crédito</label>
                 </div>
                 <br />
+                <div style="width: 100%; text-align: left; padding: 5px;">
+                    Ciclo:
+                    <t t-esc="docs['cycle'].name" />
+                </div>
                 <br />
+                <table style="width: 100%;">
+                    <tr>
+                        <th>Cultivos</th>
+                        <td>
+                            <table style="width: 80%;">
+                                <tr t-foreach="docs['crop_type_ids']" t-as="crop">
+                                    <td style="width: 40%;">
+                                        <t t-esc="crop.crop_type_id.name" />
+                                    </td>
+                                    <td style="width: 30%; border-bottom: 1px black solid; text-align: center;">
+                                            <t t-esc="crop.hectares" />
+                                    </td>
+                                    <td style="width: 30%; text-align: center;">Ha.</td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            Tipo de crédito:
+                            <u>
+                                <t t-esc="docs['credit_type_id'].name" />
+                            </u>
+                            <br />
+                            Monto solicitado de crédito: $
+                            <u>
+                                <t t-esc="docs['requested_amount']" />
+                            </u>
+                        </td>
+                    </tr>
+                </table>
                 <br />
-                <div style="width: 100%; text-align: justify;">
-                    
-                    <br/>
-                    <br/>
-                    <br/>
-                    <p style="padding-left: 10%; padding-right: 10%;">
-                        En solicitud al trámite de Crédito Agrario para obtención de insumos agrícolas en esta empresa para el ciclo <b><t t-esc="docs['cycle'].name" /></b>, yo <u><b><t t-esc="docs['partner_id'].name" /></b></u> estoy en acuerdo y me comprometo a cumplir las siguientes políticas establecidas por la empresa para la autorización del crédito solicitado:
+                <div style="text-align: justify;">
+                    <p>
+                    En caso de ser autorizada la presente solicitud, manifiesto el compromiso de ejercer el financiamiento en el esquema o plan que convenga la empresa ALBAGRO S.A. de C.V., así como la forma, montos y tiempos, en que esta misma disponga otorgar y recuperar los recursos; así también como a hacer la aplicación correcta de dicho financiamiento y cubrir los gastos que se deriven en los tramites de gestión, recuperación y cobranza del mismo.																																				
                     </p>
-                    <br/>
-                    <ul style="padding-left: 20%; padding-right: 10%;">
-                        <li>Entregar la documentación requerida completa y en tiempo.</li>
-                        <br/>
-                        <li>Asumir el <b>COMPROMISO</b> de entrega de grano de la cosecha del ciclo <t t-esc="docs['cycle'].name" />, para la liquidación total del crédito.</li>
-                        <br/>
-                        <li>Pagar el <b>SEGURO AGRÍCOLA</b> correspondiente al total de la superficie solicitada a acreditar.</li>
-                    </ul>
-                    <br/>
-                    <p style="padding-left: 10%; padding-right: 10%;">
-                        Confío que este será el inicio de una excelente relación comercial.
+                    <p>
+                    A su vez me obligo a entregar y a acudir a firmar la documentación complementaria (en caso de ser requerida), en los plazos que me establezcan, además autorizo a la empresa para que realice las investigaciones de crédito que considere pertinentes ante las instituciones que correspondan.
                     </p>
+                    <p>
+                    Declaro bajo protesta de decir verdad que los datos son correctos y la documentación proporcionada en este acto es verídica y otorgo copia fotostática de los documentos de identificación, asumiendo la absoluta responsabilidad de su contenido, para los efectos legales a que haya lugar.
+                    </p>
+                    <br />
+                </div>
+                <div>
+                    <table style="width: 100%">
+                        <tr>
+                            <td style="width: 20%">Nombre del solicitante:</td>
+                            <th style="border-bottom: 1px black solid; padding-left: 10px;"><t t-esc="docs['partner_id'].name" /></th>
+                        </tr>
+                    </table>
+                    <br />
+                    <table style="width: 100%">
+                        <tr>
+                            <td style="width: 10%">Dirección:</td>
+                            <th style="border-bottom: 1px black solid; padding-left: 10px;"><t t-esc="docs['address']" /></th>
+                            <td style="width: 15%; text-align: right; padding-right: 5px;">Municipio/Localidad:</td>
+                            <th style="border-bottom: 1px black solid; padding-left: 10px;"><t t-esc="docs['locality']" /></th>
+                            <td style="width: 5%; text-align: right; padding-right: 5px;">C.P.:</td>
+                            <th style="border-bottom: 1px black solid; padding-left: 10px;"><t t-esc="docs['postal_code']" /></th>
+                        </tr>
+                    </table>
+                    <br />
+                    <table style="width: 100%">
+                        <tr>
+                            <td style="width: 15%">Telefono(casa): </td>
+                            <th style="border-bottom: 1px black solid; padding-left: 10px;"><t t-esc="docs['phone_house']" /></th>
+                            <td style="width: 15%; text-align: right; padding-right: 5px;">Telefono(celular):</td>
+                            <th style="border-bottom: 1px black solid; padding-left: 10px;"><t t-esc="docs['phone_personal']" /></th>
+                            <td style="width: 10%; text-align: right; padding-right: 5px;">Genero: </td>
+                            <th style=""><t t-if="docs.gender == 'm'">M( X ) F(   )</t><t t-if="docs.gender == 'f'">M(   ) F( X )</t></th>
+                        </tr>
+                    </table>
+                    <br />
+                    <table style="width: 100%">
+                        <tr>
+                            <td style="width: 15%">Correo electrónico:</td>
+                            <th style="border-bottom: 1px black solid; padding-left: 10px;"><t t-esc="docs['email']" /></th>
+                        </tr>
+                    </table>
+                    <br />
+                    <table style="width: 100%">
+                        <tr>
+                            <td style="width: 18%">Actividad económica: </td>
+                            <th style="border-bottom: 1px black solid; padding-left: 10px;"><t t-esc="docs['activity']" /></th>
+                            <td style="width: 25%; text-align: right; padding-right: 5px;">Actividad económica secundaria: </td>
+                            <th style="border-bottom: 1px black solid; padding-left: 10px;"><t t-esc="docs['activity_second']" /></th>
+                        </tr>
+                    </table>
+                    <br />
+                    <table style="width: 100%">
+                        <tr>
+                            <td style="width: 15%">Identificación: </td>
+                            <th style=""><t t-if="docs.identification == 'ine'">IFE/INE( X ) Pasaporte(   )</t><t t-if="docs.identification == 'pass'">IFE/INE(   ) Pasaporte( X )</t></th>
+                            <td style="width: 20%; text-align: right; padding-right: 5px;"> No. de identificación: </td>
+                            <th style="border-bottom: 1px black solid; padding-left: 10px;"><t t-esc="docs['identification_number']" /></th>
+                        </tr>
+                    </table>
+                    <br />
+                    <table style="width: 100%">
+                        <tr>
+                            <td style="width: 10%">Estado civil:</td>
+                            <th style="width: 20%; text-align: center;">Soltero ( <t t-if="docs.civil_status == 'single'">X</t> )</th>
+                            <th style="width: 20%; text-align: center;">Casado ( <t t-if="docs.civil_status == 'married'">X</t> )</th>
+                            <th style="width: 30%; text-align: center;">Régimen separación de bienes ( <t t-if="docs.civil_status == 'property'">X</t> )</th>
+                            <th style="width: 20%; text-align: center;">Soc. conyugal ( <t t-if="docs.civil_status == 'society'">X</t> )</th>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <th style="text-align: center;">Viudo ( <t t-if="docs.civil_status == 'widower'">X</t> )</th>
+                            <th style="text-align: center;">Unión libre ( <t t-if="docs.civil_status == 'free'">X</t> )</th>
+                        </tr>
+                    </table>
+                    <br />
+                    <table style="width: 100%">
+                        <tr>
+                            <td style="width: 5%">RFC: </td>
+                            <th style="border-bottom: 1px black solid; padding-left: 10px;"><t t-esc="docs['rfc']" /></th>
+                            <td style="width: 10%; text-align: right; padding-right: 5px;">CURP: </td>
+                            <th style="border-bottom: 1px black solid; padding-left: 10px;"><t t-esc="docs['curp']" /></th>
+                        </tr>
+                    </table>
                 </div>
                 <br />
                 <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <div style="width: 100%; text-align: center;">
-                    <label>Atentamente</label>
-                    <br />
-                    <br />
-                    <br />
-                    <label style="width: 400px; border-bottom: black 1px solid"></label>
-                    <br />
-                    <label>Nombre completo y firma del solicitante</label>
-                </div>
+                <table style="width: 100%">
+                    <tr>
+                        <td>
+                            <div style="width: 100%; text-align: center;">
+                                <label><t t-esc="docs['partner_id'].name" /></label>
+                                <br />
+                                <label style="width: 400px; border-bottom: black 1px solid"></label>
+                                <br />
+                                <label>Nombre completo de la persona interesada</label>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="width: 100%; text-align: center;">
+                                <label><t t-esc="user['name']" /></label>
+                                <br />
+                                <label style="width: 400px; border-bottom: black 1px solid"></label>
+                                <br />
+                                <label>Nombre de la persona responsable del llenado</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="width: 100%; text-align: center;">
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <label style="width: 400px; border-bottom: black 1px solid"></label>
+                                <br />
+                                <label>Firma de la persona interesada</label>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
             </t>
         </t>
     </template>
 
     <!--Reporte-->
-    <report id="report_credit_application" model="credit.preapplication" string="Carta compromiso" report_type="qweb-html" name="wobin_credit.report_application" menu="False"/>
+    <report id="report_credit_application" model="credit.preapplication" string="Carta compromiso" report_type="qweb-html" name="wobin_credit.report_application" menu="False" />
 
 </odoo>

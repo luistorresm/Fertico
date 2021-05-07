@@ -74,7 +74,7 @@ class CreditPreApplication(models.Model):
     ('property', 'Regimen separación bienes'),
     ('society','Sociedad conyugal'),
     ('widower', 'Viudo'),
-    ('free', 'Union libre')])
+    ('free', 'Union libre')], string="Estado civil")
     rfc = fields.Char(string="RFC")
     curp = fields.Char(string="CURP")
 
