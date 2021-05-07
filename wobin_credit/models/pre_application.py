@@ -54,8 +54,6 @@ class CreditPreApplication(models.Model):
     #========================================== Datos de cultivo ===============================================
     crop_method = fields.Selection([('irrigation', 'Riego'),('rainwater', 'Temporal')], string="Metodo de cultivo")
     crop_type_ids = fields.One2many('credit.crop.type', 'preapplication_id', string="Tipos de cultivo")
-    check_insurance = fields.Boolean(string="Se compromete a adquirir un seguro de siembra")
-    check_deliver = fields.Boolean(string="Se compromete a entregar grano")
 
     #========================================== Datos generales de contacto ===================================
     address = fields.Text(string="Dirección")

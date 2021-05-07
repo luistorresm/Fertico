@@ -53,15 +53,6 @@
                                         <field name="calculated_amount" />
                                     </tree>
                                 </field>
-                                <group>
-                                    <group>
-                                        <field name="check_insurance" />
-                                    </group>
-                                    <group>
-                                        <field name="check_deliver" />
-                                    </group>
-                                </group>
-
                             </page>
                             <page string="Datos de solicitante" name="contact_page">
                                 <group>
