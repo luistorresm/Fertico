@@ -101,7 +101,7 @@
             <field name="view_mode">form</field>
         </record>
 
-        <menuitem id="record_menu" name="Expedientes" parent="wobin_credit.record_menu" action="credit_record_avio" sequence="1" />
+        <menuitem id="record_menu_record" name="Expedientes" parent="wobin_credit.record_menu" action="credit_record_avio" sequence="1" />
 
         <!-- ===========================Fotos================================ -->
 
