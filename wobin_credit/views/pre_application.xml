@@ -21,7 +21,6 @@
                         <group>
                             <field name="partner_id" attrs="{'readonly':[('state', '=', 'locked')]}"/>
                             <field name="cycle" attrs="{'readonly':[('state', '=', 'locked')]}"/>
-                            <field name="crop_method" attrs="{'readonly':[('state', '=', 'locked')]}"/>
                             <field name="calculated_amount"/>
                             <field name="requested_amount" attrs="{'readonly':[('state', '=', 'locked')]}"/>
                             <field name="authorized_amount" attrs="{'readonly':[('state', '=', 'locked')]}"/>
@@ -58,7 +57,6 @@
                 <tree string="Pre-aplicaciones" delete="0" default_order="id desc">
                     <field name="name" />
                     <field name="partner_id" />
-                    <field name="crop_method" />
                     <field name="requested_amount" />
                     <field name="authorized_amount" />
                     <field name="credit_type_id" />

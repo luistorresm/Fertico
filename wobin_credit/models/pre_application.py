@@ -37,7 +37,6 @@ class CreditPreApplication(models.Model):
     name = fields.Char('Preaplicación', default=_get_name, readonly=True)
     partner_id = fields.Many2one('res.partner', string="Cliente")
     cycle =  fields.Many2one('credit.cycles', string="Ciclo")
-    crop_method = fields.Selection([('irrigation', 'Riego'),('rainwater', 'Temporal')], string="Metodo de cultivo")
     calculated_amount = fields.Float(string="Monto permitido", compute="get_amount", store=True)
     requested_amount = fields.Float(string="Monto solicitado")
     authorized_amount = fields.Float(string="Monto autorizado")
@@ -89,7 +88,7 @@ class CreditCropType(models.Model):
         self.calculated_insurance = insurance
 
     preapplication_id = fields.Many2one('credit.preapplication')
-    crop_method = fields.Selection(related="preapplication_id.crop_method", string="Metodo de cultivo", readonly=True)
+    crop_method = fields.Selection([('irrigation', 'Riego'),('rainwater', 'Temporal')], string="Metodo de cultivo")
     crop_type_id = fields.Many2one('product.product', string="Tipo de cultivo")
     hectares = fields.Float(string="Hectareas")
     calculated_amount = fields.Float(string="Monto permitido", compute="get_amount", store=True)
