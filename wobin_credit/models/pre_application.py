@@ -79,7 +79,7 @@ class CreditCropType(models.Model):
         insurance = 0
         
         if self.crop_type_id and self.crop_method:
-            param = self.env['credit.parameters'].search([('crop_type','=',self.crop_type_id.id),('crop_method','=',self.crop_method)])
+            param = self.env['credit.parameters'].search([('crop_type','=',self.crop_type_id.id),('crop_method','=',self.crop_method)], limit=1)
             if param:
                 amount = param.amount*self.hectares
                 insurance = param.insurance*self.hectares
@@ -91,6 +91,6 @@ class CreditCropType(models.Model):
     crop_method = fields.Selection([('irrigation', 'Riego'),('rainwater', 'Temporal')], string="Metodo de cultivo")
     crop_type_id = fields.Many2one('product.product', string="Tipo de cultivo")
     hectares = fields.Float(string="Hectareas")
-    calculated_amount = fields.Float(string="Monto permitido", compute="get_amount", store=True)
+    calculated_amount = fields.Float(string="Monto calculado", compute="get_amount", store=True)
     calculated_insurance = fields.Float(string="Seguro agrícola", compute="get_amount", store=True)
     
