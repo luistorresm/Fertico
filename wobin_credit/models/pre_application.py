@@ -95,6 +95,20 @@ class CreditPreApplication(models.Model):
 
         self.state = 'locked'
 
+    @api.multi
+    def open_report_buro(self):
+        return {
+                'name': 'Cash Control',
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': 'credit.application.buro',
+                'view_id': self.env.ref('wobin_credit.report_data_application_buro').id,
+                'type': 'ir.actions.act_window',
+                'res_id': self.env.context.get('cashbox_id'),
+                'context': {'default_application_id':self.id},
+                'target': 'new'
+            }
+
 
 class CreditCropType(models.Model):
     _name = "credit.crop.type"

@@ -478,4 +478,83 @@
     <!--Reporte-->
     <report id="report_credit_application" model="credit.preapplication" string="Solicitud" report_type="qweb-html" name="wobin_credit.report_application" menu="False" />
 
+    <!--========================================== Carta buro =======================================-->
+
+    <!--Plantilla-->
+    <template id="report_application_buro">
+        <t t-call="web.html_container">
+            <div style="width: 100%; text-align: center;">
+                <label style="width: 100%;">Formato de autorización definido para las SOFOM E.N.R.</label>
+                <label style="width: 100%;">Autorización para solicitar Reportes de Crédito</label>
+                <label style="width: 100%;">Persona Física / Persona Moral</label>
+            </div>
+            <br/>
+            <div style="width: 100%; text-align: justify;">
+                <p>
+                    Por este conducto autorizo expresamente a Soluciones Financieras Internacionales S.A. de C.V. SOFOM ENR, para que por conducto de sus funcionarios facultados lleve a cabo Investigaciones, sobre mi comportamiento Crediticio o el de la Empresa que represento en Trans Union de México, S.A. SIC y/o Dun &amp; Bradstreet, S.A. SIC.
+                    <br/><br />
+                    Asimismo, declaro que conozco la naturaleza y alcance de las sociedades de información crediticia y de la información contenida en los reportes de crédito y reporte de crédito especial, declaro que conozco la naturaleza y alcance de la información que se solicitara, del uso que Soluciones Financieras Internacionales S.A. de C.V. SOFOM E.N.R. hará de tal información y de que esta podrá realizar consultas periódicas sobre mi historial o el de la empresa que represento, consintiendo que esta autorización se encuentra vigente por un periodo de 3 años contados a partir de su expedición y en todo caso durante el tiempo que se mantenga la relación jurídica.
+                    <br /><br />
+                    En caso de que la solicitud sea una Persona Moral, declaro bajo protesta de decir verdad Ser Representante Legal de la empresa mencionada en esta autorización; manifiesto que a la fecha de firma de la presente autorización los poderes no me han sido revocados, limitados, ni modificados en forma alguna.
+                    <br /><br />
+                    Autorizado para:
+                </p>
+            </div>
+            <br /><br />
+            <div style="width: 100%;">
+                <table style="width: 100%;">
+                    <tr>
+                        <th>Persona Física(PF):</th><td><t t-if="data['applicant'] == 'pf'">X</t></td>
+                        <th>Persona Física con Actividad Empresarial (PFAE):</th><td><t t-if="data['applicant'] == 'pfae'">X</t></td>
+                        <th>Persona Moral (PM):</th><td><t t-if="data['applicant'] == 'pm'">X</t></td>
+                    </tr>
+                </table>
+                <table style="width: 100%;">
+                    <tr>
+                        <th>Nombre del Solicitante (Persona Física o Razón Social de la Persona Moral):</th>
+                    </tr>
+                    <tr>
+                        <td style="width: 100%; border-bottom: 1px black solid"><t t-esc="docs['partner_id'].name" /></td>
+                    </tr>
+                    <tr>
+                        <th>Para el caso de Persona Moral, nombre del Representante Legal:</th>
+                    </tr>
+                    <tr>
+                        <td style="width: 100%; border-bottom: 1px black solid"><t t-esc="data['agent']" /></td>
+                    </tr>
+                </table>
+            </div>
+            <br />
+            
+        </t>
+    </template>
+
+    <!--Reporte-->
+    <report id="report_credit_application_buro" model="credit.application.buro" string="Carta buro" report_type="qweb-html" name="wobin_credit.report_application_buro" menu="False" />
+
+    <!--Ventana de ingreso de datos-->
+    <record model="ir.ui.view" id="report_data_application_buro">
+        <field name="name">Carta buro</field>
+        <field name="model">credit.application.buro</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="applicant" />
+                        <field name="agent" />
+                        <field name="partner_authorization" />
+                    </group>
+                </group>
+                <footer>
+                    <button string="Cancel" special="cancel" class="oe_highlight" />
+                    <button name="%(wobin_credit.report_credit_application_buro)d" string="Submit" type="action" class="oe_highlight" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!--Accion para la ventana emergente
+    <act_window id="action_application_buro" name="Datos carta buro" res_model="credit.application.buro" view_mode="form" target="new" multi="True" />-->
+
 </odoo>

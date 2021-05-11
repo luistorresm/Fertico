@@ -135,3 +135,37 @@ class ReportCommitment(models.AbstractModel):
             'company' : self.env.user.company_id,
             'user' : self.env.user,
         }
+
+#===============================================Carta buro========================================================
+
+class CreditAccountStatus(models.TransientModel):
+    #Estado de cuenta    
+    _name='credit.application.buro'
+    
+    applicant = fields.Selection([('pf','Persona Física'),
+    ('pfae','Persona Física con Actividad Empresarial'),
+    ('pm','Persona Moral')], string="Solicitante")
+    agent = fields.Char(string="Nombre del representante")
+    partner_authorization = fields.Many2one('res.partner', string="Funcionario que recaba la Autorización")
+    application_id = fields.Many2one('credit.preapplication')
+
+
+class ReportCommitment(models.AbstractModel):
+    #Reporte estado de cuenta
+    _name = 'report.wobin_credit.report_application_buro'
+
+    @api.model
+    def get_report_values(self, docids, data=None):
+        report = self.env['credit.application.buro'].browse(docids)
+
+        date_now =  date.today().strftime("%d/%m/%Y")
+
+        return {
+            'doc_ids': docids,
+            'doc_model': 'credit.record',
+            'docs' : report.application_id,
+            'data' : report,
+            'date' : date_now,
+            'company' : self.env.user.company_id,
+            'user' : self.env.user,
+        }

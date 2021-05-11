@@ -13,6 +13,7 @@
                     <header>
                         <!--<button name="lock_credit" type="object" states="draft" string="Bloquear" class="btn-primary" />-->
                         <button name="%(wobin_credit.report_credit_application)d" type="action" string="Imprimir solicitud" class="btn-primary" />
+                        <button name="open_report_buro" type="object" string="Carta buro" class="btn-primary" />
                         <field name="state" widget="statusbar" statusbar_visible="draft,locked" />
                     </header>
                     <sheet>
