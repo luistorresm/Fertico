@@ -79,7 +79,7 @@ class CreditCropType(models.Model):
         insurance = 0
         
         if self.crop_type_id and self.crop_method:
-            param = self.env['credit.parameters'].search([('crop_type','=',self.crop_type_id.id),('crop_method','=',self.crop_method)], limit=1)
+            param = self.env['credit.parameters'].search([('crop_type','=',self.crop_type_id.id),('crop_method','=',self.crop_method),('credit_type_id','=',self.preapplication_id.credit_type_id.id)], limit=1)
             if param:
                 amount = param.amount*self.hectares
                 insurance = param.insurance*self.hectares
