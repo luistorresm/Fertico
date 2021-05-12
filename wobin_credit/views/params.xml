@@ -17,6 +17,7 @@
                             <field name="crop_method" />
                             <field name="insurance" />
                             <field name="amount" />
+                            <field name="credit_type_id" />
                         </group>
                     </sheet>
                 </form>
@@ -33,6 +34,7 @@
                     <field name="crop_method" />
                     <field name="insurance" />
                     <field name="amount" />
+                    <field name="credit_type_id" />
                 </tree>
             </field>
         </record>
