@@ -2,7 +2,6 @@
 <odoo>
 
     <data>
-        <!--====================================== credito avio ============================================-->
         <record model="ir.ui.view" id="form_view_preapplication">
             <field name="name">credit.preapplication.form</field>
             <field name="model">credit.preapplication</field>
@@ -71,7 +70,6 @@
             <field name="res_model">credit.preapplication</field>
             <field name="view_type">form</field>
             <field name="domain">[]</field>
-            <field name="context">{'default_credit_type_id' : 1}</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
