@@ -57,7 +57,9 @@ class CreditPreApplication(models.Model):
 
     #========================================== Datos generales de contacto ===================================
     address = fields.Text(string="Dirección")
+    suburb = fields.Char(string="Colonia")
     locality = fields.Char(string="Municipio/Localidad")
+    state_address = fields.Char(string="Estado")
     postal_code = fields.Char(string="Código postal")
     phone_house = fields.Char(string="Teléfono (casa)")
     phone_personal = fields.Char(string="Teléfono (celular)")

@@ -148,6 +148,7 @@ class CreditAccountStatus(models.TransientModel):
     agent = fields.Char(string="Nombre del representante")
     partner_authorization = fields.Many2one('res.partner', string="Funcionario que recaba la Autorización")
     application_id = fields.Many2one('credit.preapplication')
+    location = fields.Char(string="Lugar donde se firma la autorización")
 
 
 class ReportCommitment(models.AbstractModel):

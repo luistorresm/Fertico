@@ -59,7 +59,9 @@
                                 <group>
                                     <group>
                                         <field name="address" />
+                                        <field name="suburb" />
                                         <field name="locality" />
+                                        <field name="state_address" />
                                         <field name="postal_code" />
                                         <field name="phone_house" />
                                         <field name="phone_personal" />
