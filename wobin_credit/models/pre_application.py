@@ -67,6 +67,10 @@ class CreditPreApplication(models.Model):
 
         self.state = 'locked'
 
+    def unlock_credit(self):
+
+        self.state = 'draft'
+
 
 class CreditCropType(models.Model):
     _name = "credit.crop.type"
