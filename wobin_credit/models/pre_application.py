@@ -56,13 +56,13 @@ class CreditPreApplication(models.Model):
     crop_type_ids = fields.One2many('credit.crop.type', 'preapplication_id', string="Tipos de cultivo")
 
     #========================================== Datos generales de contacto ===================================
-    address = fields.Text(string="Dirección")
+    address = fields.Char(related='partner_id.street', string="Dirección")
     suburb = fields.Char(string="Colonia")
-    locality = fields.Char(string="Municipio/Localidad")
-    state_address = fields.Char(string="Estado")
-    postal_code = fields.Char(string="Código postal")
+    locality = fields.Char(related='partner_id.city', string="Municipio/Localidad")
+    state_address = fields.Char(related='partner_id.state_id.name', string="Estado")
+    postal_code = fields.Char(related='partner_id.zip', string="Código postal")
     phone_house = fields.Char(string="Teléfono (casa)")
-    phone_personal = fields.Char(string="Teléfono (celular)")
+    phone_personal = fields.Char(related='partner_id.phone', string="Teléfono (celular)")
     gender = fields.Selection([('m','Masculino'),('f','Femenino')], string="Género")
     email = fields.Char(string="E-mail")
     activity = fields.Char(string="Actividad económica")
@@ -100,11 +100,25 @@ class CreditPreApplication(models.Model):
     @api.multi
     def open_report_buro(self):
         return {
-                'name': 'Cash Control',
+                'name': 'Completar datos de Carta Buro',
                 'view_type': 'form',
                 'view_mode': 'form',
                 'res_model': 'credit.application.buro',
                 'view_id': self.env.ref('wobin_credit.report_data_application_buro').id,
+                'type': 'ir.actions.act_window',
+                'res_id': self.env.context.get('cashbox_id'),
+                'context': {'default_application_id':self.id},
+                'target': 'new'
+            }
+
+    @api.multi
+    def open_report_contract(self):
+        return {
+                'name': 'Completar datos de Contrato',
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': 'credit.application.contract',
+                'view_id': self.env.ref('wobin_credit.report_data_application_contract').id,
                 'type': 'ir.actions.act_window',
                 'res_id': self.env.context.get('cashbox_id'),
                 'context': {'default_application_id':self.id},

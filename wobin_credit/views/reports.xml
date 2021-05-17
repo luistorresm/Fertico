@@ -638,7 +638,81 @@
         </field>
     </record>
 
-    <!--Accion para la ventana emergente
-    <act_window id="action_application_buro" name="Datos carta buro" res_model="credit.application.buro" view_mode="form" target="new" multi="True" />-->
+    <!--========================================== Contrato =======================================-->
+
+    <!--Plantilla-->
+    <template id="report_application_contract">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div style="width: 100%; text-align: center; padding-top: -200px">
+                    <label style="width: 100%;">Caratula de crédito AVIO</label>
+                </div>
+                <br/>
+                <div style="width: 100%;">
+                    <table style="width: 100%;">
+                        <tr>
+                            <th>CONDICIONES GENERALES</th>
+                        </tr>
+                        <tr>
+                            <th>I.-DE LA ACREDITANTE</th>
+                        </tr>
+                        <tr>
+                            <th>NOMBRE</th>
+                            <td><t t-esc="contract['company']" /></td>
+                        </tr>
+                        <tr>
+                            <th>CONSTITUTIVA</th>
+                            <td><t t-esc="data['constitutive']" /></td>
+                        </tr>
+                        <tr>
+                            <th>DATOS REGISTRALES</th>
+                            <td><t t-esc="data['registral']" /></td>
+                        </tr>
+                        <tr>
+                            <th>DOMICILIO</th>
+                            <td><t t-esc="contract['address_company']" /></td>
+                        </tr>
+                        <tr>
+                            <th>II.-DEL ACREDITADO</th>
+                        </tr>
+                        <tr>
+                            <th>NOMBRE</th>
+                            <td><t t-esc="docs['partner_id'].name" /></td>
+                        </tr>
+                        <tr>
+                            <th>DOMICILIO</th>
+                            <td><t t-esc="contract['address_partner']" /></td>
+                        </tr>
+                        <tr>
+                            <th>CLAUSULAS</th>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <!--Reporte-->
+    <report id="report_credit_application_contract" model="credit.application.contract" string="Carta buro" report_type="qweb-html" name="wobin_credit.report_application_contract" menu="False" />
+
+    <!--Ventana de ingreso de datos-->
+    <record model="ir.ui.view" id="report_data_application_contract">
+        <field name="name">Carta buro</field>
+        <field name="model">credit.application.contract</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="constitutive" />
+                    <field name="registral" />
+                </group>
+                <footer>
+                    <button string="Cancel" special="cancel" class="oe_highlight" />
+                    <button name="%(wobin_credit.report_credit_application_contract)d" string="Submit" type="action" class="oe_highlight" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
 
 </odoo>

@@ -138,7 +138,7 @@ class ReportCommitment(models.AbstractModel):
 
 #===============================================Carta buro========================================================
 
-class CreditAccountStatus(models.TransientModel):
+class CreditApplicationBuro(models.TransientModel):
     #Estado de cuenta    
     _name='credit.application.buro'
     
@@ -151,7 +151,7 @@ class CreditAccountStatus(models.TransientModel):
     location = fields.Char(string="Lugar donde se firma la autorización")
 
 
-class ReportCommitment(models.AbstractModel):
+class ReportBuro(models.AbstractModel):
     #Reporte estado de cuenta
     _name = 'report.wobin_credit.report_application_buro'
 
@@ -166,6 +166,45 @@ class ReportCommitment(models.AbstractModel):
             'doc_model': 'credit.record',
             'docs' : report.application_id,
             'data' : report,
+            'date' : date_now,
+            'company' : self.env.user.company_id,
+            'user' : self.env.user,
+        }
+
+#===============================================Contrato========================================================
+
+class CreditApplicationContract(models.TransientModel):
+    #Estado de cuenta    
+    _name='credit.application.contract'
+    
+    constitutive = fields.Text(string="Constitutiva")
+    registral = fields.Text(string="Datos registrales")
+    application_id = fields.Many2one('credit.preapplication')
+
+
+class ReportContract(models.AbstractModel):
+    #Reporte estado de cuenta
+    _name = 'report.wobin_credit.report_application_contract'
+
+    @api.model
+    def get_report_values(self, docids, data=None):
+        report = self.env['credit.application.contract'].browse(docids)
+        preapplication = report.application_id
+
+        contract_data = {
+            'company': self.env.user.company_id.name,
+            'address_company': self.env.user.company_id.street+','+self.env.user.company_id.city+','+self.env.user.company_id.state_id.name+','+self.env.user.company_id.zip,
+            'address_partner': preapplication.address+','+preapplication.suburb+','+preapplication.locality+','+preapplication.state_address+','+preapplication.postal_code,
+        }
+
+        date_now =  date.today().strftime("%d/%m/%Y")
+
+        return {
+            'doc_ids': docids,
+            'doc_model': 'credit.record',
+            'docs' : preapplication,
+            'data' : report,
+            'contract' : contract_data,
             'date' : date_now,
             'company' : self.env.user.company_id,
             'user' : self.env.user,
