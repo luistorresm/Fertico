@@ -9,7 +9,7 @@
                 <form string="Pre-aplicaciones">
                     <header>
                         <button name="lock_credit" type="object" states="draft" string="Bloquear" class="btn-primary" />
-                        <button name="unlock_credit" type="object" states="locked" string="Desbloquear" class="btn-primary" groups="wobin_credit.group_credit_manager"/>
+                        <button name="unlock_credit" type="object" states="locked" string="Desbloquear" groups='wobin_credit.group_credit_manager'/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,locked" />
                     </header>
                     <sheet>
