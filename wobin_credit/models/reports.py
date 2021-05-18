@@ -1,6 +1,7 @@
 from odoo import models, fields, api
 from datetime import date, datetime
 from odoo.exceptions import UserError
+from num2words import num2words
 
 class CreditAccountStatus(models.TransientModel):
     #Estado de cuenta    
@@ -186,15 +187,27 @@ class ReportContract(models.AbstractModel):
     #Reporte estado de cuenta
     _name = 'report.wobin_credit.report_application_contract'
 
+    def _number_to_text(self, amount):
+        
+        number = "{:.2f}".format(amount).split(".")
+        text = num2words(number[0], lang='es').upper().split("PUNTO CERO")[0] + "PUNTO " + num2words(number[1], lang='es').upper().split("PUNTO CERO")[0]
+        return text
+
     @api.model
     def get_report_values(self, docids, data=None):
         report = self.env['credit.application.contract'].browse(docids)
         preapplication = report.application_id
+        total_hectares = 0
+
+        for crop in preapplication.crop_type_ids:
+            total_hectares += crop.hectares
 
         contract_data = {
             'company': self.env.user.company_id.name,
             'address_company': self.env.user.company_id.street+','+self.env.user.company_id.city+','+self.env.user.company_id.state_id.name+','+self.env.user.company_id.zip,
             'address_partner': preapplication.address+','+preapplication.suburb+','+preapplication.locality+','+preapplication.state_address+','+preapplication.postal_code,
+            'amount_text': self._number_to_text(preapplication.authorized_amount),
+            'total_hectares': total_hectares
         }
 
         date_now =  date.today().strftime("%d/%m/%Y")
@@ -209,3 +222,8 @@ class ReportContract(models.AbstractModel):
             'company' : self.env.user.company_id,
             'user' : self.env.user,
         }
+
+    
+
+      
+

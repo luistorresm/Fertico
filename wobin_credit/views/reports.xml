@@ -686,6 +686,24 @@
                         <tr>
                             <th>CLAUSULAS</th>
                         </tr>
+                        <tr>
+                            <td>PRIMERA.- APERTURA DE CRÉDITO (MONTO)</td>
+                            <th>$<t t-esc="docs['authorized_amount']" /></th>
+                            <th><t t-esc="contract['amount_text']" /></th>
+                            <th>PESOS 00/100 M.N.</th>
+                        </tr>
+                        <tr>
+                            <td>SEGUNDA.- OBJETO DEL CRÉDITO</td>
+                            <th>ESTABLECIMIENTO Y PRODUCCIÓN DE </th>
+                            <th><t t-esc="contract['total_hectares']" /> ha</th>
+                            <th>DE CULTIVOS</th>
+                        </tr>
+                        <tr>
+                            <td>TERCERA.- PLAZO DEL CRÉDITO	</td>
+                            <th>ESTABLECIMIENTO Y PRODUCCIÓN DE </th>
+                            <th><t t-esc="contract['total_hectares']" /> ha</th>
+                            <th>DE CULTIVOS</th>
+                        </tr>
                     </table>
                 </div>
             </t>
