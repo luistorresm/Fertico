@@ -645,77 +645,131 @@
         <t t-call="web.html_container">
             <t t-call="web.external_layout">
                 <div style="width: 100%; text-align: center; padding-top: -200px">
-                    <label style="width: 100%;">Caratula de crédito AVIO</label>
+                    <label t-if="docs['credit_type_id'].name=='Avio'" style="width: 100%;">Caratula de crédito AVIO</label>
+                    <label t-if="docs['credit_type_id'].name=='Comercial'" style="width: 100%;">Caratula de crédito Comercial</label>
                 </div>
                 <br/>
                 <div style="width: 100%;">
                     <table style="width: 100%;">
                         <tr>
-                            <th>CONDICIONES GENERALES</th>
+                            <th colspan="4" style="border: 1px black solid; padding: 10px; text-align: center; background-color: gray;">CONDICIONES GENERALES</th>
                         </tr>
                         <tr>
-                            <th>I.-DE LA ACREDITANTE</th>
+                            <th colspan="4" style="border: 1px black solid; padding: 5px; background-color: lightgray;">I.-DE LA ACREDITANTE</th>
                         </tr>
                         <tr>
-                            <th>NOMBRE</th>
-                            <td><t t-esc="contract['company']" /></td>
+                            <th style="border: 1px black solid; padding: 5px;">NOMBRE</th>
+                            <td colspan="3" style="border: 1px black solid; padding: 5px;"><t t-esc="contract['company']" /></td>
                         </tr>
                         <tr>
-                            <th>CONSTITUTIVA</th>
-                            <td><t t-esc="data['constitutive']" /></td>
+                            <th style="border: 1px black solid; padding: 5px;">CONSTITUTIVA</th>
+                            <td colspan="3" style="border: 1px black solid; padding: 5px;"><t t-esc="data['constitutive']" /></td>
                         </tr>
                         <tr>
-                            <th>DATOS REGISTRALES</th>
-                            <td><t t-esc="data['registral']" /></td>
+                            <th style="border: 1px black solid; padding: 5px;">DATOS REGISTRALES</th>
+                            <td colspan="3" style="border: 1px black solid; padding: 5px;"><t t-esc="data['registral']" /></td>
                         </tr>
                         <tr>
-                            <th>DOMICILIO</th>
-                            <td><t t-esc="contract['address_company']" /></td>
+                            <th style="border: 1px black solid; padding: 5px;">DOMICILIO</th>
+                            <td colspan="3" style="border: 1px black solid; padding: 5px;"><t t-esc="contract['address_company']" /></td>
                         </tr>
                         <tr>
-                            <th>II.-DEL ACREDITADO</th>
+                            <th colspan="4" style="border: 1px black solid; padding: 5px; background-color: lightgray;">II.-DEL ACREDITADO</th>
                         </tr>
                         <tr>
-                            <th>NOMBRE</th>
-                            <td><t t-esc="docs['partner_id'].name" /></td>
+                            <th style="border: 1px black solid; padding: 5px;">NOMBRE</th>
+                            <td colspan="3" style="border: 1px black solid; padding: 5px;"><t t-esc="docs['partner_id'].name" /></td>
                         </tr>
                         <tr>
-                            <th>DOMICILIO</th>
-                            <td><t t-esc="contract['address_partner']" /></td>
+                            <th style="border: 1px black solid; padding: 5px;">DOMICILIO</th>
+                            <td colspan="3" style="border: 1px black solid; padding: 5px;"><t t-esc="contract['address_partner']" /></td>
                         </tr>
                         <tr>
-                            <th>CLAUSULAS</th>
+                            <th colspan="4" style="border: 1px black solid; padding: 10px;; text-align: center; background-color: gray;">CLAUSULAS</th>
                         </tr>
                         <tr>
-                            <td>PRIMERA.- APERTURA DE CRÉDITO (MONTO)</td>
-                            <th>$<t t-esc="docs['authorized_amount']" /></th>
-                            <th><t t-esc="contract['amount_text']" /></th>
-                            <th>PESOS 00/100 M.N.</th>
+                            <td style="border: 1px black solid; padding: 5px;">PRIMERA.- APERTURA DE CRÉDITO (MONTO)</td>
+                            <th style="border: 1px black solid; padding: 5px;">$<t t-esc="docs['authorized_amount']" /></th>
+                            <th style="border: 1px black solid; padding: 5px;"><t t-esc="contract['amount_text']" /></th>
+                            <th style="border: 1px black solid; padding: 5px;">PESOS 00/100 M.N.</th>
                         </tr>
                         <tr>
-                            <td>SEGUNDA.- OBJETO DEL CRÉDITO</td>
-                            <th>ESTABLECIMIENTO Y PRODUCCIÓN DE </th>
-                            <th><t t-esc="contract['total_hectares']" /> ha</th>
-                            <th>DE CULTIVOS</th>
+                            <td style="border: 1px black solid; padding: 5px;">SEGUNDA.- OBJETO DEL CRÉDITO</td>
+                            <th style="border: 1px black solid; padding: 5px;">ESTABLECIMIENTO Y PRODUCCIÓN DE </th>
+                            <th style="border: 1px black solid; padding: 5px;"><t t-esc="contract['total_hectares']" /> ha</th>
+                            <th style="border: 1px black solid; padding: 5px;">DE CULTIVOS</th>
+                        </tr>
+                        <t t-if="docs['credit_type_id'].name=='Comercial'">
+                            <tr>
+                                <td>TERCERA.- PLAZO DEL CRÉDITO</td>
+                                <th colspan="3" style="border: 1px black solid; padding: 5px;">30 días</th>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px black solid; padding: 5px;">CUARTA.- INTERESES MORATORIOS</td>
+                                <th style="border: 1px black solid; padding: 5px;">TASA FIJA MENSUAL</th>
+                                <th style="border: 1px black solid; padding: 5px;"><t t-esc="docs['credit_type_id'].interest" />%</th>
+                                <th style="border: 1px black solid; padding: 5px;">A PARTIR DEL DÍA 31</th>	
+                            </tr>
+                        </t>
+                        <t t-if="docs['credit_type_id'].name=='Avio'">
+                            <tr>
+                                <td style="border: 1px black solid; padding: 5px;">TERCERA.- PLAZO DEL CRÉDITO</td>
+                                <th colspan="3" style="border: 1px black solid; padding: 5px;">180 días</th>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px black solid; padding: 5px;">CUARTA.- INTERESES MORATORIOS</td>
+                                <th style="border: 1px black solid; padding: 5px;">TASA FIJA MENSUAL</th>
+                                <th style="border: 1px black solid; padding: 5px;"><t t-esc="docs['credit_type_id'].interest" />%</th>
+                                <th style="border: 1px black solid; padding: 5px;">A PARTIR DEL DÍA 1</th>	
+                            </tr>
+                        </t>	
+                        <tr>
+                            <td style="border: 1px black solid; padding: 5px;">QUINTA.- GARANTÍA ESPECÍFICA</td>
+                            <th colspan="3" style="border: 1px black solid; padding: 5px;">PAGARÉ FIRMADO</th>
                         </tr>
                         <tr>
-                            <td>TERCERA.- PLAZO DEL CRÉDITO	</td>
-                            <th>ESTABLECIMIENTO Y PRODUCCIÓN DE </th>
-                            <th><t t-esc="contract['total_hectares']" /> ha</th>
-                            <th>DE CULTIVOS</th>
+                            <td style="border: 1px black solid; padding: 5px;">SEXTA.- JURISDICCIÓN Y COMPETENCIA	</td>
+                            <th colspan="3" style="border: 1px black solid; padding: 5px;"><t t-esc="contract['company']" /></th>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px black solid; padding: 5px;">Datos de la unidad Especializada de atención a usuarios:	</td>
+                            <th colspan="3" style="border: 1px black solid; padding: 5px;"><t t-esc="contract['address_company']" /></th>
                         </tr>
                     </table>
                 </div>
+                <br />
+                <br />
+                <br />
+                <table style="width: 100%">
+                    <tr>
+                        <td style="width: 50%;">
+                            <div style="width: 100%; text-align: center;">
+                                <br />
+                                <label style="width: 400px; border-bottom: black 1px solid"></label>
+                                <br />
+                                <label>FIRMA DEL ACREDITADO</label>
+                            </div>
+                        </td>
+                        <td style="width: 50%;">
+                            <div style="width: 100%; text-align: center;">
+                                <br />
+                                <label style="width: 400px; border-bottom: black 1px solid"></label>
+                                <br />
+                                <label>REPRESENTANTE DE CRÉDITO</label>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
             </t>
         </t>
     </template>
 
     <!--Reporte-->
-    <report id="report_credit_application_contract" model="credit.application.contract" string="Carta buro" report_type="qweb-html" name="wobin_credit.report_application_contract" menu="False" />
+    <report id="report_credit_application_contract" model="credit.application.contract" string="Contrato" report_type="qweb-html" name="wobin_credit.report_application_contract" menu="False" />
 
     <!--Ventana de ingreso de datos-->
     <record model="ir.ui.view" id="report_data_application_contract">
-        <field name="name">Carta buro</field>
+        <field name="name">Contrato</field>
         <field name="model">credit.application.contract</field>
         <field name="type">form</field>
         <field name="arch" type="xml">
