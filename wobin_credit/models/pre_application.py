@@ -125,6 +125,19 @@ class CreditPreApplication(models.Model):
                 'target': 'new'
             }
 
+    @api.multi
+    def open_report_promissory(self):
+        return {
+                'name': 'Completar datos de Pagaré',
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': 'credit.application.promissory.note',
+                'view_id': self.env.ref('wobin_credit.report_data_application_promissory_note').id,
+                'type': 'ir.actions.act_window',
+                'res_id': self.env.context.get('cashbox_id'),
+                'context': {'default_application_id':self.id},
+                'target': 'new'
+            }
 
 class CreditCropType(models.Model):
     _name = "credit.crop.type"
