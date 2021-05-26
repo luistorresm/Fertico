@@ -792,72 +792,75 @@
     <!--Plantilla-->
     <template id="report_application_promissory_note">
         <t t-call="web.html_container">
-            <t t-call="web.external_layout">
-                <div style="width: 100%; text-align: center; padding-right: 15%; padding-left: 15%;">
-                    <table>
-                        <tr>
-                            <th>PAGARÉ</th>
-                            <th>N. 1</th>
-                            <th>Bueno por: </th>
-                            <th>$<t t-esc="contract['amount']" /></th>
-                        </tr>
-                    </table>
-                </div>
-                <br/>
-                <div style="width: 100%; text-align: center; padding-right: 15%; padding-left: 15%;">
-                    <table>
-                        <tr>
-                            <th>En</th>
-                            <th><t t-esc="data['place']" /></th>
-                            <th>a </th>
-                            <th>$<t t-esc="contract['date']" /></th>
-                        </tr>
-                    </table>
-                    <p style="width: 100%; text-align: justify;">
-                        <b>Debo y pagaré incondicionalmente por este pagaré a la orden de:</b> <u><t t-esc="contract['company']" /></u>
-                        <b>en</b> <u><t t-esc="data['place']" /></u> <b>el</b> <u><t t-esc="contract['date']" /></u> <b>La cantidad de:</b> <u><t t-esc="contract['amount_text']" /></u> <b>PESOS 00/100 M.N.</b>				
-                    </p>
+            <t t-call="web.internal_layout">
+                <div style="border: 1px black solid; margin-right: 10%; margin-left: 10%;">
                     <br/>
-                    <p style="width: 100%; text-align: justify;">
-                        Valor recibido a mi entera satisfacción. Este pagaré forma parte de una serie numerada del 1 al	1 y todos están
-                        sujetos a la condición de que, al no pagarse cualquiera de ellos a su vencimiento, serán exigibles todos los que le sigan											
-                        en número, además de los ya vencidos, desde la fecha vencimiento de este documento hasta el día de su liquidación,											
-                        causará intereses moratorios al tipo de <b><t t-esc="docs['interest']" />%</b> mensual pagadero en esta ciudad juntamente con el principal.						
-                    </p>
-                    <br />
+                    <br/>
+                    <div style="width: 100%; text-align: center; padding-right: 5%; padding-left: 5%;">
+                        <table style="width: 100%;">
+                            <tr>
+                                <th rowspan="2"><img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)" style="height: 100px;"/></th>
+                                <th style="color: rgb(25, 93, 202); font-size: 20px;">PAGARÉ</th>
+                                <th style="text-align: center;">N. <label style="border-bottom: 1px black solid; background-color: rgb(168, 219, 177)"> 1 </label></th>
+                                <th style="text-align: center;">Bueno por: </th>
+                                <th style="text-align: center;"><label style="border-bottom: 1px black solid; background-color: rgb(168, 219, 177); width: 100%;">$<t t-esc="contract['amount']" /></label></th>
+                            </tr>
+                            <tr>
+                                <th style="text-align: right;">En</th>
+                                <th style="text-align: center;"><t t-esc="data['place']" /></th>
+                                <th style="text-align: center;">a </th>
+                                <th style="text-align: center;"><label style="border-bottom: 1px black solid; background-color: rgb(168, 219, 177); width: 100%;"><t t-esc="contract['date']" /></label></th>
+                            </tr>
+                        </table>
+                    </div>
+                    <br/>
+                    <div style="width: 100%; text-align: center; padding-right: 5%; padding-left: 5%;">
+                        <p style="width: 100%; text-align: justify;">
+                            <b>Debo y pagaré incondicionalmente por este pagaré a la orden de:</b> <u><t t-esc="contract['company']" /></u>
+                            <b>en</b> <u><t t-esc="data['place']" /></u> <b>el</b> <u><t t-esc="contract['date']" /></u> 
+                            <br/><b>La cantidad de:</b> <u><t t-esc="contract['amount_text']" /></u> <b>PESOS 00/100 M.N.</b>				
+                        </p>
+                        <br/>
+                        <p style="width: 100%; text-align: justify;">
+                            Valor recibido a mi entera satisfacción. Este pagaré forma parte de una serie numerada del 1 al	1 y todos están
+                            sujetos a la condición de que, al no pagarse cualquiera de ellos a su vencimiento, serán exigibles todos los que le sigan											
+                            en número, además de los ya vencidos, desde la fecha vencimiento de este documento hasta el día de su liquidación,											
+                            causará intereses moratorios al tipo de <u><b><t t-esc="docs['interest']" />%</b></u> mensual pagadero en esta ciudad juntamente con el principal.						
+                        </p>
+                        <br />
+                    </div>
+                    <br/>
+                    <div style="width: 100%; text-align: center; padding-right: 5%; padding-left: 5%;">
+                        <table style="width: 100%;">
+                            <tr>
+                                <th style="width: 15%;"></th>
+                                <th style="width: 55%; text-align: center; ">Nombre y datos del deudor</th>
+                                <th style="width: 10%;"></th>
+                                <th style="width: 20%; text-align: center;">Acepto</th>
+                            </tr>
+                            <tr>
+                                <td>Nombre</td>
+                                <td style="border-bottom: 1px black solid; background-color: rgb(168, 219, 177)"><t t-esc="docs['partner_id'].name" /></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Domicilio</td>
+                                <td style="border-bottom: 1px black solid; background-color: rgb(168, 219, 177)"><t t-esc="contract['address_partner']" /></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Ciudad</td>
+                                <td style="border-bottom: 1px black solid; background-color: rgb(168, 219, 177)"><t t-esc="docs['locality']" /></td>
+                                <td>Firma</td>
+                                <td style="background-color: rgb(168, 219, 177)"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br/>
+                    <br/>
                 </div>
-                <br/>
-                <div style="width: 100%; text-align: center; padding-right: 15%; padding-left: 15%;">
-                    <table style="width: 100%;">
-                        <tr>
-                            <th style="width: 15%;"></th>
-                            <th style="width: 55%; text-align: center; ">Nombre y datos del deudor</th>
-                            <th style="width: 10%;"></th>
-                            <th style="width: 20%; text-align: center;">Acepto</th>
-                        </tr>
-                        <tr>
-                            <td>Nombre</td>
-                            <td style="border-bottom: 1px black solid; background-color: rgb(168, 219, 177)"><t t-esc="docs['partner_id'].name" /></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Domicilio</td>
-                            <td style="border-bottom: 1px black solid; background-color: rgb(168, 219, 177)"><t t-esc="contract['address_partner']" /></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Ciudad</td>
-                            <td style="border-bottom: 1px black solid; background-color: rgb(168, 219, 177)"><t t-esc="docs['locality']" /></td>
-                            <td>Firma</td>
-                            <td style="background-color: rgb(168, 219, 177)"></td>
-                        </tr>
-                    </table>
-                </div>
-                <br/>
-                <br/>
-                <br/>
             </t>
         </t>
     </template>
