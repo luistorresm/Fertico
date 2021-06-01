@@ -887,4 +887,100 @@
         </field>
     </record>
 
+    <!--========================================== Firmas =======================================-->
+
+    <!--Plantilla-->
+    <template id="report_application_signature">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                    <br/>
+                    <br/>
+                    <div style="width: 100%;">
+                        <table style="width: 100%;">
+                            <tr>
+                                <th style="width: 30%;">Ciclo <t t-esc="docs['cycle'].name" /></th>
+                                <th rowspan="2" style="text-align: center; font-size: 25px;">FIRMAS AUTORIZADAS</th>
+                                <th style="text-align: right; padding-right: 10px; width: 10%;">Fecha</th>
+                                <th style="text-align: center; border-bottom: 1px black solid; width: 20%;"><t t-esc="date" /></th>
+                            </tr>
+                            <tr>
+                                <th ></th>
+                                <th style="text-align: right; padding-right: 10px;">Sucursal</th>
+                                <th style="text-align: center; border-bottom: 1px black solid"><t t-esc="data['place']" /></th>
+                            </tr>
+                        </table>
+                    </div>
+                    <br />
+                    <br />
+                    <div style="width: 100%; text-align: justify; padding: 5%">
+                        <p>
+                            Con la finalidad de optimizar y agilizar la entrega del producto comprado a CRÉDITO
+                            por ALBAGRO SA de CV, Yo <u><t t-esc="docs['partner_id'].name" /></u> me permito comunicarle que
+                            AUTORIZO  a  las  personas  cuyas  firmas  aparecen  enseguida, para que a mi nombre y representación soliciten la entrega de insumos.		
+                        </p>
+                    </div>
+                    <div style="width: 100%;  padding: 5%">
+                        <table style="width: 100%;">
+                            <tr style="height: 50px;">
+                                <th>Firmas autorizadas:</th>
+                            </tr>
+                            <tr style="height: 40px;">
+                                <th style="text-align: center;">Nombre completo</th>
+                                <th style="text-align: center;">FIRMA</th>
+                            </tr>
+                            <tr style="height: 30px;" t-foreach="data['names']" t-as="signature">
+                                <td style="text-align: center; border: 1px black solid;"><t t-esc="signature.name_signature" /></td>
+                                <td style="text-align: center; border: 1px black solid;"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div style="width: 100%; text-align: center;">
+                        <label>Autorizó</label>
+                        <br />
+                        <br />
+                        <br />
+                        <label style="width: 400px; border-bottom: black 1px solid; margin-bottom: 0px;"></label><br />
+                        <label style="margin-bottom: 0px;"><t t-esc="docs['partner_id'].name" /></label><br />
+                        
+                    </div>
+                    <br />
+                    <br/>
+                    <div style="width: 100%; text-align: justify; padding: 5%">
+                        <p>
+                            A este formato se le anexa(n) la(s) copia(s) legible(s) por ambos lados de la(s) identificacion(es) (INE y/o pasaporte vigente) del(os) autorizado(s).			
+                        </p>
+                    </div>
+            </t>
+        </t>
+    </template>
+
+    <!--Reporte-->
+    <report id="report_credit_application_signature" model="credit.application.signature" string="Firmas" report_type="qweb-html" name="wobin_credit.report_application_signature" menu="False" />
+
+    <!--Ventana de ingreso de datos-->
+    <record model="ir.ui.view" id="report_data_application_signature">
+        <field name="name">Firmas</field>
+        <field name="model">credit.application.signature</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="place" />
+                    <field name="names" >
+                        <tree editable="bottom">
+                            <field name="name_signature" />
+                        </tree>
+                    </field>
+                </group>
+                <footer>
+                    <button string="Cancel" special="cancel" class="oe_highlight" />
+                    <button name="%(wobin_credit.report_credit_application_signature)d" string="Submit" type="action" class="oe_highlight" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
 </odoo>

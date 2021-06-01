@@ -276,6 +276,43 @@ class ReportPromissoryNote(models.AbstractModel):
         }
 
     
+#===============================================Firmas========================================================
 
+class CreditApplicationSignature(models.TransientModel):
+    #Firmas    
+    _name='credit.application.signature'
+    
+    place = fields.Char(string="Sucursal")
+    names = fields.One2many('credit.application.signature.names', 'signature_id', string="Firmas autorizadas")
+    application_id = fields.Many2one('credit.preapplication')
+
+class CreditApplicationSignatureNames(models.TransientModel):
+    #Firmas nombres   
+    _name='credit.application.signature.names'
+    
+    name_signature = fields.Char(string="Nombre")
+    signature_id = fields.Many2one('credit.application.signature')
+
+
+class ReportSignature(models.AbstractModel):
+    #Reporte firmas
+    _name = 'report.wobin_credit.report_application_signature'
+
+    @api.model
+    def get_report_values(self, docids, data=None):
+        report = self.env['credit.application.signature'].browse(docids)
+        preapplication = report.application_id
+
+        date_now =  date.today().strftime("%d/%m/%Y")
+
+        return {
+            'doc_ids': docids,
+            'doc_model': 'credit.record',
+            'docs' : preapplication,
+            'data' : report,
+            'date' : date_now,
+            'company' : self.env.user.company_id,
+            'user' : self.env.user,
+        }
       
 
