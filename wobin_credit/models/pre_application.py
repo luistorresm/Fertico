@@ -140,6 +140,20 @@ class CreditPreApplication(models.Model):
             }
 
     @api.multi
+    def open_report_signature(self):
+        return {
+                'name': 'Completar datos',
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': 'credit.application.signature',
+                'view_id': self.env.ref('wobin_credit.report_data_application_signature').id,
+                'type': 'ir.actions.act_window',
+                'res_id': self.env.context.get('cashbox_id'),
+                'context': {'default_application_id':self.id},
+                'target': 'new'
+            }
+
+    @api.multi
     def open_report_payment(self):
         return {
                 'name': 'Completar datos de Pago',
