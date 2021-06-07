@@ -16,6 +16,7 @@
                         <button name="open_report_buro" type="object" string="Carta buro" class="btn-primary" />
                         <button name="open_report_contract" type="object" string="Imprimir contrato" class="btn-primary" />
                         <button name="open_report_promissory" type="object" string="Imprimir pagaré" class="btn-primary" />
+                        <button name="open_report_payment" type="object" string="Recibo de pago" class="btn-primary" />
                         <field name="state" widget="statusbar" statusbar_visible="draft,locked" />
                     </header>
                     <sheet>

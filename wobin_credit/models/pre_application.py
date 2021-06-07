@@ -139,6 +139,20 @@ class CreditPreApplication(models.Model):
                 'target': 'new'
             }
 
+    @api.multi
+    def open_report_payment(self):
+        return {
+                'name': 'Completar datos de Pago',
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': 'credit.application.payment',
+                'view_id': self.env.ref('wobin_credit.report_data_application_payment').id,
+                'type': 'ir.actions.act_window',
+                'res_id': self.env.context.get('cashbox_id'),
+                'context': {'default_application_id':self.id},
+                'target': 'new'
+            }
+
 class CreditCropType(models.Model):
     _name = "credit.crop.type"
     #Tipos de cultivo

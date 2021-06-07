@@ -314,5 +314,48 @@ class ReportSignature(models.AbstractModel):
             'company' : self.env.user.company_id,
             'user' : self.env.user,
         }
-      
+
+
+#===============================================Recibo de pago========================================================
+
+class CreditApplicationPayment(models.TransientModel):
+    #Pagos    
+    _name='credit.application.payment'
+    
+    date = fields.Date(string="Fecha")
+    amount = fields.Float(string="Cantidad")
+    concept = fields.Char(string="Concepto")
+    receiver = fields.Char(string="Recibió")
+    payment_type = fields.Selection([('efectivo', 'Efectivo'),
+    ('cheque', 'Cheque'),
+    ('trans','Transferencia')], string="Forma de pago")
+    application_id = fields.Many2one('credit.preapplication')
+
+
+class ReportPayment(models.AbstractModel):
+    #Reporte pagos
+    _name = 'report.wobin_credit.report_application_payment'
+
+    def _number_to_text(self, amount):
+        
+        number = "{:.2f}".format(amount).split(".")
+        text = num2words(number[0], lang='es').upper().split("PUNTO CERO")[0] + "PUNTO " + num2words(number[1], lang='es').upper().split("PUNTO CERO")[0]
+        return text
+
+    @api.model
+    def get_report_values(self, docids, data=None):
+        report = self.env['credit.application.payment'].browse(docids)
+        preapplication = report.application_id
+
+        return {
+            'doc_ids': docids,
+            'doc_model': 'credit.record',
+            'docs' : preapplication,
+            'data' : report,
+            'date' : datetime.strptime(report.date, '%Y-%m-%d').strftime("%d/%m/%Y"),
+            'company' : self.env.user.company_id,
+            'user' : self.env.user,
+            'amount_text': self._number_to_text(report.amount)
+        }
+
 

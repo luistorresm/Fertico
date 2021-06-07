@@ -983,4 +983,87 @@
         </field>
     </record>
 
+    <!--========================================== Recibo de pago =======================================-->
+
+    <!--Plantilla-->
+    <template id="report_application_payment">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <div style="border: 1px black solid; margin-right: 10%; margin-left: 10%;">
+                    <br/>
+                    <br/>
+                    <div style="width: 100%; text-align: center; padding-right: 5%; padding-left: 5%;">
+                        <table style="width: 100%;">
+                            <tr>
+                                <th><img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)" style="height: 100px;"/></th>
+                                <th style="color: green; font-size: 20px;">Recibo de pago</th>
+                                <th style="text-align: center;">Fecha:<t t-esc="date" /></th>
+                            </tr>
+                        </table>
+                    </div>
+                    <br/>
+                    <div style="width: 100%; text-align: center; padding-right: 3%; padding-left: 3%;">
+                        <table style="width: 100%;">
+                            <tr>
+                                <th style="text-align: right; padding-right: 10px;">Recibí de </th>
+                                <td style="border-bottom: 1px black solid; width: 45%;"><t t-esc="docs['partner_id'].name" /></td>
+                                <th style="border-bottom: 1px white solid; width: 20%; text-align: center">Cantidad</th>
+                                <td style="border: 1px black solid; width: 20%; text-align: center;">$ <t t-esc="data['amount']" /></td>
+                            </tr>
+                            <tr><td style="height: 20px;"></td></tr>
+                            <tr>
+                                <th style="text-align: right; padding-right: 10px;">Cantidad</th>
+                                <td colspan="2" style="border-bottom: 1px black solid;"><t t-esc="amount_text" /></td>
+                                <td>pesos  00/100  MN</td>
+                            </tr>
+                            <tr><td style="height: 20px;"></td></tr>
+                            <tr>
+                                <th style="text-align: right; padding-right: 10px;">Concepto</th>
+                                <td style="border-bottom: 1px black solid;"><t t-esc="data['concept']" /></td>
+                                <th style="text-align: center;">Forma de pago</th>
+                                <td style="border-bottom: 1px black solid;" t-if="data['payment_type'] == 'efectivo'">Efectivo</td>
+                                <td style="border-bottom: 1px black solid;" t-if="data['payment_type'] == 'cheque'">Cheque</td>
+                                <td style="border-bottom: 1px black solid;" t-if="data['payment_type'] == 'trans'">Transferencia</td>
+                            </tr>
+                            <tr><td style="height: 40px;"></td></tr>
+                            <tr stye="margin-top: 50px; magin-bottom: 10px">
+                                <td style="text-align: right; padding-right: 10px;">Recibido por: </td>
+                                <td style="border-bottom: 1px black solid;"><t t-esc="data['receiver']" /></td>
+                                <td>(Nombre y firma)</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br/>
+                    <br/>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <!--Reporte-->
+    <report id="report_credit_application_payment" model="credit.application.payment" string="Pagos" report_type="qweb-html" name="wobin_credit.report_application_payment" menu="False" />
+
+    <!--Ventana de ingreso de datos-->
+    <record model="ir.ui.view" id="report_data_application_payment">
+        <field name="name">Pagos</field>
+        <field name="model">credit.application.payment</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="date" />
+                    <field name="amount" />
+                    <field name="concept" />
+                    <field name="receiver" />
+                    <field name="payment_type" />
+                </group>
+                <footer>
+                    <button string="Cancel" special="cancel" class="oe_highlight" />
+                    <button name="%(wobin_credit.report_credit_application_payment)d" string="Submit" type="action" class="oe_highlight" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
 </odoo>
