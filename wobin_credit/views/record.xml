@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <!--================================================ Avio ======================================================-->
+
+        <!---->
+
+        <record model="ir.ui.view" id="form_view_record_avio">
+            <field name="name">credit.record.form</field>
+            <field name="model">credit.record</field>
+            <field name="arch" type="xml">
+                <form string="Expedientes">
+                    <header>
+                        <!--<button name="lock_credit" type="object" states="draft" string="Bloquear" class="btn-primary" />-->
+                        <button name="%(wobin_credit.report_credit_commitment)d" type="action" string="Imprimir carta compromiso" class="btn-primary" />
+                        <field name="state" widget="statusbar" statusbar_visible="draft,locked" />
+                    </header>
+                    <sheet>
+                        <group>
+                            <h1>
+                                <field name="name" />
+                            </h1>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="partner_id" />
+                                <field name="credit_id" />
+                                <field name="cycle" />
+                                <field name="company_id" />
+                            </group>
+                            <group>
+                                <field name="credit_initial" />
+                                <field name="credit_consumed" />
+                                <field name="credit_favor" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Documentación legal" name="documents_page">
+                                <group>
+                                    <field name="ine" widget="image" />
+                                    <field name="curp" widget="image" />
+                                    <field name="address" widget="image" />
+                                    <field name="birth_certificate" widget="image" />
+                                    <field name="marriage_certificate" widget="image" />
+                                    <field name="surface" widget="image" />
+                                    <field name="insurance_policy" widget="image" />
+
+                                </group>
+                            </page>
+                            <page string="Imagenes del terreno" name="images">
+                                <field name="lan_images">
+                                    <tree>
+                                        <field name="image" widget="image" />
+                                        <field name="comments"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="tree_view_record_avio" model="ir.ui.view">
+            <field name="name">credit.record.tree</field>
+            <field name="model">credit.record</field>
+            <field name="arch" type="xml">
+                <tree string="Expedientes" delete="0" default_order="id desc">
+                    <field name="name" />
+                    <field name="partner_id" />
+                    <field name="credit_favor" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="credit_record_avio" model="ir.actions.act_window">
+            <field name="name">Expedientes</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">credit.record</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                Click to add a record.
+                </p>
+            </field>
+        </record>
+
+        <record id="credit_tree_record_avio_action" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="credit_record_avio" />
+            <field name="view_id" ref="tree_view_record_avio" />
+            <field name="view_mode">tree</field>
+        </record>
+
+        <record id="credit_form_record_avio_action" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="credit_record_avio" />
+            <field name="view_id" ref="form_view_record_avio" />
+            <field name="view_mode">form</field>
+        </record>
+
+        <menuitem id="record_menu_record" name="Expedientes" parent="wobin_credit.record_menu" action="credit_record_avio" sequence="1" />
+
+        <!-- ===========================Fotos================================ -->
+
+        <record model="ir.ui.view" id="form_view_lands_record">
+            <field name="name">credit.lands.form</field>
+            <field name="model">credit.lands</field>
+            <field name="arch" type="xml">
+                <form string="Imágenes">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="image" />
+                                <field name="comments" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+
+
+</odoo>

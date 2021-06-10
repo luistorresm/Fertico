@@ -16,24 +16,28 @@
     # Check https://github.com/odoo/odoo/blob/11.0/odoo/addons/base/module/module_data.xml
     # for the full list
     'category': 'Uncategorized',
-    'version': '0.1.3',
+    'version': '0.1.2',
 
     # any module necessary for this one to work correctly
     'depends': ['base', 'mail', 'web'],
 
     # always loaded
     'data': [
+        #data
         'data/credit_data.xml',
 
-        'security/credit_security.xml',
+        #security
         'security/ir.model.access.csv',
+        'security/credit_security.xml',
         
         #'views/views.xml',
         #'views/templates.xml',
         'views/menus.xml',
+        'views/reports.xml',
         'views/params.xml',
         'views/pre_application.xml',
-        'views/reports.xml',
+        'views/record.xml',
+        
     ],
     # only loaded in demonstration mode
     'demo': [

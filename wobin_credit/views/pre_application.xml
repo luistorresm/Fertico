@@ -2,14 +2,23 @@
 <odoo>
 
     <data>
-        <record model="ir.ui.view" id="form_view_preapplication">
+
+        <!--================================================ Avio ======================================================-->
+
+
+        <!--<button name="%(wobin_credit.report_credit_application)d" type="action" string="Imprimir solicitud" class="btn-primary" />-->
+
+        <record id="form_view_preapplication_avio" model="ir.ui.view">
             <field name="name">credit.preapplication.form</field>
             <field name="model">credit.preapplication</field>
             <field name="arch" type="xml">
-                <form string="Pre-aplicaciones">
+                <form string="Pre-solicitudes">
                     <header>
-                        <button name="lock_credit" type="object" states="draft" string="Bloquear" class="btn-primary" />
-                        <button name="unlock_credit" type="object" states="locked" string="Desbloquear" groups='wobin_credit.group_credit_manager'/>
+                        <button name="open_report_buro" type="object" string="Carta buro" class="btn-primary" />
+                        <button name="open_report_contract" type="object" string="Imprimir contrato" class="btn-primary" />
+                        <button name="open_report_promissory" type="object" string="Imprimir pagaré" class="btn-primary" />
+                        <button name="open_report_signature" type="object" string="Apoderamiento de firmas" class="btn-primary" />
+                        <button name="open_report_payment" type="object" string="Recibo de pago" class="btn-primary" />
                         <field name="state" widget="statusbar" statusbar_visible="draft,locked" />
                     </header>
                     <sheet>
@@ -19,28 +28,63 @@
                             </h1>
                         </group>
                         <group>
-                            <field name="partner_id" attrs="{'readonly':[('state', '=', 'locked')]}"/>
-                            <field name="cycle" attrs="{'readonly':[('state', '=', 'locked')]}"/>
-                            <field name="calculated_amount"/>
-                            <field name="requested_amount" attrs="{'readonly':[('state', '=', 'locked')]}"/>
-                            <field name="authorized_amount" attrs="{'readonly':[('state', '=', 'locked')]}"/>
-                            <field name="insurance" />
-                            <field name="credit_type_id" attrs="{'readonly':[('state', '=', 'locked')]}"/>
-                            <field name="payment_terms" />
-                            <field name="date_limit_flag" invisible='1'/>
-                            <field name="date_limit" attrs="{'invisible':[('date_limit_flag', '=', False)], 'readonly':[('state', '=', 'locked')]}" />
-                            <field name="interest" />
-                            <field name="interest_mo" />
-                            <field name="crop_type_ids" attrs="{'readonly':[('state', '=', 'locked')]}">
-                                <tree editable="bottom">
-                                    <field name="crop_method" />
-                                    <field name="crop_type_id" />
-                                    <field name="hectares" />
-                                    <field name="calculated_amount" />
-                                    <field name="calculated_insurance" />
-                                </tree>
-                            </field>
+                            <group>
+                                <field name="record_id" attrs="{'readonly':[('state', '=', 'locked')]}" />
+                                <field name="partner_id" attrs="{'readonly':[('state', '=', 'locked')]}" />
+                                <field name="credit_type_id" attrs="{'readonly':[('state', '=', 'locked')]}" />
+                                <field name="cycle" attrs="{'readonly':[('state', '=', 'locked')]}" />
+                                <field name="payment_terms" />
+                                <field name="date_limit" />
+                            </group>
+                            <group>
+                                <field name="date" attrs="{'readonly':[('state', '=', 'locked')]}" />
+                                <field name="calculated_amount" attrs="{'readonly':[('state', '=', 'locked')]}" />
+                                <field name="requested_amount" attrs="{'readonly':[('state', '=', 'locked')]}" />
+                                <field name="investment_concept" attrs="{'readonly':[('state', '=', 'locked')]}" />
+                                <field name="authorized_amount" />
+                                <field name="insurance" />
+                                <field name="interest" />
+                                <field name="interest_mo" />
+                            </group>
                         </group>
+                        <notebook>
+                            <page string="Datos de cultivo" name="crop_page">
+                                <group>
+                                    <field name="crop_method" />
+                                </group>
+                                <field name="crop_type_ids">
+                                    <tree editable="bottom">
+                                        <field name="crop_type_id" />
+                                        <field name="hectares" />
+                                        <field name="calculated_amount" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Datos de solicitante" name="contact_page">
+                                <group>
+                                    <group>
+                                        <field name="address" />
+                                        <field name="suburb" />
+                                        <field name="locality" />
+                                        <field name="state_address" />
+                                        <field name="postal_code" />
+                                        <field name="phone_house" />
+                                        <field name="phone_personal" />
+                                        <field name="email" />
+                                        <field name="gender" />
+                                        <field name="civil_status" />
+                                    </group>
+                                    <group>
+                                        <field name="activity" />
+                                        <field name="activity_second" />
+                                        <field name="identification" />
+                                        <field name="identification_number" />
+                                        <field name="rfc" />
+                                        <field name="curp" />
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
                     </sheet>
                     <div class="oe_chatter">
                         <field name="message_follower_ids" widget="mail_followers" />
@@ -50,13 +94,14 @@
             </field>
         </record>
 
-        <record id="tree_view_preapplication" model="ir.ui.view">
+        <record id="tree_view_preapplication_avio" model="ir.ui.view">
             <field name="name">credit.preapplication.tree</field>
             <field name="model">credit.preapplication</field>
             <field name="arch" type="xml">
-                <tree string="Pre-aplicaciones" delete="0" default_order="id desc">
+                <tree string="Pre-solicitudes" delete="0" default_order="id desc">
                     <field name="name" />
                     <field name="partner_id" />
+                    <field name="crop_method" />
                     <field name="requested_amount" />
                     <field name="authorized_amount" />
                     <field name="credit_type_id" />
@@ -65,12 +110,10 @@
             </field>
         </record>
 
-        <record id="credit_preapplication" model="ir.actions.act_window">
-            <field name="name">Pre-aplicaciones</field>
+        <record id="credit_preapplication_avio" model="ir.actions.act_window">
+            <field name="name">Pre-solicitudes</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">credit.preapplication</field>
-            <field name="view_type">form</field>
-            <field name="domain">[]</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
@@ -79,19 +122,19 @@
             </field>
         </record>
 
-        <record id="credit_tree_preapplication_action" model="ir.actions.act_window.view">
-            <field name="act_window_id" ref="credit_preapplication" />
-            <field name="view_id" ref="tree_view_preapplication" />
+        <record id="credit_tree_preapplication_avio_action" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="credit_preapplication_avio" />
+            <field name="view_id" ref="tree_view_preapplication_avio" />
             <field name="view_mode">tree</field>
         </record>
 
-        <record id="credit_form_preapplication_action" model="ir.actions.act_window.view">
-            <field name="act_window_id" ref="credit_preapplication" />
-            <field name="view_id" ref="form_view_preapplication" />
+        <record id="credit_form_preapplication_avio_action" model="ir.actions.act_window.view">
+            <field name="act_window_id" ref="credit_preapplication_avio" />
+            <field name="view_id" ref="form_view_preapplication_avio" />
             <field name="view_mode">form</field>
         </record>
 
-        <menuitem id="preapplication_menu" name="Pre-aplicaciones" parent="wobin_credit.preapplication_main_menu" action="credit_preapplication" sequence="1" />
+        <menuitem id="preapplication_avio_menu" name="Pre-solicitudes" parent="wobin_credit.avio_menu" action="credit_preapplication_avio" sequence="2" />
 
     </data>
 
