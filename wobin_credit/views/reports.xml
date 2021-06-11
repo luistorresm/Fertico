@@ -98,8 +98,7 @@
         </t>
     </template>
 
-    <!--Reporte-->
-    
+    <!--Reporte-->    
 
     <record id="report_credit_commitment" model="ir.actions.report">
         <field name="name">Carta compromiso</field>
