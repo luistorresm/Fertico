@@ -23,8 +23,8 @@
     <template id="report_commitment">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-                <t t-call="web.internal_layout">
-                    <div class="article">
+                <t t-call="web.external_layout">
+                    <div class="page">
                         <div style="width: 100%; text-align: right; padding-right: 10%;">
                             <label>
                                 Fecha:

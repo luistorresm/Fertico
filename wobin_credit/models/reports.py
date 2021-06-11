@@ -113,7 +113,7 @@ class ReportAccountStatus(models.AbstractModel):
             'lines': record
         }'''
 
-'''class ReportCommitment(models.AbstractModel):
+class ReportCommitment(models.AbstractModel):
     _name = 'report.wobin_credit.report_commitment'
 
     @api.model
@@ -125,7 +125,7 @@ class ReportAccountStatus(models.AbstractModel):
         print("=============================", obj)
         return {
             'docs': obj
-        }'''
+        }
 
 #===============================================Solicitud========================================================
 
