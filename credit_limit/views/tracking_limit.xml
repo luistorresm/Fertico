@@ -1,6 +1,6 @@
 <odoo>
 
-    <record id="action_reports_view_tree" model="ir.ui.view">
+    <record id="action_reports_credit_view_tree" model="ir.ui.view">
         <field name="name">mail.tracking.report.tree</field>
         <field name="model">mail.tracking.value</field>
         <field name="arch" type="xml">
@@ -16,7 +16,7 @@
         </field>
     </record>
 
-    <record id="report_credit" model="ir.actions.act_window">
+    <record id="report_credit_track" model="ir.actions.act_window">
         <field name="name">Report</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">mail.tracking.value</field>
@@ -31,14 +31,14 @@
     </record>
 
 
-    <record id="action_all_customers_treee" model="ir.actions.act_window.view">
-        <field name="act_window_id" ref="report_credit" />
-        <field name="view_id" ref="action_reports_view_tree" />
+    <record id="action_all_customers_tree" model="ir.actions.act_window.view">
+        <field name="act_window_id" ref="report_credit_track" />
+        <field name="view_id" ref="action_reports_credit_view_tree" />
         <field name="view_mode">tree</field>
     </record>
 
-    <menuitem id="res_partner_menu_reports" name="Reports" parent="contacts.menu_contacts" sequence="2"/>
+    <menuitem id="res_partner_menu_credit_reports" name="Reports" parent="contacts.menu_contacts" sequence="2"/>
 
-    <menuitem id="res_partner_reports" name="Credit limit movements" action="report_credit" parent="res_partner_menu_reports" sequence="1" groups="credit_limit.group_credit_modify"/>
+    <menuitem id="res_partner_credit_reports" name="Credit limit movements" action="report_credit_track" parent="res_partner_menu_credit_reports" sequence="1" groups="credit_limit.group_modify_credit"/>
 
 </odoo>

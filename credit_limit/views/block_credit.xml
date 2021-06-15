@@ -1,6 +1,6 @@
 <odoo>
 
-    <record model="ir.ui.view" id="block_credit_limit">
+    <record model="ir.ui.view" id="block_credit_limit_view">
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="credit_limit.res_partner_credit"/>
         <field name="arch" type="xml">
@@ -14,7 +14,7 @@
     </record>
 
 
-    <record id="enable_credit_limit" model="ir.ui.view">
+    <record id="enable_credit_limit_view" model="ir.ui.view">
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="block_credit_limit" />
         <field name="groups_id" eval="[(6, 0, [ref('credit_limit.group_credit_modify')])]"/>
