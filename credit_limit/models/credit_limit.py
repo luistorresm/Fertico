@@ -14,7 +14,7 @@ class ResPartner(models.Model):
         
         grace = True
         now = datetime.datetime.now()
-        invoices = self.env['account.invoice'].search(['&','&',('date_due','<',now.strftime("%Y-%m-%d")),('state','!=','posted'),('partner_id','=',self._origin.id)])
+        invoices = self.env['account.invoice'].search([('date_due','<',now.strftime("%Y-%m-%d")),('partner_id','=',self.partner_id.id),'|',('state','=','draft'),('state','=','open')])
         
         for invoice in invoices:
             if invoice.payment_term_id.credit:
@@ -40,19 +40,6 @@ class AccountPaymentTerm(models.Model):
     _inherit = 'account.payment.term'
 
     credit = fields.Boolean(string="Crédito")
-
-
-    '''@api.onchange('line_ids')
-    def on_change_lines(self):
-        
-        days = False
-        
-        for line in self.line_ids:
-            if line.days:
-                days = True
-
-        self.credit = days'''
-
     
 
 class SaleOrder(models.Model):
@@ -104,12 +91,12 @@ class SaleOrder(models.Model):
             return super(SaleOrder, self).action_confirm()
 
 
-class AccountMove(models.Model):
+class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
-    def action_post(self):
+    def action_invoice_open(self):
         
-        res = super(AccountMove, self).action_post()
+        res = super(AccountInvoice, self).action_invoice_open()
         
         if self.payment_term_id.credit:
             
