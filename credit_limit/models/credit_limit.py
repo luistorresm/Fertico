@@ -1,5 +1,6 @@
 from odoo import models, fields, api
 import datetime
+from odoo.exceptions import UserError
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'
@@ -89,23 +90,15 @@ class SaleOrder(models.Model):
             if self.partner_id.allowed_sale:
             
                 if self.credit_conditions() & self.check_grace_days():
-                
                     return super(SaleOrder, self).action_confirm()
                 
                 else:
-                    
-                    res = {'warning': {
-                        'title': 'Advertencia',
-                        'message': 'El cliente tiene deudas'
-                    }}
-                    return res
+                    msg = 'El cliente tiene deudas'
+                    raise UserError(msg)
             
             else:
-                res = {'warning': {
-                        'title': 'Advertencia',
-                        'message': 'El cliente no tiene permitidas ventas a crédito'
-                    }}
-                return res
+                msg = 'El cliente no tiene permitidas ventas a crédito'
+                raise UserError(msg)
 
         else:
             return super(SaleOrder, self).action_confirm()
@@ -121,10 +114,10 @@ class AccountMove(models.Model):
         if self.payment_term_id.credit:
             
             credit=self.partner_id.credit_limit-self.amount_total
-            self.partner_id.credit_limit=credit
+            self.partner_id.write({'credit_limit': credit})
 
             if self.partner_id.credit_limit <= 0:
-                self.partner_id.allowed_sale = False
+                self.partner_id.write({'allowed_sale': False})
         
         return res
         
