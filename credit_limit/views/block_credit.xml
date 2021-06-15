@@ -7,9 +7,6 @@
             <xpath expr="//field[@name='credit_limit']" position="attributes">
                 <attribute name="readonly">True</attribute>
             </xpath>
-            <xpath expr="//field[@name='allowed_sale']" position="attributes">
-                <attribute name="readonly">True</attribute>
-            </xpath>
             <xpath expr="//field[@name='grace_payment_days']" position="attributes">
                 <attribute name="readonly">True</attribute>
             </xpath>
@@ -24,9 +21,6 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='credit_limit']" position="replace">
                 <field name='credit_limit' readonly="0"/>
-            </xpath>
-            <xpath expr="//field[@name='allowed_sale']" position="replace">
-                <field name='allowed_sale' readonly="0"/>
             </xpath>
             <xpath expr="//field[@name='grace_payment_days']" position="replace">
                 <field name='grace_payment_days' readonly="0"/>
