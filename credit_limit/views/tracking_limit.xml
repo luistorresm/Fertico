@@ -1,0 +1,44 @@
+<odoo>
+
+    <record id="action_reports_view_tree" model="ir.ui.view">
+        <field name="name">mail.tracking.report.tree</field>
+        <field name="model">mail.tracking.value</field>
+        <field name="arch" type="xml">
+            <tree string="Tracking Value" delete="0" default_order="id desc">
+                <field name="company_user"/>
+                <field name="contact"/>
+                <field name="author"/>
+                <field name="field"/>
+                <field name="date_change"/>
+                <field name="old_value_float"/>
+                <field name="new_value_float"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="report_credit" model="ir.actions.act_window">
+        <field name="name">Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mail.tracking.value</field>
+        <field name="domain">['|',('field','=','credit_limit'),('field','=','grace_payment_days')]</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+            Click to add a track value.
+            </p>
+        </field>
+    </record>
+
+
+    <record id="action_all_customers_treee" model="ir.actions.act_window.view">
+        <field name="act_window_id" ref="report_credit" />
+        <field name="view_id" ref="action_reports_view_tree" />
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="res_partner_menu_reports" name="Reports" parent="contacts.menu_contacts" sequence="2"/>
+
+    <menuitem id="res_partner_reports" name="Credit limit movements" action="report_credit" parent="res_partner_menu_reports" sequence="1" groups="block-credit.group_credit_modify"/>
+
+</odoo>

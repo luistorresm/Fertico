@@ -9,7 +9,7 @@
         Límites de crédito
     """,
 
-    'author': "My Company",
+    'author': "Wobin",
     'website': "http://www.yourcompany.com",
 
     # Categories can be used to filter modules in modules listing
@@ -29,6 +29,8 @@
         'views/views.xml',
         'views/templates.xml',
         'views/credit_limit.xml',
+        'views/block_credit.xml',
+        'views/tracking_limit.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
