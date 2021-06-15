@@ -39,6 +39,6 @@
 
     <menuitem id="res_partner_menu_reports" name="Reports" parent="contacts.menu_contacts" sequence="2"/>
 
-    <menuitem id="res_partner_reports" name="Credit limit movements" action="report_credit" parent="res_partner_menu_reports" sequence="1" groups="block-credit.group_credit_modify"/>
+    <menuitem id="res_partner_reports" name="Credit limit movements" action="report_credit" parent="res_partner_menu_reports" sequence="1" groups="credit_limit.group_credit_modify"/>
 
 </odoo>
