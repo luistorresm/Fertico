@@ -23,7 +23,8 @@
     'account',
     'sale',
     'contacts',
-    'mail'],
+    'mail',
+    'mrp'],
 
     # always loaded
     'data': [
