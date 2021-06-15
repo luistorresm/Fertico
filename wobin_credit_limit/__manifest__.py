@@ -21,7 +21,9 @@
     # any module necessary for this one to work correctly
     'depends': ['base',
     'account',
-    'sale'],
+    'sale',
+    'contacts',
+    'mail'],
 
     # always loaded
     'data': [
