@@ -5,9 +5,9 @@ from odoo.exceptions import UserError
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    credit_limit = fields.Float(company_dependent=True)
-    grace_payment_days =  fields.Integer(string="Dias de gracia", company_dependent=True)
-    allowed_sale = fields.Boolean(string="Permitir ventas a credito", company_dependent=True)
+    credit_limit = fields.Float(company_dependent=True, track_visibility='onchange')
+    grace_payment_days =  fields.Integer(string="Dias de gracia", company_dependent=True, track_visibility='onchange')
+    allowed_sale = fields.Boolean(string="Permitir ventas a credito", company_dependent=True, track_visibility='onchange')
 
     
     def check_grace_days(self):

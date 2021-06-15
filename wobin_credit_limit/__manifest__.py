@@ -32,8 +32,8 @@
         'views/views.xml',
         'views/templates.xml',
         'views/credit_limit.xml',
-        'views/block_credit.xml',
-        'views/tracking_limit.xml',
+        #'views/block_credit.xml',
+        #'views/tracking_limit.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
