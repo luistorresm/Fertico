@@ -14,7 +14,7 @@ class ResPartner(models.Model):
         
         grace = True
         now = datetime.datetime.now()
-        invoices = self.env['account.invoice'].search([('date_due','<',now.strftime("%Y-%m-%d")),('partner_id','=',self.partner_id.id),'|',('state','=','draft'),('state','=','open')])
+        invoices = self.env['account.invoice'].search([('date_due','<',now.strftime("%Y-%m-%d")),('partner_id','=',self.id),'|',('state','=','draft'),('state','=','open')])
         
         for invoice in invoices:
             if invoice.payment_term_id.credit:
