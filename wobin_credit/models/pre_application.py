@@ -172,17 +172,19 @@ class CreditCropType(models.Model):
 
     @api.depends('crop_type_id','crop_method','hectares')
     def get_amount(self):
-        amount = 0
-        insurance = 0
-        
-        if self.crop_type_id and self.crop_method:
-            param = self.env['credit.parameters'].search([('crop_type','=',self.crop_type_id.id),('crop_method','=',self.crop_method)])
-            if param:
-                amount = param.amount*self.hectares
-                insurance = param.insurance*self.hectares
+        #self.ensure_one()
+        for line in self:
+            amount = 0
+            insurance = 0
+            
+            if line.crop_type_id and line.crop_method:
+                param = self.env['credit.parameters'].search([('crop_type','=',line.crop_type_id.id),('crop_method','=',line.crop_method)])
+                if param:
+                    amount = param.amount*line.hectares
+                    insurance = param.insurance*line.hectares
 
-        self.calculated_amount = amount
-        self.calculated_insurance = insurance
+            line.calculated_amount = amount
+            line.calculated_insurance = insurance
 
     preapplication_id = fields.Many2one('credit.preapplication')
     crop_method = fields.Selection(related="preapplication_id.crop_method", string="Metodo de cultivo", readonly=True)

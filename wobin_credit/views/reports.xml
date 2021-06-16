@@ -6,25 +6,12 @@
 
     <!--==========================================Carta compromiso=======================================-->
 
-    <!--<template id="report_commitment">
-        <t t-call="web.html_container">
-            <t t-foreach="docs" t-as="o">
-                <t t-call="web.external_layout">
-                    <div class="page">
-                        <h2>Report title</h2>
-                        <p>This object's name is <span t-field="o.name"/></p>
-                    </div>
-                </t>
-            </t>
-        </t>
-    </template>-->
 
     <!--Plantilla-->
     <template id="report_commitment">
         <t t-call="web.html_container">
-            <t t-foreach="docs" t-as="o">
                 <t t-call="web.internal_layout">
-                    <div class="article">
+                    <div class="page">
                         <div style="width: 100%; text-align: right; padding-right: 10%;">
                             <label>
                                 Fecha:
@@ -93,14 +80,11 @@
                             <label>Nombre completo y firma del solicitante</label>
                         </div>
                     </div>
-                </t>
             </t>
         </t>
     </template>
 
     <!--Reporte-->
-    
-
     <record id="report_credit_commitment" model="ir.actions.report">
         <field name="name">Carta compromiso</field>
         <field name="model">credit.record</field>
@@ -109,10 +93,381 @@
         <field name="report_file">wobin_credit.report_commitment</field>
         <field name="attachment_use" eval="True"/>
         <field name="attachment">'Carta compromiso'</field>
-        <field name="binding_model_id" ref="model_credit_record"/>
+        <field name="binding_model_id" eval="False"/>
         <field name="binding_type">report</field>
     </record>
 
+    <!--==========================================Solicitud=======================================-->
+
+    <!--Plantilla-->
+    <template id="report_application">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                        <table style="width: 100%;">
+                            <tr>
+                                <th style="text-align: right">SOLICITUD DE CRÉDITO</th>
+                                <th style="text-align: right">
+                                    Fecha:
+                                    <u>
+                                        <t t-esc="date" />
+                                    </u>
+                                </th>
+                            </tr>
+                        </table>
+                        <div style="width: 100%; text-align: left; padding: 5px; background: gray;">
+                            <label style="margin: 0px;">Solicitante de crédito</label>
+                        </div>
+                        <div style="width: 100%; text-align: left; padding: 5px;">
+                            Ciclo:
+                            <t t-esc="docs['cycle'].name" />
+                        </div>
+                        <table style="width: 100%;">
+                            <tr>
+                                <th>Cultivos</th>
+                                <td>
+                                    <table style="width: 80%;">
+                                        <tr t-foreach="docs['crop_type_ids']" t-as="crop">
+                                            <td style="width: 40%;">
+                                                <t t-esc="crop.crop_type_id.name" />
+                                            </td>
+                                            <td style="width: 30%; border-bottom: 1px black solid; text-align: center;">
+                                                    <t t-esc="crop.hectares" />
+                                            </td>
+                                            <td style="width: 30%; text-align: center;">Ha.</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    Tipo de crédito:
+                                    <u>
+                                        <t t-esc="docs['credit_type_id'].name" />
+                                    </u>
+                                    <br />
+                                    Monto solicitado de crédito: $
+                                    <u>
+                                        <t t-esc="docs['requested_amount']" />
+                                    </u>
+                                    <br />
+                                    Seguro agrícola: $
+                                    <u>
+                                        <t t-esc="docs['insurance']" />
+                                    </u>
+                                </td>
+                            </tr>
+                        </table>
+                        <br />
+                        <div style="text-align: justify;">
+                            <p>
+                            En caso de ser autorizada la presente solicitud, manifiesto el compromiso de ejercer el financiamiento en el esquema o plan que convenga la empresa ALBAGRO S.A. de C.V., así como la forma, montos y tiempos, en que esta misma disponga otorgar y recuperar los recursos; así también como a hacer la aplicación correcta de dicho financiamiento y cubrir los gastos que se deriven en los tramites de gestión, recuperación y cobranza del mismo.																																				
+                            </p>
+                            <p>
+                            A su vez me obligo a entregar y a acudir a firmar la documentación complementaria (en caso de ser requerida), en los plazos que me establezcan, además autorizo a la empresa para que realice las investigaciones de crédito que considere pertinentes ante las instituciones que correspondan.
+                            </p>
+                            <p>
+                            Declaro bajo protesta de decir verdad que los datos son correctos y la documentación proporcionada en este acto es verídica y otorgo copia fotostática de los documentos de identificación, asumiendo la absoluta responsabilidad de su contenido, para los efectos legales a que haya lugar.
+                            </p>
+                        </div>
+                        <div>
+                            <table style="width: 100%; margin-top: 10px;">
+                                <tr>
+                                    <td style="width: 20%">Nombre del solicitante:</td>
+                                    <th style="border-bottom: 1px black solid; padding-left: 10px;"><t t-esc="docs['partner_id'].name" /></th>
+                                </tr>
+                            </table>
+                            <table style="width: 100%; margin-top: 10px;">
+                                <tr>
+                                    <td style="width: 10%">Dirección:</td>
+                                    <th style="border-bottom: 1px black solid; padding-left: 10px;"><t t-esc="docs['address']" /></th>
+                                    <td style="width: 15%; text-align: right; padding-right: 5px;">Municipio/Localidad:</td>
+                                    <th style="border-bottom: 1px black solid; padding-left: 10px;"><t t-esc="docs['locality']" /></th>
+                                    <td style="width: 5%; text-align: right; padding-right: 5px;">C.P.:</td>
+                                    <th style="border-bottom: 1px black solid; padding-left: 10px;"><t t-esc="docs['postal_code']" /></th>
+                                </tr>
+                            </table>
+                            <table style="width: 100%; margin-top: 10px;">
+                                <tr>
+                                    <td style="width: 15%">Telefono(casa): </td>
+                                    <th style="border-bottom: 1px black solid; padding-left: 10px;"><t t-esc="docs['phone_house']" /></th>
+                                    <td style="width: 15%; text-align: right; padding-right: 5px;">Telefono(celular):</td>
+                                    <th style="border-bottom: 1px black solid; padding-left: 10px;"><t t-esc="docs['phone_personal']" /></th>
+                                    <td style="width: 10%; text-align: right; padding-right: 5px;">Genero: </td>
+                                    <th style=""><t t-if="docs.gender == 'm'">M( X ) F(   )</t><t t-if="docs.gender == 'f'">M(   ) F( X )</t></th>
+                                </tr>
+                            </table>
+                            <table style="width: 100%; margin-top: 10px;">
+                                <tr>
+                                    <td style="width: 15%">Correo electrónico:</td>
+                                    <th style="border-bottom: 1px black solid; padding-left: 10px;"><t t-esc="docs['email']" /></th>
+                                </tr>
+                            </table>
+                            <table style="width: 100%; margin-top: 10px;">
+                                <tr>
+                                    <td style="width: 18%">Actividad económica: </td>
+                                    <th style="border-bottom: 1px black solid; padding-left: 10px;"><t t-esc="docs['activity']" /></th>
+                                    <td style="width: 25%; text-align: right; padding-right: 5px;">Actividad económica secundaria: </td>
+                                    <th style="border-bottom: 1px black solid; padding-left: 10px;"><t t-esc="docs['activity_second']" /></th>
+                                </tr>
+                            </table>
+                            <table style="width: 100%; margin-top: 10px;">
+                                <tr>
+                                    <td style="width: 15%">Identificación: </td>
+                                    <th style=""><t t-if="docs.identification == 'ine'">IFE/INE( X ) Pasaporte(   )</t><t t-if="docs.identification == 'pass'">IFE/INE(   ) Pasaporte( X )</t></th>
+                                    <td style="width: 20%; text-align: right; padding-right: 5px;"> No. de identificación: </td>
+                                    <th style="border-bottom: 1px black solid; padding-left: 10px;"><t t-esc="docs['identification_number']" /></th>
+                                </tr>
+                            </table>
+                            <table style="width: 100%; margin-top: 10px;">
+                                <tr>
+                                    <td style="width: 10%">Estado civil:</td>
+                                    <th style="width: 20%; text-align: center;">Soltero ( <t t-if="docs.civil_status == 'single'">X</t> )</th>
+                                    <th style="width: 20%; text-align: center;">Casado ( <t t-if="docs.civil_status == 'married'">X</t> )</th>
+                                    <th style="width: 30%; text-align: center;">Régimen separación de bienes ( <t t-if="docs.civil_status == 'property'">X</t> )</th>
+                                    <th style="width: 20%; text-align: center;">Soc. conyugal ( <t t-if="docs.civil_status == 'society'">X</t> )</th>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <th style="text-align: center;">Viudo ( <t t-if="docs.civil_status == 'widower'">X</t> )</th>
+                                    <th style="text-align: center;">Unión libre ( <t t-if="docs.civil_status == 'free'">X</t> )</th>
+                                </tr>
+                            </table>
+                            <table style="width: 100%; margin-top: 10px;">
+                                <tr>
+                                    <td style="width: 5%">RFC: </td>
+                                    <th style="border-bottom: 1px black solid; padding-left: 10px;"><t t-esc="docs['rfc']" /></th>
+                                    <td style="width: 10%; text-align: right; padding-right: 5px;">CURP: </td>
+                                    <th style="border-bottom: 1px black solid; padding-left: 10px;"><t t-esc="docs['curp']" /></th>
+                                </tr>
+                            </table>
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <table style="width: 100%">
+                            <tr>
+                                <td style="width: 50%;">
+                                    <div style="width: 100%; text-align: center;">
+                                        <label><t t-esc="docs['partner_id'].name" /></label>
+                                        <br/>
+                                        <label style="width: 400px; border-bottom: black 1px solid"></label>
+                                        <br/>
+                                        <label>Nombre completo de la persona interesada</label>
+                                    </div>
+                                </td>
+                                <td style="width: 50%;">
+                                    <div style="width: 100%; text-align: center;">
+                                        <label><t t-esc="user['name']" /></label>
+                                        <br/>
+                                        <label style="width: 400px; border-bottom: black 1px solid"></label>
+                                        <br/>
+                                        <label>Nombre de la persona responsable del llenado</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div style="width: 100%; text-align: center;">
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <label style="width: 400px; border-bottom: black 1px solid"></label>
+                                        <br/>
+                                        <label>Firma de la persona interesada</label>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!--Reporte-->
+
+    <record id="report_credit_application" model="ir.actions.report">
+        <field name="name">Solicitud</field>
+        <field name="model">credit.preapplication</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">wobin_credit.report_application</field>
+        <field name="report_file">wobin_credit.report_application</field>
+        <field name="attachment_use" eval="True"/>
+        <field name="attachment">'Solicitud %s' % (object.name)</field>
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!--========================================== Carta buro =======================================-->
+
+    <!--Plantilla-->
+    <template id="report_application_buro">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.internal_layout">
+                    <div class="page">
+                        <div style="width: 100%; text-align: center; padding-top: -200px">
+                            <label style="width: 100%;">Formato de autorización definido para las SOFOM E.N.R.</label>
+                            <label style="width: 100%;">Autorización para solicitar Reportes de Crédito</label>
+                            <label style="width: 100%;">Persona Física / Persona Moral</label>
+                        </div>
+                        <br/>
+                        <div style="width: 100%; text-align: justify;">
+                            <p>
+                                Por este conducto autorizo expresamente a Soluciones Financieras Internacionales S.A. de C.V. SOFOM ENR, para que por conducto de sus funcionarios facultados lleve a cabo Investigaciones, sobre mi comportamiento Crediticio o el de la Empresa que represento en Trans Union de México, S.A. SIC y/o Dun &amp; Bradstreet, S.A. SIC.
+                                <br/><br />
+                                Asimismo, declaro que conozco la naturaleza y alcance de las sociedades de información crediticia y de la información contenida en los reportes de crédito y reporte de crédito especial, declaro que conozco la naturaleza y alcance de la información que se solicitara, del uso que Soluciones Financieras Internacionales S.A. de C.V. SOFOM E.N.R. hará de tal información y de que esta podrá realizar consultas periódicas sobre mi historial o el de la empresa que represento, consintiendo que esta autorización se encuentra vigente por un periodo de 3 años contados a partir de su expedición y en todo caso durante el tiempo que se mantenga la relación jurídica.
+                                <br /><br />
+                                En caso de que la solicitud sea una Persona Moral, declaro bajo protesta de decir verdad Ser Representante Legal de la empresa mencionada en esta autorización; manifiesto que a la fecha de firma de la presente autorización los poderes no me han sido revocados, limitados, ni modificados en forma alguna.
+                                <br /><br />
+                                Autorizado para:
+                            </p>
+                        </div>
+                        <div style="width: 100%;">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <th style="width: 16%;">Persona Física(PF):</th><td style="border-bottom: 1px black solid; text-align: center; width: 7%;"><t t-if="data['applicant'] == 'pf'">X</t></td>
+                                    <th style="width: 40%; text-align: center;">Persona Física con Actividad Empresarial (PFAE):</th><td style="border-bottom: 1px black solid; text-align: center; width: 7%;"><t t-if="data['applicant'] == 'pfae'">X</t></td>
+                                    <th style="width: 23%; text-align: center;">Persona Moral (PM):</th><td style="border-bottom: 1px black solid; text-align: center; width: 7%;"><t t-if="data['applicant'] == 'pm'">X</t></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="width: 100%;">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <th>Nombre del Solicitante (Persona Física o Razón Social de la Persona Moral):</th>
+                                </tr>
+                                <tr>
+                                    <td style="width: 100%; border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="docs['partner_id'].name" /></td>
+                                </tr>
+                                <tr>
+                                    <th>Para el caso de Persona Moral, nombre del Representante Legal:</th>
+                                </tr>
+                                <tr>
+                                    <td style="width: 100%; border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="data['agent']" /></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="width: 100%;">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <th style="width: 5%;">RFC:</th><td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="docs['rfc']" /></td>
+                                    <th style="width: 10%; text-align: right; padding-right: 5px;">CURP:</th><td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="docs['curp']" /></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="width: 100%;">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <th style="width: 10%;">Domicilio:</th><td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="docs['address']" /></td>
+                                    <th style="width: 13%; text-align: right; padding-right: 5px;">Colonia:</th><td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="docs['suburb']" /></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="width: 100%;">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <th style="width: 10%;">Municipio: </th><td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="docs['locality']" /></td>
+                                    <th style="width: 13%; text-align: right; padding-right: 5px;">Estado:</th><td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="docs['state_address']" /></td>
+                                    <th style="width: 18%; text-align: right; padding-right: 5px;">Código postal:</th><td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="docs['postal_code']" /></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="width: 100%;">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <th style="width: 12%;">Teléfono(s):</th>
+                                    <td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="docs['phone_house']" /></td>
+                                    <td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="docs['phone_personal']" /></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="width: 100%;">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <th style="width: 40%;">Lugar y fecha en que se firma la autorización:</th>
+                                    <td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="date" /></td>
+                                    <td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="data['location']" /></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="width: 100%;">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <th style="width: 45%;">Nombre del Funcionario que recaba la Autorización:</th><td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="data['partner_authorization'].name" /></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <br />
+                        <div style="width: 100%; text-align: justify;">
+                            <p>
+                                Estoy consciente y acepto que este documento queda bajo custodia de Soluciones Financieras Internacionales S.A. de C.V. SOFOM ENR, y/o Sociedad de Información Crediticia consultada para efectos de control y cumplimiento del articulo 28 de la Ley para Regular las Sociedades de Información Crediticia; misma que señala que la Sociedad solo podrán proporcionar información a un Usuario, cuando este cuente con la autorización expresa del Cliente mediante su firma autógrafa.
+                            </p>
+                        </div>
+                        <div style="width: 100%; text-align: center;">
+                            <br />
+                            <br />
+                            <br />
+                            <label style="width: 400px; border-bottom: black 1px solid; margin-bottom: 0px;"></label><br />
+                            <label style="margin-bottom: 0px;">Nombre y firma del PF, PFAE o </label><br />
+                            <label>Representante Legal de la Empresa</label>
+                        </div>
+                        <div style="width: 100%; border: 1px black solid; padding: 5px;">
+                            <p>
+                                Para uso exclusivo de la Empresa que efectúa la consulta Soluciones Financieras Internacionales S.A. de C.V. SOFOM, E.N.R.
+                            </p>
+                            <table style="width: 100%;">
+                                <tr>
+                                    <th style="width: 25%;">Fecha de consulta:</th><td style="border-bottom: 1px black solid; width: 25%;"></td><td style="width: 25%;"></td><td style="width: 25%;"></td>
+                                </tr>
+                                <tr>
+                                    <th style="width: 25%;">Folio de consulta:</th><td style="border-bottom: 1px black solid; width: 25%;"></td><td style="width: 25%;"></td><td style="width: 25%;"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="width: 100%; text-align: justify; padding: 5px;">
+                            <p>
+                                IMPORTANTE: Este formato debe ser llenado individualmente, para una sola persona física ó pera una sola empresa. En caso de requerir el Historial crediticio del representante legal, favor de llenar un formato adicional.
+                            </p>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!--Reporte-->
+    <record id="report_credit_application_buro" model="ir.actions.report">
+        <field name="name">Carta buro</field>
+        <field name="model">credit.application.buro</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">wobin_credit.report_application_buro</field>
+        <field name="report_file">wobin_credit.report_application_buro</field>
+        <field name="attachment_use" eval="True"/>
+        <field name="attachment">'Carta buró %s' % (object.application_id.name)</field>
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!--Ventana de ingreso de datos-->
+    <record model="ir.ui.view" id="report_data_application_buro">
+        <field name="name">Carta buro</field>
+        <field name="model">credit.application.buro</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="applicant" />
+                        <field name="agent" />
+                        <field name="partner_authorization" />
+                    </group>
+                </group>
+                <footer>
+                    <button string="Cancel" special="cancel" class="oe_highlight" />
+                    <button name="%(wobin_credit.report_credit_application_buro)d" string="Submit" type="action" class="oe_highlight" />
+                </footer>
+            </form>
+        </field>
+    </record>
     
 
 </odoo>

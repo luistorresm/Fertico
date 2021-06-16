@@ -6,7 +6,7 @@
         <!--================================================ Avio ======================================================-->
 
 
-        <!--<button name="%(wobin_credit.report_credit_application)d" type="action" string="Imprimir solicitud" class="btn-primary" />-->
+        
 
         <record id="form_view_preapplication_avio" model="ir.ui.view">
             <field name="name">credit.preapplication.form</field>
@@ -14,6 +14,7 @@
             <field name="arch" type="xml">
                 <form string="Pre-solicitudes">
                     <header>
+                        <button name="%(wobin_credit.report_credit_application)d" type="action" string="Imprimir solicitud" class="btn-primary" />
                         <button name="open_report_buro" type="object" string="Carta buro" class="btn-primary" />
                         <button name="open_report_contract" type="object" string="Imprimir contrato" class="btn-primary" />
                         <button name="open_report_promissory" type="object" string="Imprimir pagaré" class="btn-primary" />

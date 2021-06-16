@@ -100,7 +100,7 @@ class ReportAccountStatus(models.AbstractModel):
 
 #===============================================Carta compromiso========================================================
 
-'''class ReportCommitment(models.AbstractModel):
+class ReportCommitment(models.AbstractModel):
     #Reporte estado de cuenta
     _name = 'report.wobin_credit.report_commitment'
 
@@ -110,22 +110,9 @@ class ReportAccountStatus(models.AbstractModel):
         date_now =  date.today().strftime("%d/%m/%Y")
         
         return {
-            'lines': record
-        }'''
-
-'''class ReportCommitment(models.AbstractModel):
-    _name = 'report.wobin_credit.report_commitment'
-
-    @api.model
-    def _get_report_values(self, docids, data=None):
-        # get the records selected for this rendering of the report
-        obj = self.env['credit.record'].browse(docids)
-        # return a custom rendering context
-
-        print("=============================", obj)
-        return {
-            'docs': obj
-        }'''
+            'docs': record,
+            'date': date_now
+        }
 
 #===============================================Solicitud========================================================
 
@@ -137,13 +124,10 @@ class ReportCommitment(models.AbstractModel):
     def _get_report_values(self, docids, data=None):
         pre_application = self.env['credit.preapplication'].browse(docids)
         date_now =  date.today().strftime("%d/%m/%Y")
-        
+
         return {
-            'doc_ids': docids,
-            'doc_model': 'credit.record',
             'docs' : pre_application,
             'date' : date_now,
-            'company' : self.env.user.company_id,
             'user' : self.env.user,
         }
 
@@ -173,12 +157,9 @@ class ReportBuro(models.AbstractModel):
         date_now =  date.today().strftime("%d/%m/%Y")
 
         return {
-            'doc_ids': docids,
-            'doc_model': 'credit.record',
             'docs' : report.application_id,
             'data' : report,
             'date' : date_now,
-            'company' : self.env.user.company_id,
             'user' : self.env.user,
         }
 
