@@ -311,13 +311,16 @@
                         </div>
                         <br/>
                         <div style="width: 100%; text-align: justify;">
-                            <p>
+                            <p style="margin-bottom: 8px">
                                 Por este conducto autorizo expresamente a Soluciones Financieras Internacionales S.A. de C.V. SOFOM ENR, para que por conducto de sus funcionarios facultados lleve a cabo Investigaciones, sobre mi comportamiento Crediticio o el de la Empresa que represento en Trans Union de México, S.A. SIC y/o Dun &amp; Bradstreet, S.A. SIC.
-                                <br/>
+                            </p>
+                            <p style="margin-bottom: 8px">
                                 Asimismo, declaro que conozco la naturaleza y alcance de las sociedades de información crediticia y de la información contenida en los reportes de crédito y reporte de crédito especial, declaro que conozco la naturaleza y alcance de la información que se solicitara, del uso que Soluciones Financieras Internacionales S.A. de C.V. SOFOM E.N.R. hará de tal información y de que esta podrá realizar consultas periódicas sobre mi historial o el de la empresa que represento, consintiendo que esta autorización se encuentra vigente por un periodo de 3 años contados a partir de su expedición y en todo caso durante el tiempo que se mantenga la relación jurídica.
-                                <br />
+                            </p>
+                            <p style="margin-bottom: 8px">
                                 En caso de que la solicitud sea una Persona Moral, declaro bajo protesta de decir verdad Ser Representante Legal de la empresa mencionada en esta autorización; manifiesto que a la fecha de firma de la presente autorización los poderes no me han sido revocados, limitados, ni modificados en forma alguna.
-                                <br />
+                            </p>
+                            <p style="margin-bottom: 8px">
                                 Autorizado para:
                             </p>
                         </div>
@@ -405,7 +408,6 @@
                         <div style="width: 100%; text-align: center;">
                             <br />
                             <br />
-                            <br />
                             <label style="width: 400px; border-bottom: black 1px solid; margin-bottom: 0px;"></label><br />
                             <label style="margin-bottom: 0px;">Nombre y firma del PF, PFAE o </label><br />
                             <label>Representante Legal de la Empresa</label>
@@ -423,7 +425,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div style="width: 100%; text-align: justify; padding: 5px;">
+                        <div style="width: 100%; text-align: justify; padding-left: 5px; padding-right: 5px;">
                             <p>
                                 IMPORTANTE: Este formato debe ser llenado individualmente, para una sola persona física ó pera una sola empresa. En caso de requerir el Historial crediticio del representante legal, favor de llenar un formato adicional.
                             </p>
