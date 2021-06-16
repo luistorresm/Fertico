@@ -142,8 +142,8 @@ class CreditApplicationBuro(models.TransientModel):
     ('pm','Persona Moral')], string="Solicitante")
     agent = fields.Char(string="Nombre del representante")
     partner_authorization = fields.Many2one('res.partner', string="Funcionario que recaba la Autorización")
-    application_id = fields.Many2one('credit.preapplication')
     location = fields.Char(string="Lugar donde se firma la autorización")
+    application_id = fields.Many2one('credit.preapplication')
 
 
 class ReportBuro(models.AbstractModel):
@@ -157,8 +157,8 @@ class ReportBuro(models.AbstractModel):
         date_now =  date.today().strftime("%d/%m/%Y")
 
         return {
-            'docs' : report.application_id,
-            'data' : report,
+            'docs' : report,
+            'data' : report.application_id,
             'date' : date_now,
             'user' : self.env.user,
         }
