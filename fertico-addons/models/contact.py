@@ -3,6 +3,8 @@ from odoo import models, fields, api
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
+    sel_groups_51_52 = fields.Char()
+
     @api.model
     def create(self, values):
         if values.get('parent_id'):
