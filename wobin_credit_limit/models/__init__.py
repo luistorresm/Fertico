@@ -2,3 +2,4 @@
 
 from . import models
 from . import credit_limit
+from . import sale

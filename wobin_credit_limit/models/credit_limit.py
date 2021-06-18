@@ -5,7 +5,8 @@ from odoo.exceptions import UserError
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    credit_limit = fields.Float(company_dependent=True, track_visibility='onchange')
+    credit_init = fields.Float(string="Crédito inicial", company_dependent=True, track_visibility='onchange')
+    credit_limit = fields.Float("Crédito disponible", company_dependent=True, track_visibility='onchange')
     grace_payment_days =  fields.Integer(string="Dias de gracia", company_dependent=True, track_visibility='onchange')
     allowed_sale = fields.Boolean(string="Permitir ventas a credito", company_dependent=True, track_visibility='onchange')
 
@@ -14,7 +15,8 @@ class ResPartner(models.Model):
         
         grace = True
         now = datetime.datetime.now()
-        invoices = self.env['account.invoice'].search([('date_due','<',now.strftime("%Y-%m-%d")),('partner_id','=',self.id),'|',('state','=','draft'),('state','=','open')])
+        company=self.env.user.company_id.id
+        invoices = self.env['account.invoice'].search([('date_due','<',now.strftime("%Y-%m-%d")),('partner_id','=',self.id),('company_id','=',company),'|',('state','=','draft'),('state','=','open')])
         
         for invoice in invoices:
             if invoice.payment_term_id.credit:
@@ -24,6 +26,46 @@ class ResPartner(models.Model):
                     
         self.allowed_sale = grace
         return grace
+
+    def update_limit(self):
+
+        total_invoices = 0
+        company=self.env.user.company_id.id
+        invoices = self.env['account.invoice'].search([('partner_id','=',self.id),('company_id','=',company),('state','=','open')])
+
+        for invoice in invoices:
+            if invoice.payment_term_id.credit:
+                total_invoices += invoice.amount_total
+        
+        self.credit_limit = self.credit_init - total_invoices
+
+    
+    def assign_credit(self):
+        return {
+                'name': 'Asignar cŕedito',
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': 'credit.limit.assign',
+                'view_id': self.env.ref('wobin_credit_limit.res_partner_assign_credit').id,
+                'type': 'ir.actions.act_window',
+                'res_id': self.env.context.get('cashbox_id'),
+                'context': {'default_partner_id':self.id},
+                'target': 'new'
+            }
+
+    def update_credit(self):
+        return {
+                'name': 'Actualizar límite cŕedito',
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': 'credit.limit.update',
+                'view_id': self.env.ref('wobin_credit_limit.res_partner_update_credit').id,
+                'type': 'ir.actions.act_window',
+                'res_id': self.env.context.get('cashbox_id'),
+                'context': {'default_partner_id':self.id},
+                'target': 'new'
+            }
+
     
     
     @api.onchange('credit_limit','grace_payment_days','allowed_sale')
@@ -34,9 +76,37 @@ class ResPartner(models.Model):
             self.allowed_sale = False
  
 
+class CreditLimitAssign(models.TransientModel):
+    _name='credit.limit.assign'
+    
+    partner_id = fields.Many2one('res.partner')
+    amount = fields.Float(string="Crédito")
+
+    def assign_credit(self):
+        self.partner_id.write({'credit_init': self.amount,
+                            'credit_limit': self.amount })
+
+
+class CreditLimitUpdate(models.TransientModel):
+    _name='credit.limit.update'
+    
+    partner_id = fields.Many2one('res.partner')
+    amount = fields.Float(string="Crédito")
+
+    def update_credit(self):
+        init = self.amount
+        credit = self.partner_id.credit_limit
+        if init > self.partner_id.credit_init:
+            credit += init-self.partner_id.credit_init
+        elif init < self.partner_id.credit_init:
+            credit -= self.partner_id.credit_init-init
+        
+        self.partner_id.write({'credit_init': init,
+                            'credit_limit': credit })
+            
+
 
 class AccountPaymentTerm(models.Model):
-    
     _inherit = 'account.payment.term'
 
     credit = fields.Boolean(string="Crédito")
@@ -49,7 +119,8 @@ class SaleOrder(models.Model):
         
         grace = True
         now = datetime.datetime.now()
-        invoices = self.env['account.invoice'].search([('date_due','<',now.strftime("%Y-%m-%d")),('partner_id','=',self.partner_id.id),'|',('state','=','draft'),('state','=','open')])
+        company=self.env.user.company_id.id
+        invoices = self.env['account.invoice'].search([('date_due','<',now.strftime("%Y-%m-%d")),('partner_id','=',self.partner_id.id),('company_id','=',company),'|',('state','=','draft'),('state','=','open')])
         
         for invoice in invoices:
             if invoice.payment_term_id.credit:
@@ -57,8 +128,11 @@ class SaleOrder(models.Model):
                 if difference.days > self.partner_id.grace_payment_days:
                     grace = False
 
-        self.partner_id.allowed_sale = grace
-        return grace
+        if grace:
+            return True
+        else:
+            self.partner_id.write({'allowed_sale': False})
+            return False
 
     def credit_conditions(self):
         limit = self.partner_id.credit_limit
