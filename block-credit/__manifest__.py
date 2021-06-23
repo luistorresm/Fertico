@@ -21,7 +21,6 @@
 
     # any module necessary for this one to work correctly
     'depends': ['base', 
-    'partner_credit_limit', 
     'contacts', 'mail'],
 
     # always loaded
