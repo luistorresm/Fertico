@@ -6,8 +6,8 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     credit_init = fields.Float(string="Crédito inicial", company_dependent=True, track_visibility='onchange')
-    credit_limit = fields.Float("Crédito disponible", company_dependent=True, track_visibility='onchange')
-    grace_payment_days =  fields.Integer(string="Dias de gracia", company_dependent=True, track_visibility='onchange')
+    credit_limit = fields.Float(string="Crédito disponible", company_dependent=True, track_visibility='onchange')
+    grace_payment_days =  fields.Integer(string="Dias de crédito", company_dependent=True, track_visibility='onchange')
     allowed_sale = fields.Boolean(string="Permitir ventas a credito", company_dependent=True, track_visibility='onchange')
 
     

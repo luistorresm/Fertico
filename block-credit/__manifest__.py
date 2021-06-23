@@ -30,7 +30,7 @@
         'security/credit_security.xml',
         'views/views.xml',
         'views/templates.xml',
-        'views/block_credit.xml',
+        #'views/block_credit.xml',
         'views/tracking_limit.xml'
 
     ],
