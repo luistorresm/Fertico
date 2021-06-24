@@ -1,5 +1,5 @@
 from odoo import models, fields, api
-import datetime
+from datetime import datetime
 from odoo.exceptions import UserError
 
 class ResPartner(models.Model):
@@ -20,7 +20,7 @@ class ResPartner(models.Model):
         
         for invoice in invoices:
             if invoice.payment_term_id.credit:
-                difference = now.date() - datetime.strptime(invoice.date_due, '%Y-%m-%d')
+                difference = now.date() - datetime.strptime(invoice.date_due, '%Y-%m-%d').date()
                 if difference.days > self.grace_payment_days:
                     grace = False
                     
@@ -124,14 +124,16 @@ class SaleOrder(models.Model):
         
         for invoice in invoices:
             if invoice.payment_term_id.credit:
-                difference = now.date() - datetime.strptime(invoice.date_due, '%Y-%m-%d')
+                difference = now.date() - datetime.strptime(invoice.date_due, '%Y-%m-%d').date()
                 if difference.days > self.partner_id.grace_payment_days:
                     grace = False
-
+                    self.partner_id.write({'allowed_sale': False})
+                    msg = 'La factura ' + invoice.number + ' está vencida'
+                    raise UserError(msg)
+                    
         if grace:
             return True
-        else:
-            self.partner_id.write({'allowed_sale': False})
+        else: 
             return False
 
     def credit_conditions(self):
