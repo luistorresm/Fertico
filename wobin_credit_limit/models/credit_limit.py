@@ -14,7 +14,7 @@ class ResPartner(models.Model):
     def check_grace_days(self):
         
         grace = True
-        now = datetime.datetime.now()
+        now = datetime.now()
         company=self.env.user.company_id.id
         invoices = self.env['account.invoice'].search([('date_due','<',now.strftime("%Y-%m-%d")),('partner_id','=',self.id),('company_id','=',company),'|',('state','=','draft'),('state','=','open')])
         
@@ -118,7 +118,7 @@ class SaleOrder(models.Model):
     def check_grace_days(self):
         
         grace = True
-        now = datetime.datetime.now()
+        now = datetime.now()
         company=self.env.user.company_id.id
         invoices = self.env['account.invoice'].search([('date_due','<',now.strftime("%Y-%m-%d")),('partner_id','=',self.partner_id.id),('company_id','=',company),'|',('state','=','draft'),('state','=','open')])
         
