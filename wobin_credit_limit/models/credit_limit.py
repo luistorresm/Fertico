@@ -156,7 +156,7 @@ class SaleOrder(models.Model):
                     return super(SaleOrder, self).action_confirm()
                 
                 else:
-                    msg = 'El cliente tiene deudas'
+                    msg = 'El cliente no cuenta con crédito suficiente o tiene facturas vencidas'
                     raise UserError(msg)
             
             else:
