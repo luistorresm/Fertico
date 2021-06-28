@@ -35,7 +35,7 @@ class ResPartner(models.Model):
 
         for invoice in invoices:
             if invoice.payment_term_id.credit:
-                total_invoices += invoice.amount_total
+                total_invoices += invoice.residual
         
         self.credit_limit = self.credit_init - total_invoices
 
@@ -138,7 +138,7 @@ class SaleOrder(models.Model):
 
     def credit_conditions(self):
         limit = self.partner_id.credit_limit
-        total = self.amount_total
+        total = self.residual
         credit = limit - total
 
         if credit >= 0:
@@ -176,7 +176,7 @@ class AccountInvoice(models.Model):
         
         if self.payment_term_id.credit:
             
-            credit=self.partner_id.credit_limit-self.amount_total
+            credit=self.partner_id.credit_limit-self.residual
             self.partner_id.write({'credit_limit': credit})
 
             if self.partner_id.credit_limit <= 0:
