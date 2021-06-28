@@ -138,7 +138,7 @@ class SaleOrder(models.Model):
 
     def credit_conditions(self):
         limit = self.partner_id.credit_limit
-        total = self.residual
+        total = self.amount_total
         credit = limit - total
 
         if credit >= 0:
