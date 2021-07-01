@@ -258,7 +258,18 @@
     </template>
 
         <!--Reporte-->
-        <report id="report_credit_account_status" model="credit.account.status" string="Estado de cuenta" report_type="qweb-html" name="wobin_credit.report_account_status" />
+        <record id="report_credit_account_status" model="ir.actions.report">
+            <field name="name">Estado de cuenta</field>
+            <field name="model">credit.account.status</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">wobin_credit.report_account_status</field>
+            <field name="report_file">wobin_credit.report_account_status</field>
+            <field name="attachment_use" eval="True"/>
+            <field name="attachment">'Estado de cuenta %s' % (object.partner_id.name)</field>
+            <field name="print_report_name">'Estado de cuenta %s' % (object.partner_id.name)</field>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_type">report</field>
+        </record>
 
         <!--Ventana de ingreso de datos-->
         <record model="ir.ui.view" id="report_data_account_status">
@@ -282,7 +293,13 @@
         </record>
 
         <!--Accion para la ventana emergente-->
-        <act_window id="action_account_status" name="Selecciona el cliente" res_model="credit.account.status" view_mode="form" target="new" multi="True" />
+        <record id="action_account_status" model="ir.actions.act_window">
+            <field name="name">Selecciona el cliente</field>
+            <field name="res_model">credit.account.status</field>
+            <field name="view_mode">form</field>
+            <field name="search_view_id" ref="report_data_account_status"/>
+            <field name="target">new</field>
+        </record>
 
         <!--Menu-->
         <menuitem id="menu_account_status" name="Estado de cuenta" parent="wobin_credit.reports_menu" action="action_account_status" />

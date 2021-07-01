@@ -22,7 +22,7 @@ class ReportAccountStatus(models.AbstractModel):
         #Buscamos los registros del credito y facturas con los que vamos a trabajar
         credit = self.env['credit.preapplication'].search([('partner_id','=',report.partner_id.id)], limit=1)
         invoices = self.env['account.move'].search([('partner_id','=',report.partner_id.id),('move_type','=','out_invoice'),('state','=','posted'),'|',('payment_state','=','in_payment'),('payment_state','=','partial')])
-        date_payment = datetime.strptime(report.date, '%Y-%m-%d')
+        date_payment = report.date
         inv_data = []
         total = 0
         sum_invoices = 0
@@ -462,13 +462,10 @@ class ReportAccountStatus(models.AbstractModel):
 
 
         return {
-            'doc_ids': docids,
-            'doc_model': 'credit.preapplication',
             'docs' : report,
             'data' : data,
             'invoices' : inv_data,
-            'payments' : payments,
-            'company' : self.env.user.company_id
+            'payments' : payments
         }
 
 
