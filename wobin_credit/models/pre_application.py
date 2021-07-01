@@ -197,3 +197,4 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     pricelist_id_domain = fields.Char()
+    force =  fields.Char()
