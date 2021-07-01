@@ -198,3 +198,4 @@ class SaleOrder(models.Model):
 
     pricelist_id_domain = fields.Char()
     force =  fields.Char()
+    payment_term_id_domain = fields.Char()
