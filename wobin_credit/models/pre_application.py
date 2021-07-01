@@ -192,3 +192,8 @@ class CreditCropType(models.Model):
     hectares = fields.Float(string="Hectareas")
     calculated_amount = fields.Float(string="Monto permitido", compute="get_amount", store=True)
     calculated_insurance = fields.Float(string="Seguro agrícola", compute="get_amount", store=True)
+
+class SaleOrder(models.Model):
+    _inherit = 'sale.order'
+
+    pricelist_id_domain = fields.Char()
