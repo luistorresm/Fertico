@@ -7,3 +7,6 @@ access_credit_cycles,access_credit_cycles,model_credit_cycles,,1,1,1,1
 access_credit_record,access_credit_record,model_credit_record,,1,1,1,1
 access_credit_lands,access_credit_lands,model_credit_lands,,1,1,1,1
 access_credit_application_buro,access_credit_application_buro,model_credit_application_buro,,1,1,1,1
+access_credit_application_contract,access_credit_application_contract,model_credit_application_contract,,1,1,1,1
+access_credit_application_promissory_note,access_credit_application_promissory_note,model_credit_application_promissory_note,,1,1,1,1
+access_credit_application_payment,access_credit_application_payment,model_credit_application_payment,,1,1,1,1

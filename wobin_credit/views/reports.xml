@@ -92,7 +92,8 @@
         <field name="report_name">wobin_credit.report_commitment</field>
         <field name="report_file">wobin_credit.report_commitment</field>
         <field name="attachment_use" eval="True"/>
-        <field name="attachment">'Carta compromiso'</field>
+        <field name="attachment">'Carta compromiso %s' % (object.name)</field>
+        <field name="print_report_name">'Carta compromiso %s' % (object.name)</field>
         <field name="binding_model_id" eval="False"/>
         <field name="binding_type">report</field>
     </record>
@@ -292,6 +293,7 @@
         <field name="report_file">wobin_credit.report_application</field>
         <field name="attachment_use" eval="True"/>
         <field name="attachment">'Solicitud %s' % (object.name)</field>
+        <field name="print_report_name">'Solicitud %s' % (object.name)</field>
         <field name="binding_model_id" eval="False"/>
         <field name="binding_type">report</field>
     </record>
@@ -311,22 +313,25 @@
                         </div>
                         <br/>
                         <div style="width: 100%; text-align: justify;">
-                            <p>
+                            <p style="margin-bottom: 8px">
                                 Por este conducto autorizo expresamente a Soluciones Financieras Internacionales S.A. de C.V. SOFOM ENR, para que por conducto de sus funcionarios facultados lleve a cabo Investigaciones, sobre mi comportamiento Crediticio o el de la Empresa que represento en Trans Union de México, S.A. SIC y/o Dun &amp; Bradstreet, S.A. SIC.
-                                <br/><br />
+                            </p>
+                            <p style="margin-bottom: 8px">
                                 Asimismo, declaro que conozco la naturaleza y alcance de las sociedades de información crediticia y de la información contenida en los reportes de crédito y reporte de crédito especial, declaro que conozco la naturaleza y alcance de la información que se solicitara, del uso que Soluciones Financieras Internacionales S.A. de C.V. SOFOM E.N.R. hará de tal información y de que esta podrá realizar consultas periódicas sobre mi historial o el de la empresa que represento, consintiendo que esta autorización se encuentra vigente por un periodo de 3 años contados a partir de su expedición y en todo caso durante el tiempo que se mantenga la relación jurídica.
-                                <br /><br />
+                            </p>
+                            <p style="margin-bottom: 8px">
                                 En caso de que la solicitud sea una Persona Moral, declaro bajo protesta de decir verdad Ser Representante Legal de la empresa mencionada en esta autorización; manifiesto que a la fecha de firma de la presente autorización los poderes no me han sido revocados, limitados, ni modificados en forma alguna.
-                                <br /><br />
+                            </p>
+                            <p style="margin-bottom: 8px">
                                 Autorizado para:
                             </p>
                         </div>
                         <div style="width: 100%;">
                             <table style="width: 100%;">
                                 <tr>
-                                    <th style="width: 16%;">Persona Física(PF):</th><td style="border-bottom: 1px black solid; text-align: center; width: 7%;"><t t-if="data['applicant'] == 'pf'">X</t></td>
-                                    <th style="width: 40%; text-align: center;">Persona Física con Actividad Empresarial (PFAE):</th><td style="border-bottom: 1px black solid; text-align: center; width: 7%;"><t t-if="data['applicant'] == 'pfae'">X</t></td>
-                                    <th style="width: 23%; text-align: center;">Persona Moral (PM):</th><td style="border-bottom: 1px black solid; text-align: center; width: 7%;"><t t-if="data['applicant'] == 'pm'">X</t></td>
+                                    <th style="width: 16%;">Persona Física(PF):</th><td style="border-bottom: 1px black solid; text-align: center; width: 7%;"><t t-if="o['applicant'] == 'pf'">X</t></td>
+                                    <th style="width: 40%; text-align: center;">Persona Física con Actividad Empresarial (PFAE):</th><td style="border-bottom: 1px black solid; text-align: center; width: 7%;"><t t-if="o['applicant'] == 'pfae'">X</t></td>
+                                    <th style="width: 23%; text-align: center;">Persona Moral (PM):</th><td style="border-bottom: 1px black solid; text-align: center; width: 7%;"><t t-if="o['applicant'] == 'pm'">X</t></td>
                                 </tr>
                             </table>
                         </div>
@@ -336,38 +341,38 @@
                                     <th>Nombre del Solicitante (Persona Física o Razón Social de la Persona Moral):</th>
                                 </tr>
                                 <tr>
-                                    <td style="width: 100%; border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="docs['partner_id'].name" /></td>
+                                    <td style="width: 100%; border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="data['partner_id'].name" /></td>
                                 </tr>
                                 <tr>
                                     <th>Para el caso de Persona Moral, nombre del Representante Legal:</th>
                                 </tr>
                                 <tr>
-                                    <td style="width: 100%; border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="data['agent']" /></td>
+                                    <td style="width: 100%; border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="o['agent']" /></td>
                                 </tr>
                             </table>
                         </div>
                         <div style="width: 100%;">
                             <table style="width: 100%;">
                                 <tr>
-                                    <th style="width: 5%;">RFC:</th><td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="docs['rfc']" /></td>
-                                    <th style="width: 10%; text-align: right; padding-right: 5px;">CURP:</th><td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="docs['curp']" /></td>
+                                    <th style="width: 5%;">RFC:</th><td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="data['rfc']" /></td>
+                                    <th style="width: 10%; text-align: right; padding-right: 5px;">CURP:</th><td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="data['curp']" /></td>
                                 </tr>
                             </table>
                         </div>
                         <div style="width: 100%;">
                             <table style="width: 100%;">
                                 <tr>
-                                    <th style="width: 10%;">Domicilio:</th><td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="docs['address']" /></td>
-                                    <th style="width: 13%; text-align: right; padding-right: 5px;">Colonia:</th><td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="docs['suburb']" /></td>
+                                    <th style="width: 10%;">Domicilio:</th><td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="data['address']" /></td>
+                                    <th style="width: 13%; text-align: right; padding-right: 5px;">Colonia:</th><td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="data['suburb']" /></td>
                                 </tr>
                             </table>
                         </div>
                         <div style="width: 100%;">
                             <table style="width: 100%;">
                                 <tr>
-                                    <th style="width: 10%;">Municipio: </th><td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="docs['locality']" /></td>
-                                    <th style="width: 13%; text-align: right; padding-right: 5px;">Estado:</th><td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="docs['state_address']" /></td>
-                                    <th style="width: 18%; text-align: right; padding-right: 5px;">Código postal:</th><td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="docs['postal_code']" /></td>
+                                    <th style="width: 10%;">Municipio: </th><td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="data['locality']" /></td>
+                                    <th style="width: 13%; text-align: right; padding-right: 5px;">Estado:</th><td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="data['state_address']" /></td>
+                                    <th style="width: 18%; text-align: right; padding-right: 5px;">Código postal:</th><td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="data['postal_code']" /></td>
                                 </tr>
                             </table>
                         </div>
@@ -375,8 +380,8 @@
                             <table style="width: 100%;">
                                 <tr>
                                     <th style="width: 12%;">Teléfono(s):</th>
-                                    <td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="docs['phone_house']" /></td>
-                                    <td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="docs['phone_personal']" /></td>
+                                    <td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="data['phone_house']" /></td>
+                                    <td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="data['phone_personal']" /></td>
                                 </tr>
                             </table>
                         </div>
@@ -385,14 +390,14 @@
                                 <tr>
                                     <th style="width: 40%;">Lugar y fecha en que se firma la autorización:</th>
                                     <td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="date" /></td>
-                                    <td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="data['location']" /></td>
+                                    <td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="o['location']" /></td>
                                 </tr>
                             </table>
                         </div>
                         <div style="width: 100%;">
                             <table style="width: 100%;">
                                 <tr>
-                                    <th style="width: 45%;">Nombre del Funcionario que recaba la Autorización:</th><td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="data['partner_authorization'].name" /></td>
+                                    <th style="width: 45%;">Nombre del Funcionario que recaba la Autorización:</th><td style="border-bottom: 1px black solid; padding-left: 5px;"><t t-esc="o['partner_authorization'].name" /></td>
                                 </tr>
                             </table>
                         </div>
@@ -403,7 +408,6 @@
                             </p>
                         </div>
                         <div style="width: 100%; text-align: center;">
-                            <br />
                             <br />
                             <br />
                             <label style="width: 400px; border-bottom: black 1px solid; margin-bottom: 0px;"></label><br />
@@ -423,7 +427,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <div style="width: 100%; text-align: justify; padding: 5px;">
+                        <div style="width: 100%; text-align: justify; padding-left: 5px; padding-right: 5px;">
                             <p>
                                 IMPORTANTE: Este formato debe ser llenado individualmente, para una sola persona física ó pera una sola empresa. En caso de requerir el Historial crediticio del representante legal, favor de llenar un formato adicional.
                             </p>
@@ -443,6 +447,7 @@
         <field name="report_file">wobin_credit.report_application_buro</field>
         <field name="attachment_use" eval="True"/>
         <field name="attachment">'Carta buró %s' % (object.application_id.name)</field>
+        <field name="print_report_name">'Carta buró %s' % (object.application_id.name)</field>
         <field name="binding_model_id" eval="False"/>
         <field name="binding_type">report</field>
     </record>
@@ -468,6 +473,479 @@
             </form>
         </field>
     </record>
+
+    <!--========================================== Contrato =======================================-->
+
+    <!--Plantilla-->
+    <template id="report_application_contract">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div style="width: 100%; text-align: center; padding-top: -200px">
+                        <label t-if="data['credit_type_id'].name=='Avio'" style="width: 100%;">Caratula de crédito AVIO</label>
+                        <label t-if="data['credit_type_id'].name=='Comercial'" style="width: 100%;">Caratula de crédito Comercial</label>
+                    </div>
+                    <br/>
+                    <div style="width: 100%;">
+                        <table style="width: 100%;">
+                            <tr>
+                                <th colspan="4" style="border: 1px black solid; padding: 10px; text-align: center; background-color: gray;">CONDICIONES GENERALES</th>
+                            </tr>
+                            <tr>
+                                <th colspan="4" style="border: 1px black solid; padding: 5px; background-color: lightgray;">I.-DE LA ACREDITANTE</th>
+                            </tr>
+                            <tr>
+                                <th style="border: 1px black solid; padding: 5px;">NOMBRE</th>
+                                <td colspan="3" style="border: 1px black solid; padding: 5px;"><t t-esc="contract['company']" /></td>
+                            </tr>
+                            <tr>
+                                <th style="border: 1px black solid; padding: 5px;">CONSTITUTIVA</th>
+                                <td colspan="3" style="border: 1px black solid; padding: 5px;"><t t-esc="o['constitutive']" /></td>
+                            </tr>
+                            <tr>
+                                <th style="border: 1px black solid; padding: 5px;">DATOS REGISTRALES</th>
+                                <td colspan="3" style="border: 1px black solid; padding: 5px;"><t t-esc="o['registral']" /></td>
+                            </tr>
+                            <tr>
+                                <th style="border: 1px black solid; padding: 5px;">DOMICILIO</th>
+                                <td colspan="3" style="border: 1px black solid; padding: 5px;"><t t-esc="contract['address_company']" /></td>
+                            </tr>
+                            <tr>
+                                <th colspan="4" style="border: 1px black solid; padding: 5px; background-color: lightgray;">II.-DEL ACREDITADO</th>
+                            </tr>
+                            <tr>
+                                <th style="border: 1px black solid; padding: 5px;">NOMBRE</th>
+                                <td colspan="3" style="border: 1px black solid; padding: 5px;"><t t-esc="data['partner_id'].name" /></td>
+                            </tr>
+                            <tr>
+                                <th style="border: 1px black solid; padding: 5px;">DOMICILIO</th>
+                                <td colspan="3" style="border: 1px black solid; padding: 5px;"><t t-esc="contract['address_partner']" /></td>
+                            </tr>
+                            <tr>
+                                <th colspan="4" style="border: 1px black solid; padding: 10px;; text-align: center; background-color: gray;">CLAUSULAS</th>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px black solid; padding: 5px;">PRIMERA.- APERTURA DE CRÉDITO (MONTO)</td>
+                                <th style="border: 1px black solid; padding: 5px;">$<t t-esc="data['authorized_amount']" /></th>
+                                <th style="border: 1px black solid; padding: 5px;"><t t-esc="contract['amount_text']" /></th>
+                                <th style="border: 1px black solid; padding: 5px;">PESOS 00/100 M.N.</th>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px black solid; padding: 5px;">SEGUNDA.- OBJETO DEL CRÉDITO</td>
+                                <th style="border: 1px black solid; padding: 5px;">ESTABLECIMIENTO Y PRODUCCIÓN DE </th>
+                                <th style="border: 1px black solid; padding: 5px;"><t t-esc="contract['total_hectares']" /> ha</th>
+                                <th style="border: 1px black solid; padding: 5px;">DE CULTIVOS</th>
+                            </tr>
+                            <t t-if="data['credit_type_id'].name=='Comercial'">
+                                <tr>
+                                    <td>TERCERA.- PLAZO DEL CRÉDITO</td>
+                                    <th colspan="3" style="border: 1px black solid; padding: 5px;">30 días</th>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px black solid; padding: 5px;">CUARTA.- INTERESES MORATORIOS</td>
+                                    <th style="border: 1px black solid; padding: 5px;">TASA FIJA MENSUAL</th>
+                                    <th style="border: 1px black solid; padding: 5px;"><t t-esc="data['credit_type_id'].interest" />%</th>
+                                    <th style="border: 1px black solid; padding: 5px;">A PARTIR DEL DÍA 31</th>	
+                                </tr>
+                            </t>
+                            <t t-if="data['credit_type_id'].name=='Avio'">
+                                <tr>
+                                    <td style="border: 1px black solid; padding: 5px;">TERCERA.- PLAZO DEL CRÉDITO</td>
+                                    <th colspan="3" style="border: 1px black solid; padding: 5px;">180 días</th>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px black solid; padding: 5px;">CUARTA.- INTERESES MORATORIOS</td>
+                                    <th style="border: 1px black solid; padding: 5px;">TASA FIJA MENSUAL</th>
+                                    <th style="border: 1px black solid; padding: 5px;"><t t-esc="data['credit_type_id'].interest" />%</th>
+                                    <th style="border: 1px black solid; padding: 5px;">A PARTIR DEL DÍA 1</th>	
+                                </tr>
+                            </t>	
+                            <tr>
+                                <td style="border: 1px black solid; padding: 5px;">QUINTA.- GARANTÍA ESPECÍFICA</td>
+                                <th colspan="3" style="border: 1px black solid; padding: 5px;">PAGARÉ FIRMADO</th>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px black solid; padding: 5px;">SEXTA.- JURISDICCIÓN Y COMPETENCIA	</td>
+                                <th colspan="3" style="border: 1px black solid; padding: 5px;"><t t-esc="contract['company']" /></th>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px black solid; padding: 5px;">Datos de la unidad Especializada de atención a usuarios:	</td>
+                                <th colspan="3" style="border: 1px black solid; padding: 5px;"><t t-esc="contract['address_company']" /></th>
+                            </tr>
+                        </table>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <table style="width: 100%">
+                        <tr>
+                            <td style="width: 50%;">
+                                <div style="width: 100%; text-align: center;">
+                                    <br />
+                                    <label style="width: 400px; border-bottom: black 1px solid"></label>
+                                    <br />
+                                    <label>FIRMA DEL ACREDITADO</label>
+                                </div>
+                            </td>
+                            <td style="width: 50%;">
+                                <div style="width: 100%; text-align: center;">
+                                    <br />
+                                    <label style="width: 400px; border-bottom: black 1px solid"></label>
+                                    <br />
+                                    <label>REPRESENTANTE DE CRÉDITO</label>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!--Reporte-->
+    <record id="report_credit_application_contract" model="ir.actions.report">
+        <field name="name">Carta buro</field>
+        <field name="model">credit.application.contract</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">wobin_credit.report_application_contract</field>
+        <field name="report_file">wobin_credit.report_application_contract</field>
+        <field name="attachment_use" eval="True"/>
+        <field name="attachment">'Contrato %s' % (object.application_id.name)</field>
+        <field name="print_report_name">'Contrato %s' % (object.application_id.name)</field>
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!--Ventana de ingreso de datos-->
+    <record model="ir.ui.view" id="report_data_application_contract">
+        <field name="name">Contrato</field>
+        <field name="model">credit.application.contract</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="constitutive" />
+                    <field name="registral" />
+                </group>
+                <footer>
+                    <button string="Cancel" special="cancel" class="oe_highlight" />
+                    <button name="%(wobin_credit.report_credit_application_contract)d" string="Submit" type="action" class="oe_highlight" />
+                </footer>
+            </form>
+        </field>
+    </record>
     
+    <!--========================================== Pagaré =======================================-->
+
+    <!--Plantilla-->
+    <template id="report_application_promissory_note">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.internal_layout">
+                    <div style="border: 1px black solid; margin-right: 2%; margin-left: 2%;">
+                        <br/>
+                        <div style="width: 100%; text-align: center; padding-right: 5%; padding-left: 5%;">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <th rowspan="2"><img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)" style="height: 100px;"/></th>
+                                    <th style="color: rgb(25, 93, 202); font-size: 20px;">PAGARÉ</th>
+                                    <th style="text-align: center;">N. <label style="border-bottom: 1px black solid; background-color: rgb(168, 219, 177)"> 1 </label></th>
+                                    <th style="text-align: center;">Bueno por: </th>
+                                    <th style="text-align: center;"><label style="border-bottom: 1px black solid; background-color: rgb(168, 219, 177); width: 100%;">$<t t-esc="contract['amount']" /></label></th>
+                                </tr>
+                                <tr>
+                                    <th style="text-align: right;">En</th>
+                                    <th style="text-align: center;"><t t-esc="o['place']" /></th>
+                                    <th style="text-align: center;">a </th>
+                                    <th style="text-align: center;"><label style="border-bottom: 1px black solid; background-color: rgb(168, 219, 177); width: 100%;"><t t-esc="contract['date']" /></label></th>
+                                </tr>
+                            </table>
+                        </div>
+                        <br/>
+                        <div style="width: 100%; text-align: center; padding-right: 5%; padding-left: 5%;">
+                            <p style="width: 100%; text-align: justify;">
+                                <b>Debo y pagaré incondicionalmente por este pagaré a la orden de:</b> <u><t t-esc="contract['company']" /></u>
+                                <b>en</b> <u><t t-esc="o['place']" /></u> <b>el</b> <u><t t-esc="contract['date']" /></u> 
+                                <br/><b>La cantidad de:</b> <u><t t-esc="contract['amount_text']" /></u> <b>PESOS 00/100 M.N.</b>				
+                            </p>
+                            <p style="width: 100%; text-align: justify;">
+                                Valor recibido a mi entera satisfacción. Este pagaré forma parte de una serie numerada del 1 al	1 y todos están
+                                sujetos a la condición de que, al no pagarse cualquiera de ellos a su vencimiento, serán exigibles todos los que le sigan											
+                                en número, además de los ya vencidos, desde la fecha vencimiento de este documento hasta el día de su liquidación,											
+                                causará intereses moratorios al tipo de <u><b><t t-esc="data['interest']" />%</b></u> mensual pagadero en esta ciudad juntamente con el principal.						
+                            </p>
+                        </div>
+                        <div style="width: 100%; text-align: center; padding-right: 5%; padding-left: 5%;">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <th style="width: 15%;"></th>
+                                    <th style="width: 55%; text-align: center; ">Nombre y datos del deudor</th>
+                                    <th style="width: 10%;"></th>
+                                    <th style="width: 20%; text-align: center;">Acepto</th>
+                                </tr>
+                                <tr>
+                                    <td>Nombre</td>
+                                    <td style="border-bottom: 1px black solid; background-color: rgb(168, 219, 177)"><t t-esc="data['partner_id'].name" /></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Domicilio</td>
+                                    <td style="border-bottom: 1px black solid; background-color: rgb(168, 219, 177)"><t t-esc="contract['address_partner']" /></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Ciudad</td>
+                                    <td style="border-bottom: 1px black solid; background-color: rgb(168, 219, 177)"><t t-esc="data['locality']" /></td>
+                                    <td>Firma</td>
+                                    <td style="background-color: rgb(168, 219, 177)"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <br/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!--Reporte-->
+    <record id="report_credit_application_promissory_note" model="ir.actions.report">
+        <field name="name">Pagare</field>
+        <field name="model">credit.application.promissory.note</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">wobin_credit.report_application_promissory_note</field>
+        <field name="report_file">wobin_credit.report_application_promissory_note</field>
+        <field name="attachment_use" eval="True"/>
+        <field name="attachment">'Pagaré %s' % (object.application_id.name)</field>
+        <field name="print_report_name">'Pagaré %s' % (object.application_id.name)</field>
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!--Ventana de ingreso de datos-->
+    <record model="ir.ui.view" id="report_data_application_promissory_note">
+        <field name="name">Pagare</field>
+        <field name="model">credit.application.promissory.note</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="place" />
+                    <field name="date" />
+                </group>
+                <footer>
+                    <button string="Cancel" special="cancel" class="oe_highlight" />
+                    <button name="%(wobin_credit.report_credit_application_promissory_note)d" string="Submit" type="action" class="oe_highlight" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <!--========================================== Firmas =======================================-->
+
+    <!--Plantilla-->
+    <template id="report_application_signature">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                        <br/>
+                        <br/>
+                        <div style="width: 100%;">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <th style="width: 30%;">Ciclo <t t-esc="data['cycle'].name" /></th>
+                                    <th rowspan="2" style="text-align: center; font-size: 25px;">FIRMAS AUTORIZADAS</th>
+                                    <th style="text-align: right; padding-right: 10px; width: 10%;">Fecha</th>
+                                    <th style="text-align: center; border-bottom: 1px black solid; width: 20%;"><t t-esc="date" /></th>
+                                </tr>
+                                <tr>
+                                    <th ></th>
+                                    <th style="text-align: right; padding-right: 10px;">Sucursal</th>
+                                    <th style="text-align: center; border-bottom: 1px black solid"><t t-esc="o['place']" /></th>
+                                </tr>
+                            </table>
+                        </div>
+                        <br />
+                        <br />
+                        <div style="width: 100%; text-align: justify; padding: 5%">
+                            <p>
+                                Con la finalidad de optimizar y agilizar la entrega del producto comprado a CRÉDITO
+                                por ALBAGRO SA de CV, Yo <u><t t-esc="data['partner_id'].name" /></u> me permito comunicarle que
+                                AUTORIZO  a  las  personas  cuyas  firmas  aparecen  enseguida, para que a mi nombre y representación soliciten la entrega de insumos.		
+                            </p>
+                        </div>
+                        <div style="width: 100%;  padding: 5%">
+                            <table style="width: 100%;">
+                                <tr style="height: 50px;">
+                                    <th>Firmas autorizadas:</th>
+                                </tr>
+                                <tr style="height: 40px;">
+                                    <th style="text-align: center;">Nombre completo</th>
+                                    <th style="text-align: center;">FIRMA</th>
+                                </tr>
+                                <tr style="height: 30px;" t-foreach="o['names']" t-as="signature">
+                                    <td style="text-align: center; border: 1px black solid;"><t t-esc="signature.name_signature" /></td>
+                                    <td style="text-align: center; border: 1px black solid;"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <div style="width: 100%; text-align: center;">
+                            <label>Autorizó</label>
+                            <br />
+                            <br />
+                            <br />
+                            <label style="width: 400px; border-bottom: black 1px solid; margin-bottom: 0px;"></label><br />
+                            <label style="margin-bottom: 0px;"><t t-esc="data['partner_id'].name" /></label><br />
+                            
+                        </div>
+                        <br />
+                        <br/>
+                        <div style="width: 100%; text-align: justify; padding: 5%">
+                            <p>
+                                A este formato se le anexa(n) la(s) copia(s) legible(s) por ambos lados de la(s) identificacion(es) (INE y/o pasaporte vigente) del(os) autorizado(s).			
+                            </p>
+                        </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!--Reporte-->
+    <record id="report_credit_application_signature" model="ir.actions.report">
+        <field name="name">Firmas</field>
+        <field name="model">credit.application.signature</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">wobin_credit.report_application_signature</field>
+        <field name="report_file">wobin_credit.report_application_signature</field>
+        <field name="attachment_use" eval="True"/>
+        <field name="attachment">'Firmas %s' % (object.application_id.name)</field>
+        <field name="print_report_name">'Firmas %s' % (object.application_id.name)</field>
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!--Ventana de ingreso de datos-->
+    <record model="ir.ui.view" id="report_data_application_signature">
+        <field name="name">Firmas</field>
+        <field name="model">credit.application.signature</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="place" />
+                    <field name="names" >
+                        <tree editable="bottom">
+                            <field name="name_signature" />
+                        </tree>
+                    </field>
+                </group>
+                <footer>
+                    <button string="Cancel" special="cancel" class="oe_highlight" />
+                    <button name="%(wobin_credit.report_credit_application_signature)d" string="Submit" type="action" class="oe_highlight" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!--========================================== Recibo de pago =======================================-->
+
+    <!--Plantilla-->
+    <template id="report_application_payment">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.internal_layout">
+                    <div style="border: 1px black solid; margin-right: 3%; margin-left: 3%;">
+                        <br/>
+                        <br/>
+                        <div style="width: 100%; text-align: center; padding-right: 5%; padding-left: 5%;">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <th><img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)" style="height: 100px;"/></th>
+                                    <th style="color: green; font-size: 20px;">Recibo de pago</th>
+                                    <th style="text-align: center;">Fecha:<t t-esc="date" /></th>
+                                </tr>
+                            </table>
+                        </div>
+                        <br/>
+                        <div style="width: 100%; text-align: center; padding-right: 3%; padding-left: 3%;">
+                            <table style="width: 100%;">
+                                <tr>
+                                    <th style="text-align: right; padding-right: 10px;">Recibí de </th>
+                                    <td style="border-bottom: 1px black solid; width: 45%;"><t t-esc="data['partner_id'].name" /></td>
+                                    <th style="border-bottom: 1px white solid; width: 20%; text-align: center">Cantidad</th>
+                                    <td style="border: 1px black solid; width: 20%; text-align: center;">$ <t t-esc="o['amount']" /></td>
+                                </tr>
+                                <tr><td style="height: 20px;"></td></tr>
+                                <tr>
+                                    <th style="text-align: right; padding-right: 10px;">Cantidad</th>
+                                    <td colspan="2" style="border-bottom: 1px black solid;"><t t-esc="amount_text" /></td>
+                                    <td>pesos  00/100  MN</td>
+                                </tr>
+                                <tr><td style="height: 20px;"></td></tr>
+                                <tr>
+                                    <th style="text-align: right; padding-right: 10px;">Concepto</th>
+                                    <td style="border-bottom: 1px black solid;"><t t-esc="o['concept']" /></td>
+                                    <th style="text-align: center;">Forma de pago</th>
+                                    <td style="border-bottom: 1px black solid;" t-if="o['payment_type'] == 'efectivo'">Efectivo</td>
+                                    <td style="border-bottom: 1px black solid;" t-if="o['payment_type'] == 'cheque'">Cheque</td>
+                                    <td style="border-bottom: 1px black solid;" t-if="o['payment_type'] == 'trans'">Transferencia</td>
+                                </tr>
+                                <tr><td style="height: 60px;"></td></tr>
+                                <tr stye="margin-top: 50px; magin-bottom: 10px">
+                                    <td style="text-align: right; padding-right: 10px;">Recibido por: </td>
+                                    <td style="border-bottom: 1px black solid;"><t t-esc="o['receiver']" /></td>
+                                    <td>(Nombre y firma)</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <br/>
+                        <br/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!--Reporte-->
+    <record id="report_credit_application_payment" model="ir.actions.report">
+        <field name="name">Pagos</field>
+        <field name="model">credit.application.payment</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">wobin_credit.report_application_payment</field>
+        <field name="report_file">wobin_credit.report_application_payment</field>
+        <field name="attachment_use" eval="True"/>
+        <field name="attachment">'Pago %s' % (object.application_id.name)</field>
+        <field name="print_report_name">'Pago %s' % (object.application_id.name)</field>
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!--Ventana de ingreso de datos-->
+    <record model="ir.ui.view" id="report_data_application_payment">
+        <field name="name">Pagos</field>
+        <field name="model">credit.application.payment</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="date" />
+                    <field name="amount" />
+                    <field name="concept" />
+                    <field name="receiver" />
+                    <field name="payment_type" />
+                </group>
+                <footer>
+                    <button string="Cancel" special="cancel" class="oe_highlight" />
+                    <button name="%(wobin_credit.report_credit_application_payment)d" string="Submit" type="action" class="oe_highlight" />
+                </footer>
+            </form>
+        </field>
+    </record>
 
 </odoo>
