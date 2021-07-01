@@ -36,7 +36,7 @@ class CreditPreApplication(models.Model):
     name = fields.Char('Preaplicación', default="Solicitud borrador", readonly=True)
     record_id = fields.Many2one('credit.record', string="Expediente")
     partner_id = fields.Many2one(related='record_id.partner_id', string="Solicitante")
-    credit_type_id = fields.Many2one(related='record_id.credit_type_id', string="Tipo de crédito")
+    credit_type_id = fields.Many2one(related='credit.types', string="Tipo de crédito")
     cycle =  fields.Many2one('credit.cycles', string="Ciclo")
     payment_terms = fields.Many2one(related='credit_type_id.payment_terms', string="Plazo de pago", readonly='True')
     date_limit_flag = fields.Boolean(default="False")
