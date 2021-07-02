@@ -292,8 +292,12 @@ class ReportAccountStatus(models.AbstractModel):
                     total_invoice = invoice.amount_total
                     pay = {}
 
-                    payments_array = json.loads(payments)['content']
-                    _logger.info('\n\n\n ================================ %s\n\n\n', payments_array)
+                    payments_json = json.loads(payments)['content']
+                    payments_array=[]
+                    for pay in payments_json:
+                        _logger.info('\n\n\n ================================ %s\n\n\n', pay)
+                        payments_array.append({'amount':pay['amount'],'date':pay['date']})
+
 
                     for payment in payments_array:
                         #Por cada pago revisamos los intereses que generó
