@@ -353,11 +353,11 @@ class ReportAccountStatus(models.AbstractModel):
                                 'days_mo' : days_mo,
                                 'total_mo' : "{:,.2f}".format(((total_invoice*(credit.interest_mo/100))/30)*(days_mo))}
                             
-                            payments.append(pay)
-                            date_init = date_end
-                            total_invoice -= payment['amount']
+                        payments.append(pay)
+                        date_init = date_end
+                        total_invoice -= payment['amount']
                     
-                    _logger.info('\n\n\n ================================ %s\n\n\n', payments)
+                    
                     date_end = date_payment
                     days_end = (date_end - date_invoice).days
                     days_init = (date_init - date_invoice).days
