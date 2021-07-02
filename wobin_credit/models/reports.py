@@ -31,7 +31,7 @@ class ReportAccountStatus(models.AbstractModel):
 
         for invoice in invoices:
             #Recorremos todas las factura para hacer los calculos
-            payment_ids = self.env['account.payment'].search([('partner_id','=',self.partner_id)('reconciled_invoice_ids','=',invoice.id)])
+            payments = invoice.invoice_payments_widget.split("\n")
             interest = 0
             interest_mo = 0
             date_invoice = invoice.invoice_date
@@ -45,15 +45,16 @@ class ReportAccountStatus(models.AbstractModel):
             if term == 30:
                 #Si el credito es comercial, revisamos si tiene pagos provisionales o abonos
                 
-                if payment_ids:
+                if payments != '':
                     date_init = date_invoice
                     date_end = ''
                     total_invoice = invoice.amount_total
                     pay = {}
 
                     payments_array = []
-                    for payment in payment_ids:
-                        payments_array.append(payment)
+                    for payment in payments:
+                        p_data = payment.split("$")
+                        payments_array.append({'payment_date' : p_data[0], 'amount' : p_data[1]})
                     payments_array.reverse()
 
                     for payment in payments_array:
@@ -286,7 +287,7 @@ class ReportAccountStatus(models.AbstractModel):
             
             elif term == 180:
                 #Si el credito es avio, revisamos si tiene pagos provisionales o abonos
-                if payment_ids:
+                if payments:
                     date_init = date_invoice
                     date_end = ''
                     date_limit = credit.date_limit
@@ -295,7 +296,7 @@ class ReportAccountStatus(models.AbstractModel):
                     pay = {}
 
                     payments_array = []
-                    for payment in payment_ids:
+                    for payment in payments:
                         payments_array.append(payment)
                     payments_array.reverse()
 
