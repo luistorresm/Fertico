@@ -31,7 +31,7 @@ class ReportAccountStatus(models.AbstractModel):
 
         for invoice in invoices:
             #Recorremos todas las factura para hacer los calculos
-            payment_ids = self.env['account.payment'].search([('move_id','=',invoice.id)])
+            payments_text = invoice.invoice_payments_widget
             interest = 0
             interest_mo = 0
             date_invoice = invoice.invoice_date
@@ -45,129 +45,127 @@ class ReportAccountStatus(models.AbstractModel):
             if term == 30:
                 #Si el credito es comercial, revisamos si tiene pagos provisionales o abonos
                 
-                if payment_ids:
+                if payments_text != '':
                     date_init = date_invoice
                     date_end = ''
                     total_invoice = invoice.amount_total
                     pay = {}
 
-                    payments_array = []
-                    for payment in payment_ids:
-                        payments_array.append(payment)
-                    payments_array.reverse()
+                    payments_json = json.loads(payments_text)['content']
+                    payments_array=[]
+                    for pay in payments_json:
+                        payments_array.append({'amount':pay['amount'],'date':pay['date']})
 
                     for payment in payments_array:
                         #Por cada pago revisamos los intereses que generó
-                        
-                        if payment.state == 'posted' or payment.state == 'reconciled':
 
-                            pay_date = payment.payment_date.strftime("%d/%m/%Y")
-                            date_end = payment.payment_date
-                            days_init = (date_init - date_invoice).days
-                            days_end = (date_end - date_invoice).days
+                        pay_date = payment['date']
+                        date_end = datetime.strptime(payment['date'], '%Y-%m-%d')
+                        days_init = (date_init - date_invoice).days
+                        days_end = (date_end - date_invoice).days
                             
-                            if  days_end <= 30:
-                                #C1 si el pago se hizo antes de 30 dias - este no genera ningun tipo de interes
-                                days_nat = days_end-days_init                      
-                                pay = {'invoice' : invoice.name,
-                                    'total' : "{:,.2f}".format(total_invoice),
-                                    'payment_amount' : "{:,.2f}".format(payment.amount),
-                                    'date' : pay_date,
-                                    'days' : days_end-days_init,
-                                    'days_nat' : days_nat,
-                                    'days_int' : 0,
-                                    'total_int' : 0,
-                                    'days_mo' : 0,
-                                    'total_mo' : 0}
+                        if  days_end <= 30:
+                            #C1 si el pago se hizo antes de 30 dias - este no genera ningun tipo de interes
+                            days_nat = days_end-days_init                      
+                            pay = {'invoice' : invoice.name,
+                                'total' : "{:,.2f}".format(total_invoice),
+                                'payment_amount' : "{:,.2f}".format(payment['amount']),
+                                'date' : pay_date,
+                                'days' : days_end-days_init,
+                                'days_nat' : days_nat,
+                                'days_int' : 0,
+                                'total_int' : 0,
+                                'days_mo' : 0,
+                                'total_mo' : 0}
                             
-                            elif  days_init <= 30 and days_end > 30 and days_end <= 60:
-                                #C2 si el pago abarca un periodo de menos de antes de 30 dias y antes de 60 - genera interes normal despues del dia 30
-                                days_nat = 30
-                                days_int = days_end-30
-                                interest += ((total_invoice*(credit.interest/100))/30)*(days_int)
-                                pay = {'invoice' : invoice.name,
-                                    'total' : "{:,.2f}".format(total_invoice),
-                                    'payment_amount' : "{:,.2f}".format(payment.amount),
-                                    'date' : pay_date,
-                                    'days' : days_end-days_init,
-                                    'days_nat' : 30-days_init,
-                                    'days_int' : days_int,
-                                    'total_int' : "{:,.2f}".format(((total_invoice*(credit.interest/100))/30)*(days_int)),
-                                    'days_mo' : 0,
-                                    'total_mo' : 0}
+                        elif  days_init <= 30 and days_end > 30 and days_end <= 60:
+                            #C2 si el pago abarca un periodo de menos de antes de 30 dias y antes de 60 - genera interes normal despues del dia 30
+                            days_nat = 30
+                            days_int = days_end-30
+                            interest += ((total_invoice*(credit.interest/100))/30)*(days_int)
+                            pay = {'invoice' : invoice.name,
+                                'total' : "{:,.2f}".format(total_invoice),
+                                'payment_amount' : "{:,.2f}".format(payment['amount']),
+                                'date' : pay_date,
+                                'days' : days_end-days_init,
+                                'days_nat' : 30-days_init,
+                                'days_int' : days_int,
+                                'total_int' : "{:,.2f}".format(((total_invoice*(credit.interest/100))/30)*(days_int)),
+                                'days_mo' : 0,
+                                'total_mo' : 0}
                             
-                            elif days_init > 30 and days_end <= 60:
-                                #C3 si el pago abarga un periodo despues del dia 30 y antes del dia 60 - genera interes normal
-                                days_nat = 30
-                                days_int = days_end-30
-                                interest += ((total_invoice*(credit.interest/100))/30)*(days_end-days_init)
-                                pay = {'invoice' : invoice.name,
-                                    'total' : "{:,.2f}".format(total_invoice),
-                                    'payment_amount' : "{:,.2f}".format(payment.amount),
-                                    'date' : pay_date,
-                                    'days' : days_end-days_init,
-                                    'days_nat' : 0,
-                                    'days_int' : days_int,
-                                    'total_int' : "{:,.2f}".format(((total_invoice*(credit.interest/100))/30)*(days_int)),
-                                    'days_mo' : 0,
-                                    'total_mo' : 0}
+                        elif days_init > 30 and days_end <= 60:
+                            #C3 si el pago abarga un periodo despues del dia 30 y antes del dia 60 - genera interes normal
+                            days_nat = 30
+                            days_int = days_end-30
+                            interest += ((total_invoice*(credit.interest/100))/30)*(days_end-days_init)
+                            pay = {'invoice' : invoice.name,
+                                'total' : "{:,.2f}".format(total_invoice),
+                                'payment_amount' : "{:,.2f}".format(payment['amount']),
+                                'date' : pay_date,
+                                'days' : days_end-days_init,
+                                'days_nat' : 0,
+                                'days_int' : days_int,
+                                'total_int' : "{:,.2f}".format(((total_invoice*(credit.interest/100))/30)*(days_int)),
+                                'days_mo' : 0,
+                                'total_mo' : 0}
                             
-                            elif days_init > 30 and days_init <= 60 and days_end > 60:
-                                #C4 si el pago abarca un periodo despues del dia 30 y desues del 60 - genera interes normal e interes moratorio
-                                days_nat = 30
-                                days_int = 30
-                                days_mo = days_end-60
-                                interest += ((total_invoice*(credit.interest/100))/30)*(60 - days_init)
-                                interest_mo += ((total_invoice*(credit.interest_mo/100))/30)*(days_mo)
-                                pay = {'invoice' : invoice.name,
-                                    'total' : "{:,.2f}".format(total_invoice),
-                                    'payment_amount' : "{:,.2f}".format(payment.amount),
-                                    'date' : pay_date,
-                                    'days' : days_end-days_init,
-                                    'days_nat' : 0,
-                                    'days_int' : 60 - days_init,
-                                    'total_int' : "{:,.2f}".format(((total_invoice*(credit.interest/100))/30)*(60 - days_init)),
-                                    'days_mo' : days_mo,
-                                    'total_mo' : "{:,.2f}".format(((total_invoice*(credit.interest_mo/100))/30)*(days_mo))}
+                        elif days_init > 30 and days_init <= 60 and days_end > 60:
+                            #C4 si el pago abarca un periodo despues del dia 30 y desues del 60 - genera interes normal e interes moratorio
+                            days_nat = 30
+                            days_int = 30
+                            days_mo = days_end-60
+                            interest += ((total_invoice*(credit.interest/100))/30)*(60 - days_init)
+                            interest_mo += ((total_invoice*(credit.interest_mo/100))/30)*(days_mo)
+                            pay = {'invoice' : invoice.name,
+                                'total' : "{:,.2f}".format(total_invoice),
+                                'payment_amount' : "{:,.2f}".format(payment['amount']),
+                                'date' : pay_date,
+                                'days' : days_end-days_init,
+                                'days_nat' : 0,
+                                'days_int' : 60 - days_init,
+                                'total_int' : "{:,.2f}".format(((total_invoice*(credit.interest/100))/30)*(60 - days_init)),
+                                'days_mo' : days_mo,
+                                'total_mo' : "{:,.2f}".format(((total_invoice*(credit.interest_mo/100))/30)*(days_mo))}
                             
-                            elif days_init <= 30 and days_end > 60:
-                                #C5 si el pago abarca un periodo antes del dia 30 y despues del dia 60 - genera interes normal e interes moratorio
-                                days_nat = 30
-                                days_int = 30
-                                days_mo = days_end-60
-                                interest += ((total_invoice*(credit.interest/100))/30)*(days_int)
-                                interest_mo += ((total_invoice*(credit.interest_mo/100))/30)*(days_mo)
-                                pay = {'invoice' : invoice.name,
-                                    'total' : "{:,.2f}".format(total_invoice),
-                                    'payment_amount' : "{:,.2f}".format(payment.amount),
-                                    'date' : pay_date,
-                                    'days' : days_end-days_init,
-                                    'days_nat' : 30-days_init,
-                                    'days_int' : days_int,
-                                    'total_int' : "{:,.2f}".format(((total_invoice*(credit.interest/100))/30)*(days_int)),
-                                    'days_mo' : days_mo,
-                                    'total_mo' : "{:,.2f}".format(((total_invoice*(credit.interest_mo/100))/30)*(days_mo))}
+                        elif days_init <= 30 and days_end > 60:
+                            #C5 si el pago abarca un periodo antes del dia 30 y despues del dia 60 - genera interes normal e interes moratorio
+                            days_nat = 30
+                            days_int = 30
+                            days_mo = days_end-60
+                            interest += ((total_invoice*(credit.interest/100))/30)*(days_int)
+                            interest_mo += ((total_invoice*(credit.interest_mo/100))/30)*(days_mo)
+                            pay = {'invoice' : invoice.name,
+                                'total' : "{:,.2f}".format(total_invoice),
+                                'payment_amount' : "{:,.2f}".format(payment['amount']),
+                                'date' : pay_date,
+                                'days' : days_end-days_init,
+                                'days_nat' : 30-days_init,
+                                'days_int' : days_int,
+                                'total_int' : "{:,.2f}".format(((total_invoice*(credit.interest/100))/30)*(days_int)),
+                                'days_mo' : days_mo,
+                                'total_mo' : "{:,.2f}".format(((total_invoice*(credit.interest_mo/100))/30)*(days_mo))}
                             
-                            elif days_init > 60:
-                                #C6 si el pago abarca un periodo despues del dia 60 - genera solo interes moratorio
-                                days_nat = 30
-                                days_int = 30
-                                days_mo = days_end-60
-                                interest_mo += ((total_invoice*(credit.interest_mo/100))/30)*(days_end-days_init)
-                                pay = {'invoice' : invoice.name,
-                                    'total' : "{:,.2f}".format(total_invoice),
-                                    'payment_amount' : "{:,.2f}".format(payment.amount),
-                                    'date' : pay_date,
-                                    'days' : days_end-days_init,
-                                    'days_nat' : 0,
-                                    'days_int' : 0,
-                                    'total_int' : 0,
-                                    'days_mo' : days_mo,
-                                    'total_mo' : "{:,.2f}".format(((total_invoice*(credit.interest_mo/100))/30)*(days_end-days_init))}
+                        elif days_init > 60:
+                            #C6 si el pago abarca un periodo despues del dia 60 - genera solo interes moratorio
+                            days_nat = 30
+                            days_int = 30
+                            days_mo = days_end-60
+                            interest_mo += ((total_invoice*(credit.interest_mo/100))/30)*(days_end-days_init)
+                            pay = {'invoice' : invoice.name,
+                                'total' : "{:,.2f}".format(total_invoice),
+                                'payment_amount' : "{:,.2f}".format(payment['amount']),
+                                'date' : pay_date,
+                                'days' : days_end-days_init,
+                                'days_nat' : 0,
+                                'days_int' : 0,
+                                'total_int' : 0,
+                                'days_mo' : days_mo,
+                                'total_mo' : "{:,.2f}".format(((total_invoice*(credit.interest_mo/100))/30)*(days_end-days_init))}
 
-                            payments.append(pay)
-                            date_init = date_end
-                            total_invoice -= payment.amount
+                        payments.append(pay)
+                        date_init = date_end
+                        total_invoice -= payment['amount']
                     
                     days_init = (date_init - date_invoice).days
                     days_end = (date_payment - date_invoice).days
@@ -286,7 +284,7 @@ class ReportAccountStatus(models.AbstractModel):
             
             elif term == 180:
                 #Si el credito es avio, revisamos si tiene pagos provisionales o abonos
-                if payment_ids:
+                if payments_text != '':
                     date_init = date_invoice
                     date_end = ''
                     date_limit = credit.date_limit
@@ -294,70 +292,71 @@ class ReportAccountStatus(models.AbstractModel):
                     total_invoice = invoice.amount_total
                     pay = {}
 
-                    payments_array = []
-                    for payment in payment_ids:
-                        payments_array.append(payment)
-                    payments_array.reverse()
+                    payments_json = json.loads(payments_text)['content']
+                    payments_array=[]
+                    for pay in payments_json:
+                        payments_array.append({'amount':pay['amount'],'date':pay['date']})
 
                     for payment in payments_array:
+                        
                         #Por cada pago revisamos los intereses que generó
-                        if payment.state == 'posted' or payment.state == 'reconciled':
-                            pay_date = payment.payment_date.strftime("%d/%m/%Y")
-                            date_end = payment.payment_date
-                            days_init = (date_init - date_invoice).days
-                            days_end = (date_end - date_invoice).days
+                        pay_date = payment['date']
+                        date_end = datetime.strptime(payment['date'], '%Y-%m-%d').date()
+                        days_init = (date_init - date_invoice).days
+                        days_end = (date_end - date_invoice).days
                             
-                            if date_init <= date_limit and date_end <= date_limit:
-                                #C1 si el pago abarca un intervalo antes del día limite
-                                days_int = (date_end-date_invoice).days
-                                interest += ((total_invoice*(credit.interest/100))/30)*(days_end-days_init)
-                                pay = {'invoice' : invoice.name,
-                                    'total' : "{:,.2f}".format(total_invoice),
-                                    'payment_amount' : "{:,.2f}".format(payment.amount),
-                                    'date' : pay_date,
-                                    'days' : days_end-days_init,
-                                    'days_nat' : days_nat,
-                                    'days_int' : days_end-days_init,
-                                    'total_int' : "{:,.2f}".format(((total_invoice*(credit.interest/100))/30)*(days_end-days_init)),
-                                    'days_mo' : 0,
-                                    'total_mo' : 0}
+                        if date_init <= date_limit and date_end <= date_limit:
+                            #C1 si el pago abarca un intervalo antes del día limite
+                            days_int = (date_end-date_invoice).days
+                            interest += ((total_invoice*(credit.interest/100))/30)*(days_end-days_init)
+                            pay = {'invoice' : invoice.name,
+                                'total' : "{:,.2f}".format(total_invoice),
+                                'payment_amount' : "{:,.2f}".format(payment['amount']),
+                                'date' : pay_date,
+                                'days' : days_end-days_init,
+                                'days_nat' : days_nat,
+                                'days_int' : days_end-days_init,
+                                'total_int' : "{:,.2f}".format(((total_invoice*(credit.interest/100))/30)*(days_end-days_init)),
+                                'days_mo' : 0,
+                                'total_mo' : 0}
 
-                            elif date_init <= date_limit and date_end > date_limit:
-                                #C2 si el pago abarca un intervalo antes y despues del día límite
-                                days_int = (date_limit-date_invoice).days
-                                days_mo = (date_end-date_limit).days
-                                interest += ((total_invoice*(credit.interest/100))/30)*(days_limit-days_init)
-                                interest_mo += ((total_invoice*(credit.interest_mo/100))/30)*(days_mo)
-                                pay = {'invoice' : invoice.name,
-                                    'total' : "{:,.2f}".format(total_invoice),
-                                    'payment_amount' : "{:,.2f}".format(payment.amount),
-                                    'date' : pay_date,
-                                    'days' : days_end-days_init,
-                                    'days_nat' : days_nat,
-                                    'days_int' : days_limit-days_init,
-                                    'total_int' : "{:,.2f}".format(((total_invoice*(credit.interest/100))/30)*(days_limit-days_init)),
-                                    'days_mo' : days_mo,
-                                    'total_mo' : "{:,.2f}".format(((total_invoice*(credit.interest_mo/100))/30)*(days_mo))}
+                        elif date_init <= date_limit and date_end > date_limit:
+                            #C2 si el pago abarca un intervalo antes y despues del día límite
+                            days_int = (date_limit-date_invoice).days
+                            days_mo = (date_end-date_limit).days
+                            interest += ((total_invoice*(credit.interest/100))/30)*(days_limit-days_init)
+                            interest_mo += ((total_invoice*(credit.interest_mo/100))/30)*(days_mo)
+                            pay = {'invoice' : invoice.name,
+                                'total' : "{:,.2f}".format(total_invoice),
+                                'payment_amount' : "{:,.2f}".format(payment['amount']),
+                                'date' : pay_date,
+                                'days' : days_end-days_init,
+                                'days_nat' : days_nat,
+                                'days_int' : days_limit-days_init,
+                                'total_int' : "{:,.2f}".format(((total_invoice*(credit.interest/100))/30)*(days_limit-days_init)),
+                                'days_mo' : days_mo,
+                                'total_mo' : "{:,.2f}".format(((total_invoice*(credit.interest_mo/100))/30)*(days_mo))}
 
-                            elif date_init > date_limit and date_end > date_limit:
-                                #C3 si el pago abarca un intervalo despues del dia límite
-                                days_int = (date_limit-date_invoice).days
-                                days_mo = (date_end-date_limit).days
-                                interest_mo += ((total_invoice*(credit.interest_mo/100))/30)*(days_mo)
-                                pay = {'invoice' : invoice.name,
-                                    'total' : "{:,.2f}".format(total_invoice),
-                                    'payment_amount' : "{:,.2f}".format(payment.amount),
-                                    'date' : pay_date,
-                                    'days' : days_end-days_init,
-                                    'days_nat' : days_nat,
-                                    'days_int' : 0,
-                                    'total_int' : 0,
-                                    'days_mo' : days_mo,
-                                    'total_mo' : "{:,.2f}".format(((total_invoice*(credit.interest_mo/100))/30)*(days_mo))}
+                        elif date_init > date_limit and date_end > date_limit:
+                            #C3 si el pago abarca un intervalo despues del dia límite
+                            days_int = (date_limit-date_invoice).days
+                            days_mo = (date_end-date_limit).days
+                            interest_mo += ((total_invoice*(credit.interest_mo/100))/30)*(days_mo)
+                            pay = {'invoice' : invoice.name,
+                                'total' : "{:,.2f}".format(total_invoice),
+                                'payment_amount' : "{:,.2f}".format(payment['amount']),
+                                'date' : pay_date,
+                                'days' : days_end-days_init,
+                                'days_nat' : days_nat,
+                                'days_int' : 0,
+                                'total_int' : 0,
+                                'days_mo' : days_mo,
+                                'total_mo' : "{:,.2f}".format(((total_invoice*(credit.interest_mo/100))/30)*(days_mo))}
                             
-                            payments.append(pay)
-                            date_init = date_end
-                            total_invoice -= payment.amount
+                        payments.append(pay)
+                        date_init = date_end
+                        total_invoice -= payment['amount']
+                    
                     
                     date_end = date_payment
                     days_end = (date_end - date_invoice).days
@@ -465,7 +464,8 @@ class ReportAccountStatus(models.AbstractModel):
             'docs' : report,
             'data' : data,
             'invoices' : inv_data,
-            'payments' : payments
+            'payments' : payments,
+            'company' : self.env.user.company_id,
         }
 
 
