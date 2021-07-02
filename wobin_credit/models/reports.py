@@ -2,6 +2,7 @@ from odoo import models, fields, api
 from datetime import date, datetime
 from odoo.exceptions import UserError
 from num2words import num2words
+import json
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -34,7 +35,6 @@ class ReportAccountStatus(models.AbstractModel):
         for invoice in invoices:
             #Recorremos todas las factura para hacer los calculos
             payments = invoice.invoice_payments_widget
-            _logger.info('\n\n\n =====================: %s\n\n\n', payments)
             interest = 0
             interest_mo = 0
             date_invoice = invoice.invoice_date
@@ -54,17 +54,13 @@ class ReportAccountStatus(models.AbstractModel):
                     total_invoice = invoice.amount_total
                     pay = {}
 
-                    payments_array = []
-                    for payment in payments:
-                        p_data = payment.split("$")
-                        payments_array.append({'payment_date' : p_data[0], 'amount' : p_data[1]})
-                    payments_array.reverse()
+                    payments_array = json.loads(payments)['content']
 
                     for payment in payments_array:
                         #Por cada pago revisamos los intereses que generó
 
-                        pay_date = payment.payment_date.strftime("%d/%m/%Y")
-                        date_end = payment.payment_date
+                        pay_date = payment.date.strftime("%d/%m/%Y")
+                        date_end = payment.date
                         days_init = (date_init - date_invoice).days
                         days_end = (date_end - date_invoice).days
                             
@@ -296,17 +292,13 @@ class ReportAccountStatus(models.AbstractModel):
                     total_invoice = invoice.amount_total
                     pay = {}
 
-                    payments_array = []
-                    for payment in payments:
-                        p_data = payment.split("$")
-                        payment_object={'payment_date' : p_data[0], 'amount' : p_data[1]}
-                        payments_array.append(payment_object)
-                    payments_array.reverse()
+                    payments_array = json.loads(payments)['content']
+                    _logger.info('\n\n\n ================================ %s\n\n\n', payments_array)
 
                     for payment in payments_array:
                         #Por cada pago revisamos los intereses que generó
-                        pay_date = payment.payment_date.strftime("%d/%m/%Y")
-                        date_end = payment.payment_date
+                        pay_date = payment.date.strftime("%d/%m/%Y")
+                        date_end = payment.date
                         days_init = (date_init - date_invoice).days
                         days_end = (date_end - date_invoice).days
                             
