@@ -59,8 +59,8 @@ class ReportAccountStatus(models.AbstractModel):
                     for payment in payments_array:
                         #Por cada pago revisamos los intereses que generó
 
-                        pay_date = payment.date.strftime("%d/%m/%Y")
-                        date_end = payment.date
+                        pay_date = payment['date']
+                        date_end = datetime.strptime(payment['date'], '%Y-%m-%d')
                         days_init = (date_init - date_invoice).days
                         days_end = (date_end - date_invoice).days
                             
@@ -295,15 +295,13 @@ class ReportAccountStatus(models.AbstractModel):
                     payments_json = json.loads(payments)['content']
                     payments_array=[]
                     for pay in payments_json:
-                        _logger.info('\n\n\n ================================ %s\n\n\n', pay)
                         payments_array.append({'amount':pay['amount'],'date':pay['date']})
 
-                    _logger.info('\n\n\n ================================ %s\n\n\n', payments_array)
                     for payment in payments_array:
                         _logger.info('\n\n\n ================================ %s\n\n\n', payment)
                         #Por cada pago revisamos los intereses que generó
-                        pay_date = payment['date'].strftime("%d/%m/%Y")
-                        date_end = payment.date
+                        pay_date = payment['date']
+                        date_end = datetime.strptime(payment['date'], '%Y-%m-%d')
                         days_init = (date_init - date_invoice).days
                         days_end = (date_end - date_invoice).days
                             
