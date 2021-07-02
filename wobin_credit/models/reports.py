@@ -298,8 +298,9 @@ class ReportAccountStatus(models.AbstractModel):
                         _logger.info('\n\n\n ================================ %s\n\n\n', pay)
                         payments_array.append({'amount':pay['amount'],'date':pay['date']})
 
-
+                    _logger.info('\n\n\n ================================ %s\n\n\n', payments_array)
                     for payment in payments_array:
+                        _logger.info('\n\n\n ================================ %s\n\n\n', payments_array)
                         #Por cada pago revisamos los intereses que generó
                         pay_date = payment.date.strftime("%d/%m/%Y")
                         date_end = payment.date
