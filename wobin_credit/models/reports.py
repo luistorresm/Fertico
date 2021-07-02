@@ -319,7 +319,6 @@ class ReportAccountStatus(models.AbstractModel):
                                 'total_int' : "{:,.2f}".format(((total_invoice*(credit.interest/100))/30)*(days_end-days_init)),
                                 'days_mo' : 0,
                                 'total_mo' : 0}
-                            _logger.info('\n\n\n ================================ %s\n\n\n', pay)
 
                         elif date_init <= date_limit and date_end > date_limit:
                             #C2 si el pago abarca un intervalo antes y despues del día límite
@@ -337,7 +336,6 @@ class ReportAccountStatus(models.AbstractModel):
                                 'total_int' : "{:,.2f}".format(((total_invoice*(credit.interest/100))/30)*(days_limit-days_init)),
                                 'days_mo' : days_mo,
                                 'total_mo' : "{:,.2f}".format(((total_invoice*(credit.interest_mo/100))/30)*(days_mo))}
-                            _logger.info('\n\n\n ================================ %s\n\n\n', pay)
 
                         elif date_init > date_limit and date_end > date_limit:
                             #C3 si el pago abarca un intervalo despues del dia límite
@@ -354,12 +352,12 @@ class ReportAccountStatus(models.AbstractModel):
                                 'total_int' : 0,
                                 'days_mo' : days_mo,
                                 'total_mo' : "{:,.2f}".format(((total_invoice*(credit.interest_mo/100))/30)*(days_mo))}
-                            _logger.info('\n\n\n ================================ %s\n\n\n', pay)
                             
                             payments.append(pay)
                             date_init = date_end
                             total_invoice -= payment['amount']
                     
+                    _logger.info('\n\n\n ================================ %s\n\n\n', payments)
                     date_end = date_payment
                     days_end = (date_end - date_invoice).days
                     days_init = (date_init - date_invoice).days
