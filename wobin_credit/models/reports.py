@@ -2,6 +2,8 @@ from odoo import models, fields, api
 from datetime import date, datetime
 from odoo.exceptions import UserError
 from num2words import num2words
+import logging
+_logger = logging.getLogger(__name__)
 
 #===========================================Estado de cuenta==================================================
 class CreditAccountStatus(models.TransientModel):
@@ -53,13 +55,15 @@ class ReportAccountStatus(models.AbstractModel):
 
                     payments_array = []
                     for payment in payments:
+                        _logger.info('\n\n\n =========================: %s\n\n\n', payment)
                         p_data = payment.split("$")
+                        _logger.info('\n\n\n==========================: %s\n\n\n', p_data[0])
                         payments_array.append({'payment_date' : p_data[0], 'amount' : p_data[1]})
                     payments_array.reverse()
 
                     for payment in payments_array:
                         #Por cada pago revisamos los intereses que generó
-                        
+                        _logger.info('\n\n\n==========================: %s\n\n\n', payment)
 
                         pay_date = payment.payment_date.strftime("%d/%m/%Y")
                         date_end = payment.payment_date
@@ -286,7 +290,7 @@ class ReportAccountStatus(models.AbstractModel):
             
             elif term == 180:
                 #Si el credito es avio, revisamos si tiene pagos provisionales o abonos
-                if payments:
+                if payments != '':
                     date_init = date_invoice
                     date_end = ''
                     date_limit = credit.date_limit
