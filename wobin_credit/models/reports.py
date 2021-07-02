@@ -31,7 +31,7 @@ class ReportAccountStatus(models.AbstractModel):
 
         for invoice in invoices:
             #Recorremos todas las factura para hacer los calculos
-            payment_ids = self.env['account.payment'].search([('move_id','=',invoice.id)])
+            payment_ids = self.env['account.payment'].search([('partner_id','=',self.partner_id)('reconciled_invoice_ids','=',invoice.id)])
             interest = 0
             interest_mo = 0
             date_invoice = invoice.invoice_date
