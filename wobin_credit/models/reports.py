@@ -298,11 +298,15 @@ class ReportAccountStatus(models.AbstractModel):
                     payments_array = []
                     for payment in payments:
                         p_data = payment.split("$")
-                        payments_array.append({'payment_date' : p_data[0], 'amount' : p_data[1]})
+                        _logger.info('\n\n\n =====================: %s\n\n\n', p_data)
+                        payment_object={'payment_date' : p_data[0], 'amount' : p_data[1]}
+                        payments_array.append(payment_object)
+                        _logger.info('\n\n\n =====================: %s\n\n\n', payment_object)
                     payments_array.reverse()
 
                     for payment in payments_array:
                         #Por cada pago revisamos los intereses que generó
+                        _logger.info('\n\n\n =====================: %s\n\n\n', payment)
                         pay_date = payment.payment_date.strftime("%d/%m/%Y")
                         date_end = payment.payment_date
                         days_init = (date_init - date_invoice).days
