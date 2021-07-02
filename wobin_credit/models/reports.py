@@ -298,7 +298,7 @@ class ReportAccountStatus(models.AbstractModel):
                         payments_array.append({'amount':pay['amount'],'date':pay['date']})
 
                     for payment in payments_array:
-                        _logger.info('\n\n\n ================================ %s\n\n\n', payment)
+                        
                         #Por cada pago revisamos los intereses que generó
                         pay_date = payment['date']
                         date_end = datetime.strptime(payment['date'], '%Y-%m-%d').date()
@@ -319,6 +319,7 @@ class ReportAccountStatus(models.AbstractModel):
                                 'total_int' : "{:,.2f}".format(((total_invoice*(credit.interest/100))/30)*(days_end-days_init)),
                                 'days_mo' : 0,
                                 'total_mo' : 0}
+                            _logger.info('\n\n\n ================================ %s\n\n\n', pay)
 
                         elif date_init <= date_limit and date_end > date_limit:
                             #C2 si el pago abarca un intervalo antes y despues del día límite
@@ -336,6 +337,7 @@ class ReportAccountStatus(models.AbstractModel):
                                 'total_int' : "{:,.2f}".format(((total_invoice*(credit.interest/100))/30)*(days_limit-days_init)),
                                 'days_mo' : days_mo,
                                 'total_mo' : "{:,.2f}".format(((total_invoice*(credit.interest_mo/100))/30)*(days_mo))}
+                            _logger.info('\n\n\n ================================ %s\n\n\n', pay)
 
                         elif date_init > date_limit and date_end > date_limit:
                             #C3 si el pago abarca un intervalo despues del dia límite
@@ -352,6 +354,7 @@ class ReportAccountStatus(models.AbstractModel):
                                 'total_int' : 0,
                                 'days_mo' : days_mo,
                                 'total_mo' : "{:,.2f}".format(((total_invoice*(credit.interest_mo/100))/30)*(days_mo))}
+                            _logger.info('\n\n\n ================================ %s\n\n\n', pay)
                             
                             payments.append(pay)
                             date_init = date_end
