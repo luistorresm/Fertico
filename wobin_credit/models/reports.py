@@ -34,7 +34,7 @@ class ReportAccountStatus(models.AbstractModel):
 
         for invoice in invoices:
             #Recorremos todas las factura para hacer los calculos
-            payments = invoice.invoice_payments_widget
+            payments_text = invoice.invoice_payments_widget
             interest = 0
             interest_mo = 0
             date_invoice = invoice.invoice_date
@@ -48,7 +48,7 @@ class ReportAccountStatus(models.AbstractModel):
             if term == 30:
                 #Si el credito es comercial, revisamos si tiene pagos provisionales o abonos
                 
-                if payments != '':
+                if payments_text != '':
                     date_init = date_invoice
                     date_end = ''
                     total_invoice = invoice.amount_total
@@ -284,7 +284,7 @@ class ReportAccountStatus(models.AbstractModel):
             
             elif term == 180:
                 #Si el credito es avio, revisamos si tiene pagos provisionales o abonos
-                if payments != '':
+                if payments_text != '':
                     date_init = date_invoice
                     date_end = ''
                     date_limit = credit.date_limit
