@@ -3,8 +3,6 @@ from datetime import date, datetime
 from odoo.exceptions import UserError
 from num2words import num2words
 import json
-import logging
-_logger = logging.getLogger(__name__)
 
 #===========================================Estado de cuenta==================================================
 class CreditAccountStatus(models.TransientModel):
@@ -294,7 +292,6 @@ class ReportAccountStatus(models.AbstractModel):
                     days_limit = (date_limit - date_invoice).days
                     total_invoice = invoice.amount_total
                     pay = {}
-                    _logger.info('\n\n\n =====================: %s\n\n\n', payments_text)
                     payments_json = json.loads(payments_text)['content']
                     payments_array=[]
                     for pay in payments_json:
