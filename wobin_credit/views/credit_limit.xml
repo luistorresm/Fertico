@@ -83,7 +83,7 @@
     <record id="enable_credit_limit" model="ir.ui.view">
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="res_partner_credit" />
-        <field name="groups_id" eval="[(6, 0, [ref('block-credit.group_credit_modify')])]"/>
+        <field name="groups_id" eval="[(6, 0, [ref('wobin_credit.group_credit_modify')])]"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='grace_payment_days']" position="replace">
                 <field name='grace_payment_days' readonly="0"/>

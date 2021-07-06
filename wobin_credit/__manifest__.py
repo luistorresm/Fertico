@@ -19,7 +19,7 @@
     'version': '0.1.2',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'mail', 'web'],
+    'depends': ['base', 'mail', 'web', 'account', 'sale'],
 
     # always loaded
     'data': [
