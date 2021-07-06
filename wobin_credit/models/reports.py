@@ -294,7 +294,7 @@ class ReportAccountStatus(models.AbstractModel):
                     days_limit = (date_limit - date_invoice).days
                     total_invoice = invoice.amount_total
                     pay = {}
-
+                    _logger.info('\n\n\n =====================: %s\n\n\n', payments_text)
                     payments_json = json.loads(payments_text)['content']
                     payments_array=[]
                     for pay in payments_json:
