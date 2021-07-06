@@ -37,6 +37,8 @@
         'views/params.xml',
         'views/pre_application.xml',
         'views/record.xml',
+        'views/credit_limit.xml',
+        'views/tracking_limit.xml',
         
     ],
     # only loaded in demonstration mode

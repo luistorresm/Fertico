@@ -4,6 +4,11 @@
         <field name="name">Responsabe</field>
         <field name="comment">Usuario con acceso a todos los apartados del modulo</field>
     </record>
+
+    <record id="group_credit_modify" model="res.groups">
+        <field name="name">Modificar límites de crédito</field>
+        <field name="comment">Usuario con acceso a modificación de parametros de límites de crédito</field>
+    </record>
     
     <record id="preapplication_comp_rule" model="ir.rule">
         <field name="name">Preapplication multi-company</field>

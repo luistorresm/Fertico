@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="res_partner_credit">
+        <field name="name">res.partner.view.credit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <page name="sales_purchases" position="after">
+                <page string="Límite de crédito" name="Credit">
+                    <group>
+                        <field name="credit_init" readonly="1" force_save="1" />
+                        <label for="credit_limit"/>
+                        <div class="o_row">
+                            <field name="credit_limit" readonly="1" force_save="1" />
+                            <button name="update_limit" type="object" string="Actualizar" class="oe_link" groups="wobin_credit.group_credit_modify"/>
+                        </div>
+                        <field name="grace_payment_days" readonly="1" force_save="1"/>
+                        <field name="allowed_sale"/>
+                    </group>
+                </page>
+            </page>
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button name="assign_credit" type="object" string="Asignar crédito" class="oe_highlight" groups="wobin_credit.group_credit_modify"/>
+                    <button name="update_credit" type="object" string="Actualizar crédito" class="oe_highlight"  groups="wobin_credit.group_credit_modify"/>
+                </header>
+            </xpath>  
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="res_partner_assign_credit">
+        <field name="name">Asignar límite de crédito</field>
+        <field name="model">credit.limit.assign</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="amount" />
+                    </group>
+                </group>
+                <footer>
+                    <button string="Cancel" special="cancel" class="oe_highlight" />
+                    <button name="assign_credit" string="Asignar" type="object" class="oe_highlight" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="res_partner_update_credit">
+        <field name="name">Actualizar límite de crédito</field>
+        <field name="model">credit.limit.update</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="amount" />
+                    </group>
+                </group>
+                <footer>
+                    <button string="Cancel" special="cancel" class="oe_highlight" />
+                    <button name="update_credit" string="Asignar" type="object" class="oe_highlight" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="payment_term_credit">
+        <field name="name">Credit limit term</field>
+        <field name="model">account.payment.term</field>
+        <field name="inherit_id" ref="account.view_payment_term_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="credit"/>
+            </xpath>  
+        </field>
+    </record>
+
+    <!--================================================Bloque de limites de crédito================================-->
+
+    <record id="enable_credit_limit" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="res_partner_credit" />
+        <field name="groups_id" eval="[(6, 0, [ref('block-credit.group_credit_modify')])]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='grace_payment_days']" position="replace">
+                <field name='grace_payment_days' readonly="0"/>
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>
