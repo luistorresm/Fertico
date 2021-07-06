@@ -48,7 +48,7 @@ class ReportAccountStatus(models.AbstractModel):
             if term == 30:
                 #Si el credito es comercial, revisamos si tiene pagos provisionales o abonos
                 
-                if payments_text:
+                if payments_text != 'false':
                     date_init = date_invoice
                     date_end = ''
                     total_invoice = invoice.amount_total
@@ -287,7 +287,7 @@ class ReportAccountStatus(models.AbstractModel):
             
             elif term == 180:
                 #Si el credito es avio, revisamos si tiene pagos provisionales o abonos
-                if payments_text:
+                if payments_text != 'false':
                     date_init = date_invoice
                     date_end = ''
                     date_limit = credit.date_limit
