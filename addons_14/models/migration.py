@@ -5,3 +5,4 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     partner_gid = fields.Integer()
+    additional_info = fields.Char()
