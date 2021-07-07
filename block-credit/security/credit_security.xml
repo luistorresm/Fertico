@@ -4,7 +4,6 @@
     <data noupdate="0">
         <record id="group_credit_modify" model="res.groups">
             <field name="name">Enable credit limit change</field>
-            <field name="category_id" ref="base.module_category_hidden"/>
         </record>
     </data>
 </odoo>

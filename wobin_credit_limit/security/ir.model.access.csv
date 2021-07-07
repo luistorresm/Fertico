@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fertico_addons_fertico_addons,fertico_addons.fertico_addons,model_fertico_addons_fertico_addons,base.group_user,1,1,1,1
