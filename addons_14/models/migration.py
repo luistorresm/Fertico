@@ -7,5 +7,5 @@ class ResPartner(models.Model):
     partner_gid = fields.Integer()
     additional_info = fields.Char()
 
-    def autocomplete():
+    def autocomplete(self):
         return True
