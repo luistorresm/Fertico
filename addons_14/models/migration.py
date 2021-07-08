@@ -9,3 +9,8 @@ class ResPartner(models.Model):
 
     def autocomplete(self):
         return True
+
+class IrAttachment(models.Model):
+    _inherit = 'ir.attachment'
+
+    datas_fname = fields.Char('File Name')
