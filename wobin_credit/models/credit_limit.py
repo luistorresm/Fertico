@@ -35,7 +35,7 @@ class ResPartner(models.Model):
 
         for invoice in invoices:
             if invoice.invoice_payment_term_id.credit:
-                total_invoices += invoice.residual
+                total_invoices += invoice.amount_residual
         
         self.credit_limit = self.credit_init - total_invoices
 
@@ -173,14 +173,16 @@ class AccountMove(models.Model):
     def action_post(self):
         
         res = super(AccountMove, self).action_post()
-        
-        if self.invoice_payment_term_id.credit:
-            
-            credit=self.partner_id.credit_limit-self.residual
-            self.partner_id.write({'credit_limit': credit})
 
-            if self.partner_id.credit_limit <= 0:
-                self.partner_id.write({'allowed_sale': False})
+        if self.move_type == 'out_invoice':
+
+            if self.invoice_payment_term_id.credit:
+                
+                credit=self.partner_id.credit_limit-self.amount_residual
+                self.partner_id.write({'credit_limit': credit})
+
+                if self.partner_id.credit_limit <= 0:
+                    self.partner_id.write({'allowed_sale': False})
         
         return res
         
