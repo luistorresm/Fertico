@@ -148,7 +148,7 @@ class SaleOrder(models.Model):
 
 
     def action_confirm(self):
-        if self.invoice_payment_term_id.credit:
+        if self.payment_term_id.credit:
             
             if self.partner_id.allowed_sale:
             
