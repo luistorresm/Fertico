@@ -15,6 +15,8 @@
                     <header>
                         <!--<button name="lock_credit" type="object" states="draft" string="Bloquear" class="btn-primary" />-->
                         <button name="%(wobin_credit.report_credit_commitment)d" type="action" string="Imprimir carta compromiso" class="btn-primary" />
+                        <button name="lock_record" string="Bloquear" states="draft" type="object" class="btn-primary"/>
+                        <button name="unlock_record" string="Desbloquear" states="locked" type="object" class="btn-primary"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,locked" />
                     </header>
                     <sheet>
