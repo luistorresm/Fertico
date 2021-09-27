@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="load_pricelist_xls">
+        <field name="name">Load pricelist from file</field>
+        <field name="model">pricelist.load.xls</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="excel_file"/>
+                </group>
+                <footer>
+                    <button string="Cancel" special="cancel" class="oe_highlight"/>
+                    <button name="import_pricelist" string="Submit" type="object" class="oe_highlight" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_wizard_price_list" model="ir.actions.act_window">
+        <field name="name">Cargar lista de precio</field>
+        <field name="res_model">pricelist.load.xls</field>
+        <field name="view_mode">form</field>
+        <field name="search_view_id" ref="load_pricelist_xls"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_price_list_xls" name="Cargar lista de precio desde archivo" parent="sale.product_menu_catalog" action="action_wizard_price_list"/>
+
+</odoo>

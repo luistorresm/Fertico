@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="group_prices_modify" model="res.groups">
+        <field name="name">Bloquear cambio de precio en ventas</field>
+        <field name="comment">Bloquea la modificación de precios en presupuestos</field>
+    </record>
+
+</odoo>
