@@ -30,10 +30,10 @@
         
         #'views/views.xml',
         #'views/templates.xml',
-        'views/menus.xml',
-        'views/params.xml',
-        'views/pre_application.xml',
-        'views/reports.xml',
+        #'views/menus.xml',
+        #'views/params.xml',
+        #'views/pre_application.xml',
+        #'views/reports.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
