@@ -8,7 +8,6 @@ class CreditParameters(models.Model):
     crop_method = fields.Selection([('irrigation', 'Riego'),('rainwater', 'Temporal')], string="Metodo de cultivo")
     insurance = fields.Float(string="Cálculo de seguro")
     amount = fields.Float("Monto por hectarea ($)")
-    credit_type_id = fields.Many2one('credit.types', string="Tipo de crédito")
 
 class CreditTypes(models.Model):
     _name = "credit.types"
