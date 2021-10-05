@@ -32,6 +32,7 @@
         
         #'views/views.xml',
         #'views/templates.xml',
+        
         'views/menus.xml',
         'views/reports.xml',
         'views/params.xml',
