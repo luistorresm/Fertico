@@ -1,9 +1,19 @@
 import time
+import logging
+import ssl
 
 from odoo import models, fields, api, _
 from odoo.addons import decimal_precision as dp
 from odoo.exceptions import ValidationError
 from pytz import timezone
+
+
+_logger = logging.getLogger(__name__)
+
+try:
+    from OpenSSL import crypto
+except ImportError:
+    _logger.warning('OpenSSL library not found. If you plan to use l10n_mx_edi, please install the library from https://pypi.python.org/pypi/pyOpenSSL')
 
 
 # * / *  * / *  * / *  * / *  * / *  * / *  * / *  * / *  * / *  * / *  * / * 
@@ -376,6 +386,16 @@ class Certificate(models.Model):
         '''
         return fields.Datetime.context_timestamp(
             self.with_context(tz='America/Mexico_City'), fields.Datetime.now())
+
+    def get_data(self):
+        '''Return the content (b64 encoded) and the certificate decrypted
+        '''
+        self.ensure_one()
+        cer_pem = self.get_pem_cer(self.content)
+        certificate = crypto.load_certificate(crypto.FILETYPE_PEM, cer_pem)
+        for to_del in ['\n', ssl.PEM_HEADER, ssl.PEM_FOOTER]:
+            cer_pem = cer_pem.replace(to_del.encode('UTF-8'), b'')
+        return cer_pem, certificate
 
 
 def str_to_datetime(dt_str, tz=timezone('America/Mexico_City')):
