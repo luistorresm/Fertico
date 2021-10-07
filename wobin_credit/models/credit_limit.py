@@ -20,7 +20,7 @@ class ResPartner(models.Model):
         
         for invoice in invoices:
             if invoice.invoice_payment_term_id.credit:
-                difference = now.date() - datetime.strptime(invoice.invoice_date_due, '%Y-%m-%d').date()
+                difference = now.date() - invoice.invoice_date_due
                 if difference.days > self.grace_payment_days:
                     grace = False
                     
@@ -124,7 +124,7 @@ class SaleOrder(models.Model):
         
         for invoice in invoices:
             if invoice.invoice_payment_term_id.credit:
-                difference = now.date() - datetime.strptime(invoice.invoice_date_due, '%Y-%m-%d').date()
+                difference = now.date() - invoice.invoice_date_due
                 if difference.days > self.partner_id.grace_payment_days:
                     grace = False
                     self.partner_id.write({'allowed_sale': False})
