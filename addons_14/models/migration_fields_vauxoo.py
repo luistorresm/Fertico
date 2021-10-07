@@ -259,17 +259,13 @@ class AccountMove(models.Model):
 
     # ==== CFDI attachment fields ====
     l10n_mx_edi_cfdi_uuid = fields.Char(string='Fiscal Folio', copy=False, readonly=True,
-        help='Folio in electronic invoice, is returned by SAT when send to stamp.',
-        compute='_compute_cfdi_values')
+        help='Folio in electronic invoice, is returned by SAT when send to stamp.')
     l10n_mx_edi_cfdi_supplier_rfc = fields.Char(string='Supplier RFC', copy=False, readonly=True,
-        help='The supplier tax identification number.',
-        compute='_compute_cfdi_values')
+        help='The supplier tax identification number.')
     l10n_mx_edi_cfdi_customer_rfc = fields.Char(string='Customer RFC', copy=False, readonly=True,
-        help='The customer tax identification number.',
-        compute='_compute_cfdi_values')
+        help='The customer tax identification number.')
     l10n_mx_edi_cfdi_amount = fields.Monetary(string='Total Amount', copy=False, readonly=True,
-        help='The total amount reported on the cfdi.',
-        compute='_compute_cfdi_values')
+        help='The total amount reported on the cfdi.')
 
     # ==== Other fields ====
     l10n_mx_edi_payment_method_id = fields.Many2one('l10n_mx_edi.payment.method',
@@ -364,9 +360,6 @@ class Certificate(models.Model):
         help='The date on which the certificate expires',
         readonly=True)
 
-
-    
-
     def get_valid_certificate(self):
         '''Search for a valid certificate that is available and not expired.
         '''
@@ -377,6 +370,13 @@ class Certificate(models.Model):
             if date_start <= mexican_dt <= date_end:
                 return record
         return None
+
+    def get_mx_current_datetime(self):
+        '''Get the current datetime with the Mexican timezone.
+        '''
+        return fields.Datetime.context_timestamp(
+            self.with_context(tz='America/Mexico_City'), fields.Datetime.now())
+
 
 def str_to_datetime(dt_str, tz=timezone('America/Mexico_City')):
     return tz.localize(fields.Datetime.from_string(dt_str))
@@ -1466,24 +1466,19 @@ class AccountMove(models.Model):
     #    help='Folio in electronic invoice, is returned by SAT when send to stamp.',
     #    compute='_compute_cfdi_values')
     l10n_mx_edi_cfdi = fields.Binary(string='Cfdi content', copy=False, readonly=True,
-        help='The cfdi xml content encoded in base64.',
-        compute='_compute_cfdi_values')
+        help='The cfdi xml content encoded in base64.')
     """
     l10n_mx_edi_cfdi_supplier_rfc = fields.Char(string='Supplier RFC', copy=False, readonly=True,
-        help='The supplier tax identification number.',
-        compute='_compute_cfdi_values')
+        help='The supplier tax identification number.')
     l10n_mx_edi_cfdi_customer_rfc = fields.Char(string='Customer RFC', copy=False, readonly=True,
-        help='The customer tax identification number.',
-        compute='_compute_cfdi_values')
+        help='The customer tax identification number.')
         
     l10n_mx_edi_cfdi_amount = fields.Monetary(string='Total Amount', copy=False, readonly=True,
-        help='The total amount reported on the cfdi.',
-        compute='_compute_cfdi_values')
+        help='The total amount reported on the cfdi.')
     """        
     l10n_mx_edi_cfdi_certificate_id = fields.Many2one('l10n_mx_edi.certificate',
         string='Certificate', copy=False, readonly=True,
-        help='The certificate used during the generation of the cfdi.',
-        compute='_compute_cfdi_values')
+        help='The certificate used during the generation of the cfdi.')
     l10n_mx_edi_time_invoice = fields.Char(
         string='Time invoice', readonly=True, copy=False,
         states={'draft': [('readonly', False)]},
@@ -1689,21 +1684,16 @@ class AccountPayment(models.Model):
         'options could be: Cash, Nominal Check, Credit Card, etc.')
     l10n_mx_edi_cfdi = fields.Binary(
         string='Cfdi content', copy=False, readonly=True,
-        help='The cfdi xml content encoded in base64.',
-        compute='_compute_cfdi_values')
+        help='The cfdi xml content encoded in base64.')
     l10n_mx_edi_cfdi_uuid = fields.Char(string='Fiscal Folio', copy=False, readonly=True,
-        help='Folio in electronic invoice, is returned by SAT when send to stamp.',
-        compute='_compute_cfdi_values')
+        help='Folio in electronic invoice, is returned by SAT when send to stamp.')
     l10n_mx_edi_cfdi_certificate_id = fields.Many2one('l10n_mx_edi.certificate',
         string='Certificate', copy=False, readonly=True,
-        help='The certificate used during the generation of the cfdi.',
-        compute='_compute_cfdi_values')
+        help='The certificate used during the generation of the cfdi.')
     l10n_mx_edi_cfdi_supplier_rfc = fields.Char('Supplier RFC', copy=False, readonly=True,
-        help='The supplier tax identification number.',
-        compute='_compute_cfdi_values')
+        help='The supplier tax identification number.')
     l10n_mx_edi_cfdi_customer_rfc = fields.Char('Customer RFC', copy=False, readonly=True,
-        help='The customer tax identification number.',
-        compute='_compute_cfdi_values')
+        help='The customer tax identification number.')
     l10n_mx_edi_origin = fields.Char(
         string='CFDI Origin', copy=False,
         help='In some cases the payment must be regenerated to fix data in it. '
@@ -2266,8 +2256,7 @@ class HrPayslip(models.Model):
         help='The attachment name of the CFDI.')
     l10n_mx_edi_cfdi = fields.Binary(
         'CFDI content', copy=False, readonly=True,
-        help='The cfdi xml content encoded in base64.',
-        compute='_compute_cfdi_values')
+        help='The cfdi xml content encoded in base64.')
     l10n_mx_edi_inability_line_ids = fields.One2many(
         'hr.payslip.inability', 'payslip_id', 'Inabilities',
         readonly=True, states={'draft': [('readonly', False)]},
@@ -2301,16 +2290,13 @@ class HrPayslip(models.Model):
         'stamp.', compute='_compute_cfdi_values')
     l10n_mx_edi_cfdi_supplier_rfc = fields.Char(
         'Supplier RFC', copy=False, readonly=True,
-        help='The supplier tax identification number.',
-        compute='_compute_cfdi_values')
+        help='The supplier tax identification number.')
     l10n_mx_edi_cfdi_customer_rfc = fields.Char(
         'Customer RFC', copy=False, readonly=True,
-        help='The customer tax identification number.',
-        compute='_compute_cfdi_values')
+        help='The customer tax identification number.')
     l10n_mx_edi_cfdi_amount = fields.Float(
         'Total Amount', copy=False, readonly=True,
-        help='The total amount reported on the cfdi.',
-        compute='_compute_cfdi_values')
+        help='The total amount reported on the cfdi.')
     l10n_mx_edi_action_title_ids = fields.One2many(
         'hr.payslip.action.titles', 'payslip_id', string='Action or Titles',
         help='If the payslip have perceptions with code 045, assign here the '
