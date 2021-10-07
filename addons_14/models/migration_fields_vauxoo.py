@@ -3,6 +3,7 @@ import time
 from odoo import models, fields, api, _
 from odoo.addons import decimal_precision as dp
 from odoo.exceptions import ValidationError
+from pytz import timezone
 
 
 # * / *  * / *  * / *  * / *  * / *  * / *  * / *  * / *  * / *  * / *  * / * 
@@ -364,7 +365,21 @@ class Certificate(models.Model):
         readonly=True)
 
 
+    
 
+    def get_valid_certificate(self):
+        '''Search for a valid certificate that is available and not expired.
+        '''
+        mexican_dt = self.get_mx_current_datetime()
+        for record in self:
+            date_start = str_to_datetime(record.date_start)
+            date_end = str_to_datetime(record.date_end)
+            if date_start <= mexican_dt <= date_end:
+                return record
+        return None
+
+def str_to_datetime(dt_str, tz=timezone('America/Mexico_City')):
+    return tz.localize(fields.Datetime.from_string(dt_str))
 
 
 
