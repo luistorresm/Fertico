@@ -406,6 +406,16 @@ class Certificate(models.Model):
         self.ensure_one()
         return ssl.DER_cert_to_PEM_cert(base64.decodebytes(content)).encode('UTF-8')
 
+    def get_encrypted_cadena(self, cadena):
+        '''Encrypt the cadena using the private key.
+        '''
+        self.ensure_one()
+        key_pem = self.get_pem_key(self.key, self.password)
+        private_key = crypto.load_privatekey(crypto.FILETYPE_PEM, key_pem)
+        encrypt = 'sha256WithRSAEncryption'
+        cadena_crypted = crypto.sign(private_key, cadena, encrypt)
+        return base64.b64encode(cadena_crypted)
+
 
 def str_to_datetime(dt_str, tz=timezone('America/Mexico_City')):
     return tz.localize(fields.Datetime.from_string(dt_str))
