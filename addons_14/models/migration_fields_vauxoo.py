@@ -1,11 +1,13 @@
 import time
 import logging
 import ssl
+import base64
 
 from odoo import models, fields, api, _
 from odoo.addons import decimal_precision as dp
 from odoo.exceptions import ValidationError
 from pytz import timezone
+from odoo import _, api, fields, models, tools
 
 
 _logger = logging.getLogger(__name__)
@@ -396,6 +398,13 @@ class Certificate(models.Model):
         for to_del in ['\n', ssl.PEM_HEADER, ssl.PEM_FOOTER]:
             cer_pem = cer_pem.replace(to_del.encode('UTF-8'), b'')
         return cer_pem, certificate
+
+    @tools.ormcache('content')
+    def get_pem_cer(self, content):
+        '''Get the current content in PEM format
+        '''
+        self.ensure_one()
+        return ssl.DER_cert_to_PEM_cert(base64.decodebytes(content)).encode('UTF-8')
 
 
 def str_to_datetime(dt_str, tz=timezone('America/Mexico_City')):
