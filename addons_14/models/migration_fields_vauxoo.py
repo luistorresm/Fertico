@@ -2,6 +2,8 @@ import time
 import logging
 import ssl
 import base64
+import tempfile
+import subprocess
 
 from odoo import models, fields, api, _
 from odoo.addons import decimal_precision as dp
@@ -17,6 +19,7 @@ try:
 except ImportError:
     _logger.warning('OpenSSL library not found. If you plan to use l10n_mx_edi, please install the library from https://pypi.python.org/pypi/pyOpenSSL')
 
+KEY_TO_PEM_CMD = 'openssl pkcs8 -in %s -inform der -outform pem -out %s -passin file:%s'
 
 # * / *  * / *  * / *  * / *  * / *  * / *  * / *  * / *  * / *  * / *  * / * 
 
@@ -406,6 +409,13 @@ class Certificate(models.Model):
         self.ensure_one()
         return ssl.DER_cert_to_PEM_cert(base64.decodebytes(content)).encode('UTF-8')
 
+    @tools.ormcache('key', 'password')
+    def get_pem_key(self, key, password):
+        '''Get the current key in PEM format
+        '''
+        self.ensure_one()
+        return convert_key_cer_to_pem(base64.decodebytes(key), password.encode('UTF-8'))
+
     def get_encrypted_cadena(self, cadena):
         '''Encrypt the cadena using the private key.
         '''
@@ -420,6 +430,18 @@ class Certificate(models.Model):
 def str_to_datetime(dt_str, tz=timezone('America/Mexico_City')):
     return tz.localize(fields.Datetime.from_string(dt_str))
 
+def convert_key_cer_to_pem(key, password):
+    # TODO compute it from a python way
+    with tempfile.NamedTemporaryFile('wb', suffix='.key', prefix='edi.mx.tmp.') as key_file, \
+            tempfile.NamedTemporaryFile('wb', suffix='.txt', prefix='edi.mx.tmp.') as pwd_file, \
+            tempfile.NamedTemporaryFile('rb', suffix='.key', prefix='edi.mx.tmp.') as keypem_file:
+        key_file.write(key)
+        key_file.flush()
+        pwd_file.write(password)
+        pwd_file.flush()
+        subprocess.call((KEY_TO_PEM_CMD % (key_file.name, keypem_file.name, pwd_file.name)).split())
+        key_pem = keypem_file.read()
+    return key_pem
 
 
 class ResBank(models.Model):
