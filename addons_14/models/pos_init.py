@@ -22,6 +22,13 @@ class PosSession(models.Model):
 class PosConfig(models.Model):
     _inherit = 'pos.config'
 
+    cash_register_balance_start = fields.Monetary(
+        related='cash_register_id.balance_start',
+        default = 0,
+        string="Starting Balance",
+        help="Total of opening cash control lines.",
+        readonly=False)
+
     def open_session_cb(self):
         """This method init the balance start in 0.00"""
 
