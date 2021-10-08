@@ -18,3 +18,16 @@ class PosSession(models.Model):
 
     def action_pos_session_verified(self):        
         self.pos_verify = 'verified'
+
+class PosConfig(models.Model):
+    _inherit = 'pos.config'
+
+    def open_session_cb(self):
+        """This method init the balance start in 0.00"""
+
+        res = super(PosConfig, self).open_session_cb()
+        self.current_session_id.write({
+            'cash_register_balance_start': 0.00
+        })
+
+        return res
