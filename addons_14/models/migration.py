@@ -50,3 +50,12 @@ class ResCompany(models.Model):
     _inherit = 'res.company'
 
     partner_gid = fields.Char()
+
+class PurchaseOrderLine(models.Model):
+    _inherit = 'purchase.order.line'
+
+    x_studio_field_7eVcs = fields.Selection([('AxC', 'AxC'),
+        ('Libre', 'Libre'),
+        ('Sabritas', 'Sabritas')], string="Cosecha tipo")
+    x_studio_field_E5KYj = fields.Float(string="Descuento")
+    x_studio_field_x3aOW = fields.Float(string="% Humedad")
