@@ -59,3 +59,9 @@ class PurchaseOrderLine(models.Model):
         ('Sabritas', 'Sabritas')], string="Cosecha tipo")
     x_studio_field_E5KYj = fields.Float(string="Descuento")
     x_studio_field_x3aOW = fields.Float(string="% Humedad")
+
+class AccountJournal(models.Model):
+    _inherit = "account.journal"
+
+    l10n_mx_edi_amount_authorized_diff = fields.Float(
+        'Amount Authorized Difference (Invoice)', limit=1)
