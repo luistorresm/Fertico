@@ -65,3 +65,4 @@ class AccountJournal(models.Model):
 
     l10n_mx_edi_amount_authorized_diff = fields.Float(
         'Amount Authorized Difference (Invoice)', limit=1)
+        
