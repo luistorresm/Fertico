@@ -2,6 +2,7 @@ from odoo import models, fields, api
 import xlrd
 import tempfile
 import binascii
+from odoo.exceptions import UserError
 
 class PricelistLoadXls(models.TransientModel):
 
@@ -21,81 +22,49 @@ class PricelistLoadXls(models.TransientModel):
         #load the data in an array "data"
         data=[]
         for row_no in range(sheet.nrows):
+            
             if row_no == 0:
+                r_data=['']
+                col_data=[]
                 line = list(map(lambda row:isinstance(row.value, str) and row.value.encode('utf-8') or str(row.value), sheet.row(row_no)))
-                r_data=['',line[4].decode("utf-8"),line[6].decode("utf-8"),line[8].decode("utf-8")]
+                for col, row_line in enumerate(line):
+                    if row_line != '':
+                        pricelist = self.env['product.pricelist'].search([('name','=',row_line.decode("utf-8"))], limit=1)
+                        if pricelist:
+                            r_data.append(pricelist)
+                            col_data.append(col)
+                        else:
+                            msg = 'La lista de precio ' + row_line.decode("utf-8") + ' no se encuentra disponible'
+                            raise UserError(msg)
+
                 data.append(r_data)
+            
             if row_no > 2:
                 line = list(map(lambda row:isinstance(row.value, str) and row.value.encode('utf-8') or str(row.value), sheet.row(row_no)))
                 if(line[0]!=''):
-                    cred=''
-                    cont=''
-                    dist=''
+                    product = self.env['product.template'].search([('default_code','=',line[0].decode("utf-8"))], limit = 1)
+                    if product:
+                        r_data=[product]
+                        for col_d in col_data:
+                            r_data.append(line[col_d])
+                        
+                        data.append(r_data)
+                    else:
+                        msg = 'El producto ' + line[0].decode("utf-8") + ' ' + line[1].decode("utf-8") + ' no se encuentra disponible'
+                        raise UserError(msg)
 
-                    if line[4]!='':
-                        cred=float(line[4])
-                    if line[6]!='':
-                        cont=float(line[6])
-                    if line[8]!='':
-                        dist=float(line[8])
-                    
-                    r_data=[line[0].decode("utf-8"),cred,cont,dist]
-                    data.append(r_data)
-
-
-        #remove the current pricelis
-        
-        cred_pl=self.env['product.pricelist'].search([('name','=',data[0][1])])
-        for item in cred_pl.item_ids:
-            cred_pl.item_ids=[(2,item.id)]
-
-        cont_pl=self.env['product.pricelist'].search([('name','=',data[0][2])])
-        for item in cont_pl.item_ids:
-            cont_pl.item_ids=[(2,item.id)]
-
-        dist_pl=self.env['product.pricelist'].search([('name','=',data[0][3])])
-        for item in dist_pl.item_ids:
-            dist_pl.item_ids=[(2,item.id)]
 
         #add the new data
-        for r, row in enumerate(data):
-            if r > 0:
-                
-                prod=self.env['product.template'].search([('default_code','=',row[0])])
-
-                if row[1] != '':
-
-                    record_cred = self.env['product.pricelist.item'].create({
-                                'applied_on': '1_product',
-                                'product_tmpl_id': prod.id,
-                                'min_quantity': 1,
-                                'compute_price': 'fixed',
-                                'fixed_price': row[1]
-                            })
-                            
-                    cred_pl.write({'item_ids':[(4, record_cred.id)]})
-
-                if row[2] != '':
-
-                    record_cont = self.env['product.pricelist.item'].create({
-                                'applied_on': '1_product',
-                                'product_tmpl_id': prod.id,
-                                'min_quantity': 1,
-                                'compute_price': 'fixed',
-                                'fixed_price': row[2]
-                            })
-
-                    cont_pl.write({'item_ids':[(4, record_cont.id)]})
-
-                if row[3] != '':
-
-                    record_dist = self.env['product.pricelist.item'].create({
-                                'applied_on': '1_product',
-                                'product_tmpl_id': prod.id,
-                                'min_quantity': 1,
-                                'compute_price': 'fixed',
-                                'fixed_price': row[3]
-                            })
+        for col_dl, data_line in enumerate(data[0]):
+            for row_dr, data_row in enumerate(data): 
+                if col_dl > 0 and row_dr:
+                    price = self.env['product.pricelist.item'].create({
+                                    'applied_on': '1_product',
+                                    'product_tmpl_id': data[row_dr][0].id,
+                                    'min_quantity': 1,
+                                    'compute_price': 'fixed',
+                                    'fixed_price': data[row_dr][col_dl]
+                                })
                     
-                    dist_pl.write({'item_ids':[(4, record_dist.id)]})
+                    data[0][col_dl].write({'item_ids':[(4, price.id)]})
                 
