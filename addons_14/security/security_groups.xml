@@ -6,4 +6,8 @@
         <field name="comment">Bloquea la modificación de precios en presupuestos</field>
     </record>
 
+    <record id="group_invoice_account" model="res.groups">
+        <field name="name">Editar apuntes contables</field>
+    </record>
+
 </odoo>
