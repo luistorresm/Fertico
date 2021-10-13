@@ -465,8 +465,7 @@ class ReportAccountStatus(models.AbstractModel):
             'docs' : report,
             'data' : data,
             'invoices' : inv_data,
-            'payments' : payments,
-            'company' : self.env.user.company_id,
+            'payments' : payments
         }
 
 
