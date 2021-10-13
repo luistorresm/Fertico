@@ -66,7 +66,7 @@ class AccountJournal(models.Model):
     l10n_mx_edi_amount_authorized_diff = fields.Float(
         'Amount Authorized Difference (Invoice)', limit=1)
         
-'''class AccountMoveLine(models.Model):
+class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
-    x_studio_field_KXQlu = fields.Many2one('res.partner', string = "Empresa transferencia interna")'''
+    x_studio_field_KXQlu = fields.Many2one('res.partner', string = "Empresa transferencia interna")
