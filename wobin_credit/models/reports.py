@@ -11,7 +11,7 @@ class CreditAccountStatus(models.TransientModel):
     
     partner_id = fields.Many2one('res.partner', string="Cliente")
     date = fields.Date(string="Fecha de cálculo")
-    #company_id = fields.Many2one('res.company', default=lambda self: self.env['res.company']._company_default_get('credit.account.status'))
+    company_id = fields.Many2one('res.company', default=lambda self: self.env['res.company']._company_default_get('credit.account.status'))
 
 class ReportAccountStatus(models.AbstractModel):
     #Reporte estado de cuenta
