@@ -32,6 +32,8 @@
         'views/pos_init.xml',
         'views/attendances.xml',
         'views/price_list.xml',
+        'views/addons.xml',
+
     ],
     # only loaded in demonstration mode
     'demo': [
