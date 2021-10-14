@@ -10,4 +10,8 @@
         <field name="name">Editar apuntes contables</field>
     </record>
 
+    <record id="group_invoice_cancel" model="res.groups">
+        <field name="name">Cancelar facturas</field>
+    </record>
+
 </odoo>

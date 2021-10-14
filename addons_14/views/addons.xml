@@ -16,9 +16,21 @@
                         <field name="debit" />
                         <field name="credit"/>
                         <field name="tax_tag_ids" widget="many2many_tags"/>
-                        <field name="analytic_tag_ids" widget="many2many_tags"/>
                     </tree>
                 </field>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_invoice_cancel" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='button_cancel_posted_moves']" position="attributes">
+                <attribute name="groups">addons_14.group_invoice_cancel</attribute>
+            </xpath>
+            <xpath expr="//field[@name='purchase_vendor_bill_id']" position="attributes">
+                <attribute name="domain">[('company_id', '=', company_id),('partner_id','child_of', [partner_id]),('purchase_order_id','!=', None)]</attribute>
             </xpath>
         </field>
     </record>
