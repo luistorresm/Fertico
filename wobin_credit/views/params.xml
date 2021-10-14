@@ -17,6 +17,7 @@
                             <field name="crop_method" />
                             <field name="insurance" />
                             <field name="amount" />
+                            <field name="credit_type_id" />
                         </group>
                     </sheet>
                 </form>
@@ -33,6 +34,7 @@
                     <field name="crop_method" />
                     <field name="insurance" />
                     <field name="amount" />
+                    <field name="credit_type_id" />
                 </tree>
             </field>
         </record>
@@ -41,6 +43,7 @@
             <field name="name">Parametros</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">credit.parameters</field>
+            <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
@@ -87,6 +90,7 @@
             <field name="name">Tipos de crédito</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">credit.types</field>
+            <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
@@ -131,6 +135,7 @@
             <field name="name">Ciclos</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">credit.cycles</field>
+            <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">

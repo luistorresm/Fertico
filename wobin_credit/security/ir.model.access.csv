@@ -1,15 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_credit_preapplication,access_credit_preapplication,model_credit_preapplication,,1,1,1,1
 access_credit_parameters,access_credit_parameters,model_credit_parameters,,1,1,1,1
-access_credit_crop_type,access_credit_crop_type,model_credit_crop_type,,1,1,1,1
 access_credit_types,access_credit_types,model_credit_types,,1,1,1,1
 access_credit_cycles,access_credit_cycles,model_credit_cycles,,1,1,1,1
-access_credit_record,access_credit_record,model_credit_record,,1,1,1,1
-access_credit_lands,access_credit_lands,model_credit_lands,,1,1,1,1
-access_credit_application_buro,access_credit_application_buro,model_credit_application_buro,,1,1,1,1
-access_credit_application_contract,access_credit_application_contract,model_credit_application_contract,,1,1,1,1
-access_credit_application_promissory_note,access_credit_application_promissory_note,model_credit_application_promissory_note,,1,1,1,1
-access_credit_application_payment,access_credit_application_payment,model_credit_application_payment,,1,1,1,1
-access_credit_account_status,access_credit_account_status,model_credit_account_status,,1,1,1,1
-access_credit_limit_assign,access_credit_limit_assign,model_credit_limit_assign,,1,1,1,1
-access_credit_limit_update,access_credit_limit_update,model_credit_limit_update,,1,1,1,1
+access_credit_crop_type,access_credit_crop_type,model_credit_crop_type,,1,1,1,1
