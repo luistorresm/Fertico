@@ -30,7 +30,7 @@
                 <attribute name="groups">addons_14.group_invoice_cancel</attribute>
             </xpath>
             <xpath expr="//field[@name='purchase_vendor_bill_id']" position="attributes">
-                <attribute name="domain">[('company_id', '=', company_id),('partner_id','child_of', [partner_id]),('purchase_order_id','!=', None)]</attribute>
+                <attribute name="domain">[('company_id', '=', company_id),('partner_id','child_of', [partner_id]),('purchase_order_id','!=', None),('purchase_order_id.invoice_status','!=', 'invoiced')]</attribute>
             </xpath>
         </field>
     </record>
