@@ -1,0 +1,36 @@
+<odoo>
+
+    <record model="ir.ui.view" id="pos_channel">
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="pos_sale.pos_config_view_form_pos_sale"/>
+        <field name="arch" type="xml">
+            <field name="crm_team_id" position="replace">
+                <field name='crm_team_id' domain="[('team_type', '=', 'sales')]"/>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="pos_session_verify">
+        <field name="model">pos.session</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_pos_session_validate']" position="after">
+                <button name="action_pos_session_verified" type="object" string="Verify" attrs="{'invisible' : [('state', '!=', 'closed')]}" class="oe_highlight" groups="point_of_sale.group_pos_manager"/>
+            </xpath>
+            <xpath expr="//field[@name='state']" position="replace">
+                <field name="state" widget="statusbar" statusbar_visible="opening_control,opened,closing_control,closed,verified" nolabel="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="pos_session_new_verify">
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_config_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='open_session_cb']" position="after">
+                <button t-if="_.contains(['closing_control','verified'], record.current_session_state.raw_value)" class="btn btn-primary" name="open_session_verify" type="object">New Session</button>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

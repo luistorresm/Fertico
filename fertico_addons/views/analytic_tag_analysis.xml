@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>    
+  <!--  TICKET 102  -  DEVELOPED BY SEBASTIAN MENDEZ  -  START   -->
+    
+    <!--Analytic Tag Form Inherited where a new selection field was added-->
+    <record id="analytic_tagform_inherited" model="ir.ui.view">
+        <field name="name">account.analytic.tag.form.inherit</field>
+        <field name="model">account.analytic.tag</field>
+        <field name="inherit_id" ref="analytic.account_analytic_tag_form_view"/>
+        <field name="arch" type="xml">
+           <xpath expr="//field[@name='name']" position="after">
+                <field name="analytic_tag_type"/>
+            </xpath>        
+        </field>
+    </record>    
+
+    <!--Analytic Line Tree Inherited where a new columns were added-->
+    <record id="account_analytic_tags_list" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='account_id']" position="after">
+                <field name="tag_ids" widget="many2many_tags"/>
+            </xpath>
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="trip" groups="fertico_addons.analytic_tag_analysis_f"/>
+                <field name="route" groups="fertico_addons.analytic_tag_analysis_f"/>
+                <field name="operator" groups="fertico_addons.analytic_tag_analysis_f"/>
+            </xpath>
+        </field>
+    </record>
+    
+  <!--  TICKET 102  -  DEVELOPED BY SEBASTIAN MENDEZ  -  END   -->
+  </data>
+</odoo>
