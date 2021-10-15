@@ -19,25 +19,25 @@
     # always loaded
     'data': [
         # security files
-        'security/analytic_security.xml',
-        'security/sales_security.xml',
-        'security/inventory_security.xml',
-        'security/ir.model.access.csv',
+        #'security/analytic_security.xml',
+        #'security/sales_security.xml',
+        #'security/inventory_security.xml',
+        #'security/ir.model.access.csv',
 
         # views
-        'views/account_analytic.xml',
-        'views/account_invoice_correction.xml',
-        'views/analytic_tag_analysis.xml',        
-        'views/attendances.xml', 
-        'views/block_create_line.xml',              
-        'views/block_sales_price.xml',
-        'views/domain_terms.xml',        
-        'views/pos_init.xml',
-        'views/price_list.xml',        
-        'views/sales_chanel.xml',        
-        'views/store_term.xml', 
-        'views/templates.xml',     
-        'views/views.xml',                  
+        #'views/account_analytic.xml',
+        #'views/account_invoice_correction.xml',
+        #'views/analytic_tag_analysis.xml',        
+        #'views/attendances.xml', 
+        #'views/block_create_line.xml',              
+        #'views/block_sales_price.xml',
+        #'views/domain_terms.xml',        
+        #'views/pos_init.xml',
+        #'views/price_list.xml',        
+        #'views/sales_chanel.xml',        
+        #'views/store_term.xml', 
+        #'views/templates.xml',     
+        #'views/views.xml',                  
 
         # reports
         'reports/custom_layout.xml',
