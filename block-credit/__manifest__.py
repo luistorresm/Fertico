@@ -26,12 +26,12 @@
 
     # always loaded
     'data': [
-        #'security/ir.model.access.csv',
-        #'security/credit_security.xml',
-        #'views/views.xml',
-        #'views/templates.xml',
-        #'views/block_credit.xml',
-        #'views/tracking_limit.xml'
+        'security/ir.model.access.csv',
+        'security/credit_security.xml',
+        'views/views.xml',
+        'views/templates.xml',
+        'views/block_credit.xml',
+        'views/tracking_limit.xml'
 
     ],
     # only loaded in demonstration mode
