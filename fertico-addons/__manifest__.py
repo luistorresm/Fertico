@@ -36,8 +36,8 @@
         'views/price_list.xml',        
         'views/sales_chanel.xml',        
         'views/store_term.xml', 
-        'views/templates.xml',     
-        'views/views.xml',                  
+        #'views/templates.xml',     
+        #'views/views.xml',                  
 
         # reports
         'reports/custom_layout.xml',
