@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_account_move_form_pepsico_inherit_view">
+            <field name="name">view.account.move.form.pepsico.inherit.view</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@id='other_tab_group']" position="inside">
+                    <group string="Addenda Femsa" name="addenda_famsa">
+                        <!-- <field name="no_sociedad"/> -->
+                        <field name="sale_client_order_ref"/>
+                        <field name="supplier_number"/>
+                        <field name="id_recepcion"/>
+                        <field name="invoice_origin" />
+                    </group>
+                </xpath>
+                <!-- <xpath expr="//group[@id='other_tab_group']" position="inside">
+                    <group string="Addenda Pepsico" name="addenda_pepsico">
+                        <field name="id_recepcion"/>
+                    </group>
+                </xpath> -->
+            </field>
+        </record>
+    </data>
+</odoo>
