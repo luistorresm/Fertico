@@ -285,7 +285,7 @@ class ReportAccountStatus(models.AbstractModel):
                 if payments_text != 'false':
                     date_init = date_invoice
                     date_end = ''
-                    date_limit = credit.date_limit
+                    date_limit = datetime.strptime(credit.date_limit, '%Y-%m-%d')
                     days_limit = (date_limit - date_invoice).days
                     total_invoice = invoice.amount_total
                     pay = {}
@@ -412,7 +412,7 @@ class ReportAccountStatus(models.AbstractModel):
                 else:
                     #Si no hay pagos  parciales se hace el calculo con la fecha del reporte para obtener los intereses
                     days = (date_payment - date_invoice).days
-                    date_limit = credit.date_limit
+                    date_limit = datetime.strptime(credit.date_limit, '%Y-%m-%d')
                     days_limit = (date_limit - date_invoice).days
 
                     if  date_payment <= date_limit:
