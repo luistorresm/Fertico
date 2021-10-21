@@ -417,23 +417,23 @@ class ReportAccountStatus(models.AbstractModel):
 
                     if  date_payment <= date_limit:
                         days_int = days
-                        interest = ((invoice.amount_residual*(credit.interest/100))/30)*(days_int)
+                        interest = ((invoice.residual*(credit.interest/100))/30)*(days_int)
                     elif date_payment > date_limit:
                         days_int = days_limit
                         days_mo = days-days_limit
-                        interest = ((invoice.amount_residual*(credit.interest/100))/30)*(days_int)
-                        interest_mo = ((invoice.amount_residual*(credit.interest_mo/100))/30)*(days_mo)
+                        interest = ((invoice.residual*(credit.interest/100))/30)*(days_int)
+                        interest_mo = ((invoice.residual*(credit.interest_mo/100))/30)*(days_mo)
             
             #Sumamos los totales de los intereses y la factura para determinar el pago final
-            total_inv = invoice.amount_residual+interest+interest_mo
+            total_inv = invoice.residual+interest+interest_mo
             total += total_inv
-            sum_invoices += invoice.amount_residual
+            sum_invoices += invoice.residual
             sum_interest += interest + interest_mo
             #Se guarda un objeto con la información de la factura para mostrar el historial
             inv = {
                 'number': invoice.name,
                 'date': date_invoice.strftime("%d/%m/%Y"),
-                'amount' : "{:,.2f}".format(invoice.amount_residual),
+                'amount' : "{:,.2f}".format(invoice.residual),
                 'date_payment' : date_payment.strftime("%d/%m/%Y"),
                 'days_nat' : days_nat,
                 'days_int' : days_int,
