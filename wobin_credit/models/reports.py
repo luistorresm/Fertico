@@ -59,8 +59,8 @@ class ReportAccountStatus(models.AbstractModel):
 
                         pay_date = payment['date']
                         date_end = datetime.strptime(payment['date'], '%Y-%m-%d')
-                        days_init = (date_init - date_invoice).days
-                        days_end = (date_end - date_invoice).days
+                        days_init = (datetime.strptime(date_init, '%Y-%m-%d') - datetime.strptime(date_invoice,'%Y-%m-%d')).days
+                        days_end = (date_end - datetime.strptime(date_invoice, '%Y-%m-%d')).days
                             
                         if  days_end <= 30:
                             #C1 si el pago se hizo antes de 30 dias - este no genera ningun tipo de interes
