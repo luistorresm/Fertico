@@ -20,7 +20,7 @@ class ReportAccountStatus(models.AbstractModel):
         #Buscamos los registros del credito y facturas con los que vamos a trabajar
         credit = self.env['credit.preapplication'].search([('partner_id','=',report.partner_id.id)], limit=1)
         invoices = self.env['account.invoice'].search([('partner_id','=',report.partner_id.id),('type','=','out_invoice'),('state','=','open')])
-        date_payment = report.date
+        date_payment = datetime.strptime(report.date, '%Y-%m-%d')
         inv_data = []
         total = 0
         sum_invoices = 0
@@ -32,7 +32,7 @@ class ReportAccountStatus(models.AbstractModel):
             payments_text = invoice.payments_widget
             interest = 0
             interest_mo = 0
-            date_invoice = invoice.date
+            date_invoice = datetime.strptime(invoice.date, '%Y-%m-%d')
             term = credit.payment_terms.line_ids[1].days
             days = 0
             days_limit = 0
@@ -60,7 +60,7 @@ class ReportAccountStatus(models.AbstractModel):
                         pay_date = payment['date']
                         date_end = datetime.strptime(payment['date'], '%Y-%m-%d')
                         days_init = (datetime.strptime(date_init, '%Y-%m-%d') - datetime.strptime(date_invoice,'%Y-%m-%d')).days
-                        days_end = (date_end - datetime.strptime(date_invoice, '%Y-%m-%d')).days
+                        days_end = (date_end - date_invoice).days
                             
                         if  days_end <= 30:
                             #C1 si el pago se hizo antes de 30 dias - este no genera ningun tipo de interes
