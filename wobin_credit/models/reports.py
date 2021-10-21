@@ -19,7 +19,7 @@ class ReportAccountStatus(models.AbstractModel):
         report = self.env['credit.account.status'].browse(docids)
         #Buscamos los registros del credito y facturas con los que vamos a trabajar
         credit = self.env['credit.preapplication'].search([('partner_id','=',report.partner_id.id)], limit=1)
-        invoices = self.env['account.move'].search([('partner_id','=',report.partner_id.id),('move_type','=','out_invoice'),('state','=','posted'),'|',('payment_state','=','partial'),('payment_state','=','not_paid')])
+        invoices = self.env['account.invoice'].search([('partner_id','=',report.partner_id.id),('type','=','out_invoice'),('state','=','open')])
         date_payment = report.date
         inv_data = []
         total = 0
