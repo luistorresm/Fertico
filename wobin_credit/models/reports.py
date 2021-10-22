@@ -1,6 +1,8 @@
 from odoo import models, fields, api
 from datetime import date, datetime
 from odoo.exceptions import UserError
+from num2words import num2words
+import json
 
 class CreditAccountStatus(models.TransientModel):
     #Estado de cuenta    
