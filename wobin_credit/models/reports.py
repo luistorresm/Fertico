@@ -1,5 +1,5 @@
 from odoo import models, fields, api
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from odoo.exceptions import UserError
 from num2words import num2words
 import json
@@ -456,7 +456,7 @@ class ReportAccountStatus(models.AbstractModel):
             'sum_interest' : "{:,.2f}".format(sum_interest),
             'total' : "{:,.2f}".format(total),
             'date' : date_payment.strftime("%d/%m/%Y"),
-            'date_now' : datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+            'date_now' : datetime.now().strftime("%d/%m/%Y %H:%M:%S")-timedelta(hours=5),
             'insurance' : "{:,.2f}".format(credit.insurance)
         }
 
