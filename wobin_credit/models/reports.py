@@ -456,6 +456,7 @@ class ReportAccountStatus(models.AbstractModel):
             'sum_interest' : "{:,.2f}".format(sum_interest),
             'total' : "{:,.2f}".format(total),
             'date' : date_payment.strftime("%d/%m/%Y"),
+            'date_now' : datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
             'insurance' : "{:,.2f}".format(credit.insurance)
         }
 
