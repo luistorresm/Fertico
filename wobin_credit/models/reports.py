@@ -301,7 +301,7 @@ class ReportAccountStatus(models.AbstractModel):
                         
                         #Por cada pago revisamos los intereses que generó
                         pay_date = payment['date']
-                        date_end = datetime.strptime(payment['date'], '%Y-%m-%d').date()
+                        date_end = datetime.strptime(payment['date'], '%Y-%m-%d')
                         days_init = (date_init - date_invoice).days
                         days_end = (date_end - date_invoice).days
                             
