@@ -45,13 +45,13 @@ class AttendancesXls(models.TransientModel):
     def convertSchedule(self, date):
         now = datetime.now()
         date=now.strftime("%Y-%m-%d")+" "+str(timedelta(hours=date))
-        str_date=self.convert_TZ_UTC(date)[-8:]
+        str_date=self.convert_TZ_UTC(date)[-7:]
         time_check=datetime.strptime(str_date, '%H:%M:%S')
         check=timedelta(hours=time_check.hour, minutes=time_check.minute, seconds=time_check.second)
         return check
 
     def convertToTimeDelta(self, time):
-        hour_aux=time[-8:]
+        hour_aux=time[-7:]
         t=datetime.strptime(hour_aux,"%H:%M:%S")
         hour=timedelta(hours=t.hour, minutes=t.minute, seconds=t.second)
         return hour
