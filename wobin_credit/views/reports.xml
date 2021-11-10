@@ -59,6 +59,24 @@
                                     </tr>
                                     <tr>
                                         <th style="text-align:right; padding-right: 5px; padding-top: 10px">
+                                            Seguro agrícola interés
+                                        </th>
+                                        <td style="text-align:center; border-bottom: black 1px solid; padding-top: 10px">
+                                            $
+                                            <t t-esc="data['insurance_int']" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align:right; padding-right: 5px; padding-top: 10px">
+                                            Seguro agrícola interés moratorio
+                                        </th>
+                                        <td style="text-align:center; border-bottom: black 1px solid; padding-top: 10px">
+                                            $
+                                            <t t-esc="data['insurance_mo']" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align:right; padding-right: 5px; padding-top: 10px">
                                             Saldo facturas
                                         </th>
                                         <td style="text-align:center; border-bottom: black 1px solid; padding-top: 10px">
