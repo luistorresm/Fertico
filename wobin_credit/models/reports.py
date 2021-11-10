@@ -425,6 +425,9 @@ class ReportAccountStatus(models.AbstractModel):
                         days_mo = days-days_limit
                         interest = ((invoice.residual*(credit.interest/100))/30)*(days_int)
                         interest_mo = ((invoice.residual*(credit.interest_mo/100))/30)*(days_mo)
+
+            
+
             
             #Sumamos los totales de los intereses y la factura para determinar el pago final
             total_inv = invoice.residual+interest+interest_mo
@@ -446,7 +449,21 @@ class ReportAccountStatus(models.AbstractModel):
             }
             inv_data.append(inv)
         
-        total += credit.insurance
+        #Calculamos los intereses del seguro
+        insurance_interest = 0
+        insurance_interest_mo = 0
+        if date_payment > credit.cycle.date_init and date_payment < credit.date_limit:
+            days_interest_inurance = (date_payment - credit.cycle.date_init).days
+            insurance_interest = credit.insurance*((0.019/30)*days_interest_inurance)
+        elif date_payment > credit.cycle.date_init and date_payment >= credit.date_limit:
+            days_interest_inurance = (credit.date_limit - credit.cycle.date_init).days
+            insurance_interest = credit.insurance*((0.019/30)*days_interest_inurance)
+            days_interest_mo_inurance = (date_payment - credit.date_limit).days
+            insurance_interest_mo = credit.insurance*((0.038/30)*days_interest_mo_inurance)
+
+        
+        total += credit.insurance+insurance_interest+insurance_interest_mo
+        
         #Objeto con los totales a pagar para mostrar en el informe
         data = {
             'cycle' : credit.cycle,
@@ -457,7 +474,9 @@ class ReportAccountStatus(models.AbstractModel):
             'total' : "{:,.2f}".format(total),
             'date' : date_payment.strftime("%d/%m/%Y"),
             'date_now' : (datetime.now()-timedelta(hours=5)).strftime("%d/%m/%Y %H:%M:%S"),
-            'insurance' : "{:,.2f}".format(credit.insurance)
+            'insurance' : "{:,.2f}".format(credit.insurance),
+            'insurance_int': "{:,.2f}".format(insurance_interest),
+            'insurance_mo': "{:,.2f}".format(insurance_interest_mo)
         }
 
 
