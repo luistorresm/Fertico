@@ -452,13 +452,15 @@ class ReportAccountStatus(models.AbstractModel):
         #Calculamos los intereses del seguro
         insurance_interest = 0
         insurance_interest_mo = 0
-        if date_payment > credit.cycle.date_init and date_payment < credit.date_limit:
-            days_interest_inurance = (date_payment - credit.cycle.date_init).days
+        date_init_in = datetime.strptime(credit.cycle.date_init, '%Y-%m-%d')
+        date_limit_in = datetime.strptime(credit.date_limit, '%Y-%m-%d')
+        if date_payment > date_init_in and date_payment < date_limit_in:
+            days_interest_inurance = (date_payment - date_init_in).days
             insurance_interest = credit.insurance*((0.019/30)*days_interest_inurance)
-        elif date_payment > credit.cycle.date_init and date_payment >= credit.date_limit:
-            days_interest_inurance = (credit.date_limit - credit.cycle.date_init).days
+        elif date_payment > date_init_in and date_payment >= date_limit_in:
+            days_interest_inurance = (date_limit_in - date_init_in).days
             insurance_interest = credit.insurance*((0.019/30)*days_interest_inurance)
-            days_interest_mo_inurance = (date_payment - credit.date_limit).days
+            days_interest_mo_inurance = (date_payment - date_limit_in).days
             insurance_interest_mo = credit.insurance*((0.038/30)*days_interest_mo_inurance)
 
         
