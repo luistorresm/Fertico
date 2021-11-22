@@ -470,7 +470,7 @@ class ReportAccountStatus(models.AbstractModel):
         total += credit.insurance+insurance_interest+insurance_interest_mo
 
         #Restamos la cantidad de los intereses pagados
-        total -= credit.interest_payment
+        total -= report.interest_payment
         
         #Objeto con los totales a pagar para mostrar en el informe
         data = {
@@ -485,7 +485,7 @@ class ReportAccountStatus(models.AbstractModel):
             'insurance' : "{:,.2f}".format(credit.insurance),
             'insurance_int': "{:,.2f}".format(insurance_interest),
             'insurance_mo': "{:,.2f}".format(insurance_interest_mo),
-            'interest_payment': "{:,.2f}".format(credit.interest_payment),
+            'interest_payment': "{:,.2f}".format(report.interest_payment),
         }
 
 
