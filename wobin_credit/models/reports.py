@@ -461,7 +461,7 @@ class ReportAccountStatus(models.AbstractModel):
                 days_interest_inurance = days_end - 30
                 insurance_interest = credit.insurance*((0.019/30)*days_interest_inurance)
             elif days_end > 60:
-                days_interest_inurance = 30.days
+                days_interest_inurance = 30
                 insurance_interest = credit.insurance*((0.019/30)*days_interest_inurance)
                 days_interest_mo_inurance = days_end-60
                 insurance_interest_mo = credit.insurance*((0.038/30)*days_interest_mo_inurance)
