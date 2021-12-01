@@ -99,7 +99,7 @@
                                         </th>
                                         <td style="text-align:center; border-bottom: black 1px solid; padding-top: 10px">
                                             $
-                                            <t t-esc="data['interest_payment']" />
+                                            <t t-esc="docs['interest_payment']" />
                                         </td>
                                     </tr>
                                     <tr>
