@@ -9,6 +9,7 @@ class CreditAccountStatus(models.TransientModel):
     _name='credit.account.status'
     
     partner_id = fields.Many2one('res.partner', string="Cliente")
+    interest_payment = fields.Float(string="Intereses pagados")
     date = fields.Date(string="Fecha de cálculo")
 
 class ReportAccountStatus(models.AbstractModel):
@@ -478,7 +479,7 @@ class ReportAccountStatus(models.AbstractModel):
                 insurance_interest_mo = credit.insurance*((0.038/30)*days_interest_mo_inurance)
 
         
-        total += credit.insurance+insurance_interest+insurance_interest_mo
+        total += credit.insurance+insurance_interest+insurance_interest_mo-report.interest_payment
         
         #Objeto con los totales a pagar para mo(date_payment - date_limit_in).daysstrar en el informe
         data = {
