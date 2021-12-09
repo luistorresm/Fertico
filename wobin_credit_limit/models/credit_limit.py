@@ -167,7 +167,7 @@ class SaleOrder(models.Model):
             return super(SaleOrder, self).action_confirm()
 
 
-class AccountInvoice(models.Model):
+'''class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
     def action_invoice_open(self):
@@ -182,6 +182,6 @@ class AccountInvoice(models.Model):
             if self.partner_id.credit_limit <= 0:
                 self.partner_id.write({'allowed_sale': False})
         
-        return res
+        return res'''
         
 
