@@ -27,3 +27,6 @@
 	path = Vauxoo/addons-vauxoo
 	url = git@github.com:Vauxoo/addons-vauxoo.git
 	branch = 11.0
+[submodule "l10n-mx-carta-porte"]
+	path = l10n-mx-carta-porte
+	url = git@git.vauxoo.com:vauxoo/l10n-mx-carta-porte.git
