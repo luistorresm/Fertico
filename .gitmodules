@@ -30,3 +30,4 @@
 [submodule "l10n-mx-carta-porte"]
 	path = l10n-mx-carta-porte
 	url = git@git.vauxoo.com:vauxoo/l10n-mx-carta-porte.git
+	branch = 11.0
